@@ -1,0 +1,44 @@
+import { forgotPassword } from "../../service/loginApi.js";
+import { redirectUrl } from "../../util/constants.js";
+import { fetchHtmlFile, addScript, addStyles } from "../../util/util.js";
+
+const emailRef = document.getElementById("email");
+const notEmail = document.getElementsByClassName("not-email")[0];
+const resetPasswordBtn = document.getElementById("reset-password-button");
+const loginForm = document.getElementsByClassName("login-form")[0];
+console.log(emailRef);
+
+let email = "";
+emailRef.addEventListener("input", (e) => {
+  if (!notEmail.classList.contains("hidden")) {
+    notEmail.classList.add("hidden");
+  }
+
+  email = e.target.value;
+});
+
+resetPasswordBtn.addEventListener("click", async (e) => {
+  if (email == "") {
+    notEmail.classList.remove("hidden");
+    return;
+  }
+
+  const forgotPasswordData = {
+    email: email,
+    redirectUrl: redirectUrl,
+  };
+
+  try {
+    const res = await forgotPassword(forgotPasswordData);
+    console.log(res);
+
+    fetchHtmlFile("resetLinkSend.html", function (htmlString) {
+      loginForm.innerHTML = htmlString;
+      addStyles("./changePassword/changePasswordSuccess.css");
+      // addScript("./forgotPassword.js");
+    });
+  } catch (error) {
+    console.log(error);
+    notEmail.classList.remove("hidden");
+  }
+});
