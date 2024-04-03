@@ -1,25 +1,21 @@
-* {
-  margin: 0;
-  border: 0;
-  box-sizing: border-box;
-}
-
 .auth-container {
   display: flex;
 }
 .auth-left {
-  padding: 30px;
+  /* padding: 3rem; */
+  padding-top: 3rem;
+  padding-left: 3rem;
   background-color: #ffe5e1;
   flex: 1;
-  margin-right: -40px;
+  margin-right: -4rem;
 }
 
 .welcomeMessage {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 400;
-  line-height: 32.69px;
-  margin-top: 140px;
-  margin-bottom: 40px;
+  line-height: 3.269rem;
+  margin-top: 12rem;
+  margin-bottom: 4rem;
 }
 
 .bold {
@@ -28,73 +24,74 @@
 
 .auth-right {
   background-color: rgba(255, 255, 255, 1);
-  padding: 110px;
+  padding: 11rem;
   flex: 1;
-  border-radius: 50px 0px 0px 50px;
-  box-shadow: 0px 0px 20px 0px #f85c4780;
+  border-radius: 5rem 0 0 5rem;
+  box-shadow: 0 0 2rem 0 #f85c4780;
 }
 
 .logo-image {
-  width: 143px;
-  height: 50px;
+  width: 14.3rem;
+  /* height: 5rem; */
 }
 
 .vendor-image {
-  width: 419px;
-  height: 409px;
+  width: 41.2rem;
+  /* height: 40.9rem; */
 }
 
-.login-form {
-  /* width:  */
-}
 .login-heading {
-  font-size: 32px;
+  font-size: 3.2rem;
   color: #3b3a38;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 0.8rem;
 }
 
 .login-description {
-  font-size: 16px;
+  font-size: 1.6rem;
   color: #3b3a38;
   font-weight: 400;
-  margin-bottom: 32px;
+  margin-bottom: 3.2rem;
 }
 
 .label {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 400;
-  margin-bottom: 8px;
-}
-
-.emailInput {
-  margin-bottom: 24px;
+  margin-bottom: 0.8rem;
 }
 
 .userInput {
   background-color: #f6f5f5;
-  padding: 16px;
+  padding: 1.2rem;
   border: 1px solid #d2d0cf;
   width: 100%;
   outline: none;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  /*  */
+}
 
-  border-radius: 4px;
+.fieldWrapper {
+  margin-bottom: 2.4rem;
 }
 
 .login-bottom {
   display: flex;
+  font-size: 1.4rem;
   justify-content: space-between;
-  margin-top: 24px;
-  margin-bottom: 56px;
+  margin-top: 1rem;
+  margin-bottom: 5.6rem;
   color: #716d69;
 }
 
 .login-button {
   width: 100%;
+  font-size: 1.6rem;
   background-color: #f85c47;
   color: #ffffff;
-  line-height: 19.36px;
-  padding: 16px 56px 16px 56px;
+  line-height: 1.936rem;
+  padding: 1.6rem 5.6rem 1.6rem 5.6rem;
+  border-radius: 4px;
 }
 
 .empty-field-border {
@@ -109,9 +106,34 @@
 .not-password,
 .not-email {
   color: #ff0000;
-  padding-top: 16px;
+  /* padding-top: 1.6rem; */
+  font-size: 1.4rem;
+  padding-bottom: 1.4rem;
 }
 
 #forgotPassword {
   cursor: pointer;
+}
+
+.passwordEyeWrapper {
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  top: 50%;
+  right: 0.8rem;
+  transform: translate(-50%, -50%);
+}
+
+.closedEyeImage {
+  width: 2.4rem;
+}
+
+.margin-bottom-md {
+  padding-bottom: 4rem;
+}
+
+.margin-bottom-sm {
+  padding-bottom: 4rem;
 }

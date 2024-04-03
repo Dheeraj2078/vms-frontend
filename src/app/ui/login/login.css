@@ -1,3 +1,24 @@
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Inter", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #555;
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 88.1%;
+    scroll-behavior: smooth;
+  }
 }

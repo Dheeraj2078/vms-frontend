@@ -1,11 +1,12 @@
 import { login } from "../../service/loginApi.js";
-import { localStorageKeys } from "../../util/constants.js";
+import { localStorageKeys, baseUrlLogin } from "../../util/constants.js";
 import {
   addScript,
   addStyles,
   decodeJwt,
   fetchHtmlFile,
 } from "../../util/util.js";
+const eye = document.getElementsByClassName("closedEyeImage")[0];
 
 const emailRef = document.getElementById("email");
 const passwordRef = document.getElementById("password");
@@ -92,6 +93,14 @@ loginBtn.addEventListener("click", async (e) => {
         localStorage.setItem(localStorageKeys.role, tokenInfo.payload.role);
         localStorage.setItem(localStorageKeys.email, tokenInfo.payload.email);
 
+        const rememberMeCheckbox =
+          document.getElementById("rememberMeCheckbox");
+
+        if (rememberMeCheckbox.checked) {
+          localStorage.setItem("rememberMe", token);
+        }
+
+        sessionStorage.setItem(localStorageKeys.token, token);
         window.location.href = `../home/home.html`;
       } catch (error) {
         console.error("Failed to decode JWT token:", error.message);
@@ -110,4 +119,14 @@ forgotPassword.addEventListener("click", (e) => {
     loginForm.innerHTML = htmlString;
     addScript("./forgotPassword.js");
   });
+});
+
+eye.addEventListener("click", (e) => {
+  if (passwordRef.type == "text") {
+    passwordRef.type = "password";
+    eye.src = "./../../../../assets/openEye.png";
+  } else {
+    passwordRef.type = "text";
+    eye.src = "./../../../../assets/closedEye.png";
+  }
 });

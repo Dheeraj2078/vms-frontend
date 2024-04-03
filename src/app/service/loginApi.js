@@ -18,6 +18,7 @@ export const login = async (loginData) => {
     return response;
   } catch (error) {
     console.log(error);
+    throw Error;
   }
 };
 
@@ -44,6 +45,7 @@ export const createUser = async (userData) => {
     return response;
   } catch (error) {
     console.log(error);
+    throw Error;
   }
 };
 
@@ -64,6 +66,7 @@ export const validateNewuserToken = async (userToken) => {
     return response;
   } catch (error) {
     console.log(error);
+    throw Error;
   }
 };
 
@@ -87,6 +90,7 @@ export const updatePassword = async (userToken, loginData) => {
     console.log(response);
   } catch (error) {
     console.log(error);
+    throw Error;
   }
 };
 
@@ -96,14 +100,17 @@ export const forgotPassword = async (forgotPasswordData) => {
     const headers = {
       "Content-Type": "application/json",
     };
-    const response = makeRequest(
+    const response = await makeRequest(
       baseUrl + `/user/forget-password/`,
       httpMethods.POST,
       headers,
       body
     );
-    console.log(response);
+
+    const resu = response;
+    console.log("RES", resu);
   } catch (error) {
-    console.log(error);
+    console.log("ERR", error);
+    throw Error;
   }
 };
