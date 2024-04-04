@@ -79,10 +79,8 @@ loginBtn.addEventListener("click", async (e) => {
   try {
     const response = await login(loginData);
     const token = response.data.token.token;
-    console.log(token);
+
     if (token) {
-      // Decode the JWT token
-      console.log("token's data", response);
       try {
         const tokenInfo = decodeJwt(token);
         localStorage.setItem(localStorageKeys.token, token);
@@ -97,7 +95,7 @@ loginBtn.addEventListener("click", async (e) => {
           document.getElementById("rememberMeCheckbox");
 
         if (rememberMeCheckbox.checked) {
-          localStorage.setItem("rememberMe", token);
+          localStorage.setItem(localStorageKeys.rememberMe, token);
         }
 
         sessionStorage.setItem(localStorageKeys.token, token);
@@ -114,7 +112,6 @@ loginBtn.addEventListener("click", async (e) => {
 });
 
 forgotPassword.addEventListener("click", (e) => {
-  console.log(root);
   fetchHtmlFile("forgotPassword.html", function (htmlString) {
     loginForm.innerHTML = htmlString;
     addScript("./forgotPassword.js");

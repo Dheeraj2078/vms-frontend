@@ -6,7 +6,6 @@ const emailRef = document.getElementById("email");
 const notEmail = document.getElementsByClassName("not-email")[0];
 const resetPasswordBtn = document.getElementById("reset-password-button");
 const loginForm = document.getElementsByClassName("login-form")[0];
-console.log(emailRef);
 
 let email = "";
 emailRef.addEventListener("input", (e) => {
@@ -30,7 +29,6 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
   try {
     const res = await forgotPassword(forgotPasswordData);
-    console.log("result from forgot password", res);
 
     fetchHtmlFile("resetLinkSend.html", function (htmlString) {
       loginForm.innerHTML = htmlString;

@@ -5,6 +5,7 @@ import {
   validateToken,
 } from "../../util/util.js";
 
+import { localStorageKeys } from "../../util/constants.js";
 const root = document.getElementById("root");
 
 const fetchAuth = () => {
@@ -17,7 +18,7 @@ const fetchAuth = () => {
 };
 
 (function initLogin() {
-  const rememberMe = localStorage.getItem("rememberMe");
+  const rememberMe = localStorage.getItem(localStorageKeys.rememberMe);
   if (rememberMe == null) {
     fetchAuth();
     return;

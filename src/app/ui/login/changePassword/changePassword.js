@@ -2,7 +2,6 @@ import { addScript, addStyles, fetchHtmlFile } from "../../../util/util.js";
 const root = document.getElementById("root");
 
 fetchHtmlFile("./../auth.html", function (htmlString) {
-  console.log(root);
   root.innerHTML = htmlString;
   addStyles("./../auth.css");
   addStyles("./changePassword.css");

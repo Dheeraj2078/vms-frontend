@@ -44,11 +44,7 @@ const getUserToken = () => {
   return token;
 };
 
-console.log(resetPasswordBtn);
 resetPasswordBtn.addEventListener("click", async (e) => {
-  console.log(firstPassword);
-  console.log(secondPassword);
-
   if (firstPassword == "" || secondPassword == "") {
     emptyPassword.classList.remove("hidden");
     return;
@@ -67,7 +63,6 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
   try {
     const updatedPassword = await updatePassword(token, loginData);
-    console.log(updatedPassword);
 
     fetchHtmlFile("changePasswordSuccess.html", function (htmlString) {
       loginForm.innerHTML = htmlString;
@@ -81,15 +76,8 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
 async function validate() {
   const token = getUserToken();
-  console.log("t", token);
   const response = await validateNewuserToken(token);
-  console.log("validate new user token", response);
   const email = response.data.email;
-  if (email == null) {
-    alert("email doesn't exist");
-  }
-
-  //   showEmail.innerHTML = email;
   userEmail = email;
 }
 

@@ -16,6 +16,7 @@ export const localStorageKeys = {
   unique_name: "unique_name",
   role: "role",
   email: "email",
+  rememberMe: "rememberMe",
 };
 
 export const role = {
