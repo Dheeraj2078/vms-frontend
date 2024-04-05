@@ -38,7 +38,7 @@ export const validateNewuserToken = async (userToken) => {
       "Content-Type": "application/json",
     };
     const response = makeRequest(
-      baseUrl + `/user/validate-newuser-token/${encodedToken}`,
+      baseUrl + `/user/validate-user/${encodedToken}`,
       httpMethods.GET,
       headers
     );

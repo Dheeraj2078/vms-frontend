@@ -78,7 +78,7 @@ loginBtn.addEventListener("click", async (e) => {
 
   try {
     const response = await login(loginData);
-    const token = response.data.token.token;
+    const token = response.data.token;
 
     if (token) {
       try {

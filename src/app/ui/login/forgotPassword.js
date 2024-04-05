@@ -29,6 +29,7 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
   try {
     const res = await forgotPassword(forgotPasswordData);
+    console.log(res);
 
     fetchHtmlFile("resetLinkSend.html", function (htmlString) {
       loginForm.innerHTML = htmlString;

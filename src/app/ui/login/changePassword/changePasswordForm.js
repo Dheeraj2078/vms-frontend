@@ -77,7 +77,8 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 async function validate() {
   const token = getUserToken();
   const response = await validateNewuserToken(token);
-  const email = response.data.email;
+  console.log(response);
+  const email = response.data;
   userEmail = email;
 }
 
