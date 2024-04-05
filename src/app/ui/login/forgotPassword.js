@@ -33,6 +33,7 @@ resetPasswordBtn.addEventListener("click", async (e) => {
     fetchHtmlFile("resetLinkSend.html", function (htmlString) {
       loginForm.innerHTML = htmlString;
       addStyles("./changePassword/changePasswordSuccess.css");
+      addStyles("./../../../scss/login.css");
       addScript("./resetLinkSend.js");
     });
   } catch (error) {

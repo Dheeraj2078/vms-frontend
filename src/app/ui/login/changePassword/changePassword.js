@@ -3,8 +3,7 @@ const root = document.getElementById("root");
 
 fetchHtmlFile("./../auth.html", function (htmlString) {
   root.innerHTML = htmlString;
-  addStyles("./../auth.css");
-  addStyles("./changePassword.css");
+  addStyles("./../../../../scss/login.css");
 
   const loginForm = document.getElementsByClassName("login-form")[0];
 
@@ -13,8 +12,8 @@ fetchHtmlFile("./../auth.html", function (htmlString) {
     addScript("./changePasswordForm.js");
 
     const logoImage = document.getElementsByClassName("logo-image")[0];
-    logoImage.src = "./../../../../../assets/logo.png";
+    logoImage.src = "./../../../../assets/images/logo.png";
     const vendorImage = document.getElementsByClassName("vendor-image")[0];
-    vendorImage.src = "./../../../../../assets/vendor.png";
+    vendorImage.src = "./../../../../assets/images/vendor.png";
   });
 });

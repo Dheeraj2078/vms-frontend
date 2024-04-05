@@ -119,11 +119,19 @@ forgotPassword.addEventListener("click", (e) => {
 });
 
 eye.addEventListener("click", (e) => {
+  console.log(eye);
+  const use = document.querySelector("use");
   if (passwordRef.type == "text") {
     passwordRef.type = "password";
-    eye.src = "./../../../../assets/openEye.png";
+    use.setAttribute(
+      "xlink:href",
+      "../../../../src/assets/icons/icons.svg#openEye"
+    );
   } else {
     passwordRef.type = "text";
-    eye.src = "./../../../../assets/closedEye.png";
+    use.setAttribute(
+      "xlink:href",
+      "../../../../src/assets/icons/icons.svg#closedEye"
+    );
   }
 });

@@ -13,6 +13,7 @@ const loginForm = document.getElementsByClassName("auth-right")[0];
 const firstEye = document.getElementsByClassName("firstEye")[0];
 const secondEye = document.getElementsByClassName("secondEye")[0];
 
+console.log("resrt", resetPasswordBtn);
 let firstPassword = "";
 let secondPassword = "";
 let userEmail = "";
@@ -84,21 +85,36 @@ async function validate() {
 validate();
 
 firstEye.addEventListener("click", (e) => {
+  const use = document.querySelector("use");
+
   if (firstPasswordRef.type == "text") {
     firstPasswordRef.type = "password";
-    firstEye.src = "./../../../../../assets/openEye.png";
+    use.setAttribute(
+      "xlink:href",
+      "../../../../../src/assets/icons/icons.svg#openEye"
+    );
   } else {
     firstPasswordRef.type = "text";
-    firstEye.src = "./../../../../../assets/closedEye.png";
+    use.setAttribute(
+      "xlink:href",
+      "../../../../../src/assets/icons/icons.svg#closedEye"
+    );
   }
 });
 
 secondEye.addEventListener("click", (e) => {
+  const use = document.getElementById("secondEyeIcon");
   if (secondPasswordRef.type == "text") {
     secondPasswordRef.type = "password";
-    secondEye.src = "./../../../../../assets/openEye.png";
+    use.setAttribute(
+      "xlink:href",
+      "../../../../../src/assets/icons/icons.svg#openEye"
+    );
   } else {
     secondPasswordRef.type = "text";
-    secondEye.src = "./../../../../../assets/closedEye.png";
+    use.setAttribute(
+      "xlink:href",
+      "../../../../../src/assets/icons/icons.svg#closedEye"
+    );
   }
 });

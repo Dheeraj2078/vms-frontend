@@ -1,0 +1,264 @@
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a,
+button {
+  cursor: revert;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+/* reset default text opacity of input placeholder */
+::-moz-placeholder {
+  color: unset;
+}
+::placeholder {
+  color: unset;
+}
+
+/*
+      Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+      - The "symbol *" part is to solve Firefox SVG sprite bug
+   */
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+@media only screen and (min-width: 1500px) {
+  html {
+    font-size: 88%;
+  }
+}
+
+body {
+  color: #3b3a38;
+  font: 500 1rem/1.6 "Inter", arial;
+}
+
+h1 {
+  font: 900 2.777rem/1 "Inter", arial;
+  letter-spacing: 0.3px;
+  margin-bottom: 18px;
+}
+
+h2 {
+  font: 900 2.388rem/1.4 "Inter", arial;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font: 600 1.33rem/1.2 "Inter", arial;
+  color: #fff;
+}
+
+h4 {
+  font: 700 1.45rem/1.2 "Inter", arial;
+  color: #fff;
+}
+
+h5 {
+  font: 600 1rem/1.2 "Inter", arial;
+  color: #fff;
+}
+
+h6 {
+  font: 600 0.72rem/1.2 "Inter", arial;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+}
+
+.btn {
+  padding: 1.6rem 5.6rem 1.6rem 5.6rem;
+  color: #fff;
+  background: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  border: none;
+  transition: all 0.1s ease;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-lg {
+  width: 100%;
+  padding: 1.6rem 5.6rem 1.6rem 5.6rem;
+  color: #fff;
+  background: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  border: none;
+  transition: all 0.1s ease;
+  color: #fff;
+  cursor: pointer;
+}
+
+.auth-container {
+  display: flex;
+}
+.auth-left {
+  padding-top: 3rem;
+  padding-left: 3rem;
+  background-color: #ffe5e1;
+  flex: 1;
+  margin-right: -4rem;
+}
+.auth-left .welcome-message {
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 3.269rem;
+  margin-top: 12rem;
+  margin-bottom: 4rem;
+}
+.auth-left .welcome-message .bold {
+  font-weight: bold;
+}
+.auth-left .logo-image {
+  width: 14.3rem;
+}
+.auth-left .vendor-image {
+  width: 41.2rem;
+}
+.auth-right {
+  background-color: #fff;
+  padding: 11rem;
+  flex: 1;
+  border-radius: 5rem 0 0 5rem;
+  box-shadow: 0 0 2rem 0 rgba(248, 92, 71, 0.5019607843);
+}
+.auth-right .login-heading {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: #3b3a38;
+  margin-bottom: 0.8rem;
+}
+.auth-right .login-description {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #3b3a38;
+  margin-bottom: 3.2rem;
+}
+.auth-right .fieldWrapper {
+  margin-bottom: 2.4rem;
+}
+.auth-right .fieldWrapper .passwordEyeWrapper {
+  position: relative;
+}
+.auth-right .fieldWrapper .passwordEyeWrapper .closedEyeImage {
+  position: absolute;
+  top: 50%;
+  right: 0rem;
+  transform: translate(-50%, -50%);
+  width: 1.7rem;
+  height: 1.7rem;
+}
+.auth-right .hidden {
+  display: none;
+}
+.auth-right .not-email-password,
+.auth-right .not-password,
+.auth-right .not-email {
+  color: #ff0000;
+  font-size: 1.4rem;
+  padding-bottom: 1.4rem;
+}
+.auth-right .login-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  margin-bottom: 5.6rem;
+  color: #716d69;
+}
+.auth-right .login-bottom #forgotPassword {
+  cursor: pointer;
+}
+
+.empty-field-border {
+  border: 2px solid red !important;
+}
+
+input[type=email],
+input[type=password],
+input[type=text] {
+  background-color: #f6f5f5;
+  padding: 1.2rem;
+  border: 1px solid #d2d0cf;
+  width: 100%;
+  outline: none;
+  font-size: 1.6rem;
+  border-radius: 0.4rem;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.empty-password,
+.not-same-password {
+  font-size: 1.4rem;
+  color: #ff0000;
+  padding-bottom: 1.2rem;
+}
+
+.password-success-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.4rem;
+}
+
+.tick-image {
+  width: 6rem;
+}
+
+.reset-password-container {
+  position: relative;
+}
+.reset-password-container .reset-password-bottom {
+  position: absolute;
+  bottom: -9rem;
+  width: 100%;
+}
+
+.margin-bottom-md {
+  padding-bottom: 4rem;
+}
+
+.margin-bottom-sm {
+  padding-bottom: 2rem;
+}/*# sourceMappingURL=login.css.map */

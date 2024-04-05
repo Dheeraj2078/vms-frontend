@@ -1,0 +1,136 @@
+.auth {
+  &-container {
+    display: flex;
+  }
+
+  &-left {
+    padding-top: 3rem;
+    padding-left: 3rem;
+    background-color: $orange-light;
+    flex: 1;
+    margin-right: -4rem;
+
+    .welcome-message {
+      @include font_size_color(2.4rem, 400, null);
+      line-height: 3.269rem;
+      margin-top: 12rem;
+      margin-bottom: 4rem;
+
+      .bold {
+        font-weight: bold;
+      }
+    }
+
+    .logo-image {
+      width: 14.3rem;
+    }
+
+    .vendor-image {
+      width: 41.2rem;
+    }
+  }
+
+  &-right {
+    background-color: $white;
+    padding: 11rem;
+    flex: 1;
+    border-radius: 5rem 0 0 5rem;
+    box-shadow: 0 0 2rem 0 #f85c4780;
+
+    .login-heading {
+      @include font_size_color(3.2rem, 600, $text);
+      margin-bottom: 0.8rem;
+    }
+
+    .login-description {
+      @include font_size_color(1.6rem, 400, $text);
+      margin-bottom: 3.2rem;
+    }
+
+    .fieldWrapper {
+      margin-bottom: 2.4rem;
+
+      .passwordEyeWrapper {
+        position: relative;
+
+        .closedEyeImage {
+          position: absolute;
+          top: 50%;
+          right: 0rem;
+          transform: translate(-50%, -50%);
+          width: 1.7rem;
+          height: 1.7rem;
+        }
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+    .not-email-password,
+    .not-password,
+    .not-email {
+      color: #ff0000;
+      font-size: 1.4rem;
+      padding-bottom: 1.4rem;
+    }
+
+    .login-bottom {
+      @include flex(flex, null, space-between, null, null, null);
+      font-size: 1.4rem;
+      margin-top: 1rem;
+      margin-bottom: 5.6rem;
+      color: #716d69;
+
+      #forgotPassword {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.empty-field-border {
+  border: 2px solid red !important;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  background-color: $gray-light;
+  padding: 1.2rem;
+  border: 1px solid $gray;
+  width: 100%;
+  outline: none;
+  font-size: 1.6rem;
+  border-radius: 0.4rem;
+}
+
+.label {
+  @include font_size_color(1.4rem, 400);
+  margin-bottom: 0.8rem;
+}
+
+.empty-password,
+.not-same-password {
+  @include font_size_color(1.4rem, null, #ff0000);
+  padding-bottom: 1.2rem;
+}
+
+.password-success-wrapper {
+  @include flex(flex, null, null, center, null, column);
+  font-size: 1.4rem;
+}
+
+.tick-image {
+  width: 6rem;
+}
+
+.reset-password-container {
+  position: relative;
+
+  .reset-password-bottom {
+    position: absolute;
+    bottom: -9rem;
+    width: 100%;
+  }
+}

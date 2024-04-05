@@ -1,0 +1,46 @@
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  @include device(desktop) {
+    font-size: 88%;
+  }
+}
+body {
+  color: $text;
+  font: 500 1rem/1.6 "Inter", arial;
+}
+h1 {
+  font: 900 2.777rem/1 "Inter", arial;
+  letter-spacing: 0.3px;
+  margin-bottom: 18px;
+}
+h2 {
+  font: 900 2.388rem/1.4 "Inter", arial;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+h3 {
+  font: 600 1.33rem/1.2 "Inter", arial;
+  color: $white;
+}
+h4 {
+  font: 700 1.45rem/1.2 "Inter", arial;
+  color: $white;
+}
+h5 {
+  font: 600 1rem/1.2 "Inter", arial;
+  color: $white;
+}
+h6 {
+  font: 600 0.72rem/1.2 "Inter", arial;
+  color: $white;
+  margin-bottom: 20px;
+}
+a {
+  color: $white;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+}
