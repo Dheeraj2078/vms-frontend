@@ -68,7 +68,6 @@ resetPasswordBtn.addEventListener("click", async (e) => {
     fetchHtmlFile("changePasswordSuccess.html", function (htmlString) {
       loginForm.innerHTML = htmlString;
       addScript("./changePasswordSuccess.js");
-      addStyles("./changePasswordSuccess.css");
     });
   } catch (error) {
     console.log(error);
