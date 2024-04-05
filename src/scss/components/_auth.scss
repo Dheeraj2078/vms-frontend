@@ -39,7 +39,7 @@
 
     .login-heading {
       @include font_size_color(3.2rem, 600, $text);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
     }
 
     .login-description {
@@ -48,8 +48,9 @@
     }
 
     .fieldWrapper {
-      margin-bottom: 2.4rem;
-
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
       .passwordEyeWrapper {
         position: relative;
 
@@ -72,13 +73,13 @@
     .not-email {
       color: #ff0000;
       font-size: 1.4rem;
-      padding-bottom: 1.4rem;
+      padding-top: 1.4rem;
     }
 
     .login-bottom {
       @include flex(flex, null, space-between, null, null, null);
       font-size: 1.4rem;
-      margin-top: 1rem;
+      margin-top: 3.2rem;
       margin-bottom: 5.6rem;
       color: #716d69;
 
@@ -130,7 +131,13 @@ input[type="text"] {
 
   .reset-password-bottom {
     position: absolute;
-    bottom: -9rem;
+    bottom: -8rem;
     width: 100%;
   }
+}
+
+.reset-password-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }

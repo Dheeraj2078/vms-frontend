@@ -162,7 +162,7 @@ a {
   font-size: 3.2rem;
   font-weight: 600;
   color: #3b3a38;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 .auth-right .login-description {
   font-size: 1.6rem;
@@ -171,7 +171,9 @@ a {
   margin-bottom: 3.2rem;
 }
 .auth-right .fieldWrapper {
-  margin-bottom: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
 }
 .auth-right .fieldWrapper .passwordEyeWrapper {
   position: relative;
@@ -192,13 +194,13 @@ a {
 .auth-right .not-email {
   color: #ff0000;
   font-size: 1.4rem;
-  padding-bottom: 1.4rem;
+  padding-top: 1.4rem;
 }
 .auth-right .login-bottom {
   display: flex;
   justify-content: space-between;
   font-size: 1.4rem;
-  margin-top: 1rem;
+  margin-top: 3.2rem;
   margin-bottom: 5.6rem;
   color: #716d69;
 }
@@ -251,8 +253,14 @@ input[type=text] {
 }
 .reset-password-container .reset-password-bottom {
   position: absolute;
-  bottom: -9rem;
+  bottom: -8rem;
   width: 100%;
+}
+
+.reset-password-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
 .margin-bottom-md {
@@ -261,4 +269,8 @@ input[type=text] {
 
 .margin-bottom-sm {
   padding-bottom: 2rem;
+}
+
+.margin-top-lg {
+  margin-top: 4.5rem;
 }/*# sourceMappingURL=login.css.map */
