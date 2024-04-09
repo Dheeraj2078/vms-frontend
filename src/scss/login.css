@@ -138,6 +138,7 @@ body {
   transform: translate(-50%, -50%);
   width: 1.7rem;
   height: 1.7rem;
+  cursor: pointer;
 }
 .auth-right .hidden {
   display: none;
@@ -159,6 +160,9 @@ body {
   margin-top: 3.2rem;
   margin-bottom: 5.6rem;
   color: #716d69;
+}
+.auth-right .login-bottom .remember-me-container {
+  cursor: pointer;
 }
 .auth-right .login-bottom #forgotPassword {
   cursor: pointer;

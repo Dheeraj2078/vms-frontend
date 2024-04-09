@@ -27,6 +27,10 @@ const removeCredientialInfo = () => {
   if (!emptyPassword.classList.contains("hidden")) {
     emptyPassword.classList.add("hidden");
   }
+
+  if (!weakPassword.classList.contains("hidden")) {
+    weakPassword.classList.add("hidden");
+  }
 };
 
 firstPasswordRef.addEventListener("input", (e) => {

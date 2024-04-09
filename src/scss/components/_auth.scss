@@ -61,6 +61,7 @@
           transform: translate(-50%, -50%);
           width: 1.7rem;
           height: 1.7rem;
+          cursor: pointer;
         }
       }
     }
@@ -85,6 +86,10 @@
       margin-top: 3.2rem;
       margin-bottom: 5.6rem;
       color: #716d69;
+
+      .remember-me-container {
+        cursor: pointer;
+      }
 
       #forgotPassword {
         cursor: pointer;

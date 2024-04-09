@@ -13,7 +13,6 @@ const notPassword = document.getElementsByClassName("not-password")[0];
 const wrongEmailOrPassword = document.getElementsByClassName(
   "wrong-email-or-password"
 )[0];
-console.log("WWW", wrongEmailOrPassword);
 const loginBtn = document.getElementsByClassName("login-button")[0];
 const forgotPassword = document.getElementById("forgotPassword");
 const loginForm = document.getElementsByClassName("login-form")[0];
