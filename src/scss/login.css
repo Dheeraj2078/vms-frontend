@@ -48,61 +48,14 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
 }
-@media only screen and (min-width: 1500px) {
-  html {
-    font-size: 88%;
-  }
-}
 
 body {
   color: #3b3a38;
   font: 500 1rem/1.6 "Inter", arial;
 }
 
-h1 {
-  font: 900 2.777rem/1 "Inter", arial;
-  letter-spacing: 0.3px;
-  margin-bottom: 18px;
-}
-
-h2 {
-  font: 900 2.388rem/1.4 "Inter", arial;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-  margin-bottom: 20px;
-}
-
-h3 {
-  font: 600 1.33rem/1.2 "Inter", arial;
-  color: #fff;
-}
-
-h4 {
-  font: 700 1.45rem/1.2 "Inter", arial;
-  color: #fff;
-}
-
-h5 {
-  font: 600 1rem/1.2 "Inter", arial;
-  color: #fff;
-}
-
-h6 {
-  font: 600 0.72rem/1.2 "Inter", arial;
-  color: #fff;
-  margin-bottom: 20px;
-}
-
-a {
-  color: #fff;
-  text-transform: uppercase;
-  transition: all 0.5s ease;
-}
-
 .btn {
-  padding: 1.6rem 5.6rem 1.6rem 5.6rem;
+  padding: 1.6rem 5.6rem;
   color: #fff;
   background: #f85c47;
   border-radius: 4px;
@@ -114,7 +67,7 @@ a {
 }
 .btn-lg {
   width: 100%;
-  padding: 1.6rem 5.6rem 1.6rem 5.6rem;
+  padding: 1.6rem 5.6rem;
   color: #fff;
   background: #f85c47;
   border-radius: 4px;
@@ -181,7 +134,7 @@ a {
 .auth-right .fieldWrapper .passwordEyeWrapper .closedEyeImage {
   position: absolute;
   top: 50%;
-  right: 0rem;
+  right: 0;
   transform: translate(-50%, -50%);
   width: 1.7rem;
   height: 1.7rem;
@@ -191,7 +144,10 @@ a {
 }
 .auth-right .not-email-password,
 .auth-right .not-password,
-.auth-right .not-email {
+.auth-right .not-email,
+.auth-right .wrong-email,
+.auth-right .wrong-email-or-password,
+.auth-right .weak-password {
   color: #ff0000;
   font-size: 1.4rem;
   padding-top: 1.4rem;
@@ -248,19 +204,18 @@ input[type=text] {
   width: 6rem;
 }
 
-.reset-password-container {
-  position: relative;
-}
-.reset-password-container .reset-password-bottom {
-  position: absolute;
-  bottom: -8rem;
-  width: 100%;
-}
-
 .reset-password-bottom {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+}
+
+::-moz-placeholder {
+  color: #d2d0cf;
+}
+
+::placeholder {
+  color: #d2d0cf;
 }
 
 .margin-bottom-md {
@@ -273,4 +228,12 @@ input[type=text] {
 
 .margin-top-lg {
   margin-top: 4.5rem;
+}
+
+.padding-top-md {
+  padding-top: 4rem;
+}
+
+.padding-top-sm {
+  padding-top: 2rem;
 }/*# sourceMappingURL=login.css.map */

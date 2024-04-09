@@ -26,6 +26,7 @@
           <input
             type="email"
             id="email"
+            autofocus="autofocus"
             class="userInput emailInput"
             placeholder="Email"
           />
@@ -41,23 +42,22 @@
               placeholder="Password"
             />
 
-            <!-- <div class="eye"> -->
             <svg class="eye closedEyeImage">
               <use
                 xlink:href="../../../../src/assets/icons/icons.svg#openEye"
               ></use>
             </svg>
-            <!-- </div> -->
           </div>
         </div>
       </div>
 
-      <div class="hidden not-email-password">
-        Please enter the valid credentials
-      </div>
+      <div class="hidden not-email-password">Please enter your credentials</div>
       <div class="hidden not-password">Please enter the password</div>
       <div class="hidden not-email">
         Please enter the registered email address
+      </div>
+      <div class="hidden wrong-email-or-password">
+        Either email address or password is incorrect.
       </div>
 
       <div class="login-bottom">

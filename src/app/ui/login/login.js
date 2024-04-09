@@ -1,20 +1,17 @@
-import {
-  fetchHtmlFile,
-  addScript,
-  addStyles,
-  validateToken,
-} from "../../util/util.js";
-
+import { validateToken } from "../../util/util.js";
+import authHtml from "./auth.html";
 import { localStorageKeys } from "../../util/constants.js";
 const root = document.getElementById("root");
 
 const fetchAuth = () => {
-  fetchHtmlFile("auth.html", function (htmlString) {
-    root.innerHTML = htmlString;
-    addStyles("./../../../scss/login.css");
-    addScript("../../service/loginApi.js");
-    addScript("./auth.js");
-  });
+  root.innerHTML = authHtml;
+  import("./auth.js")
+    .then((module) => {
+      console.log("auth js imported");
+    })
+    .catch((error) => {
+      console.log("An error occured while loading the module", error);
+    });
 };
 
 (function initLogin() {
@@ -27,6 +24,6 @@ const fetchAuth = () => {
   if (validateToken() == false) {
     fetchAuth();
   } else {
-    window.location.href = ".././home/home.html";
+    window.location.href = "./home.html";
   }
 })();

@@ -1,8 +1,8 @@
-export const baseUrl = "http://127.0.0.1:5500/";
+export const baseUrl = "http://vms.exitest.com/";
 
-export const baseUrlLogin = "http://127.0.0.1:5500/src/app/ui/login/login.html";
+export const baseUrlLogin = baseUrl + "dist";
 
-export const apiUrl = "https://localhost:7118";
+export const apiUrl = "http://vms-api.exitest.com";
 
 export const httpMethods = {
   GET: "GET",
@@ -29,5 +29,4 @@ export const headers = {
   authorization: "Bearer auth-token",
 };
 
-export const redirectUrl =
-  "http://127.0.0.1:5500/src/app/ui/login/changePassword/changePassword.html#/";
+export const redirectUrl = baseUrl + "changePassword.html#/";

@@ -2,13 +2,14 @@ import {
   updatePassword,
   validateNewuserToken,
 } from "../../../service/loginApi.js";
-import { addStyles, addScript, fetchHtmlFile } from "../../../util/util.js";
+import changePasswordSuccessHtml from "./changePasswordSuccess.html";
 
 const resetPasswordBtn = document.getElementById("reset-password-button");
 const firstPasswordRef = document.getElementsByClassName("firstPassword")[0];
 const secondPasswordRef = document.getElementsByClassName("secondPassword")[0];
 const notSamePassword = document.getElementsByClassName("not-same-password")[0];
 const emptyPassword = document.getElementsByClassName("empty-password")[0];
+const weakPassword = document.getElementsByClassName("weak-password")[0];
 const loginForm = document.getElementsByClassName("auth-right")[0];
 const firstEye = document.getElementsByClassName("firstEye")[0];
 const secondEye = document.getElementsByClassName("secondEye")[0];
@@ -29,11 +30,19 @@ const removeCredientialInfo = () => {
 };
 
 firstPasswordRef.addEventListener("input", (e) => {
+  if (firstPasswordRef.classList.contains("empty-field-border")) {
+    firstPasswordRef.classList.remove("empty-field-border");
+  }
+
   removeCredientialInfo();
   firstPassword = e.target.value;
 });
 
 secondPasswordRef.addEventListener("input", (e) => {
+  if (secondPasswordRef.classList.contains("empty-field-border")) {
+    secondPasswordRef.classList.remove("empty-field-border");
+  }
+
   removeCredientialInfo();
   secondPassword = e.target.value;
 });
@@ -45,14 +54,40 @@ const getUserToken = () => {
   return token;
 };
 
+function validatePassword(password) {
+  // Regular expression to match the criteria
+  var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // Test the password against the regular expression
+  return regex.test(password);
+}
+
 resetPasswordBtn.addEventListener("click", async (e) => {
-  if (firstPassword == "" || secondPassword == "") {
+  if (firstPassword == "" && secondPassword == "") {
+    firstPasswordRef.classList.add("empty-field-border");
+    secondPasswordRef.classList.add("empty-field-border");
+    emptyPassword.classList.remove("hidden");
+    return;
+  }
+
+  if (firstPassword == "") {
+    firstPasswordRef.classList.add("empty-field-border");
+    emptyPassword.classList.remove("hidden");
+    return;
+  }
+
+  if (secondPassword == "") {
+    secondPasswordRef.classList.add("empty-field-border");
     emptyPassword.classList.remove("hidden");
     return;
   }
 
   if (firstPassword != secondPassword) {
     notSamePassword.classList.remove("hidden");
+    return;
+  }
+
+  if (validatePassword(firstPassword) == false) {
+    weakPassword.classList.remove("hidden");
     return;
   }
 
@@ -65,10 +100,14 @@ resetPasswordBtn.addEventListener("click", async (e) => {
   try {
     const updatedPassword = await updatePassword(token, loginData);
 
-    fetchHtmlFile("changePasswordSuccess.html", function (htmlString) {
-      loginForm.innerHTML = htmlString;
-      addScript("./changePasswordSuccess.js");
-    });
+    loginForm.innerHTML = changePasswordSuccessHtml;
+    import("./changePasswordSuccess.js")
+      .then((module) => {
+        console.log("changePasswordSuccess imported");
+      })
+      .catch((error) => {
+        console.log("An error occured while loading the module", error);
+      });
   } catch (error) {
     console.log(error);
   }
@@ -89,16 +128,10 @@ firstEye.addEventListener("click", (e) => {
 
   if (firstPasswordRef.type == "text") {
     firstPasswordRef.type = "password";
-    use.setAttribute(
-      "xlink:href",
-      "../../../../../src/assets/icons/icons.svg#openEye"
-    );
+    use.setAttribute("xlink:href", "./3041031725d9df0ac152.svg#openEye");
   } else {
     firstPasswordRef.type = "text";
-    use.setAttribute(
-      "xlink:href",
-      "../../../../../src/assets/icons/icons.svg#closedEye"
-    );
+    use.setAttribute("xlink:href", "./3041031725d9df0ac152.svg#closedEye");
   }
 });
 
@@ -106,15 +139,9 @@ secondEye.addEventListener("click", (e) => {
   const use = document.getElementById("secondEyeIcon");
   if (secondPasswordRef.type == "text") {
     secondPasswordRef.type = "password";
-    use.setAttribute(
-      "xlink:href",
-      "../../../../../src/assets/icons/icons.svg#openEye"
-    );
+    use.setAttribute("xlink:href", "./3041031725d9df0ac152.svg#openEye");
   } else {
     secondPasswordRef.type = "text";
-    use.setAttribute(
-      "xlink:href",
-      "../../../../../src/assets/icons/icons.svg#closedEye"
-    );
+    use.setAttribute("xlink:href", "./3041031725d9df0ac152.svg#closedEye");
   }
 });

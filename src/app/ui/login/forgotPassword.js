@@ -1,9 +1,10 @@
 import { forgotPassword } from "../../service/loginApi.js";
 import { redirectUrl } from "../../util/constants.js";
-import { fetchHtmlFile, addScript, addStyles } from "../../util/util.js";
+import resetLinkSendHtml from "./resetLinkSend.html";
 
 const emailRef = document.getElementById("email");
 const notEmail = document.getElementsByClassName("not-email")[0];
+const wrongEmail = document.getElementsByClassName("wrong-email")[0];
 const resetPasswordBtn = document.getElementById("reset-password-button");
 const loginForm = document.getElementsByClassName("login-form")[0];
 
@@ -11,6 +12,10 @@ let email = "";
 emailRef.addEventListener("input", (e) => {
   if (!notEmail.classList.contains("hidden")) {
     notEmail.classList.add("hidden");
+  }
+
+  if (!wrongEmail.classList.contains("hidden")) {
+    wrongEmail.classList.add("hidden");
   }
 
   email = e.target.value;
@@ -30,14 +35,16 @@ resetPasswordBtn.addEventListener("click", async (e) => {
   try {
     const res = await forgotPassword(forgotPasswordData);
     console.log(res);
-
-    fetchHtmlFile("resetLinkSend.html", function (htmlString) {
-      loginForm.innerHTML = htmlString;
-      addStyles("./../../../scss/login.css");
-      addScript("./resetLinkSend.js");
-    });
+    loginForm.innerHTML = resetLinkSendHtml;
+    import("./resetLinkSend.js")
+      .then((module) => {
+        console.log("resetLinkSend js imported");
+      })
+      .catch((error) => {
+        console.log("An error occured while loading the module", error);
+      });
   } catch (error) {
     console.log(error);
-    notEmail.classList.remove("hidden");
+    wrongEmail.classList.remove("hidden");
   }
 });

@@ -57,7 +57,7 @@
         .closedEyeImage {
           position: absolute;
           top: 50%;
-          right: 0rem;
+          right: 0;
           transform: translate(-50%, -50%);
           width: 1.7rem;
           height: 1.7rem;
@@ -70,8 +70,11 @@
     }
     .not-email-password,
     .not-password,
-    .not-email {
-      color: #ff0000;
+    .not-email,
+    .wrong-email,
+    .wrong-email-or-password,
+    .weak-password {
+      color: $red;
       font-size: 1.4rem;
       padding-top: 1.4rem;
     }
@@ -126,18 +129,12 @@ input[type="text"] {
   width: 6rem;
 }
 
-.reset-password-container {
-  position: relative;
-
-  .reset-password-bottom {
-    position: absolute;
-    bottom: -8rem;
-    width: 100%;
-  }
-}
-
 .reset-password-bottom {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+}
+
+::placeholder {
+  color: $gray;
 }

@@ -1,19 +1,19 @@
 import { login } from "../../service/loginApi.js";
 import { localStorageKeys, baseUrlLogin } from "../../util/constants.js";
-import {
-  addScript,
-  addStyles,
-  decodeJwt,
-  fetchHtmlFile,
-} from "../../util/util.js";
-const eye = document.getElementsByClassName("closedEyeImage")[0];
+import { decodeJwt } from "../../util/util.js";
+import forgotPasswordHtml from "./forgotPassword.html";
 
+const eye = document.getElementsByClassName("closedEyeImage")[0];
 const emailRef = document.getElementById("email");
 const passwordRef = document.getElementById("password");
 const notEmailPassword =
   document.getElementsByClassName("not-email-password")[0];
 const notEmail = document.getElementsByClassName("not-email")[0];
 const notPassword = document.getElementsByClassName("not-password")[0];
+const wrongEmailOrPassword = document.getElementsByClassName(
+  "wrong-email-or-password"
+)[0];
+console.log("WWW", wrongEmailOrPassword);
 const loginBtn = document.getElementsByClassName("login-button")[0];
 const forgotPassword = document.getElementById("forgotPassword");
 const loginForm = document.getElementsByClassName("login-form")[0];
@@ -30,6 +30,9 @@ function removeCredientialInfo() {
   }
   if (!notPassword.classList.contains("hidden")) {
     notPassword.classList.add("hidden");
+  }
+  if (!wrongEmailOrPassword.classList.contains("hidden")) {
+    wrongEmailOrPassword.classList.add("hidden");
   }
 }
 
@@ -99,7 +102,7 @@ loginBtn.addEventListener("click", async (e) => {
         }
 
         sessionStorage.setItem(localStorageKeys.token, token);
-        window.location.href = `../home/home.html`;
+        window.location.href = `./home.html`;
       } catch (error) {
         console.error("Failed to decode JWT token:", error.message);
       }
@@ -107,15 +110,19 @@ loginBtn.addEventListener("click", async (e) => {
       notEmailPassword.classList.remove("hidden");
     }
   } catch (error) {
-    notEmailPassword.classList.remove("hidden");
+    wrongEmailOrPassword.classList.remove("hidden");
   }
 });
 
 forgotPassword.addEventListener("click", (e) => {
-  fetchHtmlFile("forgotPassword.html", function (htmlString) {
-    loginForm.innerHTML = htmlString;
-    addScript("./forgotPassword.js");
-  });
+  loginForm.innerHTML = forgotPasswordHtml;
+  import("./forgotPassword.js")
+    .then((module) => {
+      console.log("forgot password js imported");
+    })
+    .catch((error) => {
+      console.log("An error occured while loading the module", error);
+    });
 });
 
 eye.addEventListener("click", (e) => {
@@ -123,15 +130,9 @@ eye.addEventListener("click", (e) => {
   const use = document.querySelector("use");
   if (passwordRef.type == "text") {
     passwordRef.type = "password";
-    use.setAttribute(
-      "xlink:href",
-      "../../../../src/assets/icons/icons.svg#openEye"
-    );
+    use.setAttribute("xlink:href", "./3041031725d9df0ac152.svg#openEye");
   } else {
     passwordRef.type = "text";
-    use.setAttribute(
-      "xlink:href",
-      "../../../../src/assets/icons/icons.svg#closedEye"
-    );
+    use.setAttribute("xlink:href", "./3041031725d9df0ac152.svg#closedEye");
   }
 });
