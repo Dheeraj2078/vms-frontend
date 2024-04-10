@@ -1,0 +1,44 @@
+.container {
+  padding: 0 3.2rem;
+}
+
+.vendor-statistics {
+  &-container {
+    display: flex;
+    gap: 1.6rem;
+  }
+
+  &-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 8px 0px #0000001a;
+    border: 1px solid #e7e6e6;
+    padding: 2.4rem;
+    flex-basis: 100%;
+    border-radius: 4px;
+
+    &-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+
+      div:first-child {
+        font-size: 1.4rem;
+      }
+      div:last-child {
+        font-size: 3.2rem;
+      }
+    }
+
+    &-right {
+      width: 7rem;
+    }
+  }
+}
+
+.add-vendors-button-wrapper {
+  display: flex;
+  justify-content: end;
+  margin: 3.2rem 0 2.4rem 0;
+}

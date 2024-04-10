@@ -9,6 +9,18 @@
   color: $white;
   cursor: pointer;
 
+  &-sm {
+    padding: 0.8rem 1.6rem;
+    color: #fff;
+    background: #f85c47;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    border: none;
+    transition: all 0.1s ease;
+    color: #fff;
+    cursor: pointer;
+  }
+
   &-lg {
     width: 100%;
     padding: 1.6rem 5.6rem;

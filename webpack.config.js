@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -13,14 +14,13 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
+    allowedHosts: "all",
     static: {
-      directory: path.resolve(__dirname, "dist"), // Serve files from the 'dist' directory
+      directory: path.resolve(__dirname, "./src/app/ui"), // Serve files from the 'dist' directory
     },
-    // compress: true, // Enable gzip compression for everything served
-    port: 9000, // Specify a port number
-    // open: true, // Open the default browser when webpack-dev-server starts
-    hot: true,
-    watchFiles: ["./src/**/*"],
+    port: 4000, // Specify a port number
+    hot: false,
+    liveReload: true,
   },
   module: {
     rules: [
@@ -50,5 +50,6 @@ module.exports = {
       filename: "home.html", // Output HTML file name
       inject: false,
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };

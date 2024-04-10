@@ -65,6 +65,17 @@ body {
   color: #fff;
   cursor: pointer;
 }
+.btn-sm {
+  padding: 0.8rem 1.6rem;
+  color: #fff;
+  background: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  border: none;
+  transition: all 0.1s ease;
+  color: #fff;
+  cursor: pointer;
+}
 .btn-lg {
   width: 100%;
   padding: 1.6rem 5.6rem;
@@ -113,16 +124,74 @@ body {
 .navbar-wrapper ul {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 4.8rem;
+  gap: 2.4rem;
+}
+.navbar-wrapper ul li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #fff;
+  gap: 8px;
+  cursor: pointer;
+}
+.navbar-wrapper ul li div {
+  font-size: 14px;
 }
 .navbar-wrapper ul li img {
+  width: 15px;
+}
+
+.selected-route {
   border-left: 4px solid white;
   background: linear-gradient(89.31deg, rgba(255, 255, 255, 0.23) 2.62%, #f85c47 100.93%);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1490196078);
+  padding-left: 6px !important;
 }
 
 #home-root {
-  margin-left: 8rem;
+  margin-left: 12rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  padding: 0 3.2rem;
+}
+
+.vendor-statistics-container {
+  display: flex;
+  gap: 1.6rem;
+}
+.vendor-statistics-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1019607843);
+  border: 1px solid #e7e6e6;
+  padding: 2.4rem;
+  flex-basis: 100%;
+  border-radius: 4px;
+}
+.vendor-statistics-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.vendor-statistics-card-left div:first-child {
+  font-size: 1.4rem;
+}
+.vendor-statistics-card-left div:last-child {
+  font-size: 3.2rem;
+}
+.vendor-statistics-card-right {
+  width: 7rem;
+}
+
+.add-vendors-button-wrapper {
+  display: flex;
+  justify-content: end;
+  margin: 3.2rem 0 2.4rem 0;
 }/*# sourceMappingURL=main.css.map */
