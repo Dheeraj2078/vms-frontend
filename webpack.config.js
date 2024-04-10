@@ -6,10 +6,21 @@ module.exports = {
   entry: {
     entry1: "./src/app/ui/login/login.js",
     entry2: "./src/app/ui/login/changePassword/changePassword.js",
+    home: "./src/app/ui/home/home.js",
   },
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
+  },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, "dist"), // Serve files from the 'dist' directory
+    },
+    // compress: true, // Enable gzip compression for everything served
+    port: 9000, // Specify a port number
+    // open: true, // Open the default browser when webpack-dev-server starts
+    hot: true,
+    watchFiles: ["./src/**/*"],
   },
   module: {
     rules: [

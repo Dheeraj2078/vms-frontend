@@ -1,3 +1,5 @@
+import navBarHtml from "../common/navbar.html";
+
 function base64urlDecode(str) {
   str = str.replace(/-/g, "+").replace(/_/g, "/");
 
@@ -70,12 +72,10 @@ export function fetchHtmlFile(url, callback) {
 }
 
 export function loadNavBar() {
-  fetchHtmlFile("../common/navBar.html", function (htmlString) {
-    const div = document.createElement("div");
-    div.innerHTML = htmlString;
-    const firstChild = document.body.firstChild;
-    document.body.insertBefore(div, firstChild);
-  });
+  const div = document.createElement("div");
+  div.innerHTML = navBarHtml;
+  const firstChild = document.body.firstChild;
+  document.body.insertBefore(div, firstChild);
 }
 
 export function addScript(src) {

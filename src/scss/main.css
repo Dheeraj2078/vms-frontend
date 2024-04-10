@@ -1,0 +1,128 @@
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a,
+button {
+  cursor: revert;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+/* reset default text opacity of input placeholder */
+::-moz-placeholder {
+  color: unset;
+}
+::placeholder {
+  color: unset;
+}
+
+/*
+      Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+      - The "symbol *" part is to solve Firefox SVG sprite bug
+   */
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #3b3a38;
+  font: 500 1rem/1.6 "Inter", arial;
+}
+
+.btn {
+  padding: 1.6rem 5.6rem;
+  color: #fff;
+  background: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  border: none;
+  transition: all 0.1s ease;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-lg {
+  width: 100%;
+  padding: 1.6rem 5.6rem;
+  color: #fff;
+  background: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  border: none;
+  transition: all 0.1s ease;
+  color: #fff;
+  cursor: pointer;
+}
+
+.margin-bottom-md {
+  padding-bottom: 4rem;
+}
+
+.margin-bottom-sm {
+  padding-bottom: 2rem;
+}
+
+.margin-top-lg {
+  margin-top: 4.5rem;
+}
+
+.padding-top-md {
+  padding-top: 4rem;
+}
+
+.padding-top-sm {
+  padding-top: 2rem;
+}
+
+.navbar-wrapper {
+  background-color: #f85c47;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0.5rem;
+  border-radius: 0.8rem;
+  height: 99%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-wrapper ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4.8rem;
+}
+.navbar-wrapper ul li img {
+  border-left: 4px solid white;
+  background: linear-gradient(89.31deg, rgba(255, 255, 255, 0.23) 2.62%, #f85c47 100.93%);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1490196078);
+}
+
+#home-root {
+  margin-left: 8rem;
+}/*# sourceMappingURL=main.css.map */
