@@ -22,5 +22,8 @@ export default function goToVendor() {
     vendorFormCross.addEventListener("click", (e) => {
       handleCross();
     });
+
+    const mainContainer = document.getElementById("main-container");
+    mainContainer.classList.add("blur-background");
   });
 }

@@ -60,22 +60,11 @@ export async function makeRequest(
   }
 }
 
-export function fetchHtmlFile(url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback(xhr.responseText);
-    }
-  };
-  xhr.open("GET", url, true);
-  xhr.send();
-}
-
 export function loadNavBar() {
   const div = document.createElement("div");
   div.innerHTML = navBarHtml;
-  const firstChild = document.body.firstChild;
-  document.body.insertBefore(div, firstChild);
+  const firstChild = document.getElementById("main-container");
+  firstChild.appendChild(div);
 }
 
 export function addScript(src) {
