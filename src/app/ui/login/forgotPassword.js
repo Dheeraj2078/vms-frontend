@@ -10,6 +10,10 @@ const loginForm = document.getElementsByClassName("login-form")[0];
 
 let email = "";
 emailRef.addEventListener("input", (e) => {
+  if (resetPasswordBtn.classList.contains("disabled")) {
+    resetPasswordBtn.classList.remove("disabled");
+  }
+
   if (!notEmail.classList.contains("hidden")) {
     notEmail.classList.add("hidden");
   }
@@ -32,6 +36,7 @@ resetPasswordBtn.addEventListener("click", async (e) => {
     redirectUrl: redirectUrl,
   };
 
+  resetPasswordBtn.classList.add("disabled");
   try {
     const res = await forgotPassword(forgotPasswordData);
     console.log(res);
@@ -46,5 +51,8 @@ resetPasswordBtn.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
     wrongEmail.classList.remove("hidden");
+    if (resetPasswordBtn.classList.contains("disabled")) {
+      resetPasswordBtn.classList.remove("disabled");
+    }
   }
 });

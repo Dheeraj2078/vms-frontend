@@ -89,6 +89,11 @@ body {
   cursor: pointer;
 }
 
+.disabled {
+  background-color: #fb9d91;
+  cursor: not-allowed;
+}
+
 .auth-container {
   display: flex;
 }
