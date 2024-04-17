@@ -1,7 +1,9 @@
 import goToDashboard from "../ui/home/dashboard/dashboard.js";
 import goToVendor from "../ui/home/vendors/vendors.js";
+import goToAdmin from "../ui/home/admin/admin.js";
+import { getCurrentUserInfo, validateToken } from "../util/util.js";
 
-(() => {
+const defaultRoute = () => {
   const allRoutesLi = document.querySelectorAll("li");
   const allRoutes = [...allRoutesLi];
   allRoutes.map((route) => {
@@ -11,9 +13,28 @@ import goToVendor from "../ui/home/vendors/vendors.js";
         goToDashboard();
       } else if (Id == "vendorRoute") {
         goToVendor();
+      } else if (Id == "adminRoute") {
+        goToAdmin();
       }
     }
   });
+};
+
+(() => {
+  if (validateToken() == false) {
+    window.location.href = "/";
+  }
+
+  const info = getCurrentUserInfo();
+  if (info.role == "admin") {
+    adminRoute.classList.add("hidden");
+    dashboardRoute.classList.add("selected-route");
+  } else {
+    adminRoute.classList.add("selected-route");
+  }
+  console.log(info);
+
+  defaultRoute();
 })();
 
 const changeRoute = (newRoute) => {
@@ -51,4 +72,12 @@ vendorRoute.addEventListener("click", (e) => {
   }
   changeRoute("vendorRoute");
   goToVendor();
+});
+
+adminRoute.addEventListener("click", (e) => {
+  if (isBackgroundDisabled()) {
+    return;
+  }
+  changeRoute("adminRoute");
+  goToAdmin();
 });

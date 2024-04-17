@@ -35,6 +35,12 @@ export function validateToken() {
   }
 }
 
+export function getCurrentUserInfo() {
+  const token = localStorage.getItem("token");
+  const info = decodeJwt(token);
+  return info.payload;
+}
+
 export async function makeRequest(
   url,
   method = "GET",

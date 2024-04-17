@@ -101,3 +101,24 @@ export const updatePassword = async (userToken, loginData) => {
     throw Error;
   }
 };
+
+export const createAdmin = async (postAdminData) => {
+  try {
+    const body = postAdminData;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN1cGVyIGFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQGRldi5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsIm5iZiI6MTcxMzI0NDEyMCwiZXhwIjoxNzEzNTg5NzIwLCJpYXQiOjE3MTMyNDQxMjAsImlzcyI6IlRlc3RJc3N1ZXIiLCJhdWQiOiJUZXN0QXVkaWVuY2UifQ.iPCth3KVjNaujjGeEN8nWbazr3RoZ5Q766VtYukw66Q",
+    };
+    const response = await makeRequest(
+      apiUrlLocal + `/user/create-user/`,
+      httpMethods.POST,
+      headers,
+      body
+    );
+
+    return response;
+  } catch (error) {
+    throw Error;
+  }
+};

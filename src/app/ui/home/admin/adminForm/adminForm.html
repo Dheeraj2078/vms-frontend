@@ -1,0 +1,81 @@
+<div class="vendor-form-container">
+  <div class="vendor-form-header">
+    <div>Create Admin</div>
+
+    <svg id="vendor-form-cross">
+      <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
+    </svg>
+  </div>
+  <div class="form-main">
+    <div class="vendor-form-heading"></div>
+    <div class="vendor-form-wrapper">
+      <div class="vendor-form-item">
+        <label>First Name</label>
+        <input
+          type="text"
+          name=""
+          id="first-name"
+          placeholder="Enter First Name"
+        />
+        <div class="hidden error-message first-name-error">
+          Please enter the First Name
+        </div>
+      </div>
+
+      <div class="vendor-form-item">
+        <label>Last Name</label>
+        <input
+          type="text"
+          name=""
+          id="last-name"
+          placeholder="Enter Last Name"
+        />
+        <div class="hidden error-message last-name-error">
+          Please enter the Last Name
+        </div>
+      </div>
+
+      <div class="vendor-form-item">
+        <label>Email</label>
+        <input
+          type="text"
+          name=""
+          id="admin-email"
+          placeholder="Enter Email Address"
+        />
+        <div class="hidden error-message email-error">
+          Please enter the Email Address
+        </div>
+      </div>
+
+      <div class="vendor-form-item associated-category-wrapper">
+        <label>Role</label>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="all-roles"
+            value=""
+            placeholder="Select a role"
+            readonly
+          />
+          <svg class="dropdown-icon">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="admin-roles" class="hidden"></div>
+        <div class="hidden error-message role-error">Please select a role</div>
+      </div>
+    </div>
+
+    <div class="vendor-form-buttons">
+      <button class="btn-light vendor-form-cancel">Cancel</button>
+      <button class="btn-sm" id="add-admin">Save</button>
+    </div>
+    <div class="email-exists error-message hidden">
+      Either Email is incorrect or already exists
+    </div>
+  </div>
+</div>

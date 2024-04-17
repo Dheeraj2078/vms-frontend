@@ -164,6 +164,15 @@ body {
   padding-left: 6px !important;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.success-modal-cross {
+  display: flex;
+  justify-content: end;
+}
+
 #home-root {
   margin-left: 12rem;
 }
@@ -260,7 +269,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 24px;
-  padding: 30px;
+  padding: 30px 30px 10px 30px;
 }
 
 #vendor-form-cross {
@@ -350,7 +359,8 @@ body {
 }
 
 #associated-category,
-#associated-vendor-type {
+#associated-vendor-type,
+#admin-roles {
   position: absolute;
   top: 60px;
   background-color: white;
@@ -376,4 +386,44 @@ body {
 
 .empty-field-border {
   border: 2px solid red !important;
+}
+
+.plus-icon {
+  height: 14px;
+  width: 14px;
+}
+
+#add-vendors-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 50px;
+  gap: 10px;
+}
+.success-modal img {
+  height: 82px;
+}
+.success-modal div {
+  font-size: 20px;
+}
+
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-message {
+  color: #ff0000;
+}
+
+.email-exists {
+  text-align: center;
+  font-size: 12px;
 }/*# sourceMappingURL=main.css.map */
