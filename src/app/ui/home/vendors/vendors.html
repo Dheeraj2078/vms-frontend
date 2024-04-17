@@ -1,6 +1,4 @@
 <main class="container">
-  <div class="search-container">Search</div>
-
   <div class="vendor-statistics-container">
     <div class="vendor-statistics-card">
       <div class="vendor-statistics-card-left">
@@ -35,7 +33,16 @@
     </div>
   </div>
 
+  <div class="vendor-heading">Vendors</div>
   <div class="add-vendors-button-wrapper">
+    <div class="search-container">
+      <svg class="search-icon">
+        <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
+      </svg>
+      <input type="text" placeholder="Quick Search.." name="search" />
+    </div>
     <button id="add-vendors-button" class="btn-sm">+ Add New Vendor</button>
   </div>
+
+  <div class="vendor-table-container"></div>
 </main>

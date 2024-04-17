@@ -1,5 +1,10 @@
 .container {
-  padding: 0 3.2rem;
+  padding: 3.2rem 3.2rem;
+}
+
+.vendor-heading {
+  font-size: 24px;
+  padding: 12px 0;
 }
 
 .vendor-statistics {
@@ -78,23 +83,59 @@
       font-size: 12px;
     }
 
-    input {
+    input,
+    select {
       width: 256px;
       border: 1px solid #0f0f0f33;
       height: 40px;
       border-radius: 4px;
       padding: 8px;
     }
-    input:focus {
+    input:focus,
+    select:focus {
       outline: none;
     }
   }
+
+  &-buttons {
+    display: flex;
+
+    justify-content: center;
+    gap: 24px;
+    padding: 30px;
+  }
+}
+
+#vendor-form-cross {
+  height: 13px;
+  width: 13px;
 }
 
 .add-vendors-button-wrapper {
   display: flex;
-  justify-content: end;
-  margin: 3.2rem 0 2.4rem 0;
+  justify-content: space-between;
+  align-items: center;
+  // margin: 3.2rem 0 2.4rem 0;
+
+  .search-container {
+    display: flex;
+    border: 1px solid #e7e6e6;
+    padding: 10px;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+
+    .search-icon {
+      height: 16px;
+      width: 16px;
+    }
+
+    input {
+      outline: none;
+      border: none;
+    }
+  }
 }
 
 #vendor-form-output {
@@ -118,4 +159,66 @@
   background: #fff;
   opacity: 0.1;
   filter: alpha(opacity=10);
+}
+
+.category-dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  input {
+    width: 20px;
+  }
+}
+
+.vendor-type-dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  input {
+    width: 20px;
+  }
+}
+
+.associated-category-wrapper {
+  position: relative;
+
+  .category-inner-wrapper,
+  .vendor-inner-wrapper {
+    position: relative;
+
+    .dropdown-icon {
+      height: 10px;
+      width: 10px;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(0, -50%);
+    }
+  }
+}
+
+#associated-category,
+#associated-vendor-type {
+  position: absolute;
+  top: 60px;
+  background-color: white;
+  padding: 10px;
+  width: 100%;
+  // border: 1px solid red;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow: auto;
+  box-shadow: 0px 4px 8px 0px #00000014;
+}
+
+::placeholder {
+  color: #8c8884;
+}
+
+#all-category {
+  cursor: default;
+}
+
+.empty-field-border {
+  border: 2px solid red !important;
 }

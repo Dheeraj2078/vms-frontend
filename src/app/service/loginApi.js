@@ -1,5 +1,5 @@
 import { makeRequest } from "../util/util.js";
-import { httpMethods, apiUrl } from "../util/constants.js";
+import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
 
 const baseUrl = apiUrl;
 
@@ -94,6 +94,8 @@ export const updatePassword = async (userToken, loginData) => {
       headers,
       body
     );
+
+    return response;
   } catch (error) {
     console.log(error);
     throw Error;

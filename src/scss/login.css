@@ -88,6 +88,16 @@ body {
   color: #fff;
   cursor: pointer;
 }
+.btn-light {
+  border: 1px solid #f85c47;
+  padding: 0.8rem 1.6rem;
+  color: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  transition: all 0.1s ease;
+  cursor: pointer;
+  background: #fff;
+}
 
 .disabled {
   background-color: #fb9d91;
@@ -164,7 +174,8 @@ body {
 .auth-right .not-email,
 .auth-right .wrong-email,
 .auth-right .wrong-email-or-password,
-.auth-right .weak-password {
+.auth-right .weak-password,
+.auth-right .repeated-password {
   color: #ff0000;
   font-size: 1.4rem;
   padding-top: 1.4rem;
@@ -185,6 +196,11 @@ body {
 }
 .auth-right .login-bottom #forgotPassword {
   cursor: pointer;
+}
+.auth-right-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .empty-field-border {
@@ -239,6 +255,14 @@ input[type=text] {
 
 ::placeholder {
   color: #d2d0cf;
+}
+
+.reset-password-exprire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  cursor: default;
 }
 
 .margin-bottom-md {

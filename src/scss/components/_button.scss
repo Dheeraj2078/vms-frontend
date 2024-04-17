@@ -33,6 +33,17 @@
     color: #fff;
     cursor: pointer;
   }
+
+  &-light {
+    border: 1px solid #f85c47;
+    padding: 0.8rem 1.6rem;
+    color: #f85c47;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    background: #fff;
+  }
 }
 
 .disabled {

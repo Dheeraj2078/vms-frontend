@@ -10,11 +10,12 @@ const secondPasswordRef = document.getElementsByClassName("secondPassword")[0];
 const notSamePassword = document.getElementsByClassName("not-same-password")[0];
 const emptyPassword = document.getElementsByClassName("empty-password")[0];
 const weakPassword = document.getElementsByClassName("weak-password")[0];
+const repeatedPassword =
+  document.getElementsByClassName("repeated-password")[0];
 const loginForm = document.getElementsByClassName("auth-right")[0];
 const firstEye = document.getElementsByClassName("firstEye")[0];
 const secondEye = document.getElementsByClassName("secondEye")[0];
 
-console.log("resrt", resetPasswordBtn);
 let firstPassword = "";
 let secondPassword = "";
 let userEmail = "";
@@ -30,6 +31,10 @@ const removeCredientialInfo = () => {
 
   if (!weakPassword.classList.contains("hidden")) {
     weakPassword.classList.add("hidden");
+  }
+
+  if (!repeatedPassword.classList.contains("hidden")) {
+    repeatedPassword.classList.add("hidden");
   }
 };
 
@@ -103,29 +108,54 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
   try {
     const updatedPassword = await updatePassword(token, loginData);
+    console.log("error");
+    console.log(updatedPassword);
 
-    loginForm.innerHTML = changePasswordSuccessHtml;
-    import("./changePasswordSuccess.js")
-      .then((module) => {
-        console.log("changePasswordSuccess imported");
-      })
-      .catch((error) => {
-        console.log("An error occured while loading the module", error);
-      });
+    if (updatedPassword.data == true) {
+      loginForm.innerHTML = changePasswordSuccessHtml;
+      import("./changePasswordSuccess.js")
+        .then((module) => {
+          console.log("changePasswordSuccess imported");
+        })
+        .catch((error) => {
+          console.log("An error occured while loading the module", error);
+        });
+    }
   } catch (error) {
     console.log(error);
+    repeatedPassword.classList.remove("hidden");
   }
 });
 
 async function validate() {
   const token = getUserToken();
-  const response = await validateNewuserToken(token);
-  console.log(response);
-  const email = response.data;
-  userEmail = email;
-}
 
+  try {
+    const response = await validateNewuserToken(token);
+    console.log("R", response);
+    const email = response.data;
+    userEmail = email;
+  } catch (error) {
+    console.log("E", error);
+
+    expireLink();
+  }
+}
 validate();
+
+function expireLink() {
+  const resetPasswordContainer = document.getElementsByClassName(
+    "reset-password-container"
+  )[0];
+  resetPasswordContainer.innerHTML = `
+  <div class="reset-password-exprire">
+    <div>Link is Invalid or Expried. </div>
+    <div>Try Sending Email again</div>
+  </div>`;
+
+  const authRight = document.getElementsByClassName("auth-right")[0];
+  authRight.classList.add("auth-right-center");
+}
 
 firstEye.addEventListener("click", (e) => {
   const use = document.querySelector("use");

@@ -14,6 +14,10 @@ emailRef.addEventListener("input", (e) => {
     resetPasswordBtn.classList.remove("disabled");
   }
 
+  if (emailRef.classList.contains("empty-field-border")) {
+    emailRef.classList.remove("empty-field-border");
+  }
+
   if (!notEmail.classList.contains("hidden")) {
     notEmail.classList.add("hidden");
   }
@@ -27,6 +31,7 @@ emailRef.addEventListener("input", (e) => {
 
 resetPasswordBtn.addEventListener("click", async (e) => {
   if (email == "") {
+    emailRef.classList.add("empty-field-border");
     notEmail.classList.remove("hidden");
     return;
   }
@@ -51,6 +56,7 @@ resetPasswordBtn.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
     wrongEmail.classList.remove("hidden");
+    emailRef.classList.add("empty-field-border");
     if (resetPasswordBtn.classList.contains("disabled")) {
       resetPasswordBtn.classList.remove("disabled");
     }

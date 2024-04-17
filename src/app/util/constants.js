@@ -3,6 +3,7 @@ export const baseUrl = "http://vms.exitest.com/";
 export const baseUrlLogin = baseUrl + "dist";
 
 export const apiUrl = "http://vms-api.exitest.com";
+export const apiUrlLocal = "https://localhost:7118";
 
 export const httpMethods = {
   GET: "GET",
