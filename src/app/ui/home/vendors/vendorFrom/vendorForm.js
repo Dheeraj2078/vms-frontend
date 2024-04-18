@@ -2,7 +2,7 @@ import { getVendorFormDropdown } from "../../../../service/vendorsApi";
 import { addVendor } from "../../../../service/vendorsApi";
 
 export function handleCross() {
-  const vendorFormOutput = document.getElementById("vendor-form-output");
+  const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
 
   const mainContainer = document.getElementById("main-container");

@@ -2,11 +2,9 @@ import { redirectUrl } from "../../../../util/constants.js";
 import { createAdmin } from "../../../../service/loginApi.js";
 import adminFormSuccessHtml from "./adminFormSuccess.html";
 import goToAdmin from "../admin.js";
-// import adminFormHtml from "./adminForm.html";
 
 export function handleCross() {
-  const vendorFormOutput = document.getElementById("vendor-form-output");
-  // vendorFormOutput.innerHTML = adminFormHtml;
+  const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
 
   const mainContainer = document.getElementById("main-container");
@@ -16,9 +14,7 @@ export function handleCross() {
 }
 
 export async function handleMultipleDropdown() {
-  console.log("hi");
   const allRoles = document.getElementById("admin-roles");
-  console.log("ALL", allRoles);
 
   const div = document.createElement("div");
   div.classList.add("vendor-type-dropdown-option");
@@ -170,8 +166,13 @@ export async function handleAddAdmin() {
     const res = await createAdmin(postAdminData);
     console.log("create admin", res);
 
+    firstName_ = "";
+    lastName_ = "";
+    email_ = "";
+    role_ = "";
+
     if (res.error == null) {
-      const vendorFormOutput = document.getElementById("vendor-form-output");
+      const vendorFormOutput = document.getElementById("form-output");
       vendorFormOutput.innerHTML = adminFormSuccessHtml;
       const successModelCloseCross = document.getElementsByClassName(
         "success-model-close"

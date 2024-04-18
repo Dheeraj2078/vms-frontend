@@ -1,15 +1,15 @@
-<div class="vendor-form-container">
-  <div class="vendor-form-header">
+<div class="form-container">
+  <div class="form-header">
     <div>Create Admin</div>
 
-    <svg id="vendor-form-cross">
+    <svg id="form-cross">
       <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
     </svg>
   </div>
   <div class="form-main">
-    <div class="vendor-form-heading"></div>
-    <div class="vendor-form-wrapper">
-      <div class="vendor-form-item">
+    <div class="form-heading"></div>
+    <div class="form-wrapper">
+      <div class="form-item">
         <label>First Name</label>
         <input
           type="text"
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="vendor-form-item">
+      <div class="form-item">
         <label>Last Name</label>
         <input
           type="text"
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div class="vendor-form-item">
+      <div class="form-item">
         <label>Email</label>
         <input
           type="text"
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <div class="vendor-form-item associated-category-wrapper">
+      <div class="form-item associated-category-wrapper">
         <label>Role</label>
         <div class="vendor-inner-wrapper">
           <input
@@ -57,6 +57,7 @@
             id="all-roles"
             value=""
             placeholder="Select a role"
+            class="default-cursor"
             readonly
           />
           <svg class="dropdown-icon">
@@ -70,8 +71,8 @@
       </div>
     </div>
 
-    <div class="vendor-form-buttons">
-      <button class="btn-light vendor-form-cancel">Cancel</button>
+    <div class="form-buttons">
+      <button class="btn-light form-cancel">Cancel</button>
       <button class="btn-sm" id="add-admin">Save</button>
     </div>
     <div class="email-exists error-message hidden">

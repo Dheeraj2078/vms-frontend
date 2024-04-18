@@ -11,19 +11,18 @@ export default function goToVendor() {
   const homeRoot = document.getElementById("home-root");
   homeRoot.innerHTML = vendorHtml;
 
-  const vendorFormOutput = document.getElementById("vendor-form-output");
+  const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.innerHTML = vendorFormHtml;
 
-  const addVendorsButton = document.getElementById("add-vendors-button");
+  const addVendorsButton = document.getElementById("add-button");
   addVendorsButton.addEventListener("click", (e) => {
     vendorFormOutput.classList.remove("hidden");
-    const vendorFormCross = document.getElementById("vendor-form-cross");
+    const vendorFormCross = document.getElementById("form-cross");
     vendorFormCross.addEventListener("click", (e) => {
       handleCross();
     });
 
-    const vendorFormCancel =
-      document.getElementsByClassName("vendor-form-cancel")[0];
+    const vendorFormCancel = document.getElementsByClassName("form-cancel")[0];
     vendorFormCancel.addEventListener("click", (e) => {
       handleCross();
     });

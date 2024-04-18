@@ -1,4 +1,5 @@
 import navBarHtml from "../common/navbar.html";
+import { localStorageKeys } from "./constants.js";
 
 function base64urlDecode(str) {
   str = str.replace(/-/g, "+").replace(/_/g, "/");
@@ -22,8 +23,14 @@ export function decodeJwt(token) {
   return { header, payload, signature };
 }
 
+export function getCurrentUserToken() {
+  const token = localStorage.getItem(localStorageKeys.token);
+  console.log("TOKEN", token);
+  return token;
+}
+
 export function validateToken() {
-  const token = localStorage.getItem("token");
+  const token = getCurrentUserToken();
   if (token == null) return false;
 
   const info = decodeJwt(token);
@@ -36,7 +43,7 @@ export function validateToken() {
 }
 
 export function getCurrentUserInfo() {
-  const token = localStorage.getItem("token");
+  const token = getCurrentUserToken();
   const info = decodeJwt(token);
   return info.payload;
 }

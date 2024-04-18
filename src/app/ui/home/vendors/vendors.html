@@ -1,47 +1,51 @@
 <main class="container">
-  <div class="vendor-statistics-container">
-    <div class="vendor-statistics-card">
-      <div class="vendor-statistics-card-left">
+  <!-- 1.heading -->
+  <div class="top-heading">Vendors</div>
+
+  <!-- 2. Stats -->
+  <div class="statistics-container">
+    <div class="statistics-card">
+      <div class="statistics-card-left">
         <div>Total Vendors</div>
         <div>40</div>
       </div>
       <img
-        class="vendor-statistics-card-right"
+        class="statistics-card-right"
         src="../../../../assets/images/totalVendors.png"
       />
     </div>
-    <div class="vendor-statistics-card">
-      <div class="vendor-statistics-card-left">
+    <div class="statistics-card">
+      <div class="statistics-card-left">
         <div>Active Vendors</div>
         <div>36</div>
       </div>
       <img
-        class="vendor-statistics-card-right"
+        class="statistics-card-right"
         src="../../../../assets/images/activeVendors.png"
       />
     </div>
 
-    <div class="vendor-statistics-card">
-      <div class="vendor-statistics-card-left">
+    <div class="statistics-card">
+      <div class="statistics-card-left">
         <div>Inactive Vendors</div>
         <div>04</div>
       </div>
       <img
-        class="vendor-statistics-card-right"
+        class="statistics-card-right"
         src="../../../../assets/images/inactiveVendors.png"
       />
     </div>
   </div>
 
-  <div class="vendor-heading">Vendors</div>
-  <div class="add-vendors-button-wrapper">
+  <!-- 3. Search + addbutton -->
+  <div class="add-search-wrapper">
     <div class="search-container">
       <svg class="search-icon">
         <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
       </svg>
       <input type="text" placeholder="Quick Search.." name="search" />
     </div>
-    <button id="add-vendors-button" class="btn-sm">
+    <button id="add-button" class="btn-sm">
       <svg class="plus-icon">
         <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
       </svg>
@@ -49,5 +53,6 @@
     </button>
   </div>
 
+  <!-- 4 Table -->
   <div class="vendor-table-container"></div>
 </main>

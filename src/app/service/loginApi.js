@@ -1,4 +1,4 @@
-import { makeRequest } from "../util/util.js";
+import { makeRequest, getCurrentUserToken } from "../util/util.js";
 import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
 
 const baseUrl = apiUrl;
@@ -103,15 +103,15 @@ export const updatePassword = async (userToken, loginData) => {
 };
 
 export const createAdmin = async (postAdminData) => {
+  const token = getCurrentUserToken();
   try {
     const body = postAdminData;
     const headers = {
       "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN1cGVyIGFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQGRldi5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsIm5iZiI6MTcxMzI0NDEyMCwiZXhwIjoxNzEzNTg5NzIwLCJpYXQiOjE3MTMyNDQxMjAsImlzcyI6IlRlc3RJc3N1ZXIiLCJhdWQiOiJUZXN0QXVkaWVuY2UifQ.iPCth3KVjNaujjGeEN8nWbazr3RoZ5Q766VtYukw66Q",
+      Authorization: `Bearer ${token}`,
     };
     const response = await makeRequest(
-      apiUrlLocal + `/user/create-user/`,
+      baseUrl + `/user/create-user/`,
       httpMethods.POST,
       headers,
       body
