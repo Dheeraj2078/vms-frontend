@@ -11,7 +11,7 @@ export const getAdmins = async () => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    apiUrl + "/user/get-users",
+    baseUrl + "/user/get-users",
     httpMethods.GET,
     headers
   );

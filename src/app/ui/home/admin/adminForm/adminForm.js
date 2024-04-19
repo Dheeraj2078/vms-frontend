@@ -124,6 +124,10 @@ export async function handleAddAdmin() {
   const emailError = document.getElementsByClassName("email-error")[0];
   const roleError = document.getElementsByClassName("role-error")[0];
 
+  firstName_ = firstName_.trim();
+  lastName_ = lastName_.trim();
+  email_ = email_.trim();
+
   let allValuesProvided = true;
   if (firstName_ == "") {
     allValuesProvided = false;

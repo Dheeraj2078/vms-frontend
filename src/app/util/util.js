@@ -25,7 +25,6 @@ export function decodeJwt(token) {
 
 export function getCurrentUserToken() {
   const token = localStorage.getItem(localStorageKeys.token);
-  console.log("TOKEN", token);
   return token;
 }
 

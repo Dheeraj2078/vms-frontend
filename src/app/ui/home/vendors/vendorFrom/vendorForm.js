@@ -1,5 +1,6 @@
 import { getVendorFormDropdown } from "../../../../service/vendorsApi";
 import { addVendor } from "../../../../service/vendorsApi";
+import goToVendor from "../vendors";
 
 export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
@@ -7,6 +8,8 @@ export function handleCross() {
 
   const mainContainer = document.getElementById("main-container");
   mainContainer.classList.remove("blur-background");
+
+  goToVendor();
 }
 
 let mapCategoryToId = {};

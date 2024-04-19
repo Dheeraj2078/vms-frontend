@@ -7,7 +7,7 @@
     <div class="statistics-card">
       <div class="statistics-card-left">
         <div>Total Vendors</div>
-        <div>40</div>
+        <div id="total-vendors"></div>
       </div>
       <img
         class="statistics-card-right"
@@ -17,7 +17,7 @@
     <div class="statistics-card">
       <div class="statistics-card-left">
         <div>Active Vendors</div>
-        <div>36</div>
+        <div id="active-vendors"></div>
       </div>
       <img
         class="statistics-card-right"
@@ -28,7 +28,7 @@
     <div class="statistics-card">
       <div class="statistics-card-left">
         <div>Inactive Vendors</div>
-        <div>04</div>
+        <div id="inactive-vendors"></div>
       </div>
       <img
         class="statistics-card-right"
@@ -43,7 +43,7 @@
       <svg class="search-icon">
         <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
       </svg>
-      <input type="text" placeholder="Quick Search.." name="search" />
+      <input type="text" placeholder="Search Vendors" name="search" />
     </div>
     <button id="add-button" class="btn-sm">
       <svg class="plus-icon">
@@ -54,5 +54,12 @@
   </div>
 
   <!-- 4 Table -->
-  <div class="vendor-table-container"></div>
+  <div class="vendor-table table-container"></div>
+  <div class="hidden active-vendor-icon">
+    <img src="../../../../assets/images/active.png" />
+  </div>
+
+  <div class="hidden inactive-vendor-icon">
+    <img src="../../../../assets/images/inactive.png" />
+  </div>
 </main>

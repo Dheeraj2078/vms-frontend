@@ -40,6 +40,7 @@ export default async function goToAdmin() {
 
     const mainContainer = document.getElementById("main-container");
     mainContainer.classList.add("blur-background");
+    document.body.style.overflow = "hidden";
   });
 
   const addVendorBtn = document.getElementById("add-admin");

@@ -15,7 +15,6 @@ export const noDataAdded = (main, addBtn) => {
   div.appendChild(addBtn);
 
   const mainDiv = document.createElement("div");
-
   const firstDiv = document.createElement("div");
 
   firstDiv.innerHTML = main;

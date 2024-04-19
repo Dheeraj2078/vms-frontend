@@ -1,5 +1,5 @@
 import { makeRequest, getCurrentUserToken } from "../util/util.js";
-import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
+import { httpMethods, apiUrlLocal, apiUrl } from "../util/constants.js";
 
 const baseUrl = apiUrl;
 

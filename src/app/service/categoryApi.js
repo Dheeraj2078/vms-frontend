@@ -1,7 +1,7 @@
 import { getCurrentUserToken, makeRequest } from "../util/util.js";
 import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
 
-const baseUrl = apiUrlLocal;
+const baseUrl = apiUrl;
 const token = getCurrentUserToken();
 
 export const getAllCategories = async () => {

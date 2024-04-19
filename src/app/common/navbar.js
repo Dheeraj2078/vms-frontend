@@ -2,6 +2,7 @@ import goToDashboard from "../ui/home/dashboard/dashboard.js";
 import goToVendor from "../ui/home/vendors/vendors.js";
 import goToAdmin from "../ui/home/admin/admin.js";
 import { getCurrentUserInfo, validateToken } from "../util/util.js";
+import { role } from "../util/constants.js";
 
 const defaultRoute = () => {
   const allRoutesLi = document.querySelectorAll("li");
@@ -26,13 +27,12 @@ const defaultRoute = () => {
   }
 
   const info = getCurrentUserInfo();
-  if (info.role == "admin") {
+  if (info.role == role.admin) {
     adminRoute.classList.add("hidden");
     dashboardRoute.classList.add("selected-route");
   } else {
     adminRoute.classList.add("selected-route");
   }
-  console.log(info);
 
   defaultRoute();
 })();

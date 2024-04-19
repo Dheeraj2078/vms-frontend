@@ -32,6 +32,12 @@
     gap: 16px;
   }
 
+  &-detail-wrapper {
+    font-size: 14px;
+    display: grid;
+    gap: 16px;
+  }
+
   &-item {
     display: flex;
     flex-direction: column;
@@ -51,6 +57,22 @@
     input:focus,
     select:focus {
       outline: none;
+    }
+  }
+
+  &-detail-item {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      width: 256px;
+    }
+
+    div:first-child {
+      color: $gray-500;
+    }
+    div:last-child {
+      color: $gray-800;
     }
   }
 

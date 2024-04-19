@@ -1,4 +1,14 @@
 .navbar {
+  &-logo {
+    position: absolute;
+
+    top: 0;
+    width: 90px;
+    padding: 10px;
+    // top: 50%;
+    // // right: 50%;
+    // transform: translate(-50%, -50%);
+  }
   &-wrapper {
     background-color: $orange;
     position: fixed;
