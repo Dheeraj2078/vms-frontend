@@ -17,3 +17,33 @@ export const getAllCategories = async () => {
 
   return response;
 };
+
+export const postCategory = async (categoryData) => {
+  const body = categoryData;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    baseUrl + "/category/create-category",
+    httpMethods.POST,
+    headers,
+    body
+  );
+
+  return response;
+};
+
+export const deleteCategoryById = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/category/delete/${id}`,
+    httpMethods.DELETE,
+    headers
+  );
+
+  return response;
+};

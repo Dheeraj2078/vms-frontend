@@ -1,6 +1,6 @@
 import { redirectUrl } from "../../../../util/constants.js";
 import { createAdmin } from "../../../../service/loginApi.js";
-import adminFormSuccessHtml from "./adminFormSuccess.html";
+import { successModal } from "../../../../common/components/successModal.js";
 import goToAdmin from "../admin.js";
 
 export function handleCross() {
@@ -176,16 +176,7 @@ export async function handleAddAdmin() {
     role_ = "";
 
     if (res.error == null) {
-      const vendorFormOutput = document.getElementById("form-output");
-      vendorFormOutput.innerHTML = adminFormSuccessHtml;
-      const successModelCloseCross = document.getElementsByClassName(
-        "success-model-close"
-      )[0];
-      const successModelCloseOk = document.getElementsByClassName(
-        "success-model-close"
-      )[1];
-      successModelCloseCross.addEventListener("click", handleCross);
-      successModelCloseOk.addEventListener("click", handleCross);
+      successModal("Admin Added", handleCross);
     }
   } catch (error) {
     console.log(error);

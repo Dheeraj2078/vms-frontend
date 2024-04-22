@@ -388,6 +388,11 @@ body {
   justify-content: center;
 }
 
+#confirmation-message {
+  font-size: 15px;
+  text-align: center;
+}
+
 .container {
   padding: 3.2rem 3.2rem;
 }
@@ -509,4 +514,8 @@ body {
 }
 .notFoundWrapper .no-text {
   font-size: 14px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }/*# sourceMappingURL=main.css.map */

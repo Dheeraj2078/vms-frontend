@@ -12,6 +12,7 @@ import {
 } from "../../../service/vendorsApi.js";
 import { vendorDetails } from "./vendorDetails/vendorDetails.js";
 import { noDataAdded } from "../../../common/components/emptyData.js";
+import { goToRoute } from "../../../common/components/goToRoute.js";
 
 const getAllVendorsUtil = async () => {
   try {
@@ -23,35 +24,7 @@ const getAllVendorsUtil = async () => {
 };
 
 export default async function goToVendor() {
-  console.log("vendor again");
-  const vendorRoute = document.getElementById("vendorRoute");
-  const homeRoot = document.getElementById("home-root");
-  homeRoot.innerHTML = vendorHtml;
-
-  const vendorFormOutput = document.getElementById("form-output");
-  vendorFormOutput.innerHTML = vendorFormHtml;
-
-  const addVendorsButton = document.getElementById("add-button");
-  addVendorsButton.addEventListener("click", (e) => {
-    vendorFormOutput.classList.remove("hidden");
-    const vendorFormCross = document.getElementById("form-cross");
-    vendorFormCross.addEventListener("click", (e) => {
-      handleCross();
-    });
-
-    const vendorFormCancel = document.getElementsByClassName("form-cancel")[0];
-    vendorFormCancel.addEventListener("click", (e) => {
-      handleCross();
-    });
-
-    const mainContainer = document.getElementById("main-container");
-    mainContainer.classList.add("blur-background");
-    document.body.style.overflow = "hidden";
-  });
-
-  const addVendorBtn = document.getElementById("add-vendor");
-  addVendorBtn.addEventListener("click", handleAddVendor);
-
+  goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
   handleMultipleDropdown();
   createVendorTable();
 
@@ -209,7 +182,7 @@ const createVendorTable = async () => {
     row.appendChild(div);
     showModalOnClick(div, value);
 
-    let active = "/dist/46c701c4a4d073147798.png";
+    let active = "/46c701c4a4d073147798.png"; // TEMP
     const activeImage = document.createElement("div");
     activeImage.innerHTML = `<img class="height-20" src=${active} />`;
 
@@ -217,7 +190,7 @@ const createVendorTable = async () => {
     div.addEventListener("click", toggleStatus);
     div.id = value.id;
 
-    active = "/dist/70905ed154027b87c042.png";
+    active = "/70905ed154027b87c042.png"; // TEMP
     if (!value.status) {
       activeImage.innerHTML = `<img class="height-20" src=${active} />`;
     }

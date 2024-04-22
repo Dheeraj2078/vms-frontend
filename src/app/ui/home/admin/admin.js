@@ -8,6 +8,7 @@ import {
 import { getAdmins } from "../../../service/admins";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
+import { goToRoute } from "../../../common/components/goToRoute";
 
 const getAdminsData = async () => {
   try {
@@ -19,32 +20,7 @@ const getAdminsData = async () => {
 };
 
 export default async function goToAdmin() {
-  const homeRoot = document.getElementById("home-root");
-  homeRoot.innerHTML = adminHtml;
-
-  const createAdminFormOutput = document.getElementById("form-output");
-  createAdminFormOutput.innerHTML = adminFormHtml;
-
-  const addVendorsButton = document.getElementById("add-button");
-  addVendorsButton.addEventListener("click", (e) => {
-    createAdminFormOutput.classList.remove("hidden");
-    const vendorFormCross = document.getElementById("form-cross");
-    vendorFormCross.addEventListener("click", (e) => {
-      handleCross();
-    });
-
-    const vendorFormCancel = document.getElementsByClassName("form-cancel")[0];
-    vendorFormCancel.addEventListener("click", (e) => {
-      handleCross();
-    });
-
-    const mainContainer = document.getElementById("main-container");
-    mainContainer.classList.add("blur-background");
-    document.body.style.overflow = "hidden";
-  });
-
-  const addVendorBtn = document.getElementById("add-admin");
-  addVendorBtn.addEventListener("click", handleAddAdmin);
+  goToRoute(adminHtml, adminFormHtml, handleCross, handleAddAdmin);
 
   handleMultipleDropdown();
   createAdminTable();
@@ -66,7 +42,7 @@ const createAdminTable = async () => {
     "Last Name",
     "Email",
     "Role",
-    "Status",
+    "Invite Status",
   ]);
 
   adminTable.appendChild(table);
@@ -99,14 +75,13 @@ const createAdminTable = async () => {
     row.appendChild(div);
 
     div = document.createElement("td");
-    // div.innerHTML = admin.status;
     const innerdiv = document.createElement("div");
     innerdiv.classList.add("status");
     if (admin.status) {
-      innerdiv.innerHTML = "Active";
+      innerdiv.innerHTML = "Accepted";
       innerdiv.classList.add("active");
     } else {
-      innerdiv.innerHTML = "In active";
+      innerdiv.innerHTML = "Pending";
       innerdiv.classList.add("inactive");
     }
     div.appendChild(innerdiv);
