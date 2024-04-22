@@ -57,22 +57,25 @@ loginBtn.addEventListener("click", async (e) => {
   const loginData = {
     email,
     password,
+    rememberMe: rememberMeCheckbox.checked,
   };
 
-  if (email == "" && password == "") {
+  console.log(loginData)
+
+  if (email === "" && password === "") {
     emailRef.classList.add("empty-field-border");
     passwordRef.classList.add("empty-field-border");
     notEmailPassword.classList.remove("hidden");
     return;
   }
 
-  if (email == "") {
+  if (email === "") {
     emailRef.classList.add("empty-field-border");
     notEmail.classList.remove("hidden");
     return;
   }
 
-  if (password == "") {
+  if (password === "") {
     passwordRef.classList.add("empty-field-border");
     notPassword.classList.remove("hidden");
     return;
@@ -96,9 +99,10 @@ loginBtn.addEventListener("click", async (e) => {
         const rememberMeCheckbox =
           document.getElementById("rememberMeCheckbox");
 
-        if (rememberMeCheckbox.checked) {
-          localStorage.setItem(localStorageKeys.rememberMe, token);
-        }
+        // if (rememberMeCheckbox.checked) {
+        //   localStorage.setItem(localStorageKeys.rememberMe, token);
+        //   rememberMe = true; ///////////////////////////here//////////////////////////
+        // }
 
         sessionStorage.setItem(localStorageKeys.token, token);
         window.location.href = `./home.html`;

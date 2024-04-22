@@ -3,6 +3,7 @@ import authHtml from "./auth.html";
 import { localStorageKeys } from "../../util/constants.js";
 const root = document.getElementById("root");
 
+
 const fetchAuth = () => {
   root.innerHTML = authHtml;
   import("./auth.js")
@@ -15,8 +16,9 @@ const fetchAuth = () => {
 };
 
 (function initLogin() {
-  const rememberMe = localStorage.getItem(localStorageKeys.rememberMe);
-  if (rememberMe == null) {
+  const token = localStorage.getItem(localStorageKeys.token);
+  // const rememberMe = localStorage.getItem(localStorageKeys.rememberMe);
+  if (token === null) {
     fetchAuth();
     return;
   }
