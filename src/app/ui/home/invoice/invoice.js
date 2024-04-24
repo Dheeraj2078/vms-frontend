@@ -1,39 +1,35 @@
-import adminHtml from "../admin/admin.html";
-import adminFormHtml from "../../home/admin/adminForm/adminForm.html";
-import {
-  handleCross,
-  handleMultipleDropdown,
-  handleAddAdmin,
-} from "./AdminForm/AdminForm";
-import { getAdmins } from "../../../service/admins";
-import { createTableHeader } from "../../../common/components/table";
-import { noDataAdded } from "../../../common/components/emptyData";
+import invoiceHtml from "../invoice/invoice.html";
+import invoiceFormHtml from "../../home/invoice/invoiceForm/invoiceForm.html";
+import { handleCross, handleAddInvoice } from "./invoiceForm/invoiceForm";
+// import { getAdmins } from "../../../service/admins";
+// import { createTableHeader } from "../../../common/components/table";
+// import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
 
-const getAdminsData = async () => {
-  try {
-    const res = await getAdmins();
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// const getAdminsData = async () => {
+//   try {
+//     const res = await getAdmins();
+//     return res.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
-export default async function goToAdmin() {
-  goToRoute(adminHtml, adminFormHtml, handleCross, handleAddAdmin);
+export default async function goToInvoice() {
+  goToRoute(invoiceHtml, invoiceFormHtml, handleCross, handleAddInvoice);
 
-  handleMultipleDropdown();
+  //   handleMultipleDropdown();
 
-  const allAdmins = await getAdminsData();
-  if (allAdmins.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Admins", addBtn);
-    const homeRoot = document.getElementById("home-root");
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createAdminTable();
-  }
+  //   const allAdmins = await getAdminsData();
+  //   if (allAdmins.length == 0) {
+  //     const addBtn = document.getElementById("add-button");
+  //     const div = noDataAdded("Admins", addBtn);
+  //     const homeRoot = document.getElementById("home-root");
+  //     homeRoot.innerHTML = "";
+  //     homeRoot.appendChild(div);
+  //   } else {
+  // createAdminTable();
+  //   }
 }
 
 const createAdminTable = async () => {

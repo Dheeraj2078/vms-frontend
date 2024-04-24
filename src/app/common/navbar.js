@@ -2,8 +2,10 @@ import goToDashboard from "../ui/home/dashboard/dashboard.js";
 import goToVendor from "../ui/home/vendors/vendors.js";
 import goToAdmin from "../ui/home/admin/admin.js";
 import goToCategory from "../ui/home/categories/categories.js";
+import goToInvoice from "../ui/home/invoice/invoice.js";
 import { getCurrentUserInfo, validateToken } from "../util/util.js";
 import { role } from "../util/constants.js";
+import goToContract from "../ui/home/contract/contract.js";
 
 const defaultRoute = () => {
   const allRoutesLi = document.querySelectorAll("li");
@@ -21,6 +23,10 @@ const defaultRoute = () => {
         goToAdmin();
       } else if (Id == "categoryRoute") {
         goToCategory();
+      } else if (Id == "invoiceRoute") {
+        goToInvoice();
+      } else if (Id == "contractRoute") {
+        goToContract();
       }
     }
   });
@@ -94,4 +100,20 @@ categoryRoute.addEventListener("click", (e) => {
   }
   changeRoute("categoryRoute");
   goToCategory();
+});
+
+invoiceRoute.addEventListener("click", (e) => {
+  if (isBackgroundDisabled()) {
+    return;
+  }
+  changeRoute("invoiceRoute");
+  goToInvoice();
+});
+
+contractRoute.addEventListener("click", (e) => {
+  if (isBackgroundDisabled()) {
+    return;
+  }
+  changeRoute("contractRoute");
+  goToContract();
 });

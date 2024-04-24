@@ -9,6 +9,7 @@ export function handleCross() {
 
   const mainContainer = document.getElementById("main-container");
   mainContainer.classList.remove("blur-background");
+  document.body.classList.remove("overflow-hidden");
 
   goToAdmin();
 }
@@ -35,7 +36,9 @@ export async function handleMultipleDropdown() {
   allRoles.appendChild(div);
 
   const adminRoles = document.getElementById("admin-roles");
-  const dropdown = document.getElementsByClassName("dropdown-icon")[0];
+  const dropdown = document.getElementsByClassName(
+    "associated-category-wrapper"
+  )[0];
   dropdown.addEventListener("click", (e) => {
     if (adminRoles.classList.contains("hidden")) {
       adminRoles.classList.remove("hidden");
@@ -64,6 +67,15 @@ let emailError = document.getElementsByClassName("email-error")[0];
 let roleError = document.getElementsByClassName("role-error")[0];
 
 function removeBorder(column, error) {
+  const cancelBtn = document.getElementsByClassName("btn-light")[0];
+  const saveBtn = document.getElementsByClassName("btn-sm")[0];
+  if (saveBtn.classList.contains("disabled")) {
+    saveBtn.classList.remove("disabled");
+  }
+  if (cancelBtn.classList.contains("disabled-light")) {
+    cancelBtn.classList.remove("disabled-light");
+  }
+
   if (!error.classList.contains("hidden")) {
     error.classList.add("hidden");
   }
@@ -124,6 +136,13 @@ export async function handleAddAdmin() {
   const emailError = document.getElementsByClassName("email-error")[0];
   const roleError = document.getElementsByClassName("role-error")[0];
 
+  const cancelBtn = document.getElementsByClassName("btn-light")[0];
+  const saveBtn = document.getElementsByClassName("btn-sm")[0];
+
+  if (saveBtn.classList.contains("disabled")) {
+    return;
+  }
+
   firstName_ = firstName_.trim();
   lastName_ = lastName_.trim();
   email_ = email_.trim();
@@ -165,7 +184,8 @@ export async function handleAddAdmin() {
   };
 
   console.log(postAdminData);
-
+  saveBtn.classList.add("disabled");
+  cancelBtn.classList.add("disabled-light");
   try {
     const res = await createAdmin(postAdminData);
     console.log("create admin", res);
@@ -182,5 +202,11 @@ export async function handleAddAdmin() {
     console.log(error);
     const emailExists = document.getElementsByClassName("email-exists")[0];
     emailExists.classList.remove("hidden");
+    if (saveBtn.classList.contains("disabled")) {
+      saveBtn.classList.remove("disabled");
+    }
+    if (cancelBtn.classList.contains("disabled-light")) {
+      cancelBtn.classList.remove("disabled-light");
+    }
   }
 }

@@ -25,6 +25,8 @@ const getVendorInfo = async (vendorId) => {
 };
 
 export const vendorDetails = async (e) => {
+  console.log("SSSSSSSSSSSSSS");
+
   const id = e.currentTarget.id;
   console.log("ID", id);
   const vendorInfo = await getVendorInfo(id);

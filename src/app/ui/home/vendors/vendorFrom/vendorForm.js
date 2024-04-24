@@ -2,6 +2,7 @@ import { getVendorFormDropdown } from "../../../../service/vendorsApi";
 import { addVendor } from "../../../../service/vendorsApi";
 import { successModal } from "../../../../common/components/successModal";
 import goToVendor from "../vendors";
+import { updateVendor } from "../../../../service/vendorsApi";
 
 export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
@@ -48,7 +49,9 @@ export async function handleMultipleDropdown() {
       mapCategoryToId[category.name] = category.id;
     });
 
-    const allCategory = document.getElementsByClassName("dropdown-icon")[1];
+    const allCategory = document.getElementsByClassName(
+      "dropdown-icon-wrapper"
+    )[1];
     allCategory.addEventListener("click", (e) => {
       if (associatedCategorySelector.classList.contains("hidden")) {
         associatedCategorySelector.classList.remove("hidden");
@@ -78,8 +81,9 @@ export async function handleMultipleDropdown() {
       mapVendorTypeToId[vendorType.name] = vendorType.id;
     });
 
-    const allVendorTypeDropdown =
-      document.getElementsByClassName("dropdown-icon")[0];
+    const allVendorTypeDropdown = document.getElementsByClassName(
+      "dropdown-icon-wrapper"
+    )[0];
     allVendorTypeDropdown.addEventListener("click", (e) => {
       if (associatedVendorType.classList.contains("hidden")) {
         associatedVendorType.classList.remove("hidden");
@@ -120,7 +124,7 @@ function removeBorder(column) {
   }
 }
 
-export async function handleDataChange() {
+export async function handleDataChange(caller) {
   organizationName = document.getElementById("vendor-organization-name");
   relationshipDuration = document.getElementById("relationship-duration");
   contactPerson = document.getElementById("contact-person");
@@ -133,6 +137,14 @@ export async function handleDataChange() {
   allVendorTypes = document.getElementById("all-vendor-types");
 
   const categoryDropdownOptionArr = [...categoryDropdownOption];
+  const catArr = allCategory.value.split(";");
+
+  categoryDropdownOptionArr.map((category) => {
+    if (catArr.includes(category.value)) {
+      category.setAttribute("checked", true);
+      categories_.add(category.value);
+    }
+  });
 
   categoryDropdownOptionArr.map((category) => {
     category.addEventListener("change", (e) => {
@@ -159,6 +171,20 @@ export async function handleDataChange() {
   });
 
   const vendorTypeDropdownOptionArr = [...vendorTypeDropdownOption];
+  vendorType_ = allVendorTypes.value;
+
+  let key_ = "";
+  for (const key in mapVendorTypeToId) {
+    if (key == vendorType_) {
+      key_ = key;
+    }
+  }
+
+  vendorTypeDropdownOptionArr.map((vendorType) => {
+    if (vendorType.value == key_) {
+      vendorType.setAttribute("checked", true);
+    }
+  });
 
   vendorTypeDropdownOptionArr.map((vendorType) => {
     vendorType.addEventListener("change", (e) => {
@@ -180,33 +206,44 @@ export async function handleDataChange() {
     });
   });
 
+  organizationName_ = organizationName.value;
   organizationName.addEventListener("input", (e) => {
     removeBorder(organizationName);
     organizationName_ = e.target.value;
   });
+
+  relationshipDuration_ = relationshipDuration.value;
   relationshipDuration.addEventListener("input", (e) => {
     removeBorder(relationshipDuration);
     relationshipDuration_ = e.target.value;
   });
+
+  contactPerson_ = contactPerson.value;
   contactPerson.addEventListener("input", (e) => {
     removeBorder(contactPerson);
     contactPerson_ = e.target.value;
   });
+
+  contactEmail_ = contactEmail.value;
   contactEmail.addEventListener("input", (e) => {
     removeBorder(contactEmail);
     contactEmail_ = e.target.value;
   });
+
+  contactPhoneNumber_ = contactPhoneNumber.value;
   contactPhoneNumber.addEventListener("input", (e) => {
     removeBorder(contactPhoneNumber);
     contactPhoneNumber_ = e.target.value;
   });
+
+  vendorAddress_ = vendorAddress.value;
   vendorAddress.addEventListener("input", (e) => {
     removeBorder(vendorAddress);
     vendorAddress_ = e.target.value;
   });
 }
 
-export async function handleAddVendor() {
+const dataAndCheck = () => {
   const categoriesIds = [];
   categories_.forEach((c) => {
     categoriesIds.push(mapCategoryToId[c]);
@@ -269,6 +306,15 @@ export async function handleAddVendor() {
 
   if (allValuesProvided == false) {
     console.log("all fields are mandatory");
+    return null;
+  }
+  return postData;
+};
+
+export async function handleAddVendor() {
+  const postData = dataAndCheck();
+
+  if (postData == null) {
     return;
   }
 
@@ -278,6 +324,25 @@ export async function handleAddVendor() {
 
     if (res.error == null) {
       successModal("Vendor Added", handleCross);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function handleUpdateVendor(id) {
+  const postData = dataAndCheck();
+
+  if (postData == null) {
+    return;
+  }
+
+  try {
+    const res = await updateVendor(id, postData);
+    console.log(res);
+
+    if (res.error == null) {
+      successModal("Vendor Updated", handleCross);
     }
   } catch (error) {
     console.log(error);

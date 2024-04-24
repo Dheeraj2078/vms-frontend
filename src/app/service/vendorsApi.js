@@ -20,6 +20,22 @@ export const addVendor = async (vendorData) => {
   return response;
 };
 
+export const updateVendor = async (id, vendorData) => {
+  const body = vendorData;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/vendor/update-vendor/${id}`,
+    httpMethods.PATCH,
+    headers,
+    body
+  );
+
+  return response;
+};
+
 export const getVendorFormDropdown = async () => {
   const headers = {
     "Content-Type": "application/json",

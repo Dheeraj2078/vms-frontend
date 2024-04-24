@@ -2,7 +2,13 @@ import { changeBackgroundOnModal } from "./goToRoute";
 import confirmationModalHtml from "./confirmationModal.html";
 import { successModal } from "./successModal";
 
-export const confirmationModal = (message, action, handleCross, showError) => {
+export const confirmationModal = (
+  message,
+  action,
+  handleCross,
+  showError,
+  successModalMessage = "Category Deleted"
+) => {
   changeBackgroundOnModal();
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.innerHTML = confirmationModalHtml;
@@ -19,11 +25,12 @@ export const confirmationModal = (message, action, handleCross, showError) => {
       const res = await action();
       console.log("res", res);
       if (res.error == null) {
-        successModal("Category Deleted", handleCross);
+        successModal(successModalMessage, handleCross);
       }
     } catch (error) {
       showError();
-      console.log("This category is already the part of some vendor");
+
+      console.log(error);
     }
   });
   no.addEventListener("click", (e) => {

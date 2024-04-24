@@ -13,6 +13,8 @@ import {
 import { vendorDetails } from "./vendorDetails/vendorDetails.js";
 import { noDataAdded } from "../../../common/components/emptyData.js";
 import { goToRoute } from "../../../common/components/goToRoute.js";
+import { confirmationModal } from "../../../common/components/confirmationModal.js";
+import { updateVendorModal } from "./vendorFrom/vendorUpdateForm.js";
 
 const getAllVendorsUtil = async () => {
   try {
@@ -26,31 +28,53 @@ const getAllVendorsUtil = async () => {
 export default async function goToVendor() {
   goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
   handleMultipleDropdown();
-  createVendorTable();
 
   const allVendors = await getAllVendorsUtil();
   if (allVendors == null || allVendors.length == 0) {
     const addBtn = document.getElementById("add-button");
     const div = noDataAdded("Vendors", addBtn);
-    console.log("div", div);
-    console.log("homeRoot", homeRoot);
+    const homeRoot = document.getElementById("home-root");
     homeRoot.innerHTML = "";
     homeRoot.appendChild(div);
+  } else {
+    createVendorTable();
   }
 }
 
-const toggleStatus = async (e) => {
-  const id = e.currentTarget.id;
+const toggleStatus = async (id) => {
+  console.log("toggle", id);
 
   try {
     const res = await toggleVendorStatus(id);
-    console.log("toogle", res);
+    console.log("toogle 2", res);
+    return res;
   } catch (error) {
     console.log(error);
   }
 
   // goToVendor();
   createVendorTable();
+};
+
+const handleToggleStatue = (e) => {
+  const id = e.currentTarget.id;
+  const question = "Are you sure you want to change the status ?";
+
+  const showError = () => {
+    // const errorMessage = document.getElementsByClassName("error-message")[0];
+    // errorMessage.classList.remove("hidden");
+  };
+
+  const successModalMessage = "Status Updated";
+
+  const reply = confirmationModal(
+    question,
+    () => toggleStatus(id),
+    handleCross,
+    showError,
+    successModalMessage
+  );
+  console.log("reply", reply);
 };
 
 const showModalOnClick = (column, value) => {
@@ -61,11 +85,11 @@ const showModalOnClick = (column, value) => {
 let vendorIdToCategoriesId = new Map();
 let vendorIdToVendorDetail = new Map();
 let categoryIdToCategoryDetail = new Map();
-const getMoreRows = (vId, table, lastOrgDiv) => {
-  let cIds = vendorIdToCategoriesId.get(vId);
-  let currentVendorDetails = vendorIdToVendorDetail.get(vId);
+const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
+  let cIdsArr = vendorDetail.item2;
+  let currentVendorDetails = vendorDetail.item1;
 
-  cIds.shift();
+  const cIds = cIdsArr.slice(1);
   cIds.map((cId) => {
     lastOrgDiv.classList.add("border-bottom-none");
     const row = document.createElement("tr");
@@ -82,8 +106,7 @@ const getMoreRows = (vId, table, lastOrgDiv) => {
     row.appendChild(div);
 
     div = document.createElement("td");
-    const categoryInfo = categoryIdToCategoryDetail.get(cId);
-    div.innerHTML = categoryInfo.name;
+    div.innerHTML = cId;
     row.appendChild(div);
 
     div = document.createElement("td");
@@ -121,104 +144,92 @@ const createVendorTable = async () => {
     "Action",
   ]);
 
-  const vendors = await getAllVendorsUtil();
+  const vendorsDetails = await getAllVendorsUtil();
 
-  vendorIdToCategoriesId = new Map();
-  vendorIdToVendorDetail = new Map();
-  categoryIdToCategoryDetail = new Map();
-  vendors.map((vendor) => {
-    const vId = vendor.vendorId;
-    const cId = vendor.categoryId;
-
-    if (!vendorIdToCategoriesId.has(vId)) {
-      const arr = [];
-      arr.push(cId);
-      vendorIdToCategoriesId.set(vId, arr);
-    } else {
-      const last = vendorIdToCategoriesId.get(vId);
-      last.push(cId);
-      vendorIdToCategoriesId.set(vId, last);
-    }
-
-    vendorIdToVendorDetail.set(vId, vendor.vendor);
-    categoryIdToCategoryDetail.set(cId, vendor.category);
-  });
-
-  for (let [key, value] of vendorIdToVendorDetail) {
+  for (let vendorDetail of vendorsDetails) {
+    console.log("++++", vendorDetail);
+    //vendor = vendorDetail.item1;
+    //categories = vendorDetail.item2;
     const row = document.createElement("tr");
     // row.addEventListener("click", vendorDetails);
     // row.id = value.id;
-
     let OrgDiv = document.createElement("td");
-    OrgDiv.innerHTML = value.organizationName;
+    OrgDiv.innerHTML = vendorDetail.item1.organizationName;
     row.appendChild(OrgDiv);
-    showModalOnClick(OrgDiv, value);
+    showModalOnClick(OrgDiv, vendorDetail.item1);
 
     let div = document.createElement("td");
-    div.innerHTML = value.vendorType.name;
+    div.innerHTML = vendorDetail.item1.vendorType.name;
     row.appendChild(div);
-    showModalOnClick(div, value);
+    showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
-    const categoryInfo = categoryIdToCategoryDetail.get(
-      vendorIdToCategoriesId.get(key)[0]
-    );
-    div.innerHTML = categoryInfo.name;
+    const categoryInfo = vendorDetail.item2[0];
+    div.innerHTML = categoryInfo;
     row.appendChild(div);
-    showModalOnClick(div, value);
+    showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
-    div.innerHTML = value.contactPersonName;
+    div.innerHTML = vendorDetail.item1.contactPersonName;
     row.appendChild(div);
-    showModalOnClick(div, value);
+    showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
-    div.innerHTML = value.contactPersonNumber;
+    div.innerHTML = vendorDetail.item1.contactPersonNumber;
     row.appendChild(div);
-    showModalOnClick(div, value);
+    showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
-    div.innerHTML = value.relationshipDuration;
+    div.innerHTML = vendorDetail.item1.relationshipDuration;
     row.appendChild(div);
-    showModalOnClick(div, value);
+    showModalOnClick(div, vendorDetail.item1);
 
-    let active = "/46c701c4a4d073147798.png"; // TEMP
-    const activeImage = document.createElement("div");
-    activeImage.innerHTML = `<img class="height-20" src=${active} />`;
+    // action
+    let active = "/fc364e677a0ec292045d.png"; // TEMP
+    const statusToggle = document.createElement("div");
+    statusToggle.addEventListener("click", handleToggleStatue);
+    statusToggle.id = vendorDetail.item1.id;
+    statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
 
-    div = document.createElement("td");
-    div.addEventListener("click", toggleStatus);
-    div.id = value.id;
-
-    active = "/70905ed154027b87c042.png"; // TEMP
-    if (!value.status) {
-      activeImage.innerHTML = `<img class="height-20" src=${active} />`;
+    active = "/f98d92a34b2133068786.png"; // TEMP
+    if (!vendorDetail.item1.status) {
+      statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
     }
 
-    div.appendChild(activeImage);
+    const editIcon = document.createElement("div");
+    editIcon.innerHTML = `<img class="height-20" src="/9a16a6f5e2a3c69ec1a9.png" />`;
+    console.log("dddd", vendorDetail);
+    editIcon.addEventListener("click", () => updateVendorModal(vendorDetail));
+
+    div = document.createElement("td");
+    div.classList.add("vendor-actions");
+    div.appendChild(editIcon);
+    div.appendChild(statusToggle);
+
     row.appendChild(div);
     table.appendChild(row);
 
-    const moreRows = getMoreRows(key, table, OrgDiv);
+    getMoreRows(table, OrgDiv, vendorDetail);
   }
 
   vendorTable.appendChild(table);
 
-  populateVendorStatus();
+  populateVendorStatus(vendorsDetails);
 };
 
-const populateVendorStatus = () => {
+const populateVendorStatus = (vendorsDetailsArr) => {
+  console.log("arr", vendorsDetailsArr);
   let activeVendorsCount = 0,
     inActiveVectorsCount = 0;
-  for (let [key, value] of vendorIdToVendorDetail) {
-    if (value.status == true) {
+  for (let vendorDetail of vendorsDetailsArr) {
+    if (vendorDetail.item1.status == true) {
       activeVendorsCount += 1;
     } else {
       inActiveVectorsCount += 1;
     }
   }
 
-  let totalVendorsCount = vendorIdToVendorDetail.size;
+  let totalVendorsCount = vendorsDetailsArr.length;
 
   const totalVendors = document.getElementById("total-vendors");
   totalVendors.innerHTML = totalVendorsCount;

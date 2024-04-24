@@ -1,12 +1,12 @@
 <main class="container">
   <!-- 1.heading -->
-  <div class="top-heading">Vendors</div>
+  <div class="top-heading">Invoice</div>
 
   <!-- 2. Stats -->
   <div class="statistics-container">
     <div class="statistics-card">
       <div class="statistics-card-left">
-        <div>Total Vendors</div>
+        <div>Total Invoices</div>
         <div id="total-vendors"></div>
       </div>
       <img
@@ -16,7 +16,7 @@
     </div>
     <div class="statistics-card">
       <div class="statistics-card-left">
-        <div>Active Vendors</div>
+        <div>Paid Invoices</div>
         <div id="active-vendors"></div>
       </div>
       <img
@@ -27,7 +27,7 @@
 
     <div class="statistics-card">
       <div class="statistics-card-left">
-        <div>Inactive Vendors</div>
+        <div>Pending Invoices</div>
         <div id="inactive-vendors"></div>
       </div>
       <img
@@ -43,13 +43,13 @@
       <svg class="search-icon">
         <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
       </svg>
-      <input type="text" placeholder="Search Vendors" name="search" />
+      <input type="text" placeholder="Search Invoice" name="search" />
     </div>
     <button id="add-button" class="btn-sm">
       <svg class="plus-icon">
         <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
       </svg>
-      <div>Add New Vendor</div>
+      <div>New Invoice</div>
     </button>
   </div>
 
@@ -61,8 +61,5 @@
 
   <div class="hidden inactive-vendor-icon">
     <img src="../../../../assets/images/inactive.png" />
-  </div>
-  <div class="hidden inactive-vendor-icon">
-    <img src="../../../../assets/images/edit.png" />
   </div>
 </main>

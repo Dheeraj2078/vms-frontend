@@ -104,6 +104,12 @@ body {
   cursor: not-allowed;
 }
 
+.disabled-light {
+  border: 1px solid #fb9d91;
+  color: #fb9d91;
+  cursor: not-allowed;
+}
+
 .auth-container {
   display: flex;
 }

@@ -88,7 +88,7 @@
 #form-output {
   background: $white;
   box-shadow: 0px 0px 8px 0px #00000026;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -181,6 +181,12 @@
   }
 }
 
+.dropdown-icon-wrapper {
+  input {
+    cursor: default;
+  }
+}
+
 // ADMIN
 .email-exists {
   text-align: center;
@@ -196,4 +202,9 @@
 #confirmation-message {
   font-size: 15px;
   text-align: center;
+}
+
+.vendor-actions {
+  display: flex;
+  gap: 15px;
 }

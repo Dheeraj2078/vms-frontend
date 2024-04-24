@@ -57,6 +57,7 @@ loginBtn.addEventListener("click", async (e) => {
   const loginData = {
     email,
     password,
+    rememberMe: rememberMeCheckbox.checked,
   };
 
   if (email == "" && password == "") {
@@ -93,12 +94,12 @@ loginBtn.addEventListener("click", async (e) => {
         localStorage.setItem(localStorageKeys.role, tokenInfo.payload.role);
         localStorage.setItem(localStorageKeys.email, tokenInfo.payload.email);
 
-        const rememberMeCheckbox =
-          document.getElementById("rememberMeCheckbox");
+        // const rememberMeCheckbox =
+        //   document.getElementById("rememberMeCheckbox");
 
-        if (rememberMeCheckbox.checked) {
-          localStorage.setItem(localStorageKeys.rememberMe, token);
-        }
+        // if (rememberMeCheckbox.checked) {
+        //   localStorage.setItem(localStorageKeys.rememberMe, token);
+        // }
 
         sessionStorage.setItem(localStorageKeys.token, token);
         window.location.href = `./home.html`;

@@ -27,20 +27,21 @@ const getCategoriesData = async () => {
 export default async function goToCategory() {
   goToRoute(categoriesHtml, categoriesFormHtml, handleCross, handleAddCategory);
   handleDataChange();
-  createCategoryTable();
 
   const allAdmins = await getCategoriesData();
   console.log("all cats", allAdmins);
   if (allAdmins.length == 0) {
     const addBtn = document.getElementById("add-button");
     const div = noDataAdded("Category", addBtn);
+    const homeRoot = document.getElementById("home-root");
     homeRoot.innerHTML = "";
     homeRoot.appendChild(div);
+  } else {
+    createCategoryTable();
   }
 }
 
 async function deleteCategory(id) {
-  console.log("IIT", id);
   try {
     const res = await deleteCategoryById(id);
     console.log(res);
@@ -72,7 +73,7 @@ const createCategoryTable = async () => {
   const categoriesTable =
     document.getElementsByClassName("categories-table")[0];
 
-  const table = createTableHeader(["Name", "Description", "Action"]);
+  const table = createTableHeader(["ID", "Name", "Description", "Action"]);
 
   categoriesTable.appendChild(table);
 
@@ -81,6 +82,10 @@ const createCategoryTable = async () => {
     const row = document.createElement("tr");
 
     let div = document.createElement("td");
+    div.innerHTML = category.id;
+    row.appendChild(div);
+
+    div = document.createElement("td");
     div.innerHTML = category.name;
     row.appendChild(div);
 

@@ -1,6 +1,6 @@
 <div class="form-container">
   <div class="form-header">
-    <div>Add Vendor</div>
+    <div id="add-vendor-heading">Add Vendor</div>
     <svg id="form-cross">
       <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
     </svg>
@@ -21,7 +21,7 @@
 
       <div class="form-item associated-category-wrapper">
         <label>Vendor Type</label>
-        <div class="vendor-inner-wrapper">
+        <div class="vendor-inner-wrapper dropdown-icon-wrapper">
           <input
             type="text"
             name=""
@@ -42,13 +42,13 @@
       <div class="form-item associated-category-wrapper">
         <label>Associated Category</label>
 
-        <div class="category-inner-wrapper">
+        <div class="category-inner-wrapper dropdown-icon-wrapper">
           <input
             type="text"
             name=""
             id="all-category"
             value=""
-            placeholder="Select categories"
+            placeholder="Select Categories"
             readonly
           />
           <svg class="dropdown-icon">
