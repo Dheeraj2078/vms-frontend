@@ -6,18 +6,30 @@ import {
   handleMultipleDropdown,
 } from "./contractForm/contractForm";
 // import { getAdmins } from "../../../service/admins";
-// import { createTableHeader } from "../../../common/components/table";
-// import { noDataAdded } from "../../../common/components/emptyData";
+import { createTableHeader } from "../../../common/components/table";
+import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
+import {
+  downloadContract,
+  getAllContracts,
+} from "../../../service/contractsApi";
 
-// const getAdminsData = async () => {
-//   try {
-//     const res = await getAdmins();
-//     return res.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const getContractData = async () => {
+  try {
+    const res = await getAllContracts(0, 10);
+    if (res.data.pagenationData.length == 0) {
+      const next = await getAllContracts(1, 10);
+      if (next.data.pagenationData.length == 0) {
+        return res.data;
+      } else {
+        return next.data;
+      }
+    }
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default async function goToContract() {
   goToRoute(contractHtml, contractFormHtml, handleCross, handleAddContract);
@@ -25,66 +37,109 @@ export default async function goToContract() {
   console.log("handle Multiple dropdown....");
   handleMultipleDropdown();
 
-  //   const allAdmins = await getAdminsData();
-  //   if (allAdmins.length == 0) {
-  //     const addBtn = document.getElementById("add-button");
-  //     const div = noDataAdded("Admins", addBtn);
-  //     const homeRoot = document.getElementById("home-root");
-  //     homeRoot.innerHTML = "";
-  //     homeRoot.appendChild(div);
-  //   } else {
-  // createAdminTable();
-  //   }
+  const allContracts = await getContractData();
+  console.log("AA", allContracts);
+  if (allContracts == null || allContracts.pagenationData.length == 0) {
+    const addBtn = document.getElementById("add-button");
+    const div = noDataAdded("Contracts", addBtn);
+    const homeRoot = document.getElementById("home-root");
+    homeRoot.innerHTML = "";
+    homeRoot.appendChild(div);
+  } else {
+    createContractTable();
+  }
 }
 
-const createAdminTable = async () => {
-  const adminTable = document.getElementsByClassName("admin-table")[0];
+const handleContractDownload = async (fileName) => {
+  console.log("downloading... ", fileName);
+
+  try {
+    const binaryData = await downloadContract(fileName);
+
+    const blobUrl = window.URL.createObjectURL(binaryData);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = blobUrl;
+    a.download = fileName;
+
+    document.body.appendChild(a);
+    a.click();
+
+    window.URL.revokeObjectURL(blobUrl);
+    document.body.removeChild(a);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createContractTable = async () => {
+  const contactTable = document.getElementsByClassName("contract-table")[0];
 
   const table = createTableHeader([
-    "First Name",
-    "Last Name",
+    "Vendor Name",
+    "Person Name",
+    "Category",
     "Email",
-    "Role",
-    "Invite Status",
+    "Amount",
+    "Start Date",
+    "End Date",
+    "Payment Mode",
+    "Status",
+    "Contract Document",
   ]);
 
-  adminTable.appendChild(table);
+  contactTable.appendChild(table);
 
-  const admins = await getAdminsData();
+  const contractsData = await getContractData();
+  const contracts = contractsData.pagenationData;
+  console.log(",,,", contracts);
 
-  admins.map((admin) => {
+  contracts.map((contract) => {
     const row = document.createElement("tr");
 
-    const firstName = admin.userName.split("$")[0];
-    const lastName = admin.userName.split("$")[1];
-
     let div = document.createElement("td");
-    div.innerHTML = firstName;
+    div.innerHTML = contract.organizationName;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = lastName;
+    div.innerHTML = contract.contactPersonName;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = admin.email;
+    div.innerHTML = contract.categoryName;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = admin.role;
+    div.innerHTML = contract.contactPersonEmail;
     row.appendChild(div);
 
     div = document.createElement("td");
-    const innerdiv = document.createElement("div");
-    innerdiv.classList.add("status");
-    if (admin.status) {
-      innerdiv.innerHTML = "Accepted";
-      innerdiv.classList.add("active");
-    } else {
-      innerdiv.innerHTML = "Pending";
-      innerdiv.classList.add("inactive");
-    }
-    div.appendChild(innerdiv);
+    div.innerHTML = contract.amount;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = contract.startDate;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = contract.endDate;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = contract.paymentMode;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = contract.status;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.addEventListener("click", () =>
+      handleContractDownload(contract.fileName)
+    );
+
+    const imageUrl = "/dist/68688e7f23a16971620c.png"; // TEMP
+    div.innerHTML = `<img class="height-20" src=${imageUrl} />`;
     row.appendChild(div);
 
     table.appendChild(row);

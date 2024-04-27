@@ -316,7 +316,7 @@ export async function handleAddVendor() {
 
   try {
     const res = await addVendor(postData);
-    console.log(res);
+    console.log("RESSSS", res);
 
     if (res.error == null) {
       successModal("Vendor Added", handleCross);

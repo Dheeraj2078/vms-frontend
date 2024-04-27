@@ -82,9 +82,6 @@ const showModalOnClick = (column, value) => {
   column.id = value.id;
 };
 
-let vendorIdToCategoriesId = new Map();
-let vendorIdToVendorDetail = new Map();
-let categoryIdToCategoryDetail = new Map();
 const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
   let cIdsArr = vendorDetail.item2;
   let currentVendorDetails = vendorDetail.item1;

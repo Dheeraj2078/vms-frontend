@@ -4,6 +4,7 @@ import {
   getContractCategory,
   getContractFormData,
 } from "../../../../service/contractsApi";
+import { successModal } from "../../../../common/components/successModal";
 
 export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
@@ -18,6 +19,7 @@ export function handleCross() {
 
 const mapOrgNameToOrgId = {};
 const orgCatMap = {};
+const statusToStatusIdMap = {};
 export async function handleMultipleDropdown() {
   const vendorOrganizationDropdown =
     document.getElementById("dropdown-options");
@@ -105,6 +107,7 @@ export async function handleMultipleDropdown() {
       div.appendChild(label);
 
       statusDropdown.appendChild(div);
+      statusToStatusIdMap[status.name] = status.id;
     });
   } catch (error) {
     console.log(error);
@@ -117,7 +120,7 @@ let contactPersonName_ = "";
 let allCategory_ = "";
 let contactPersonEmail_ = "";
 let amount_ = "";
-let contactPhoneNumber_ = "";
+let contactPhoneNumber_ = ""; // payment mode
 let startDate_ = "";
 let endDate_ = "";
 let status_ = "";
@@ -207,6 +210,11 @@ export async function handleDataChange() {
           const categoriesForOrg = response.data;
           console.log("categoriesForOrg", categoriesForOrg);
 
+          const associatedCategory = document.getElementById(
+            "associated-category"
+          );
+          associatedCategory.innerHTML = "";
+
           categoriesForOrg.map((catObj) => {
             const div = document.createElement("div");
             div.classList.add("vendor-type-dropdown-option");
@@ -225,13 +233,8 @@ export async function handleDataChange() {
             div.appendChild(input);
             div.appendChild(label);
 
-            const associatedCategory = document.getElementById(
-              "associated-category"
-            );
-            associatedCategory.innerHTML = "";
             associatedCategory.appendChild(div);
-            // mapOrgNameToOrgId[organizationObject.organizationName] =
-            //   organizationObject.id;
+            orgCatMap[catObj.categoryName] = catObj.mappingId;
           });
         } catch (error) {
           console.log(error);
@@ -331,37 +334,19 @@ export async function handleDataChange() {
 }
 
 const dataAndCheck = () => {
-  const postData = {
-    // organizationName: organizationName_,
-    contactPersonName: contactPersonName_,
-    vendorCategoryId: 1,
-    // allCategory: allCategory_,
-    contactPersonEmail: contactPersonEmail_,
-    amount: amount_,
-    contactPhoneNumber: contactPhoneNumber_,
-    startDate: startDate_,
-    endDate: endDate_,
-    status: status_,
-    file: contactDocument_,
-  };
+  const userFile = document.getElementById("contact-document").files[0];
+  console.log(userFile);
 
   const formData = new FormData();
-  console.log("-------------------------------------------");
-  console.log(contactDocument_);
-  console.log(contactPersonName_);
-
-  console.log("----->", contactDocument[0]);
-  formData.append("vendorCategoryId", 1);
+  formData.append("vendorCategoryId", orgCatMap[allCategory_]);
   formData.append("contactPersonName", contactPersonName_);
   formData.append("contactPersonEmail", contactPersonEmail_);
   formData.append("amount", amount_);
   formData.append("startDate", startDate_);
   formData.append("endDate", endDate_);
-  formData.append("paymentMode", "paymentMode.value");
-  formData.append("status", status_);
-  formData.append("file", contactDocument_[0]);
-
-  console.log(formData.get("vendorCategoryId"));
+  formData.append("paymentMode", contactPhoneNumber_);
+  formData.append("status", statusToStatusIdMap[status_]);
+  formData.append("file", userFile);
 
   let allValuesProvided = true;
   if (organizationName_ == "") {
@@ -413,10 +398,10 @@ const dataAndCheck = () => {
     contactDocument.classList.add("empty-field-border");
   }
 
-  // if (allValuesProvided == false) {
-  //   console.log("all fields are mandatory");
-  //   return null;
-  // }
+  if (allValuesProvided == false) {
+    console.log("all fields are mandatory");
+    return null;
+  }
   return formData;
 };
 
@@ -425,59 +410,17 @@ export async function handleAddContract() {
   console.log("temp", temp);
   const formData = dataAndCheck();
 
-  // if (postData == null) {
-  //   return;
-  // }
+  if (formData == null) {
+    return;
+  }
 
-  console.log(formData);
-
-  // try {
-  //   const res = await addContract(formData);
-  //   console.log(res);
-  //   if (res.error == null) {
-  //     successModal("Vendor Added", handleCross);
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
-
-  fun();
+  try {
+    const res = await addContract(formData);
+    console.log("data 2", res);
+    // if (res.error == null) {
+    //   successModal("Contract Added", handleCross);
+    // }
+  } catch (error) {
+    console.log(error);
+  }
 }
-
-const fun = async () => {
-  const form = document.getElementsByClassName("form-container")[0];
-  console.log("FORM", form);
-  form.addEventListener(
-    "submit",
-    async function (event) {
-      event.preventDefault();
-
-      const userFile = document.getElementById("contact-document").files[0];
-      console.log(userFile);
-
-      const formData = new FormData();
-      formData.append("vendorCategoryId", 1);
-      formData.append("contactPersonName", contactPersonName_);
-      formData.append("contactPersonEmail", contactPersonEmail_);
-      formData.append("amount", amount_);
-      formData.append("startDate", startDate_);
-      formData.append("endDate", endDate_);
-      formData.append("paymentMode", "paymentMode.value");
-      formData.append("status", status_);
-      formData.append("file", userFile);
-
-      console.log("f", userFile);
-      console.log(formData);
-      try {
-        const res = await addContract(formData);
-        console.log(res);
-        if (res.error == null) {
-          successModal("Vendor Added", handleCross);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    false
-  );
-};
