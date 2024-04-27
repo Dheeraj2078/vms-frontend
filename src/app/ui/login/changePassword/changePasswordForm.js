@@ -113,6 +113,7 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
     if (updatedPassword.data == true) {
       loginForm.innerHTML = changePasswordSuccessHtml;
+      localStorage.clear();
       import("./changePasswordSuccess.js")
         .then((module) => {
           console.log("changePasswordSuccess imported");

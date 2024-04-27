@@ -147,12 +147,7 @@ const createVendorTable = async () => {
   const vendorsDetails = await getAllVendorsUtil();
 
   for (let vendorDetail of vendorsDetails) {
-    console.log("++++", vendorDetail);
-    //vendor = vendorDetail.item1;
-    //categories = vendorDetail.item2;
     const row = document.createElement("tr");
-    // row.addEventListener("click", vendorDetails);
-    // row.id = value.id;
     let OrgDiv = document.createElement("td");
     OrgDiv.innerHTML = vendorDetail.item1.organizationName;
     row.appendChild(OrgDiv);

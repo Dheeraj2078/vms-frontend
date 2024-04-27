@@ -130,6 +130,11 @@ body {
   padding-top: 2rem;
 }
 
+.navbar-logout {
+  position: absolute;
+  bottom: 20px;
+  padding: 10px;
+}
 .navbar-logo {
   position: absolute;
   top: 20px;
@@ -182,6 +187,18 @@ body {
 .success-modal-cross {
   display: flex;
   justify-content: end;
+}
+
+.btn-logout {
+  border: 1px solid #f96c59;
+  padding: 0.8rem 1.6rem;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  transition: all 0.1s ease;
+  cursor: pointer;
+  background: #f96c59;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1490196078);
 }
 
 #home-root {
@@ -308,7 +325,7 @@ body {
 }
 
 #associated-category,
-#associated-vendor-type,
+#dropdown-options,
 #admin-roles {
   position: absolute;
   top: 60px;

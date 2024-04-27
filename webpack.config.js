@@ -13,15 +13,15 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-  devServer: {
-    allowedHosts: "all",
-    static: {
-      directory: path.resolve(__dirname, "./src/app/ui"), // Serve files from the 'dist' directory
-    },
-    port: 4000, // Specify a port number
-    hot: false,
-    liveReload: true,
-  },
+  // devServer: {
+  //   allowedHosts: "all",
+  //   static: {
+  //     directory: path.resolve(__dirname, "./src/app/ui"), // Serve files from the 'dist' directory
+  //   },
+  //   port: 4000, // Specify a port number
+  //   hot: false,
+  //   liveReload: true,
+  // },
   module: {
     rules: [
       {

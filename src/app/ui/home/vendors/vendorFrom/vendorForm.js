@@ -22,9 +22,7 @@ export async function handleMultipleDropdown() {
     "associated-category"
   );
 
-  const associatedVendorType = document.getElementById(
-    "associated-vendor-type"
-  );
+  const associatedVendorType = document.getElementById("dropdown-options");
 
   try {
     const categoriesAndVendorType = await getVendorFormDropdown();
@@ -199,9 +197,7 @@ export async function handleDataChange(caller) {
         allVendorTypes.value = vendorType_;
       }
 
-      const associatedVendorType = document.getElementById(
-        "associated-vendor-type"
-      );
+      const associatedVendorType = document.getElementById("dropdown-options");
       associatedVendorType.classList.add("hidden");
     });
   });

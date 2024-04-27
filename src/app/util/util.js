@@ -61,11 +61,14 @@ export async function makeRequest(
       body: body ? JSON.stringify(body) : null,
     });
 
+    const res = await response.json();
+    console.log("R", res);
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    return await response.json();
+    return res;
   } catch (error) {
     console.error("Error:", error);
     throw error;

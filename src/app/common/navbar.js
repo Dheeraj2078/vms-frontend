@@ -6,6 +6,10 @@ import goToInvoice from "../ui/home/invoice/invoice.js";
 import { getCurrentUserInfo, validateToken } from "../util/util.js";
 import { role } from "../util/constants.js";
 import goToContract from "../ui/home/contract/contract.js";
+import {
+  confirmationModal,
+  confirmationModalWithoutApi,
+} from "./components/confirmationModal.js";
 
 const defaultRoute = () => {
   const allRoutesLi = document.querySelectorAll("li");
@@ -116,4 +120,27 @@ contractRoute.addEventListener("click", (e) => {
   }
   changeRoute("contractRoute");
   goToContract();
+});
+
+const logoutBtn = document.getElementById("logout-btn");
+console.log("LOG", logoutBtn);
+logoutBtn.addEventListener("click", (e) => {
+  const logOutAction = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
+  // const message = "Are you sure you want to sign out from this admin tool?";
+
+  // const res = JSON.parse(localStorage.getItem("current_route"));
+  // console.log(res);
+
+  // var compressedFunc = localStorage.getItem("compressedFunc");
+
+  // // Convert the String back to a function
+  // var myFunc = eval("(" + compressedFunc + ")");
+  // console.log("FF", myFunc);
+
+  // confirmationModalWithoutApi(message, logOutAction, myFunc);
+  logOutAction();
 });

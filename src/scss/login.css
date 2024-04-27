@@ -112,6 +112,7 @@ body {
 
 .auth-container {
   display: flex;
+  height: 100vh;
 }
 .auth-left {
   padding-top: 3rem;

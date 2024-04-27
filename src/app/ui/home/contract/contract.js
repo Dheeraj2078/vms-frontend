@@ -1,6 +1,10 @@
 import contractHtml from "../contract/contract.html";
 import contractFormHtml from "../../home/contract/contractForm/contractForm.html";
-import { handleCross, handleAddContract } from "./contractForm/contractForm";
+import {
+  handleCross,
+  handleAddContract,
+  handleMultipleDropdown,
+} from "./contractForm/contractForm";
 // import { getAdmins } from "../../../service/admins";
 // import { createTableHeader } from "../../../common/components/table";
 // import { noDataAdded } from "../../../common/components/emptyData";
@@ -18,7 +22,8 @@ import { goToRoute } from "../../../common/components/goToRoute";
 export default async function goToContract() {
   goToRoute(contractHtml, contractFormHtml, handleCross, handleAddContract);
 
-  //   handleMultipleDropdown();
+  console.log("handle Multiple dropdown....");
+  handleMultipleDropdown();
 
   //   const allAdmins = await getAdminsData();
   //   if (allAdmins.length == 0) {

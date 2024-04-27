@@ -37,3 +37,24 @@ export const confirmationModal = (
     handleCross();
   });
 };
+
+export const confirmationModalWithoutApi = (message, action, handleCross) => {
+  console.log("fn", handleCross);
+
+  const vendorFormOutput = document.getElementById("form-output");
+  vendorFormOutput.innerHTML = confirmationModalHtml;
+  vendorFormOutput.classList.remove("hidden");
+
+  const confirmationMessage = document.getElementById("confirmation-message");
+  confirmationMessage.innerHTML = message;
+
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+
+  yes.addEventListener("click", async (e) => {
+    action();
+  });
+  no.addEventListener("click", handleCross());
+
+  changeBackgroundOnModal();
+};
