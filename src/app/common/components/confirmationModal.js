@@ -7,7 +7,7 @@ export const confirmationModal = (message, action, handleCross, showError) => {
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.innerHTML = confirmationModalHtml;
   vendorFormOutput.classList.remove("hidden");
-
+  
   const confirmationMessage = document.getElementById("confirmation-message");
   confirmationMessage.innerHTML = message;
 

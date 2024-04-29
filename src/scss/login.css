@@ -104,60 +104,114 @@ body {
   cursor: not-allowed;
 }
 
-.auth-container {
-  display: flex;
+main {
+  background-color: #ffe5e1;
 }
-.auth-left {
+main .auth-container {
+  display: flex;
+  gap: 130px;
+  height: 100vh;
+}
+main .auth-left {
   padding-top: 3rem;
   padding-left: 3rem;
   background-color: #ffe5e1;
   flex: 1;
   margin-right: -4rem;
 }
-.auth-left .welcome-message {
+main .auth-left-innerBox {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+}
+main .auth-left .welcome-message {
   font-size: 2.4rem;
   font-weight: 400;
   line-height: 3.269rem;
-  margin-top: 12rem;
-  margin-bottom: 4rem;
 }
-.auth-left .welcome-message .bold {
+@media only screen and (min-width: 1280px) {
+  main .auth-left .welcome-message {
+    display: flex;
+    flex-direction: column;
+    gap: 126px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  main .auth-left .welcome-message {
+    display: flex;
+    flex-direction: column;
+    gap: 245px;
+    font-size: 3.4rem;
+    font-weight: 400;
+    line-height: 5.269rem;
+  }
+}
+main .auth-left .welcome-message .bold {
   font-weight: bold;
 }
-.auth-left .logo-image {
+main .auth-left .logo-image {
   width: 14.3rem;
 }
-.auth-left .vendor-image {
-  width: 41.2rem;
+@media only screen and (min-width: 1280px) {
+  main .auth-left .vendor-image {
+    width: 26.1rem;
+    height: 24rem;
+    aspect-ratio: 4/2;
+  }
 }
-.auth-right {
+@media only screen and (min-width: 1440px) {
+  main .auth-left .vendor-image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4/2;
+  }
+}
+main .auth-right {
   background-color: #fff;
-  padding: 11rem;
-  flex: 1;
+  padding: 140px 0;
   border-radius: 5rem 0 0 5rem;
   box-shadow: 0 0 2rem 0 rgba(248, 92, 71, 0.5019607843);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.auth-right .login-heading {
+@media only screen and (min-width: 1280px) {
+  main .auth-right {
+    width: 745px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  main .auth-right {
+    width: 849px;
+  }
+}
+main .auth-right .login-form {
+  width: 446px;
+}
+main .auth-right .login-heading {
   font-size: 3.2rem;
   font-weight: 600;
   color: #3b3a38;
   margin-bottom: 0.5rem;
 }
-.auth-right .login-description {
+main .auth-right .login-description {
   font-size: 1.6rem;
   font-weight: 400;
   color: #3b3a38;
   margin-bottom: 3.2rem;
 }
-.auth-right .fieldWrapper {
+main .auth-right .fieldWrapper {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
 }
-.auth-right .fieldWrapper .passwordEyeWrapper {
+main .auth-right .fieldWrapper .passwordEyeWrapper {
   position: relative;
 }
-.auth-right .fieldWrapper .passwordEyeWrapper .closedEyeImage {
+main .auth-right .fieldWrapper .passwordEyeWrapper .closedEyeImage {
   position: absolute;
   top: 50%;
   right: 0;
@@ -166,50 +220,43 @@ body {
   height: 1.7rem;
   cursor: pointer;
 }
-.auth-right .hidden {
+main .auth-right .hidden {
   display: none;
 }
-.auth-right .not-email-password,
-.auth-right .not-password,
-.auth-right .not-email,
-.auth-right .wrong-email,
-.auth-right .wrong-email-or-password,
-.auth-right .weak-password,
-.auth-right .repeated-password {
+main .auth-right .authencity {
   color: #ff0000;
   font-size: 1.4rem;
   padding-top: 1.4rem;
 }
-.auth-right .login-bottom {
+main .auth-right .login-bottom {
   display: flex;
   justify-content: space-between;
   font-size: 1.4rem;
   margin-top: 3.2rem;
   margin-bottom: 5.6rem;
   color: #716d69;
+  width: 446px;
 }
-.auth-right .login-bottom .remember-me-container {
+main .auth-right .login-bottom .remember-me-container {
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.auth-right .login-bottom #forgotPassword {
+main .auth-right .login-bottom #forgotPassword {
   cursor: pointer;
 }
-.auth-right-center {
+main .auth-right-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.empty-field-border {
+main .empty-field-border {
   border: 2px solid red !important;
 }
-
-input[type=email],
-input[type=password],
-input[type=text] {
+main input[type=email],
+main input[type=password],
+main input[type=text] {
   background-color: #f6f5f5;
   padding: 1.2rem;
   border: 1px solid #d2d0cf;
@@ -218,51 +265,46 @@ input[type=text] {
   font-size: 1.6rem;
   border-radius: 0.4rem;
 }
-
-.label {
+main .label {
   font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
 }
-
-.empty-password,
-.not-same-password {
+main .empty-password,
+main .not-same-password {
   font-size: 1.4rem;
   color: #ff0000;
   padding-bottom: 1.2rem;
 }
-
-.password-success-wrapper {
+main .password-success-wrapper {
   display: flex;
   align-items: center;
   flex-direction: column;
   font-size: 1.4rem;
 }
-
-.tick-image {
+main .tick-image {
   width: 6rem;
 }
-
-.reset-password-bottom {
+main .reset-password-bottom {
   display: flex;
   flex-direction: column;
   gap: 3rem;
 }
-
-::-moz-placeholder {
+main ::-moz-placeholder {
   color: #d2d0cf;
 }
-
-::placeholder {
+main ::placeholder {
   color: #d2d0cf;
 }
-
-.reset-password-exprire {
+main .reset-password-exprire {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 20px;
   cursor: default;
+}
+main .login-button {
+  width: 446px;
 }
 
 .margin-bottom-md {
