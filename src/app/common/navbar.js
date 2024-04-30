@@ -10,6 +10,7 @@ import {
   confirmationModal,
   confirmationModalWithoutApi,
 } from "./components/confirmationModal.js";
+import navBarHtml from "./components/../../common/navbar.html";
 
 const defaultRoute = () => {
   const allRoutesLi = document.querySelectorAll("li");
@@ -41,7 +42,12 @@ const defaultRoute = () => {
     window.location.href = "/";
   }
 
-  console.log("car", categoryRoute);
+  const nav = document.createElement("aside");
+  nav.classList.add("navbar-wrapper");
+  nav.innerHTML = navBarHtml;
+  const firstChild = document.getElementById("home-root");
+  firstChild.appendChild(nav);
+
   const info = getCurrentUserInfo();
   if (info.role == role.admin) {
     adminRoute.classList.add("hidden");
@@ -67,7 +73,7 @@ const changeRoute = (newRoute) => {
 };
 
 const isBackgroundDisabled = () => {
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   if (mainContainer.classList.contains("blur-background")) {
     return true;
   }

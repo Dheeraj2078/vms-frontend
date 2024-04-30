@@ -27,7 +27,7 @@ const token = getCurrentUserToken();
 // };
 
 export const addContract = async (formData) => {
-  await fetch("https://localhost:7118/contracts/add-contract", {
+  await fetch(baseUrl + "/contracts/add-contract", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ export const downloadContract = async (fileName) => {
     Authorization: `Bearer ${token}`,
   };
   const response = await fetch(
-    `https://localhost:7118/contracts/download?fileName=${fileName}`,
+    baseUrl + `/contracts/download?fileName=${fileName}`,
     {
       method: httpMethods.GET,
       headers: headers,
@@ -125,5 +125,19 @@ export const addContracts = async (postContractData) => {
     body
   );
 
+  return response;
+};
+
+export const searchContract = async (filter, lastId, pageSize) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    baseUrl +
+      `/contracts/search?filter=${filter}&lastId=${lastId}&pageSize=${pageSize}`,
+    httpMethods.GET,
+    headers
+  );
   return response;
 };

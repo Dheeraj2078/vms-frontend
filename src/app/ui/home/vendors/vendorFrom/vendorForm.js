@@ -5,11 +5,14 @@ import goToVendor from "../vendors";
 import { updateVendor } from "../../../../service/vendorsApi";
 
 export function handleCross() {
+  console.log(document.body.classList);
+  console.log("triggered");
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
 
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
+  console.log(document.body.classList);
   document.body.classList.remove("overflow-hidden");
 
   goToVendor();
@@ -120,6 +123,7 @@ function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
     column.classList.remove("empty-field-border");
   }
+  // column = column.trim();
 }
 
 export async function handleDataChange(caller) {
@@ -136,6 +140,7 @@ export async function handleDataChange(caller) {
 
   const categoryDropdownOptionArr = [...categoryDropdownOption];
   const catArr = allCategory.value.split(";");
+  console.log("1. categoryDropdownOptionArr", categoryDropdownOptionArr);
 
   categoryDropdownOptionArr.map((category) => {
     if (catArr.includes(category.value)) {
@@ -260,11 +265,21 @@ const dataAndCheck = () => {
 
   console.log(postData);
 
+  organizationName_ = organizationName_.trim();
+  relationshipDuration_ = relationshipDuration_.trim();
+  contactEmail_ = contactEmail_.trim();
+  contactPhoneNumber_ = contactPhoneNumber_.trim();
+  vendorAddress_ = vendorAddress_.trim();
+  contactPerson_ = contactPerson_.trim();
+  vendorType_ = vendorType_.trim();
+
+  console.log(postData);
   let allValuesProvided = true;
   if (organizationName_ == "") {
     allValuesProvided = false;
     organizationName.classList.add("empty-field-border");
   }
+
   if (relationshipDuration_ == "") {
     allValuesProvided = false;
     relationshipDuration.classList.add("empty-field-border");

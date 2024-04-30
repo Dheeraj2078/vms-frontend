@@ -30,3 +30,9 @@
 .height-20 {
   height: 20px;
 }
+
+.category-diabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}

@@ -6,7 +6,7 @@ export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
 
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
   document.body.classList.remove("overflow-hidden");
 

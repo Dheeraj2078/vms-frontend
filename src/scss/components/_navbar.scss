@@ -73,8 +73,13 @@
 }
 
 .success-modal-cross {
+  cursor: pointer;
   display: flex;
   justify-content: end;
+}
+
+.success-model-close {
+  cursor: pointer;
 }
 
 .btn-logout {

@@ -43,7 +43,12 @@
       <svg class="search-icon">
         <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
       </svg>
-      <input type="text" placeholder="Search Invoice" name="search" />
+      <input
+        id="internal-search"
+        type="text"
+        placeholder="Search Invoice"
+        name="search"
+      />
     </div>
     <button id="add-button" class="btn-sm">
       <svg class="plus-icon">
@@ -54,7 +59,7 @@
   </div>
 
   <!-- 4 Table -->
-  <div class="vendor-table table-container"></div>
+  <div class="invoice-table table-container"></div>
   <div class="hidden active-vendor-icon">
     <img src="../../../../assets/images/active.png" />
   </div>

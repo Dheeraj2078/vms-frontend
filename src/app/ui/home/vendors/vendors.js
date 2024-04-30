@@ -15,6 +15,7 @@ import { noDataAdded } from "../../../common/components/emptyData.js";
 import { goToRoute } from "../../../common/components/goToRoute.js";
 import { confirmationModal } from "../../../common/components/confirmationModal.js";
 import { updateVendorModal } from "./vendorFrom/vendorUpdateForm.js";
+import { searchVendors } from "../../../service/searchApi.js";
 
 const getAllVendorsUtil = async () => {
   try {
@@ -27,17 +28,21 @@ const getAllVendorsUtil = async () => {
 
 export default async function goToVendor() {
   goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
+
+  const search = document.getElementById("internal-search");
+  search.addEventListener("input", handleSearch);
+
   handleMultipleDropdown();
 
   const allVendors = await getAllVendorsUtil();
   if (allVendors == null || allVendors.length == 0) {
     const addBtn = document.getElementById("add-button");
     const div = noDataAdded("Vendors", addBtn);
-    const homeRoot = document.getElementById("home-root");
+    const homeRoot = document.getElementsByClassName("container")[0];
     homeRoot.innerHTML = "";
     homeRoot.appendChild(div);
   } else {
-    createVendorTable();
+    createVendorTable(allVendors);
   }
 }
 
@@ -53,7 +58,7 @@ const toggleStatus = async (id) => {
   }
 
   // goToVendor();
-  createVendorTable();
+  // createVendorTable(res);
 };
 
 const handleToggleStatue = (e) => {
@@ -127,7 +132,34 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
   });
 };
 
-const createVendorTable = async () => {
+const handleSearch = async (e) => {
+  const value = e.target.value;
+  if (value.length === 0) {
+    const allContracts = await getAllVendorsUtil();
+    if (allContracts == null || allContracts.length == 0) {
+      const contactTable = document.getElementsByClassName("vendor-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = allContracts;
+      createVendorTable(contracts);
+    }
+  }
+  if (value.length >= 2) {
+    const contractsData = await searchVendors(value);
+
+    if (contractsData.data == null || contractsData.data.length == 0) {
+      // showEmptyPage();
+      const contactTable = document.getElementsByClassName("vendor-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = contractsData.data;
+      console.log(contracts);
+      createVendorTable(contracts);
+    }
+  }
+};
+
+const createVendorTable = async (vendorsDetails) => {
   const vendorTable = document.getElementsByClassName("vendor-table")[0];
   vendorTable.innerHTML = "";
 
@@ -141,7 +173,7 @@ const createVendorTable = async () => {
     "Action",
   ]);
 
-  const vendorsDetails = await getAllVendorsUtil();
+  // const vendorsDetails = await getAllVendorsUtil();
 
   for (let vendorDetail of vendorsDetails) {
     const row = document.createElement("tr");

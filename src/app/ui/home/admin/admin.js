@@ -9,6 +9,7 @@ import { getAdmins } from "../../../service/admins";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
+import { searchUser } from "../../../service/searchApi";
 
 const getAdminsData = async () => {
   try {
@@ -22,22 +23,54 @@ const getAdminsData = async () => {
 export default async function goToAdmin() {
   goToRoute(adminHtml, adminFormHtml, handleCross, handleAddAdmin);
 
+  const search = document.getElementById("internal-search");
+  search.addEventListener("input", handleSearch);
+
   handleMultipleDropdown();
 
   const allAdmins = await getAdminsData();
   if (allAdmins.length == 0) {
     const addBtn = document.getElementById("add-button");
     const div = noDataAdded("Admins", addBtn);
-    const homeRoot = document.getElementById("home-root");
+    const homeRoot = document.getElementsByClassName("container")[0];
     homeRoot.innerHTML = "";
     homeRoot.appendChild(div);
   } else {
-    createAdminTable();
+    createAdminTable(allAdmins);
   }
 }
 
-const createAdminTable = async () => {
+const handleSearch = async (e) => {
+  const value = e.target.value;
+  if (value.length === 0) {
+    const allContracts = await getAdminsData();
+    if (allContracts == null || allContracts.length == 0) {
+      const contactTable = document.getElementsByClassName("admin-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = allContracts;
+      createAdminTable(contracts);
+    }
+  }
+  if (value.length >= 2) {
+    const searchResult = await searchUser(value);
+
+    if (searchResult.data == null || searchResult.data.length == 0) {
+      // showEmptyPage();
+      const contactTable = document.getElementsByClassName("admin-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = searchResult.data;
+      console.log(contracts);
+      createAdminTable(contracts);
+    }
+  }
+};
+
+const createAdminTable = async (admins) => {
+  console.log("ADMINS", admins);
   const adminTable = document.getElementsByClassName("admin-table")[0];
+  adminTable.innerHTML = "";
 
   const table = createTableHeader([
     "First Name",
@@ -49,7 +82,7 @@ const createAdminTable = async () => {
 
   adminTable.appendChild(table);
 
-  const admins = await getAdminsData();
+  // const admins = await getAdminsData();
 
   admins.map((admin) => {
     const row = document.createElement("tr");

@@ -10,7 +10,7 @@ export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
 
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
   document.body.classList.remove("overflow-hidden");
 
@@ -61,7 +61,7 @@ export async function handleMultipleDropdown() {
 
   try {
     const response = await getContractFormData();
-    console.log("res", response);
+    console.log("res fof form", response);
 
     const OrganizationNames = response.data.vendor;
     const statuses = response.data.contractStatus;
@@ -347,6 +347,17 @@ const dataAndCheck = () => {
   formData.append("paymentMode", contactPhoneNumber_);
   formData.append("status", statusToStatusIdMap[status_]);
   formData.append("file", userFile);
+
+  organizationName_ = organizationName_.trim();
+  contactPersonName_ = contactPersonName_.trim();
+  allCategory_ = allCategory_.trim();
+  contactPersonEmail_ = contactPersonEmail_.trim();
+  amount_ = amount_.trim();
+  contactPhoneNumber_ = contactPhoneNumber_.trim();
+  startDate_ = startDate_.trim();
+  endDate_ = endDate_.trim();
+  status_ = status_.trim();
+  contactDocument_ = contactDocument_.trim();
 
   let allValuesProvided = true;
   if (organizationName_ == "") {

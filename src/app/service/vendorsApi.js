@@ -56,7 +56,7 @@ export const getAllVendors = async () => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    `${baseUrl}/vendor/get-vendors?page=1&size=10`,
+    `${baseUrl}/vendor/get-vendors?page=1&size=100`,
     httpMethods.GET,
     headers
   );

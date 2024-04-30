@@ -12,6 +12,7 @@ import { goToRoute } from "../../../common/components/goToRoute";
 import {
   downloadContract,
   getAllContracts,
+  searchContract,
 } from "../../../service/contractsApi";
 
 const getContractData = async () => {
@@ -34,6 +35,9 @@ const getContractData = async () => {
 export default async function goToContract() {
   goToRoute(contractHtml, contractFormHtml, handleCross, handleAddContract);
 
+  const search = document.getElementById("contract-search");
+  search.addEventListener("input", handleSearch);
+
   console.log("handle Multiple dropdown....");
   handleMultipleDropdown();
 
@@ -42,15 +46,45 @@ export default async function goToContract() {
   if (allContracts == null || allContracts.pagenationData.length == 0) {
     const addBtn = document.getElementById("add-button");
     const div = noDataAdded("Contracts", addBtn);
-    const homeRoot = document.getElementById("home-root");
+    const homeRoot = document.getElementsByClassName("container")[0];
     homeRoot.innerHTML = "";
     homeRoot.appendChild(div);
   } else {
-    createContractTable();
+    createContractTable(allContracts.pagenationData);
   }
 }
 
-const handleContractDownload = async (fileName) => {
+const handleSearch = async (e) => {
+  const value = e.target.value;
+  if (value.length === 0) {
+    const allContracts = await getContractData();
+    if (allContracts == null || allContracts.pagenationData.length == 0) {
+      const contactTable = document.getElementsByClassName("contract-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = allContracts.pagenationData;
+      createContractTable(contracts);
+    }
+  }
+  if (value.length >= 2) {
+    const contractsData = await searchContract(value, 0, 10);
+
+    if (
+      contractsData.data == null ||
+      contractsData.data.pagenationData.length == 0
+    ) {
+      // showEmptyPage();
+      const contactTable = document.getElementsByClassName("contract-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = contractsData.data.pagenationData;
+      console.log(contracts);
+      createContractTable(contracts);
+    }
+  }
+};
+
+export const handleFileDownload = async (fileName) => {
   console.log("downloading... ", fileName);
 
   try {
@@ -72,8 +106,10 @@ const handleContractDownload = async (fileName) => {
   }
 };
 
-const createContractTable = async () => {
+const createContractTable = async (contracts) => {
+  console.log(contracts);
   const contactTable = document.getElementsByClassName("contract-table")[0];
+  contactTable.innerHTML = "";
 
   const table = createTableHeader([
     "Vendor Name",
@@ -90,9 +126,7 @@ const createContractTable = async () => {
 
   contactTable.appendChild(table);
 
-  const contractsData = await getContractData();
-  const contracts = contractsData.pagenationData;
-  console.log(",,,", contracts);
+  // console.log(",,,", contracts);
 
   contracts.map((contract) => {
     const row = document.createElement("tr");
@@ -134,11 +168,9 @@ const createContractTable = async () => {
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.addEventListener("click", () =>
-      handleContractDownload(contract.fileName)
-    );
+    div.addEventListener("click", () => handleFileDownload(contract.fileName));
 
-    const imageUrl = "/dist/68688e7f23a16971620c.png"; // TEMP
+    const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
     div.innerHTML = `<img class="height-20" src=${imageUrl} />`;
     row.appendChild(div);
 

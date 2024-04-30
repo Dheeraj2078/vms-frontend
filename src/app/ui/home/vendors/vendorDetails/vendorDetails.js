@@ -48,7 +48,7 @@ export const vendorDetails = async (e) => {
     handleCross();
   });
 
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.add("blur-background");
-  document.body.style.overflow = "hidden";
+  document.body.classList.add("overflow-hidden");
 };

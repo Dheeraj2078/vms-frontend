@@ -1,63 +1,25 @@
 <div class="form-container">
   <div class="form-header">
-    <div>Create Admin</div>
-
+    <div id="add-vendor-heading">Add Invoice</div>
     <svg id="form-cross">
       <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
     </svg>
   </div>
-  <div class="form-main">
+  <div>
     <div class="form-heading"></div>
+
     <div class="form-wrapper">
-      <div class="form-item">
-        <label>First Name</label>
-        <input
-          type="text"
-          name=""
-          id="first-name"
-          placeholder="Enter First Name"
-        />
-        <div class="hidden error-message first-name-error">
-          Please enter the First Name
-        </div>
-      </div>
-
-      <div class="form-item">
-        <label>Last Name</label>
-        <input
-          type="text"
-          name=""
-          id="last-name"
-          placeholder="Enter Last Name"
-        />
-        <div class="hidden error-message last-name-error">
-          Please enter the Last Name
-        </div>
-      </div>
-
-      <div class="form-item">
-        <label>Email</label>
-        <input
-          type="text"
-          name=""
-          id="admin-email"
-          placeholder="Enter Email Address"
-        />
-        <div class="hidden error-message email-error">
-          Please enter the Email Address
-        </div>
-      </div>
-
       <div class="form-item associated-category-wrapper">
-        <label>Role</label>
-        <div class="vendor-inner-wrapper">
+        <label>Vendor Organization Name</label>
+        <div
+          class="vendor-inner-wrapper dropdown-icon-wrapper associated-category-wrapper organization-name-block"
+        >
           <input
             type="text"
             name=""
-            id="all-roles"
+            id="vendor-organization-name"
             value=""
-            placeholder="Select a role"
-            class="default-cursor"
+            placeholder="Select Vendor Types"
             readonly
           />
           <svg class="dropdown-icon">
@@ -66,17 +28,118 @@
             ></use>
           </svg>
         </div>
-        <div id="admin-roles" class="hidden"></div>
-        <div class="hidden error-message role-error">Please select a role</div>
+        <div id="dropdown-options" class="hidden"></div>
+      </div>
+
+      <div
+        class="form-item associated-category-wrapper associated-category-wrapper"
+      >
+        <label> Category</label>
+
+        <div class="category-inner-wrapper dropdown-icon-wrapper">
+          <input
+            type="text"
+            name=""
+            id="all-category"
+            value=""
+            placeholder="Select Categories"
+            readonly
+          />
+          <svg class="dropdown-icon">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+
+        <div id="associated-category" class="hidden"></div>
+      </div>
+
+      <div class="form-item">
+        <label>Contact Person Name</label>
+        <input
+          type="text"
+          name=""
+          id="contact-person-name"
+          value=""
+          placeholder="Select Vendor Types"
+        />
+      </div>
+
+      <div class="form-item">
+        <label>Contact Person Email</label>
+        <input
+          type="text"
+          name=""
+          id="contact-person-email"
+          placeholder="Relationship Duration"
+        />
+      </div>
+
+      <div class="form-item">
+        <label>Amount</label>
+        <input type="text" name="" id="amount" placeholder="Amount" />
+      </div>
+
+      <!-- <div class="form-item">
+        <label>Payment Mode</label>
+        <input
+          type="text"
+          name=""
+          id="payment-mode"
+          placeholder="Payment Mode"
+        />
+      </div> -->
+
+      <div class="form-item">
+        <label>Due Date</label>
+        <input
+          type="date"
+          name=""
+          id="start-date"
+          placeholder="Contact Email"
+        />
+      </div>
+
+      <!-- <div class="form-item">
+        <label>End Data</label>
+        <input type="date" name="" id="end-date" placeholder="Phone Number" />
+      </div> -->
+
+      <div class="form-item associated-category-wrapper">
+        <label>Status</label>
+        <div class="vendor-inner-wrapper dropdown-icon-wrapper">
+          <input
+            type="text"
+            name=""
+            id="status"
+            value=""
+            placeholder="Select Vendor Types"
+            readonly
+          />
+          <svg class="dropdown-icon">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="status-dropdown-options" class="status-dropdown hidden"></div>
+      </div>
+
+      <div class="form-item">
+        <label>Invoice Document</label>
+        <input
+          type="file"
+          name=""
+          id="contact-document"
+          placeholder="Address"
+        />
       </div>
     </div>
+  </div>
 
-    <div class="form-buttons">
-      <button class="btn-light form-cancel">Cancel</button>
-      <button class="btn-sm" id="add-to-db">Save</button>
-    </div>
-    <div class="email-exists error-message hidden">
-      The email is either incorrect, or it already exists
-    </div>
+  <div class="form-buttons">
+    <button class="btn-light form-cancel">Cancel</button>
+    <button class="btn-sm" id="add-to-db">Add Invoice</button>
   </div>
 </div>
