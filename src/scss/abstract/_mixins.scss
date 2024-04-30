@@ -73,6 +73,7 @@
 @mixin grid(
   $grid: null,
   $gap: null,
+  $column:null,
   $justify: null,
   $align_item: null,
   $rows: null

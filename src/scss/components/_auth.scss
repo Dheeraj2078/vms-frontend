@@ -1,12 +1,12 @@
 main {
-  background-color: #ffe5e1;
+  background-color: $orange-light;
+  
   .auth {
     &-container {
-      display: flex;
-      gap: 130px;
+      @include grid(grid, 130px, 1fr auto, null, null, null);
       height: 100vh;
+      
     }
-
     &-left {
       padding-top: 3rem;
       padding-left: 3rem;
@@ -55,7 +55,7 @@ main {
 
     &-right {
       background-color: $white;
-      padding: 140px 0;
+      padding: 48px 0;
       @include device(laptop) {
         width: 745px;
       }
@@ -63,7 +63,7 @@ main {
         width: 849px;
       }
       border-radius: 5rem 0 0 5rem;
-      box-shadow: 0 0 2rem 0 #f85c4780;
+      box-shadow: 0 0 2rem 0 $orange-very-light;
       @include flex(flex, null, center, center, null, column);
       .login-form {
         width: 446px;
@@ -111,7 +111,7 @@ main {
         font-size: 1.4rem;
         margin-top: 3.2rem;
         margin-bottom: 5.6rem;
-        color: #716d69;
+        color: $gray-medium;
         width: 446px;
 
         .remember-me-container {
@@ -135,7 +135,7 @@ main {
   }
 
   .empty-field-border {
-    border: 2px solid red !important;
+    border: 2px solid $red !important;
   }
 
   input[type="email"],
@@ -157,7 +157,7 @@ main {
 
   .empty-password,
   .not-same-password {
-    @include font_size_color(1.4rem, null, #ff0000);
+    @include font_size_color(1.4rem, null, $red);
     padding-bottom: 1.2rem;
   }
 

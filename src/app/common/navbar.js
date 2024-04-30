@@ -57,7 +57,7 @@ const changeRoute = (newRoute) => {
 };
 
 const isBackgroundDisabled = () => {
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   if (mainContainer.classList.contains("blur-background")) {
     return true;
   }

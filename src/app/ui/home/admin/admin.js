@@ -50,6 +50,7 @@ const createAdminTable = async () => {
   const admins = await getAdminsData();
   console.log("he", admins);
 
+  const tBody = document.createElement("tbody")
   admins.map((admin) => {
     const row = document.createElement("tr");
 
@@ -87,6 +88,8 @@ const createAdminTable = async () => {
     div.appendChild(innerdiv);
     row.appendChild(div);
 
-    table.appendChild(row);
+    tBody.appendChild(row);
   });
+
+  table.appendChild(tBody)
 };

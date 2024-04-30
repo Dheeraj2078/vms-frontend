@@ -76,6 +76,7 @@ const createCategoryTable = async () => {
 
   categoriesTable.appendChild(table);
 
+  const tBody = document.createElement("tbody");
   const categories = await getCategoriesData();
   categories.map((category) => {
     const row = document.createElement("tr");
@@ -96,6 +97,7 @@ const createCategoryTable = async () => {
     div.id = category.id;
     row.appendChild(div);
 
-    table.appendChild(row);
+    tBody.appendChild(row);
   });
+  table.appendChild(tBody)
 };

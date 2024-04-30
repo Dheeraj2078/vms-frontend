@@ -144,6 +144,7 @@ const createVendorTable = async () => {
     categoryIdToCategoryDetail.set(cId, vendor.category);
   });
 
+  const tBody = document.createElement("tbody")
   for (let [key, value] of vendorIdToVendorDetail) {
     const row = document.createElement("tr");
     // row.addEventListener("click", vendorDetails);
@@ -197,10 +198,12 @@ const createVendorTable = async () => {
 
     div.appendChild(activeImage);
     row.appendChild(div);
-    table.appendChild(row);
+    tBody.appendChild(row);
 
     const moreRows = getMoreRows(key, table, OrgDiv);
   }
+
+  table.appendChild(tBody)
 
   vendorTable.appendChild(table);
 

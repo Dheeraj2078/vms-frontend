@@ -5,6 +5,8 @@
   .top-heading {
     font-size: 24px;
     padding-bottom: 20px;
+    color:$gray-800;
+    font-weight: 500;
   }
 
   // 2
@@ -19,8 +21,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0px 0px 8px 0px #0000001a;
-      border: 1px solid #e7e6e6;
+      box-shadow: 0px 0px 8px 0px $black;
+      border: 1px solid $gray-very-light;
       padding: 2.4rem;
       flex-basis: 100%;
       border-radius: 4px;
@@ -30,10 +32,12 @@
         flex-direction: column;
         gap: 2.4rem;
 
-        div:first-child {
+        p{
           font-size: 1.4rem;
+          color: $gray-900;
+          font-weight: 400;
         }
-        div:last-child {
+        h2{
           font-size: 3.2rem;
         }
       }
@@ -53,7 +57,7 @@
 
     .search-container {
       display: flex;
-      border: 1px solid #e7e6e6;
+      border: 1px solid $gray-very-light;
       padding: 10px;
       gap: 12px;
       justify-content: center;
@@ -88,7 +92,7 @@
 }
 
 ::placeholder {
-  color: #8c8884;
+  color:$gray-lightest-100;
 }
 
 #add-button {
@@ -111,11 +115,11 @@
 
 .active {
   color: #14ae6d;
-  background-color: #e7f5f0;
+  background-color: #E7F5F0;
 }
 
 .inactive {
-  color: #f03e3e;
+  color: $orange-lightest;
   background: #f03e3e1a;
 }
 

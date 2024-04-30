@@ -1,6 +1,10 @@
 export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
-  const homeRoot = document.getElementById("home-root");
-  homeRoot.innerHTML = pageHtml;
+  const homeRoot = document.querySelector("main");
+  console.log(homeRoot)
+  homeRoot.innerHTML = "";
+  const div = document.createElement("div");
+  div.innerHTML = pageHtml;
+  homeRoot.appendChild(div)
 
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.innerHTML = formHtml;
@@ -26,7 +30,7 @@ export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
 };
 
 export const changeBackgroundOnModal = () => {
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.add("blur-background");
   document.body.classList.add("overflow-hidden");
 };
