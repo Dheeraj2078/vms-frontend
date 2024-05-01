@@ -213,15 +213,15 @@ const createVendorTable = async (vendorsDetails) => {
     const statusToggle = document.createElement("div");
     statusToggle.addEventListener("click", handleToggleStatue);
     statusToggle.id = vendorDetail.item1.id;
-    statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
+    statusToggle.innerHTML = `<img class="height-20 btn-clickable" src=${active} />`;
 
     active = "/f98d92a34b2133068786.png"; // TEMP
     if (!vendorDetail.item1.status) {
-      statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
+      statusToggle.innerHTML = `<img class="height-20 btn-clickable" src=${active} />`;
     }
 
     const editIcon = document.createElement("div");
-    editIcon.innerHTML = `<img class="height-20" src="/9a16a6f5e2a3c69ec1a9.png" />`;
+    editIcon.innerHTML = `<img class="height-20 btn-clickable" src="/9a16a6f5e2a3c69ec1a9.png" />`; // TEMP
     console.log("dddd", vendorDetail);
     editIcon.addEventListener("click", () => updateVendorModal(vendorDetail));
 

@@ -123,10 +123,12 @@ const createInvoiceTable = async (invoices) => {
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.addEventListener("click", () => handleFileDownload(invoice.fileName));
+    // div.addEventListener("click", () => handleFileDownload(invoice.fileName));
 
     const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    div.innerHTML = `<img class="height-20" src=${imageUrl} />`;
+    div.innerHTML = `<img class="height-20 btn-clickable" src=${imageUrl} />`;
+    const download_btn = div.getElementsByClassName("btn-clickable");
+    download_btn[0].addEventListener("click", () => handleFileDownload(invoice.fileName));
     row.appendChild(div);
 
     table.appendChild(row);

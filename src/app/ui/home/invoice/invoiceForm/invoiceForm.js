@@ -361,7 +361,7 @@ const dataAndCheck = () => {
   startDate_ = startDate_.trim();
   // endDate_ = endDate_.trim();
   status_ = status_.trim();
-  contactDocument_ = contactDocument_.trim();
+  contactDocument_ = contactDocument_;
 
   let allValuesProvided = true;
   if (organizationName_ == "") {

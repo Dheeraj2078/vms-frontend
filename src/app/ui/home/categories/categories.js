@@ -130,11 +130,12 @@ const createCategoryTable = async (categories) => {
     div = document.createElement("td");
     const image = `/9574521e3c2fb864b257.png`; // TEMP
 
-    div.innerHTML = `<img class="height-20" src=${image} />`;
+    div.innerHTML = `<img class="height-20 btn-clickable" src=${image} />`;
     // div.disabled = category.isUsed;
     if (category.isUsed) {
-      div.classList.add("category-diabled");
+      div.innerHTML = `<img class="height-20 btn-disabled" src=${image} />`;
     } else {
+      div.innerHTML = `<img class="height-20 btn-clickable" src=${image} />`;
       div.addEventListener("click", handleDeleteCategory);
     }
     div.id = category.id;
