@@ -12,13 +12,15 @@ import {
 } from "./components/confirmationModal.js";
 import navBarHtml from "./components/../../common/navbar.html";
 
-const defaultRoute = () => {
+export const defaultRoute = () => {
+  console.log("default");
   const allRoutesLi = document.querySelectorAll("li");
   const allRoutes = [...allRoutesLi];
   console.log(allRoutes);
   allRoutes.map((route) => {
     if (route.classList.contains("selected-route")) {
       const Id = route.id;
+
       console.log("Id", Id);
       if (Id == "dashboardRoute") {
         goToDashboard();
@@ -51,9 +53,31 @@ const defaultRoute = () => {
   const info = getCurrentUserInfo();
   if (info.role == role.admin) {
     adminRoute.classList.add("hidden");
-    dashboardRoute.classList.add("selected-route");
+  }
+
+  let currentRoute = sessionStorage.getItem("tab");
+  if (currentRoute == null) {
+    const info = getCurrentUserInfo();
+    if (info.role == role.admin) {
+      // adminRoute.classList.add("hidden");
+      dashboardRoute.classList.add("selected-route");
+    } else {
+      adminRoute.classList.add("selected-route");
+    }
   } else {
-    adminRoute.classList.add("selected-route");
+    if (currentRoute == "dashboard") {
+      dashboardRoute.classList.add("selected-route");
+    } else if (currentRoute == "admin") {
+      adminRoute.classList.add("selected-route");
+    } else if (currentRoute == "vendor") {
+      vendorRoute.classList.add("selected-route");
+    } else if (currentRoute == "category") {
+      categoryRoute.classList.add("selected-route");
+    } else if (currentRoute == "invoice") {
+      invoiceRoute.classList.add("selected-route");
+    } else if (currentRoute == "contract") {
+      contractRoute.classList.add("selected-route");
+    }
   }
 
   defaultRoute();
@@ -136,7 +160,7 @@ logoutBtn.addEventListener("click", (e) => {
     window.location.href = "/";
   };
 
-  // const message = "Are you sure you want to sign out from this admin tool?";
+  const message = "Are you sure you want to sign out from this admin tool?";
 
   // const res = JSON.parse(localStorage.getItem("current_route"));
   // console.log(res);
@@ -147,6 +171,6 @@ logoutBtn.addEventListener("click", (e) => {
   // var myFunc = eval("(" + compressedFunc + ")");
   // console.log("FF", myFunc);
 
-  // confirmationModalWithoutApi(message, logOutAction, myFunc);
-  logOutAction();
+  confirmationModalWithoutApi(message, logOutAction);
+  // logOutAction();
 });

@@ -26,6 +26,7 @@ const getInvoices = async () => {
 };
 
 export default async function goToInvoice() {
+  sessionStorage.setItem("tab", "invoice");
   goToRoute(invoiceHtml, invoiceFormHtml, handleCross, handleAddInvoice);
 
   const search = document.getElementById("internal-search");

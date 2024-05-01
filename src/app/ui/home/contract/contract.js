@@ -33,6 +33,7 @@ const getContractData = async () => {
 };
 
 export default async function goToContract() {
+  sessionStorage.setItem("tab", "contract");
   goToRoute(contractHtml, contractFormHtml, handleCross, handleAddContract);
 
   const search = document.getElementById("contract-search");

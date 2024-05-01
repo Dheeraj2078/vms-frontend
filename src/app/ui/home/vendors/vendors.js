@@ -27,6 +27,7 @@ const getAllVendorsUtil = async () => {
 };
 
 export default async function goToVendor() {
+  sessionStorage.setItem("tab", "vendor");
   goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
 
   const search = document.getElementById("internal-search");
@@ -61,9 +62,14 @@ const toggleStatus = async (id) => {
   // createVendorTable(res);
 };
 
-const handleToggleStatue = (e) => {
-  const id = e.currentTarget.id;
-  const question = "Are you sure you want to change the status ?";
+const handleToggleStatue = (status, id) => {
+  // const id = e.currentTarget.id;
+  console.log("status", status);
+  console.log("id", id);
+  let question = "Are you sure you want to re-activate this vendor ?";
+  if (status) {
+    question = "Are you sure you want to deactivate this vendor ?";
+  }
 
   const showError = () => {
     // const errorMessage = document.getElementsByClassName("error-message")[0];
@@ -211,8 +217,10 @@ const createVendorTable = async (vendorsDetails) => {
     // action
     let active = "/fc364e677a0ec292045d.png"; // TEMP
     const statusToggle = document.createElement("div");
-    statusToggle.addEventListener("click", handleToggleStatue);
-    statusToggle.id = vendorDetail.item1.id;
+    statusToggle.addEventListener("click", () =>
+      handleToggleStatue(vendorDetail.item1.status, vendorDetail.item1.id)
+    );
+    // statusToggle.id = vendorDetail.item1.id;
     statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
 
     active = "/f98d92a34b2133068786.png"; // TEMP

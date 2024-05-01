@@ -26,6 +26,7 @@ const getCategoriesData = async () => {
 };
 
 export default async function goToCategory() {
+  sessionStorage.setItem("tab", "category");
   goToRoute(categoriesHtml, categoriesFormHtml, handleCross, handleAddCategory);
   handleDataChange();
 

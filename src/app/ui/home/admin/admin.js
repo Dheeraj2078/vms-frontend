@@ -21,6 +21,7 @@ const getAdminsData = async () => {
 };
 
 export default async function goToAdmin() {
+  sessionStorage.setItem("tab", "admin");
   goToRoute(adminHtml, adminFormHtml, handleCross, handleAddAdmin);
 
   const search = document.getElementById("internal-search");

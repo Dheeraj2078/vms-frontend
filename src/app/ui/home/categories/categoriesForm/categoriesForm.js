@@ -91,7 +91,7 @@ export async function handleAddCategory() {
     categoryDescription_ = "";
 
     if (res.error == null) {
-      successModal("Category Added", handleCross);
+      successModal("Category added", handleCross);
     }
   } catch (error) {}
 

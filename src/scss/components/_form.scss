@@ -107,6 +107,7 @@
 #dropdown-options,
 #admin-roles,
 #status-dropdown-options {
+  z-index: 100;
   position: absolute;
   top: 60px;
   background-color: white;
@@ -203,6 +204,7 @@
 
 // ADMIN
 .email-exists {
+  margin-top: 10px;
   text-align: center;
   font-size: 12px;
 }
