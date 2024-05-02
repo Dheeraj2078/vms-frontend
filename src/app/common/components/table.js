@@ -8,7 +8,7 @@ export const createTableHeader = (tableFieldsArr) => {
   tableFieldsArr.map((field) => {
     let div = document.createElement("th");
     div.innerHTML = field;
-    if (field == "Contract Document" || field == "Invoice Document") {
+    if (field == "Contract Document" || field == "align-center Document") {
       div.classList.add("align-center");
     }
 
