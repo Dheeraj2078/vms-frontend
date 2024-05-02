@@ -79,10 +79,12 @@ export async function handleMultipleDropdown() {
       input.id = organizationObject.organizationName;
       input.name = "vendorType";
       input.value = organizationObject.organizationName;
+      input.classList.add("cursor-pointer");
 
       const label = document.createElement("label");
       label.setAttribute("for", organizationObject.organizationName);
       label.innerHTML = organizationObject.organizationName;
+      label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
@@ -102,10 +104,12 @@ export async function handleMultipleDropdown() {
       input.id = status.name;
       input.name = "statusType";
       input.value = status.name;
+      input.classList.add("cursor-pointer");
 
       const label = document.createElement("label");
       label.setAttribute("for", status.name);
       label.innerHTML = status.name;
+      label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
@@ -229,10 +233,12 @@ export async function handleDataChange() {
             input.name = "categoryType";
             input.value = catObj.categoryName;
             input.classList.add("particular-category");
+            input.classList.add("cursor-pointer");
 
             const label = document.createElement("label");
             label.setAttribute("for", catObj.categoryName);
             label.innerHTML = catObj.categoryName;
+            label.classList.add("cursor-pointer");
 
             div.appendChild(input);
             div.appendChild(label);
@@ -337,16 +343,27 @@ export async function handleDataChange() {
   });
 }
 
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
 const dataAndCheck = () => {
   const userFile = document.getElementById("contact-document").files[0];
   console.log(userFile);
+
+  const ress = validateEmail(contactPersonEmail_);
+  console.log("rwss", ress);
 
   const formData = new FormData();
   formData.append("vendorCategoryMappingId", orgCatMap[allCategory_]);
   formData.append("contactPersonName", contactPersonName_);
   formData.append("contactPersonEmail", contactPersonEmail_);
   formData.append("amount", amount_);
-  formData.append("startDate", startDate_);
+  formData.append("dueDate", startDate_);
   // formData.append("endDate", endDate_);
   // formData.append("paymentMode", contactPhoneNumber_);
   formData.append("status", statusToStatusIdMap[status_]);
@@ -361,7 +378,7 @@ const dataAndCheck = () => {
   startDate_ = startDate_.trim();
   // endDate_ = endDate_.trim();
   status_ = status_.trim();
-  // contactDocument_ = contactDocument_.trim();
+  contactDocument_ = contactDocument_;
 
   let allValuesProvided = true;
   if (organizationName_ == "") {
@@ -422,10 +439,6 @@ const dataAndCheck = () => {
 
 export async function handleAddInvoice() {
   const formData = dataAndCheck();
-
-  for (const a of formData) {
-    console.log(a);
-  }
 
   if (formData == null) {
     return;

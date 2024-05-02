@@ -1,10 +1,5 @@
 export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
-  // var handleCrossString = JSON.stringify(handleCross);
-
-  // Store the serialized function in local storage
-  // console.log("goTo", handleCrossString);
-  localStorage.setItem("compressedFunc", handleCross.toString());
-
+  console.log("handle", handleCross);
   const homeRoot = document.querySelector("main");
   homeRoot.innerHTML = "";
   const div = document.createElement("div");
@@ -28,8 +23,6 @@ export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
     });
 
     changeBackgroundOnModal();
-
-    // for handling logout
   });
 
   const addVendorBtn = document.getElementById("add-to-db");

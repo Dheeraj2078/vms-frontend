@@ -169,10 +169,14 @@ const createContractTable = async (contracts) => {
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.addEventListener("click", () => handleFileDownload(contract.fileName));
+    div.classList.add("align-center");
 
     const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    div.innerHTML = `<img class="height-20" src=${imageUrl} />`;
+    div.innerHTML = `<img class="height-20 btn-clickable" src=${imageUrl} />`;
+    const download_btn = div.getElementsByClassName("btn-clickable");
+    download_btn[0].addEventListener("click", () =>
+      handleFileDownload(contract.fileName)
+    );
     row.appendChild(div);
 
     table.appendChild(row);

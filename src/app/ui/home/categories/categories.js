@@ -131,11 +131,17 @@ const createCategoryTable = async (categories) => {
     div = document.createElement("td");
     const image = `/9574521e3c2fb864b257.png`; // TEMP
 
-    div.innerHTML = `<img class="height-20" src=${image} />`;
-    // div.disabled = category.isUsed;
+    div.innerHTML = `<img class="height-20 btn-clickable" src=${image} />`;
+
     if (category.isUsed) {
-      div.classList.add("category-diabled");
+      div.innerHTML = `
+        <div>
+          <img class="height-20 btn-disabled tooltip" src=${image} />
+          <span class="tooltiptext">This Category is a part of some vendor</span>
+        </div>
+      `;
     } else {
+      div.innerHTML = `<img class="height-20 btn-clickable" src=${image} />`;
       div.addEventListener("click", handleDeleteCategory);
     }
     div.id = category.id;
@@ -143,5 +149,12 @@ const createCategoryTable = async (categories) => {
     row.appendChild(div);
 
     table.appendChild(row);
+
+    const toolTip = document.getElementsByClassName("tooltip")[0];
+    if (toolTip) {
+      toolTip.addEventListener("mousehover", () => {
+        console.log("hover....");
+      });
+    }
   });
 };

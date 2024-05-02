@@ -110,6 +110,15 @@ body {
   cursor: not-allowed;
 }
 
+.btn-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-clickable {
+  cursor: pointer;
+}
+
 .margin-bottom-md {
   padding-bottom: 4rem;
 }
@@ -241,10 +250,36 @@ body {
   height: 20px;
 }
 
+.btn-img {
+  cursor: pointer;
+}
+
 .category-diabled {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 .form-container {
@@ -425,11 +460,11 @@ body {
   transform: translate(0, -50%);
 }
 
-.dropdown-icon-wrapper input {
-  cursor: default;
+.align-center {
+  text-align: center;
 }
 
-.email-exists {
+.already-exists {
   margin-top: 10px;
   text-align: center;
   font-size: 12px;
@@ -449,6 +484,10 @@ body {
 .vendor-actions {
   display: flex;
   gap: 15px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .container {

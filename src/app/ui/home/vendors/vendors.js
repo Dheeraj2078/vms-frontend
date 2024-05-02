@@ -106,27 +106,33 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
 
     let orgDiv = document.createElement("td");
     orgDiv.innerHTML = "";
+    orgDiv.classList.add("cursor-pointer");
     row.appendChild(orgDiv);
     lastOrgDiv = orgDiv;
 
     let div = document.createElement("td");
     div.innerHTML = currentVendorDetails.vendorType.name;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
 
     div = document.createElement("td");
     div.innerHTML = cId;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
 
     div = document.createElement("td");
     div.innerHTML = currentVendorDetails.contactPersonName;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
 
     div = document.createElement("td");
     div.innerHTML = currentVendorDetails.contactPersonNumber;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
 
     div = document.createElement("td");
     div.innerHTML = currentVendorDetails.relationshipDuration;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
 
     div = document.createElement("td");
@@ -185,32 +191,38 @@ const createVendorTable = async (vendorsDetails) => {
     const row = document.createElement("tr");
     let OrgDiv = document.createElement("td");
     OrgDiv.innerHTML = vendorDetail.item1.organizationName;
+    OrgDiv.classList.add("cursor-pointer");
     row.appendChild(OrgDiv);
     showModalOnClick(OrgDiv, vendorDetail.item1);
 
     let div = document.createElement("td");
     div.innerHTML = vendorDetail.item1.vendorType.name;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
     const categoryInfo = vendorDetail.item2[0];
     div.innerHTML = categoryInfo;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
     div.innerHTML = vendorDetail.item1.contactPersonName;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
     div.innerHTML = vendorDetail.item1.contactPersonNumber;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail.item1);
 
     div = document.createElement("td");
     div.innerHTML = vendorDetail.item1.relationshipDuration;
+    div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail.item1);
 
@@ -221,15 +233,15 @@ const createVendorTable = async (vendorsDetails) => {
       handleToggleStatue(vendorDetail.item1.status, vendorDetail.item1.id)
     );
     // statusToggle.id = vendorDetail.item1.id;
-    statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
+    statusToggle.innerHTML = `<img class="height-20 btn-clickable" src=${active} />`;
 
     active = "/f98d92a34b2133068786.png"; // TEMP
     if (!vendorDetail.item1.status) {
-      statusToggle.innerHTML = `<img class="height-20" src=${active} />`;
+      statusToggle.innerHTML = `<img class="height-20 btn-clickable" src=${active} />`;
     }
 
     const editIcon = document.createElement("div");
-    editIcon.innerHTML = `<img class="height-20" src="/9a16a6f5e2a3c69ec1a9.png" />`;
+    editIcon.innerHTML = `<img class="height-20 btn-clickable" src="/9a16a6f5e2a3c69ec1a9.png" />`; // TEMP
     console.log("dddd", vendorDetail);
     editIcon.addEventListener("click", () => updateVendorModal(vendorDetail));
 

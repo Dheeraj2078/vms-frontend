@@ -197,13 +197,17 @@
 }
 
 .dropdown-icon-wrapper {
-  input {
-    cursor: default;
-  }
+  // input {
+  //   cursor: default;
+  // }
 }
 
 // ADMIN
-.email-exists {
+.align-center {
+  text-align: center;
+}
+
+.already-exists {
   margin-top: 10px;
   text-align: center;
   font-size: 12px;
@@ -223,4 +227,8 @@
 .vendor-actions {
   display: flex;
   gap: 15px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

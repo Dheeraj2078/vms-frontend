@@ -40,11 +40,13 @@ export async function handleMultipleDropdown() {
       const input = document.createElement("input");
       input.type = "checkbox";
       input.value = category.name;
+      input.classList.add("cursor-pointer");
       label.appendChild(input);
 
       const div = document.createElement("div");
       div.innerHTML = category.name;
       label.appendChild(div);
+      label.classList.add("cursor-pointer");
       associatedCategorySelector.appendChild(label);
 
       mapCategoryToId[category.name] = category.id;
@@ -70,10 +72,12 @@ export async function handleMultipleDropdown() {
       input.id = vendorType.name;
       input.name = "vendorType";
       input.value = vendorType.name;
+      input.classList.add("cursor-pointer");
 
       const label = document.createElement("label");
       label.setAttribute("for", vendorType.name);
       label.innerHTML = vendorType.name;
+      label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
@@ -106,7 +110,7 @@ let contactPerson_ = "";
 let contactEmail_ = "";
 let contactPhoneNumber_ = "";
 let vendorAddress_ = "";
-const categories_ = new Set();
+let categories_ = new Set();
 
 let organizationName = document.getElementById("vendor-organization-name");
 let relationshipDuration = document.getElementById("relationship-duration");
@@ -137,6 +141,7 @@ export async function handleDataChange(caller) {
   categoryDropdownOption = document.querySelectorAll("input[type=checkbox]");
   vendorTypeDropdownOption = document.querySelectorAll("input[type=radio]");
   allVendorTypes = document.getElementById("all-vendor-types");
+  categories_ = new Set();
 
   const categoryDropdownOptionArr = [...categoryDropdownOption];
   const catArr = allCategory.value.split(";");
@@ -149,7 +154,9 @@ export async function handleDataChange(caller) {
     }
   });
 
+  console.log("CRRRRRRRRRRRRRRRRRRRRRRRRR", categoryDropdownOptionArr);
   categoryDropdownOptionArr.map((category) => {
+    console.log("CR", category.checked);
     category.addEventListener("change", (e) => {
       removeBorder(allCategory);
       if (category.checked) {

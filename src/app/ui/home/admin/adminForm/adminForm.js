@@ -25,10 +25,12 @@ export async function handleMultipleDropdown() {
   input.id = "admin";
   input.name = "vendorType";
   input.value = "admin";
+  input.classList.add("cursor-pointer");
 
   const label = document.createElement("label");
   label.setAttribute("for", "admin");
   label.innerHTML = "admin";
+  label.classList.add("cursor-pointer");
 
   div.appendChild(input);
   div.appendChild(label);
@@ -96,14 +98,19 @@ const handleDataChange = () => {
   emailError = document.getElementsByClassName("email-error")[0];
   roleError = document.getElementsByClassName("role-error")[0];
 
+  firstName_ = firstName.value;
   firstName.addEventListener("input", (e) => {
     removeBorder(firstName, firstNameError);
     firstName_ = e.target.value;
   });
+
+  lastName_ = lastName.value;
   lastName.addEventListener("input", (e) => {
     removeBorder(lastName, lastNameError);
     lastName_ = e.target.value;
   });
+
+  email_ = email.value;
   email.addEventListener("input", (e) => {
     const emailExists = document.getElementsByClassName("email-exists")[0];
     if (!emailExists.classList.contains("hidden")) {
@@ -113,6 +120,8 @@ const handleDataChange = () => {
     removeBorder(email, emailError);
     email_ = e.target.value;
   });
+
+  role_ = role.value;
   roleInput.addEventListener("change", (e) => {
     removeBorder(role, roleError);
     if (roleInput.checked) {

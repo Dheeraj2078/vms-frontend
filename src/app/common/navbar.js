@@ -161,16 +161,5 @@ logoutBtn.addEventListener("click", (e) => {
   };
 
   const message = "Are you sure you want to sign out from this admin tool?";
-
-  // const res = JSON.parse(localStorage.getItem("current_route"));
-  // console.log(res);
-
-  // var compressedFunc = localStorage.getItem("compressedFunc");
-
-  // // Convert the String back to a function
-  // var myFunc = eval("(" + compressedFunc + ")");
-  // console.log("FF", myFunc);
-
   confirmationModalWithoutApi(message, logOutAction);
-  // logOutAction();
 });

@@ -42,10 +42,17 @@ export function handleDataChange() {
     "category-description-error"
   )[0];
 
+  categoryName_ = categoryName.value;
   categoryName.addEventListener("input", (e) => {
     removeBorder(categoryName, categoryNameError);
     categoryName_ = e.target.value;
+    const alreadyExists = document.getElementsByClassName("already-exists")[0];
+    if (!alreadyExists.classList.contains("hidden")) {
+      alreadyExists.classList.add("hidden");
+    }
   });
+
+  categoryDescription_ = categoryDescription.value;
   categoryDescription.addEventListener("input", (e) => {
     removeBorder(categoryDescription, categoryDescError);
     categoryDescription_ = e.target.value;
@@ -93,7 +100,11 @@ export async function handleAddCategory() {
     if (res.error == null) {
       successModal("Category added", handleCross);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    const alreadyExists = document.getElementsByClassName("already-exists")[0];
+    alreadyExists.classList.remove("hidden");
+  }
 
   console.log(postCategoryData);
 }

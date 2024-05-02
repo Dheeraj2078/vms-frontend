@@ -84,7 +84,7 @@ const createInvoiceTable = async (invoices) => {
     "Amount",
     "Due Date",
     "Status",
-    "Contract Document",
+    "Invoice Document",
   ]);
 
   invoiceTable.appendChild(table);
@@ -119,15 +119,31 @@ const createInvoiceTable = async (invoices) => {
     div.innerHTML = invoice.dueDate;
     row.appendChild(div);
 
+    // div = document.createElement("td");
+    // div.innerHTML = invoice.status;
+    // row.appendChild(div);
     div = document.createElement("td");
-    div.innerHTML = invoice.status;
+    const innerdiv = document.createElement("div");
+    innerdiv.classList.add("status");
+    if (invoice.status) {
+      innerdiv.innerHTML = "Paid";
+      innerdiv.classList.add("active");
+    } else {
+      innerdiv.innerHTML = "Pending";
+      innerdiv.classList.add("inactive");
+    }
+    div.appendChild(innerdiv);
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.addEventListener("click", () => handleFileDownload(invoice.fileName));
+    div.classList.add("align-center");
 
     const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    div.innerHTML = `<img class="height-20" src=${imageUrl} />`;
+    div.innerHTML = `<img class="height-20 btn-clickable" src=${imageUrl} />`;
+    const download_btn = div.getElementsByClassName("btn-clickable");
+    download_btn[0].addEventListener("click", () =>
+      handleFileDownload(invoice.fileName)
+    );
     row.appendChild(div);
 
     table.appendChild(row);

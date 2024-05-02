@@ -75,10 +75,12 @@ export async function handleMultipleDropdown() {
       input.id = organizationObject.organizationName;
       input.name = "vendorType";
       input.value = organizationObject.organizationName;
+      input.classList.add("cursor-pointer");
 
       const label = document.createElement("label");
       label.setAttribute("for", organizationObject.organizationName);
       label.innerHTML = organizationObject.organizationName;
+      label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
@@ -98,10 +100,12 @@ export async function handleMultipleDropdown() {
       input.id = status.name;
       input.name = "statusType";
       input.value = status.name;
+      input.classList.add("cursor-pointer");
 
       const label = document.createElement("label");
       label.setAttribute("for", status.name);
       label.innerHTML = status.name;
+      label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
@@ -225,10 +229,12 @@ export async function handleDataChange() {
             input.name = "categoryType";
             input.value = catObj.categoryName;
             input.classList.add("particular-category");
+            input.classList.add("cursor-pointer");
 
             const label = document.createElement("label");
             label.setAttribute("for", catObj.categoryName);
             label.innerHTML = catObj.categoryName;
+            label.classList.add("cursor-pointer");
 
             div.appendChild(input);
             div.appendChild(label);
@@ -357,7 +363,7 @@ const dataAndCheck = () => {
   startDate_ = startDate_.trim();
   endDate_ = endDate_.trim();
   status_ = status_.trim();
-  // contactDocument_ = contactDocument_.trim();
+  contactDocument_ = contactDocument_;
 
   let allValuesProvided = true;
   if (organizationName_ == "") {

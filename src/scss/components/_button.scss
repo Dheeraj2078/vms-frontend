@@ -55,3 +55,12 @@
   color: #fb9d91;
   cursor: not-allowed;
 }
+
+.btn-disabled{
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-clickable{
+  cursor: pointer;
+}
