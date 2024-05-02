@@ -137,7 +137,7 @@ const createCategoryTable = async (categories) => {
       div.innerHTML = `
         <div>
           <img class="height-20 btn-disabled tooltip" src=${image} />
-          <span class="tooltiptext">This Category is a part of some vendor</span>
+          <span class="tooltiptext hidden">vendor needs to be active for this action</span>
         </div>
       `;
     } else {
@@ -149,12 +149,48 @@ const createCategoryTable = async (categories) => {
     row.appendChild(div);
 
     table.appendChild(row);
-
-    const toolTip = document.getElementsByClassName("tooltip")[0];
-    if (toolTip) {
-      toolTip.addEventListener("mousehover", () => {
-        console.log("hover....");
-      });
-    }
   });
+
+  const toolTip = document.getElementsByClassName("tooltip");
+  if (toolTip) {
+    const toolTipArr = [...toolTip];
+    let i = 0;
+    toolTipArr.map((tip) => {
+      const I = i;
+      tip.addEventListener("mouseenter", () => handleMouseEnter(I));
+      tip.addEventListener("mouseleave", () => handleMouseLeave(I));
+      i++;
+    });
+  }
 };
+
+function handleMouseEnter(i) {
+  console.log("hover-element");
+  const toolTipText = document.getElementsByClassName("tooltiptext");
+  const toolTipTextArr = [...toolTipText];
+
+  let I = 0;
+
+  toolTipTextArr.map((single) => {
+    console.log(i, " - ", I);
+    if (i == I) {
+      single.classList.remove("hidden");
+    }
+    I++;
+  });
+}
+
+function handleMouseLeave(i) {
+  console.log("hover-element");
+  const toolTipText = document.getElementsByClassName("tooltiptext");
+  const toolTipTextArr = [...toolTipText];
+
+  let I = 0;
+
+  toolTipTextArr.map((single) => {
+    if (i == I) {
+      single.classList.add("hidden");
+    }
+    I++;
+  });
+}

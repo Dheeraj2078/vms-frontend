@@ -1,5 +1,5 @@
 export const noDataAdded = (main, addBtn) => {
-  const image = "/dist/8dfc083c3d9a4638843c5c81b8333d04.png"; // TEMP
+  const image = "/8dfc083c3d9a4638843c5c81b8333d04.png"; // TEMP
   const div = document.createElement("div");
   div.classList.add("notFoundWrapper");
 

@@ -111,7 +111,6 @@ body {
 }
 
 .btn-disabled {
-  cursor: not-allowed;
   opacity: 0.6;
 }
 
@@ -266,13 +265,12 @@ body {
 }
 
 .tooltiptext {
-  visibility: hidden;
   width: 120px;
   background-color: black;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 5px;
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
@@ -593,6 +591,11 @@ body {
 .active {
   color: #14ae6d;
   background-color: #e7f5f0;
+}
+
+.pending {
+  color: #d68d00;
+  background: rgba(214, 141, 0, 0.1019607843);
 }
 
 .inactive {

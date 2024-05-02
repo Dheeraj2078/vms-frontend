@@ -164,8 +164,23 @@ const createContractTable = async (contracts) => {
     div.innerHTML = contract.paymentMode;
     row.appendChild(div);
 
+    // div = document.createElement("td");
+    // div.innerHTML = contract.status;
+    // row.appendChild(div);
     div = document.createElement("td");
-    div.innerHTML = contract.status;
+    const innerdiv = document.createElement("div");
+    innerdiv.classList.add("status");
+    if (contract.status == "Active") {
+      innerdiv.innerHTML = "Active";
+      innerdiv.classList.add("active");
+    } else if (contract.status == "Pending") {
+      innerdiv.innerHTML = "Pending";
+      innerdiv.classList.add("pending");
+    } else {
+      innerdiv.innerHTML = "Expired";
+      innerdiv.classList.add("inactive");
+    }
+    div.appendChild(innerdiv);
     row.appendChild(div);
 
     div = document.createElement("td");
