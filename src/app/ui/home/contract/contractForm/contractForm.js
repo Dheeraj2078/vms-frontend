@@ -124,7 +124,7 @@ let contactPersonName_ = "";
 let allCategory_ = "";
 let contactPersonEmail_ = "";
 let amount_ = "";
-let contactPhoneNumber_ = ""; // payment mode
+let paymentMode_ = ""; // payment mode
 let startDate_ = "";
 let endDate_ = "";
 let status_ = "";
@@ -135,7 +135,7 @@ let contactPersonName = document.getElementById("contact-person-name");
 let allCategory = document.getElementById("all-category");
 let contactPersonEmail = document.getElementById("contact-person-email");
 let amount = document.getElementById("amount");
-let contactPhoneNumber = document.getElementById("payment-mode");
+let paymentMode = document.getElementById("payment-mode");
 let startDate = document.getElementById("start-date");
 let endDate = document.getElementById("end-date");
 let status = document.getElementById("status");
@@ -147,6 +147,72 @@ function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
     column.classList.remove("empty-field-border");
   }
+}
+
+function isNullOrEmpty(value){
+  if(typeof(value) === "string" && value.trim().length === 0) return true;
+  return value === null;
+}
+
+function showErrorMessage(error_ele, text) {
+  error_ele.innerText = text;
+  error_ele.classList.remove("hidden");
+}
+
+function ValidateInputs() {
+  let validity = true;
+  if(isNullOrEmpty(organizationName_)) {
+    const error_ele = document.getElementById("orgName-error");
+    showErrorMessage(error_ele, "Please enter Organization Name");
+    validity = false;
+  }
+  if(isNullOrEmpty(contactPersonName_)) {
+    const error_ele = document.getElementById("name-error")
+    showErrorMessage(error_ele, "Please enter Contact Person Name");
+    validity = false;
+  }
+  if(isNullOrEmpty(allCategory_)) {
+    const error_ele = document.getElementById("category-error")
+    showErrorMessage(error_ele, "Please Select Category");
+    validity = false;
+  }
+  if(isNullOrEmpty(contactPersonEmail_)) {
+    const error_ele = document.getElementById("email-error")
+    showErrorMessage(error_ele, "Please enter Contact Person Email");
+    validity = false;
+  }
+  if(isNullOrEmpty(amount_)) {
+    const error_ele = document.getElementById("amount-error")
+    showErrorMessage(error_ele, "Please enter Amount");
+    validity = false;
+  }
+  if(isNullOrEmpty(startDate_)) {
+    const error_ele = document.getElementById("startDate-error")
+    showErrorMessage(error_ele, "Please select Start Date");
+    validity = false;
+  }
+  if(isNullOrEmpty(endDate_)) {
+    const error_ele = document.getElementById("endDate-error")
+    showErrorMessage(error_ele, "Please select End Date");
+    validity = false;
+  }
+  if(isNullOrEmpty(status_)) {
+    const error_ele = document.getElementById("status-error")
+    showErrorMessage(error_ele, "Please select a Status");
+    validity = false;
+  }
+  if(isNullOrEmpty(paymentMode_)) {
+    const error_ele = document.getElementById("paymentMode-error")
+    showErrorMessage(error_ele, "Please enter Payment Mode");
+    validity = false;
+  }
+  if(isNullOrEmpty(contactDocument_)) {
+    const error_ele = document.getElementById("document-error")
+    showErrorMessage(error_ele, "Please Select a Document");
+    validity = false;
+  }
+
+  return validity;
 }
 
 const handleCategoryChange = () => {
@@ -186,7 +252,7 @@ export async function handleDataChange() {
   allCategory = document.getElementById("all-category");
   contactPersonEmail = document.getElementById("contact-person-email");
   amount = document.getElementById("amount");
-  contactPhoneNumber = document.getElementById("payment-mode");
+  paymentMode = document.getElementById("payment-mode");
   startDate = document.getElementById("start-date");
   endDate = document.getElementById("end-date");
   status = document.getElementById("status");
@@ -255,63 +321,73 @@ export async function handleDataChange() {
   });
 
   organizationName_ = organizationName.value;
-  organizationName.addEventListener("input", (e) => {
+  organizationName.addEventListener("click", (e) => {
     removeBorder(organizationName);
     organizationName_ = e.target.value;
+    document.getElementById("orgName-error").classList.add("hidden");
   });
 
   contactPersonName_ = contactPersonName.value;
   contactPersonName.addEventListener("input", (e) => {
     removeBorder(contactPersonName);
     contactPersonName_ = e.target.value;
+    document.getElementById("name-error").classList.add("hidden");
   });
 
   allCategory_ = allCategory.value;
-  allCategory.addEventListener("input", (e) => {
+  allCategory.addEventListener("click", (e) => {
     removeBorder(allCategory);
     allCategory_ = e.target.value;
+    document.getElementById("category-error").classList.add("hidden");
   });
 
   contactPersonEmail_ = contactPersonEmail.value;
   contactPersonEmail.addEventListener("input", (e) => {
     removeBorder(contactPersonEmail);
     contactPersonEmail_ = e.target.value;
+    document.getElementById("email-error").classList.add("hidden");
   });
 
   amount_ = amount.value;
   amount.addEventListener("input", (e) => {
     removeBorder(amount);
     amount_ = e.target.value;
+    document.getElementById("amount-error").classList.add("hidden");
   });
 
-  contactPhoneNumber_ = contactPhoneNumber.value;
-  contactPhoneNumber.addEventListener("input", (e) => {
-    removeBorder(contactPhoneNumber);
-    contactPhoneNumber_ = e.target.value;
+  paymentMode_ = paymentMode.value;
+  paymentMode.addEventListener("input", (e) => {
+    removeBorder(paymentMode);
+    paymentMode_ = e.target.value;
+    document.getElementById("paymentMode-error").classList.add("hidden");
   });
 
   startDate_ = startDate.value;
   startDate.addEventListener("input", (e) => {
     removeBorder(startDate);
     startDate_ = e.target.value;
+    document.getElementById("startDate-error").classList.add("hidden");
   });
 
   endDate_ = endDate.value;
   endDate.addEventListener("input", (e) => {
     removeBorder(endDate);
     endDate_ = e.target.value;
+    document.getElementById("endDate-error").classList.add("hidden");
   });
 
   contactDocument_ = contactDocument.value;
   contactDocument.addEventListener("change", (e) => {
     removeBorder(contactDocument);
     contactDocument_ = e.target.files;
+    document.getElementById("document-error").classList.add("hidden");
   });
 
   status_ = status.value;
-  status.addEventListener("input", (e) => {
+  status.addEventListener("click", (e) => {
     removeBorder(status);
     status_ = e.target.value;
+    document.getElementById("status-error").classList.add("hidden");
   });
 
   const allStatus = document.getElementsByClassName("status-checkbox");
@@ -350,7 +426,7 @@ const dataAndCheck = () => {
   formData.append("amount", amount_);
   formData.append("startDate", startDate_);
   formData.append("endDate", endDate_);
-  formData.append("paymentMode", contactPhoneNumber_);
+  formData.append("paymentMode", paymentMode_);
   formData.append("status", statusToStatusIdMap[status_]);
   formData.append("file", userFile);
 
@@ -359,7 +435,7 @@ const dataAndCheck = () => {
   allCategory_ = allCategory_.trim();
   contactPersonEmail_ = contactPersonEmail_.trim();
   amount_ = amount_.trim();
-  contactPhoneNumber_ = contactPhoneNumber_.trim();
+  paymentMode_ = paymentMode_.trim();
   startDate_ = startDate_.trim();
   endDate_ = endDate_.trim();
   status_ = status_.trim();
@@ -390,9 +466,9 @@ const dataAndCheck = () => {
     amount.classList.add("empty-field-border");
   }
 
-  if (contactPhoneNumber_ == "") {
+  if (paymentMode_ == "") {
     allValuesProvided = false;
-    contactPhoneNumber.classList.add("empty-field-border");
+    paymentMode.classList.add("empty-field-border");
   }
 
   if (startDate_ == "") {
@@ -415,7 +491,7 @@ const dataAndCheck = () => {
     contactDocument.classList.add("empty-field-border");
   }
 
-  if (allValuesProvided == false) {
+  if (!ValidateInputs()) {
     console.log("all fields are mandatory");
     return null;
   }
