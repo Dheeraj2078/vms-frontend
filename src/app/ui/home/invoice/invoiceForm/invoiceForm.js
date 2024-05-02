@@ -421,6 +421,21 @@ const checkFieldValues = () => {
     showErrorMessage(error_element, "Please select a Document");
     contactDocument.classList.add("empty-field-border");
     checkResult = false;
+  }else {
+    const maxSize = 5 * 1024 * 1024
+    const error_ele = document.getElementById("document-error")
+    const userFile = document.getElementById("contact-document").files[0];
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if(!allowedTypes.includes(userFile.type)){
+      showErrorMessage(error_ele, 'Only PDF, Word, JPEG, and PNG files are allowed');
+      contactDocument.classList.add("empty-field-border");
+      validity = false;
+    }
+    else if(userFile.size>maxSize) {
+      showErrorMessage(error_ele, "File size exceeds the maximum limit (5MB)");
+      contactDocument.classList.add("empty-field-border");
+      validity = false;
+    } 
   }
   return checkResult;
 };

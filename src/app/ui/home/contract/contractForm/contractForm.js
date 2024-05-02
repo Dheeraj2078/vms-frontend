@@ -210,6 +210,21 @@ function ValidateInputs() {
     const error_ele = document.getElementById("document-error")
     showErrorMessage(error_ele, "Please Select a Document");
     validity = false;
+  }else {
+    const maxSize = 5 * 1024 * 1024
+    const error_ele = document.getElementById("document-error")
+    const userFile = document.getElementById("contact-document").files[0];
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if(!allowedTypes.includes(userFile.type)){
+      showErrorMessage(error_ele, 'Only PDF, Word, JPEG, and PNG files are allowed');
+      contactDocument.classList.add("empty-field-border");
+      validity = false;
+    }
+    else if(userFile.size>maxSize) {
+      showErrorMessage(error_ele, "File size exceeds the maximum limit (5MB)");
+      contactDocument.classList.add("empty-field-border");
+      validity = false;
+    } 
   }
 
   return validity;
@@ -387,7 +402,6 @@ export async function handleDataChange() {
   status.addEventListener("click", (e) => {
     removeBorder(status);
     status_ = e.target.value;
-    document.getElementById("status-error").classList.add("hidden");
   });
 
   const allStatus = document.getElementsByClassName("status-checkbox");
@@ -397,6 +411,7 @@ export async function handleDataChange() {
   allStatusArr.map((statusOption) => {
     statusOption.addEventListener("click", (e) => {
       removeBorder(status);
+    document.getElementById("status-error").classList.add("hidden");
       if (statusOption.checked) {
         status_ = e.target.value;
       }
