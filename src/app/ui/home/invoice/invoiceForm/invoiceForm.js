@@ -136,7 +136,7 @@ let allCategory = document.getElementById("all-category");
 let contactPersonEmail = document.getElementById("contact-person-email");
 let amount = document.getElementById("amount");
 // let contactPhoneNumber = document.getElementById("payment-mode");
-let startDate = document.getElementById("start-date");
+let startDate = document.getElementById("due-date");
 // let endDate = document.getElementById("end-date");
 let status = document.getElementById("status");
 let contactDocument = document.getElementById("contact-document");
@@ -187,7 +187,7 @@ export async function handleDataChange() {
   contactPersonEmail = document.getElementById("contact-person-email");
   amount = document.getElementById("amount");
   // contactPhoneNumber = document.getElementById("payment-mode");
-  startDate = document.getElementById("start-date");
+  startDate = document.getElementById("due-date");
   // endDate = document.getElementById("end-date");
   status = document.getElementById("status");
   contactDocument = document.getElementById("contact-document");
@@ -253,33 +253,38 @@ export async function handleDataChange() {
   });
 
   organizationName_ = organizationName.value;
-  organizationName.addEventListener("input", (e) => {
+  organizationName.addEventListener("click", (e) => {
     removeBorder(organizationName);
     organizationName_ = e.target.value;
+    document.getElementById("organization-name-error").classList.add("hidden");
+  });
+
+  allCategory_ = allCategory.value;
+  allCategory.addEventListener("click", (e) => {
+    removeBorder(allCategory);
+    allCategory_ = e.target.value;
+    document.getElementById("category-error").classList.add("hidden");
   });
 
   contactPersonName_ = contactPersonName.value;
   contactPersonName.addEventListener("input", (e) => {
     removeBorder(contactPersonName);
     contactPersonName_ = e.target.value;
-  });
-
-  allCategory_ = allCategory.value;
-  allCategory.addEventListener("input", (e) => {
-    removeBorder(allCategory);
-    allCategory_ = e.target.value;
+    document.getElementById("contact-name-error").classList.add("hidden");
   });
 
   contactPersonEmail_ = contactPersonEmail.value;
   contactPersonEmail.addEventListener("input", (e) => {
     removeBorder(contactPersonEmail);
     contactPersonEmail_ = e.target.value;
+    document.getElementById("contact-email-error").classList.add("hidden");
   });
 
   amount_ = amount.value;
   amount.addEventListener("input", (e) => {
     removeBorder(amount);
     amount_ = e.target.value;
+    document.getElementById("amount-error").classList.add("hidden");
   });
 
   // contactPhoneNumber_ = contactPhoneNumber.value;
@@ -292,6 +297,7 @@ export async function handleDataChange() {
   startDate.addEventListener("input", (e) => {
     removeBorder(startDate);
     startDate_ = e.target.value;
+    document.getElementById("due-date-error").classList.add("hidden");
   });
 
   // endDate_ = endDate.value;
@@ -304,11 +310,11 @@ export async function handleDataChange() {
   contactDocument.addEventListener("change", (e) => {
     removeBorder(contactDocument);
     contactDocument_ = e.target.files;
+    document.getElementById("document-error").classList.add("hidden");
   });
 
   status_ = status.value;
   status.addEventListener("input", (e) => {
-    removeBorder(status);
     status_ = e.target.value;
   });
 
@@ -319,6 +325,7 @@ export async function handleDataChange() {
   allStatusArr.map((statusOption) => {
     statusOption.addEventListener("click", (e) => {
       removeBorder(status);
+      document.getElementById("status-error").classList.add("hidden");
       if (statusOption.checked) {
         status_ = e.target.value;
       }
@@ -337,6 +344,78 @@ export async function handleDataChange() {
   });
 }
 
+const isNullOrEmpty = (value) => {
+  if(typeof(value) === "string" && (value === null || value.trim().length === 0)){
+    return true;
+  }else if(value === null){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+const showErrorMessage = (error_element, text) => {
+    error_element.innerHTML = text;
+    error_element.classList.remove("hidden");
+}
+
+const checkFieldValues = () => {
+  let checkResult = true;
+  if(isNullOrEmpty(organizationName_)){
+    const error_element = document.getElementById("organization-name-error")
+    showErrorMessage(error_element, "Please Select Organization Name");
+    organizationName.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if(isNullOrEmpty(allCategory_)){
+    const error_element = document.getElementById("category-error")
+    showErrorMessage(error_element, "Please select Category");
+    allCategory.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if(isNullOrEmpty(status_)) {
+    const error_element = document.getElementById("status-error")
+    showErrorMessage(error_element, "Please enter Status");
+    status.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if(isNullOrEmpty(contactPersonName_)){
+    const error_element = document.getElementById("contact-name-error")
+    showErrorMessage(error_element, "Please enter Contact Person Name");
+    contactPersonName.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(contactPersonEmail_)){
+    const error_element = document.getElementById("contact-email-error")
+    showErrorMessage(error_element, "Please enter contact Person Email");
+    contactPersonEmail.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(amount_)){
+    const error_element = document.getElementById("amount-error")
+    showErrorMessage(error_element, "Please enter Amount");
+    amount.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(startDate_)){
+    const error_element = document.getElementById("due-date-error")
+    showErrorMessage(error_element, "Please enter Due Date");
+    startDate.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  
+  if(isNullOrEmpty(contactDocument_)){
+    const error_element = document.getElementById("document-error")
+    showErrorMessage(error_element, "Please select a Document");
+    contactDocument.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  return checkResult;
+}
+
 const dataAndCheck = () => {
   const userFile = document.getElementById("contact-document").files[0];
   console.log(userFile);
@@ -346,7 +425,7 @@ const dataAndCheck = () => {
   formData.append("contactPersonName", contactPersonName_);
   formData.append("contactPersonEmail", contactPersonEmail_);
   formData.append("amount", amount_);
-  formData.append("startDate", startDate_);
+  formData.append("dueDate", startDate_);
   // formData.append("endDate", endDate_);
   // formData.append("paymentMode", contactPhoneNumber_);
   formData.append("status", statusToStatusIdMap[status_]);
@@ -361,59 +440,59 @@ const dataAndCheck = () => {
   startDate_ = startDate_.trim();
   // endDate_ = endDate_.trim();
   status_ = status_.trim();
-  contactDocument_ = contactDocument_.trim();
+  contactDocument_ = contactDocument_;
 
-  let allValuesProvided = true;
-  if (organizationName_ == "") {
-    allValuesProvided = false;
-    organizationName.classList.add("empty-field-border");
-  }
-  if (contactPersonName_ == "") {
-    allValuesProvided = false;
-    contactPersonName.classList.add("empty-field-border");
-  }
-
-  if (allCategory_ == "") {
-    allValuesProvided = false;
-    allCategory.classList.add("empty-field-border");
-  }
-
-  if (contactPersonEmail_ == "") {
-    allValuesProvided = false;
-    contactPersonEmail.classList.add("empty-field-border");
-  }
-
-  if (amount_ == "") {
-    allValuesProvided = false;
-    amount.classList.add("empty-field-border");
-  }
-
-  // if (contactPhoneNumber_ == "") {
+  // let allValuesProvided = true;
+  // if (organizationName_ == "") {
   //   allValuesProvided = false;
-  //   contactPhoneNumber.classList.add("empty-field-border");
+  //   organizationName.classList.add("empty-field-border");
+  // }
+  // if (contactPersonName_ == "") {
+  //   allValuesProvided = false;
+  //   contactPersonName.classList.add("empty-field-border");
   // }
 
-  if (startDate_ == "") {
-    allValuesProvided = false;
-    startDate.classList.add("empty-field-border");
-  }
-
-  // if (endDate_ == "") {
+  // if (allCategory_ == "") {
   //   allValuesProvided = false;
-  //   endDate.classList.add("empty-field-border");
+  //   allCategory.classList.add("empty-field-border");
   // }
 
-  if (status_ == "") {
-    allValuesProvided = false;
-    status.classList.add("empty-field-border");
-  }
+  // if (contactPersonEmail_ == "") {
+  //   allValuesProvided = false;
+  //   contactPersonEmail.classList.add("empty-field-border");
+  // }
 
-  if (contactDocument_ == "") {
-    allValuesProvided = false;
-    contactDocument.classList.add("empty-field-border");
-  }
+  // if (amount_ == "") {
+  //   allValuesProvided = false;
+  //   amount.classList.add("empty-field-border");
+  // }
 
-  if (allValuesProvided == false) {
+  // // if (contactPhoneNumber_ == "") {
+  // //   allValuesProvided = false;
+  // //   contactPhoneNumber.classList.add("empty-field-border");
+  // // }
+
+  // if (startDate_ == "") {
+  //   allValuesProvided = false;
+  //   startDate.classList.add("empty-field-border");
+  // }
+
+  // // if (endDate_ == "") {
+  // //   allValuesProvided = false;
+  // //   endDate.classList.add("empty-field-border");
+  // // }
+
+  // if (status_ == "") {
+  //   allValuesProvided = false;
+  //   status.classList.add("empty-field-border");
+  // }
+
+  // if (contactDocument_ == "") {
+  //   allValuesProvided = false;
+  //   contactDocument.classList.add("empty-field-border");
+  // }
+
+  if (!checkFieldValues()) {
     console.log("all fields are mandatory");
     return null;
   }

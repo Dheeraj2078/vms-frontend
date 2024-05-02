@@ -29,6 +29,7 @@
           </svg>
         </div>
         <div id="dropdown-options" class="hidden"></div>
+        <span id="orgName-error" class="hidden error-message"></span>
       </div>
 
       <div
@@ -53,6 +54,7 @@
         </div>
 
         <div id="associated-category" class="hidden"></div>
+        <span id="category-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item">
@@ -64,6 +66,7 @@
           value=""
           placeholder="Select Vendor Types"
         />
+        <span id="name-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item">
@@ -74,11 +77,13 @@
           id="contact-person-email"
           placeholder="Relationship Duration"
         />
+        <span id="email-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item">
         <label>Amount</label>
         <input type="text" name="" id="amount" placeholder="Amount" />
+        <span id="amount-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item associated-category-wrapper">
@@ -99,6 +104,7 @@
           </svg>
         </div>
         <div id="status-dropdown-options" class="hidden"></div>
+        <span id="status-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item">
@@ -107,13 +113,15 @@
           type="date"
           name=""
           id="start-date"
-          placeholder="Contact Email"
+          placeholder="Start Date"
         />
-      </div>
+        <span id="startDate-error" class="hidden error-message"></span>
+      </div> 
 
       <div class="form-item">
         <label>End Data</label>
-        <input type="date" name="" id="end-date" placeholder="Phone Number" />
+        <input type="date" name="" id="end-date" placeholder="End Date" />
+        <span id="endDate-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item">
@@ -124,6 +132,7 @@
           id="payment-mode"
           placeholder="Payment Mode"
         />
+        <span id="paymentMode-error" class="hidden error-message"></span>
       </div>
 
       <div class="form-item">
@@ -134,6 +143,7 @@
           id="contact-document"
           placeholder="Address"
         />
+        <span id="document-error" class="hidden error-message"></span>
       </div>
     </div>
   </div>

@@ -126,6 +126,73 @@ function removeBorder(column) {
   // column = column.trim();
 }
 
+const isNullOrEmpty = (value) => {
+  if(typeof(value) === "string" && (value === null || value.trim().length === 0)){
+    return true;
+  }
+  return value === null;
+}
+
+const showErrorMessage = (error_element, text) => {
+    error_element.innerHTML = text;
+    error_element.classList.remove("hidden");
+}
+
+const checkFieldValues = () => {
+  let checkResult = true;
+  if(isNullOrEmpty(organizationName_)){
+    const error_element = document.getElementById("orgName-error")
+    showErrorMessage(error_element, "Please Select Organization Name");
+    organizationName.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(categories_.size===0){
+    const error_element = document.getElementById("category-error")
+    showErrorMessage(error_element, "Please select Category");
+    allCategory.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if(isNullOrEmpty(vendorType_)){
+    const error_element = document.getElementById("vendorType-error")
+    showErrorMessage(error_element, "Please select Vendor Type");
+    allVendorTypes.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(relationshipDuration_)) {
+    const error_element = document.getElementById("relationship-duration-error")
+    showErrorMessage(error_element, "Please enter Relationship Duration");
+    relationshipDuration.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(contactPerson_)) {
+    const error_element = document.getElementById("name-error")
+    showErrorMessage(error_element, "Please enter Contact Person Name");
+    contactPerson.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if(isNullOrEmpty(contactEmail_)){
+    const error_element = document.getElementById("email-error")
+    showErrorMessage(error_element, "Please enter contact Person Email");
+    contactEmail.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(contactPhoneNumber_)){
+    const error_element = document.getElementById("phNumber-error")
+    showErrorMessage(error_element, "Please enter Contact Person Phone Number");
+    contactPhoneNumber.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if(isNullOrEmpty(vendorAddress_)){
+    const error_element = document.getElementById("address-error")
+    showErrorMessage(error_element, "Please enter Address");
+    vendorAddress.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  return checkResult;
+}
+
 export async function handleDataChange(caller) {
   organizationName = document.getElementById("vendor-organization-name");
   relationshipDuration = document.getElementById("relationship-duration");
@@ -152,6 +219,7 @@ export async function handleDataChange(caller) {
   categoryDropdownOptionArr.map((category) => {
     category.addEventListener("change", (e) => {
       removeBorder(allCategory);
+      document.getElementById("category-error").classList.add("hidden");
       if (category.checked) {
         categories_.add(category.value);
       } else {
@@ -192,6 +260,7 @@ export async function handleDataChange(caller) {
   vendorTypeDropdownOptionArr.map((vendorType) => {
     vendorType.addEventListener("change", (e) => {
       removeBorder(allVendorTypes);
+      document.getElementById("vendorType-error").classList.add("hidden");
       if (vendorType.checked) {
         vendorType_ = e.target.value;
       }
@@ -211,36 +280,42 @@ export async function handleDataChange(caller) {
   organizationName.addEventListener("input", (e) => {
     removeBorder(organizationName);
     organizationName_ = e.target.value;
+    document.getElementById("orgName-error").classList.add("hidden");
   });
 
   relationshipDuration_ = relationshipDuration.value;
   relationshipDuration.addEventListener("input", (e) => {
     removeBorder(relationshipDuration);
     relationshipDuration_ = e.target.value;
+    document.getElementById("relationship-duration-error").classList.add("hidden");
   });
 
   contactPerson_ = contactPerson.value;
   contactPerson.addEventListener("input", (e) => {
     removeBorder(contactPerson);
     contactPerson_ = e.target.value;
+    document.getElementById("name-error").classList.add("hidden");
   });
 
   contactEmail_ = contactEmail.value;
   contactEmail.addEventListener("input", (e) => {
     removeBorder(contactEmail);
     contactEmail_ = e.target.value;
+    document.getElementById("email-error").classList.add("hidden");
   });
 
   contactPhoneNumber_ = contactPhoneNumber.value;
   contactPhoneNumber.addEventListener("input", (e) => {
     removeBorder(contactPhoneNumber);
     contactPhoneNumber_ = e.target.value;
+    document.getElementById("phNumber-error").classList.add("hidden");
   });
 
   vendorAddress_ = vendorAddress.value;
   vendorAddress.addEventListener("input", (e) => {
     removeBorder(vendorAddress);
     vendorAddress_ = e.target.value;
+    document.getElementById("address-error").classList.add("hidden");
   });
 }
 
@@ -274,48 +349,48 @@ const dataAndCheck = () => {
   vendorType_ = vendorType_.trim();
 
   console.log(postData);
-  let allValuesProvided = true;
-  if (organizationName_ == "") {
-    allValuesProvided = false;
-    organizationName.classList.add("empty-field-border");
-  }
+  // let allValuesProvided = true;
+  // if (organizationName_ == "") {
+  //   allValuesProvided = false;
+  //   organizationName.classList.add("empty-field-border");
+  // }
 
-  if (relationshipDuration_ == "") {
-    allValuesProvided = false;
-    relationshipDuration.classList.add("empty-field-border");
-  }
+  // if (relationshipDuration_ == "") {
+  //   allValuesProvided = false;
+  //   relationshipDuration.classList.add("empty-field-border");
+  // }
 
-  if (contactEmail_ == "") {
-    allValuesProvided = false;
-    contactEmail.classList.add("empty-field-border");
-  }
+  // if (contactEmail_ == "") {
+  //   allValuesProvided = false;
+  //   contactEmail.classList.add("empty-field-border");
+  // }
 
-  if (contactPhoneNumber_ == "") {
-    allValuesProvided = false;
-    contactPhoneNumber.classList.add("empty-field-border");
-  }
+  // if (contactPhoneNumber_ == "") {
+  //   allValuesProvided = false;
+  //   contactPhoneNumber.classList.add("empty-field-border");
+  // }
 
-  if (vendorAddress_ == "") {
-    allValuesProvided = false;
-    vendorAddress.classList.add("empty-field-border");
-  }
+  // if (vendorAddress_ == "") {
+  //   allValuesProvided = false;
+  //   vendorAddress.classList.add("empty-field-border");
+  // }
 
-  if (contactPerson_ == "") {
-    allValuesProvided = false;
-    contactPerson.classList.add("empty-field-border");
-  }
+  // if (contactPerson_ == "") {
+  //   allValuesProvided = false;
+  //   contactPerson.classList.add("empty-field-border");
+  // }
 
-  if (categories_.size == 0) {
-    allValuesProvided = false;
-    allCategory.classList.add("empty-field-border");
-  }
+  // if (categories_.size == 0) {
+  //   allValuesProvided = false;
+  //   allCategory.classList.add("empty-field-border");
+  // }
 
-  if (vendorType_ == "") {
-    allValuesProvided = false;
-    allVendorTypes.classList.add("empty-field-border");
-  }
+  // if (vendorType_ == "") {
+  //   allValuesProvided = false;
+  //   allVendorTypes.classList.add("empty-field-border");
+  // }
 
-  if (allValuesProvided == false) {
+  if (!checkFieldValues()) {
     console.log("all fields are mandatory");
     return null;
   }
