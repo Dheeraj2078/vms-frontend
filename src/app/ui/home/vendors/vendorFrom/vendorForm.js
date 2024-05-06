@@ -3,6 +3,7 @@ import { addVendor } from "../../../../service/vendorsApi";
 import { successModal } from "../../../../common/components/successModal";
 import goToVendor from "../vendors";
 import { updateVendor } from "../../../../service/vendorsApi";
+import { validateEmail } from "../../../../util/util";
 
 export function handleCross() {
   console.log(document.body.classList);
@@ -131,70 +132,94 @@ function removeBorder(column) {
 }
 
 const isNullOrEmpty = (value) => {
-  if(typeof(value) === "string" && (value === null || value.trim().length === 0)){
+  if (
+    typeof value === "string" &&
+    (value === null || value.trim().length === 0)
+  ) {
     return true;
   }
   return value === null;
-}
+};
 
 const showErrorMessage = (error_element, text) => {
-    error_element.innerHTML = text;
-    error_element.classList.remove("hidden");
-}
+  error_element.innerHTML = text;
+  error_element.classList.remove("hidden");
+};
 
 const checkFieldValues = () => {
   let checkResult = true;
-  if(isNullOrEmpty(organizationName_)){
-    const error_element = document.getElementById("orgName-error")
+  if (isNullOrEmpty(organizationName_)) {
+    const error_element = document.getElementById("orgName-error");
     showErrorMessage(error_element, "Please Select Organization Name");
     organizationName.classList.add("empty-field-border");
     checkResult = false;
   }
-  if(categories_.size===0){
-    const error_element = document.getElementById("category-error")
+  if (categories_.size === 0) {
+    const error_element = document.getElementById("category-error");
     showErrorMessage(error_element, "Please select Category");
     allCategory.classList.add("empty-field-border");
     checkResult = false;
   }
 
-  if(isNullOrEmpty(vendorType_)){
-    const error_element = document.getElementById("vendorType-error")
+  if (isNullOrEmpty(vendorType_)) {
+    const error_element = document.getElementById("vendorType-error");
     showErrorMessage(error_element, "Please select Vendor Type");
     allVendorTypes.classList.add("empty-field-border");
     checkResult = false;
   }
-  if(isNullOrEmpty(relationshipDuration_)) {
-    const error_element = document.getElementById("relationship-duration-error")
+  if (isNullOrEmpty(relationshipDuration_)) {
+    const error_element = document.getElementById(
+      "relationship-duration-error"
+    );
     showErrorMessage(error_element, "Please enter Relationship Duration");
     relationshipDuration.classList.add("empty-field-border");
     checkResult = false;
   }
-  if(isNullOrEmpty(contactPerson_)) {
-    const error_element = document.getElementById("name-error")
+  if (isNullOrEmpty(contactPerson_)) {
+    const error_element = document.getElementById("name-error");
     showErrorMessage(error_element, "Please enter Contact Person Name");
     contactPerson.classList.add("empty-field-border");
     checkResult = false;
   }
 
-  if(isNullOrEmpty(contactEmail_)){
-    const error_element = document.getElementById("email-error")
+  if (isNullOrEmpty(contactEmail_)) {
+    const error_element = document.getElementById("email-error");
     showErrorMessage(error_element, "Please enter contact Person Email");
     contactEmail.classList.add("empty-field-border");
     checkResult = false;
   }
-  if(isNullOrEmpty(contactPhoneNumber_)){
-    const error_element = document.getElementById("phNumber-error")
+  if (isNullOrEmpty(contactPhoneNumber_)) {
+    const error_element = document.getElementById("phNumber-error");
     showErrorMessage(error_element, "Please enter Contact Person Phone Number");
     contactPhoneNumber.classList.add("empty-field-border");
     checkResult = false;
   }
-  if(isNullOrEmpty(vendorAddress_)){
-    const error_element = document.getElementById("address-error")
+  if (isNullOrEmpty(vendorAddress_)) {
+    const error_element = document.getElementById("address-error");
     showErrorMessage(error_element, "Please enter Address");
     vendorAddress.classList.add("empty-field-border");
     checkResult = false;
   }
+
+  if (!validateEmail(contactEmail_)) {
+    const error_ele = document.getElementById("email-error");
+    showErrorMessage(error_ele, "Please enter correct email");
+    checkResult = false;
+  }
+  if (!validatePhoneNumber(contactPhoneNumber_)) {
+    const error_ele = document.getElementById("phNumber-error");
+    showErrorMessage(error_ele, "Please enter correct phone number");
+    checkResult = false;
+  }
+
   return checkResult;
+};
+
+function validatePhoneNumber(phoneNumber) {
+  // Regular expression for a 10-digit phone number
+  console.log("ph", phoneNumber);
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phoneNumber);
 }
 
 export async function handleDataChange(caller) {
@@ -294,7 +319,9 @@ export async function handleDataChange(caller) {
   relationshipDuration.addEventListener("input", (e) => {
     removeBorder(relationshipDuration);
     relationshipDuration_ = e.target.value;
-    document.getElementById("relationship-duration-error").classList.add("hidden");
+    document
+      .getElementById("relationship-duration-error")
+      .classList.add("hidden");
   });
 
   contactPerson_ = contactPerson.value;

@@ -5,6 +5,7 @@ import {
   getContractFormData,
 } from "../../../../service/contractsApi";
 import { successModal } from "../../../../common/components/successModal";
+import { validateEmail, validateAmount } from "../../../../util/util";
 
 export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
@@ -149,8 +150,8 @@ function removeBorder(column) {
   }
 }
 
-function isNullOrEmpty(value){
-  if(typeof(value) === "string" && value.trim().length === 0) return true;
+function isNullOrEmpty(value) {
+  if (typeof value === "string" && value.trim().length === 0) return true;
   return value === null;
 }
 
@@ -161,70 +162,84 @@ function showErrorMessage(error_ele, text) {
 
 function ValidateInputs() {
   let validity = true;
-  if(isNullOrEmpty(organizationName_)) {
+  if (isNullOrEmpty(organizationName_)) {
     const error_ele = document.getElementById("orgName-error");
     showErrorMessage(error_ele, "Please enter Organization Name");
     validity = false;
   }
-  if(isNullOrEmpty(contactPersonName_)) {
-    const error_ele = document.getElementById("name-error")
+  if (isNullOrEmpty(contactPersonName_)) {
+    const error_ele = document.getElementById("name-error");
     showErrorMessage(error_ele, "Please enter Contact Person Name");
     validity = false;
   }
-  if(isNullOrEmpty(allCategory_)) {
-    const error_ele = document.getElementById("category-error")
+  if (isNullOrEmpty(allCategory_)) {
+    const error_ele = document.getElementById("category-error");
     showErrorMessage(error_ele, "Please Select Category");
     validity = false;
   }
-  if(isNullOrEmpty(contactPersonEmail_)) {
-    const error_ele = document.getElementById("email-error")
+  if (isNullOrEmpty(contactPersonEmail_)) {
+    const error_ele = document.getElementById("email-error");
     showErrorMessage(error_ele, "Please enter Contact Person Email");
     validity = false;
   }
-  if(isNullOrEmpty(amount_)) {
-    const error_ele = document.getElementById("amount-error")
+  if (isNullOrEmpty(amount_)) {
+    const error_ele = document.getElementById("amount-error");
     showErrorMessage(error_ele, "Please enter Amount");
     validity = false;
   }
-  if(isNullOrEmpty(startDate_)) {
-    const error_ele = document.getElementById("startDate-error")
+  if (isNullOrEmpty(startDate_)) {
+    const error_ele = document.getElementById("startDate-error");
     showErrorMessage(error_ele, "Please select Start Date");
     validity = false;
   }
-  if(isNullOrEmpty(endDate_)) {
-    const error_ele = document.getElementById("endDate-error")
+  if (isNullOrEmpty(endDate_)) {
+    const error_ele = document.getElementById("endDate-error");
     showErrorMessage(error_ele, "Please select End Date");
     validity = false;
   }
-  if(isNullOrEmpty(status_)) {
-    const error_ele = document.getElementById("status-error")
+  if (isNullOrEmpty(status_)) {
+    const error_ele = document.getElementById("status-error");
     showErrorMessage(error_ele, "Please select a Status");
     validity = false;
   }
-  if(isNullOrEmpty(paymentMode_)) {
-    const error_ele = document.getElementById("paymentMode-error")
+  if (isNullOrEmpty(paymentMode_)) {
+    const error_ele = document.getElementById("paymentMode-error");
     showErrorMessage(error_ele, "Please enter Payment Mode");
     validity = false;
   }
-  if(isNullOrEmpty(contactDocument_)) {
-    const error_ele = document.getElementById("document-error")
+  if (isNullOrEmpty(contactDocument_)) {
+    const error_ele = document.getElementById("document-error");
     showErrorMessage(error_ele, "Please Select a Document");
     validity = false;
-  }else {
-    const maxSize = 5 * 1024 * 1024
-    const error_ele = document.getElementById("document-error")
+  } else {
+    const maxSize = 5 * 1024 * 1024;
+    const error_ele = document.getElementById("document-error");
     const userFile = document.getElementById("contact-document").files[0];
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-    if(!allowedTypes.includes(userFile.type)){
-      showErrorMessage(error_ele, 'Only PDF, Word, JPEG, and PNG files are allowed');
+    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+    if (!allowedTypes.includes(userFile.type)) {
+      showErrorMessage(
+        error_ele,
+        "Only PDF, Word, JPEG, and PNG files are allowed"
+      );
       contactDocument.classList.add("empty-field-border");
       validity = false;
-    }
-    else if(userFile.size>maxSize) {
+    } else if (userFile.size > maxSize) {
       showErrorMessage(error_ele, "File size exceeds the maximum limit (5MB)");
       contactDocument.classList.add("empty-field-border");
       validity = false;
-    } 
+    }
+  }
+
+  if (!validateEmail(contactPersonEmail_)) {
+    const error_ele = document.getElementById("email-error");
+    showErrorMessage(error_ele, "Please enter correct email");
+    validity = false;
+  }
+
+  if (!validateAmount(amount_)) {
+    const error_ele = document.getElementById("amount-error");
+    showErrorMessage(error_ele, "Please enter valid amount");
+    validity = false;
   }
 
   return validity;
@@ -287,7 +302,7 @@ export async function handleDataChange() {
         organizationName.value = "Select Vendor Types";
       } else {
         organizationName.value = organizationName_;
-
+        allCategory.value = "";
         try {
           // const response = await fetch()
           const id = mapOrgNameToOrgId[organizationName_];
@@ -411,7 +426,7 @@ export async function handleDataChange() {
   allStatusArr.map((statusOption) => {
     statusOption.addEventListener("click", (e) => {
       removeBorder(status);
-    document.getElementById("status-error").classList.add("hidden");
+      document.getElementById("status-error").classList.add("hidden");
       if (statusOption.checked) {
         status_ = e.target.value;
       }
@@ -506,6 +521,7 @@ const dataAndCheck = () => {
     contactDocument.classList.add("empty-field-border");
   }
 
+  console.log("bug", organizationName_);
   if (!ValidateInputs()) {
     console.log("all fields are mandatory");
     return null;
@@ -522,13 +538,26 @@ export async function handleAddContract() {
     return;
   }
 
+  const cancelBtn = document.getElementsByClassName("btn-light")[0];
+  const saveBtn = document.getElementsByClassName("btn-sm")[0];
+
+  console.log("sace", saveBtn);
+  saveBtn.classList.add("disabled");
+  cancelBtn.classList.add("disabled-light");
   try {
     const res = await addContract(formData);
     console.log("data 2", res);
-    // if (res.error == null) {
-    //   successModal("Contract Added", handleCross);
-    // }
+    if (res.error == null) {
+      successModal("Contract Added", handleCross);
+    }
   } catch (error) {
     console.log(error);
+
+    if (saveBtn.classList.contains("disabled")) {
+      saveBtn.classList.remove("disabled");
+    }
+    if (cancelBtn.classList.contains("disabled-light")) {
+      cancelBtn.classList.remove("disabled-light");
+    }
   }
 }

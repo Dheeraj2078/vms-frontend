@@ -2,6 +2,7 @@ import { redirectUrl } from "../../../../util/constants.js";
 import { createAdmin } from "../../../../service/loginApi.js";
 import { successModal } from "../../../../common/components/successModal.js";
 import goToAdmin from "../admin.js";
+import { validateEmail } from "../../../../util/util.js";
 
 export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
@@ -112,11 +113,15 @@ const handleDataChange = () => {
 
   email_ = email.value;
   email.addEventListener("input", (e) => {
-    const emailExists = document.getElementsByClassName("email-exists")[0];
-    if (!emailExists.classList.contains("hidden")) {
+    const emailExists = document.getElementsByClassName("already-exists")[0];
+    if (emailExists && !emailExists.classList.contains("hidden")) {
       emailExists.classList.add("hidden");
     }
 
+    const error_ele = document.getElementById("wrong-email");
+    if (!error_ele.classList.contains("hidden")) {
+      error_ele.classList.add("hidden");
+    }
     removeBorder(email, emailError);
     email_ = e.target.value;
   });
@@ -157,6 +162,7 @@ export async function handleAddAdmin() {
   email_ = email_.trim();
 
   let allValuesProvided = true;
+  let noMail = false;
   if (firstName_ == "") {
     allValuesProvided = false;
     firstName.classList.add("empty-field-border");
@@ -169,6 +175,7 @@ export async function handleAddAdmin() {
   }
   if (email_ == "") {
     allValuesProvided = false;
+    noMail = true;
     email.classList.add("empty-field-border");
     emailError.classList.remove("hidden");
   }
@@ -177,6 +184,12 @@ export async function handleAddAdmin() {
     allValuesProvided = false;
     role.classList.add("empty-field-border");
     roleError.classList.remove("hidden");
+  }
+
+  if (!noMail && !validateEmail(email_)) {
+    const error_ele = document.getElementById("wrong-email");
+    error_ele.classList.remove("hidden");
+    allValuesProvided = false;
   }
 
   if (allValuesProvided == false) {
@@ -205,11 +218,11 @@ export async function handleAddAdmin() {
     role_ = "";
 
     if (res.error == null) {
-      successModal("Admin Added", handleCross);
+      successModal("Admin added", handleCross);
     }
   } catch (error) {
     console.log(error);
-    const emailExists = document.getElementsByClassName("email-exists")[0];
+    const emailExists = document.getElementsByClassName("already-exists")[0];
     emailExists.classList.remove("hidden");
     if (saveBtn.classList.contains("disabled")) {
       saveBtn.classList.remove("disabled");

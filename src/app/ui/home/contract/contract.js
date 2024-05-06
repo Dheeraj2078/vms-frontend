@@ -85,25 +85,28 @@ const handleSearch = async (e) => {
   }
 };
 
-export const handleFileDownload = async (fileName) => {
+export const handleFileDownload = async (fileName, id) => {
   console.log("downloading... ", fileName);
+
+  const currentInvoiceId = document.getElementById(id);
+  console.log(" -> ", currentInvoiceId);
+  currentInvoiceId.classList.add("download-disable");
 
   try {
     const binaryData = await downloadContract(fileName);
-
     const blobUrl = window.URL.createObjectURL(binaryData);
     const a = document.createElement("a");
     a.style.display = "none";
     a.href = blobUrl;
     a.download = fileName;
-
     document.body.appendChild(a);
     a.click();
-
     window.URL.revokeObjectURL(blobUrl);
     document.body.removeChild(a);
   } catch (error) {
     console.log(error);
+  } finally {
+    currentInvoiceId.classList.remove("download-disable");
   }
 };
 
@@ -187,10 +190,11 @@ const createContractTable = async (contracts) => {
     div.classList.add("align-center");
 
     const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    div.innerHTML = `<img class="height-20 btn-clickable" src=${imageUrl} />`;
+    const contractId = "contract" + contract.id;
+    div.innerHTML = `<img id=${contractId} class="height-20 btn-clickable" src=${imageUrl} />`;
     const download_btn = div.getElementsByClassName("btn-clickable");
     download_btn[0].addEventListener("click", () =>
-      handleFileDownload(contract.fileName)
+      handleFileDownload(contract.fileName, "contract" + contractId)
     );
     row.appendChild(div);
 

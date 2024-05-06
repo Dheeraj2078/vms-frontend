@@ -105,3 +105,15 @@ export function addStyles(href) {
   link.href = href;
   document.head.appendChild(link);
 }
+
+export const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+export const validateAmount = (amount) => {
+  console.log("amount", amount);
+  const emailRegex = /^\d*\.?\d*$/;
+  console.log(emailRegex.test(amount));
+  return emailRegex.test(amount);
+};

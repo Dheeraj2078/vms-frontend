@@ -10,7 +10,7 @@ const getVendorInfo = async (vendorId) => {
     const data = {
       "Vendor Organization Name": info.organizationName,
       "Vendor Organization Address": info.address,
-      "Vendor Type": info.vendorTypeId,
+      "Vendor Type": info.vendorType.name,
       "Relationship Duration": info.relationshipDuration,
       "Contact Person Name": info.contactPersonName,
       "Contact Person Phone": info.contactPersonNumber,

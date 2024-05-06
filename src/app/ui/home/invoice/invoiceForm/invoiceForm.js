@@ -6,6 +6,7 @@ import {
 } from "../../../../service/contractsApi";
 import { successModal } from "../../../../common/components/successModal";
 import { addInvoice } from "../../../../service/invoiceApi";
+import { validateAmount } from "../../../../util/util";
 
 export function handleCross() {
   const vendorFormOutput = document.getElementById("form-output");
@@ -386,7 +387,7 @@ const checkFieldValues = () => {
 
   if (isNullOrEmpty(status_)) {
     const error_element = document.getElementById("status-error");
-    showErrorMessage(error_element, "Please enter Status");
+    showErrorMessage(error_element, "Please select Status");
     status.classList.add("empty-field-border");
     checkResult = false;
   }
@@ -421,22 +422,37 @@ const checkFieldValues = () => {
     showErrorMessage(error_element, "Please select a Document");
     contactDocument.classList.add("empty-field-border");
     checkResult = false;
-  }else {
-    const maxSize = 5 * 1024 * 1024
-    const error_ele = document.getElementById("document-error")
+  } else {
+    const maxSize = 5 * 1024 * 1024;
+    const error_ele = document.getElementById("document-error");
     const userFile = document.getElementById("contact-document").files[0];
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-    if(!allowedTypes.includes(userFile.type)){
-      showErrorMessage(error_ele, 'Only PDF, Word, JPEG, and PNG files are allowed');
+    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+    if (!allowedTypes.includes(userFile.type)) {
+      showErrorMessage(
+        error_ele,
+        "Only PDF, Word, JPEG, and PNG files are allowed"
+      );
       contactDocument.classList.add("empty-field-border");
-      validity = false;
-    }
-    else if(userFile.size>maxSize) {
+      checkResult = false;
+    } else if (userFile.size > maxSize) {
       showErrorMessage(error_ele, "File size exceeds the maximum limit (5MB)");
       contactDocument.classList.add("empty-field-border");
-      validity = false;
-    } 
+      checkResult = false;
+    }
   }
+
+  if (!validateEmail(contactPersonEmail_)) {
+    const error_ele = document.getElementById("contact-email-error");
+    showErrorMessage(error_ele, "Please enter correct email");
+    checkResult = false;
+  }
+
+  if (!validateAmount(amount_)) {
+    const error_ele = document.getElementById("amount-error");
+    showErrorMessage(error_ele, "Please enter valid amount");
+    checkResult = false;
+  }
+
   return checkResult;
 };
 
@@ -541,6 +557,13 @@ export async function handleAddInvoice() {
     return;
   }
 
+  const cancelBtn = document.getElementsByClassName("btn-light")[0];
+  const saveBtn = document.getElementsByClassName("btn-sm")[0];
+
+  console.log("sace", saveBtn);
+  saveBtn.classList.add("disabled");
+  cancelBtn.classList.add("disabled-light");
+
   console.log("fr", formData);
   try {
     const res = await addInvoice(formData);
@@ -550,5 +573,12 @@ export async function handleAddInvoice() {
     }
   } catch (error) {
     console.log(error);
+
+    if (saveBtn.classList.contains("disabled")) {
+      saveBtn.classList.remove("disabled");
+    }
+    if (cancelBtn.classList.contains("disabled-light")) {
+      cancelBtn.classList.remove("disabled-light");
+    }
   }
 }

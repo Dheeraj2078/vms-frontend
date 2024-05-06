@@ -64,3 +64,9 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.download-disable {
+  opacity: 50%;
+  cursor: default;
+  pointer-events: none;
+}

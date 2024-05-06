@@ -139,10 +139,11 @@ const createInvoiceTable = async (invoices) => {
     div.classList.add("align-center");
 
     const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    div.innerHTML = `<img class="height-20 btn-clickable" src=${imageUrl} />`;
+    const invoiceId = "invoice" + invoice.id;
+    div.innerHTML = `<img id=${invoiceId} class="height-20 btn-clickable" src=${imageUrl} />`;
     const download_btn = div.getElementsByClassName("btn-clickable");
     download_btn[0].addEventListener("click", () =>
-      handleFileDownload(invoice.fileName)
+      handleFileDownload(invoice.fileName, "invoice" + invoice.id)
     );
     row.appendChild(div);
 

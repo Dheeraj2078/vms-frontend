@@ -280,6 +280,12 @@ body {
   visibility: visible;
 }
 
+.download-disable {
+  opacity: 50%;
+  cursor: default;
+  pointer-events: none;
+}
+
 .form-container {
   border-radius: 4px;
 }
