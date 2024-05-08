@@ -3,7 +3,7 @@ import { httpMethods, apiUrlLocal, apiUrl } from "../util/constants.js";
 import { successModal } from "../common/components/successModal.js";
 import { handleCross } from "../ui/home/contract/contractForm/contractForm.js";
 
-const baseUrl = apiUrl;
+const baseUrl = apiUrlLocal;
 const token = getCurrentUserToken();
 
 // Search Admins on the basis of name and email

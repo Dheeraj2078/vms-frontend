@@ -53,7 +53,7 @@ passwordRef.addEventListener("input", (e) => {
   password = e.target.value;
 });
 
-loginBtn.addEventListener("click", async (e) => {
+const loginFn = async () => {
   const loginData = {
     email,
     password,
@@ -111,6 +111,13 @@ loginBtn.addEventListener("click", async (e) => {
     }
   } catch (error) {
     wrongEmailOrPassword.classList.remove("hidden");
+  }
+};
+
+loginBtn.addEventListener("click", loginFn);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    loginFn();
   }
 });
 
