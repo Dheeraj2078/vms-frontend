@@ -1,0 +1,70 @@
+<main class="container">
+  <!-- 1.heading -->
+  <div class="top-heading">Purchase Orders</div>
+
+  <!-- 2. Stats -->
+  <div class="statistics-container">
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <div>Total Orders</div>
+        <div id="total-vendors"></div>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/totalInvoice.png"
+      />
+    </div>
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <div>Paid Orders</div>
+        <div id="active-vendors"></div>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/paidInvoice.png"
+      />
+    </div>
+
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <div>Pending Orders</div>
+        <div id="inactive-vendors"></div>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/pendingInvoice.png"
+      />
+    </div>
+  </div>
+
+  <!-- 3. Search + addbutton -->
+  <div class="add-search-wrapper">
+    <div class="search-container">
+      <svg class="search-icon">
+        <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
+      </svg>
+      <input
+        id="internal-search"
+        type="text"
+        placeholder="Search Invoice"
+        name="search"
+      />
+    </div>
+    <button id="add-button" class="btn-sm">
+      <svg class="plus-icon">
+        <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
+      </svg>
+      <div>New Purchase Order</div>
+    </button>
+  </div>
+
+  <!-- 4 Table -->
+  <div class="invoice-table table-container"></div>
+  <div class="hidden active-vendor-icon">
+    <img src="../../../../assets/images/active.png" />
+  </div>
+
+  <div class="hidden inactive-vendor-icon">
+    <img src="../../../../assets/images/inactive.png" />
+  </div>
+</main>

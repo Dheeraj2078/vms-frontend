@@ -494,8 +494,16 @@ body {
   cursor: pointer;
 }
 
+.po-header {
+  display: flex;
+}
+
+.exsq-address {
+  line-height: 1.2;
+}
+
 .container {
-  padding: 3.2rem 6.2rem;
+  padding: 3.2rem 6.4rem 3.2rem 12rem;
 }
 .container .top-heading {
   font-size: 24px;
@@ -625,4 +633,11 @@ body {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.pagination {
+  display: flex;
+  justify-content: end;
+  gap: 1.5rem;
+  font-size: 13px;
 }/*# sourceMappingURL=main.css.map */

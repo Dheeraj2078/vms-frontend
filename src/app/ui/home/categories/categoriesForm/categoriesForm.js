@@ -10,7 +10,7 @@ export function handleCross() {
   mainContainer.classList.remove("blur-background");
   document.body.classList.remove("overflow-hidden");
 
-  goToCategory();
+  goToCategory(0, 10, true);
 }
 
 function removeBorder(column, error) {

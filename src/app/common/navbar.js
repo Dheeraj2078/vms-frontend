@@ -3,6 +3,7 @@ import goToVendor from "../ui/home/vendors/vendors.js";
 import goToAdmin from "../ui/home/admin/admin.js";
 import goToCategory from "../ui/home/categories/categories.js";
 import goToInvoice from "../ui/home/invoice/invoice.js";
+import goToPurchaseOrder from "../ui/home/purchaseOrder/purchaseOrder.js";
 import { getCurrentUserInfo, validateToken } from "../util/util.js";
 import { role } from "../util/constants.js";
 import goToContract from "../ui/home/contract/contract.js";
@@ -29,11 +30,13 @@ export const defaultRoute = () => {
       } else if (Id == "adminRoute") {
         goToAdmin();
       } else if (Id == "categoryRoute") {
-        goToCategory();
+        goToCategory(0, 10, true);
       } else if (Id == "invoiceRoute") {
         goToInvoice();
       } else if (Id == "contractRoute") {
         goToContract();
+      } else if (Id == "purchaseOrderRoute") {
+        goToPurchaseOrder();
       }
     }
   });
@@ -77,6 +80,8 @@ export const defaultRoute = () => {
       invoiceRoute.classList.add("selected-route");
     } else if (currentRoute == "contract") {
       contractRoute.classList.add("selected-route");
+    } else if (currentRoute == "purchaseOrder") {
+      purchaseOrderRoute.classList.add("selected-route");
     }
   }
 
@@ -133,7 +138,7 @@ categoryRoute.addEventListener("click", (e) => {
     return;
   }
   changeRoute("categoryRoute");
-  goToCategory();
+  goToCategory(0, 10, true);
 });
 
 invoiceRoute.addEventListener("click", (e) => {
@@ -150,6 +155,14 @@ contractRoute.addEventListener("click", (e) => {
   }
   changeRoute("contractRoute");
   goToContract();
+});
+
+purchaseOrderRoute.addEventListener("click", (e) => {
+  if (isBackgroundDisabled()) {
+    return;
+  }
+  changeRoute("purchaseOrderRoute");
+  goToPurchaseOrder();
 });
 
 const logoutBtn = document.getElementById("logout-btn");

@@ -1,5 +1,6 @@
 .container {
-  padding: 3.2rem 6.2rem;
+  // padding: 3.2rem 6.2rem;
+  padding: 3.2rem 6.4rem 3.2rem 12rem;
 
   // 1
   .top-heading {
@@ -143,4 +144,12 @@
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+//pagination
+.pagination {
+  display: flex;
+  justify-content: end;
+  gap: 1.5rem;
+  font-size: 13px;
 }

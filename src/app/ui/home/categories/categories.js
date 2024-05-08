@@ -14,18 +14,24 @@ import {
 import { goToRoute } from "../../../common/components/goToRoute";
 import { confirmationModal } from "../../../common/components/confirmationModal";
 import { searchCategories } from "../../../service/searchApi";
+import { addPagination } from "../../../common/components/pagination";
 
-const getCategoriesData = async () => {
+let Maincursor = 0;
+const getCategoriesData = async (cursor, size, next) => {
+  console.log("main cursor 1", Maincursor);
   try {
-    const res = await getAllCategories();
+    const res = await getAllCategories(cursor, size, next);
     console.log(res);
-    return res.data;
+    console.log("THALA", res.data.pagenationData);
+    Maincursor = res.data.cursor;
+    console.log("main cursor 2", Maincursor);
+    return res.data.pagenationData;
   } catch (error) {
     console.log(error);
   }
 };
 
-export default async function goToCategory() {
+export default async function goToCategory(cursor, size, next) {
   sessionStorage.setItem("tab", "category");
   goToRoute(categoriesHtml, categoriesFormHtml, handleCross, handleAddCategory);
   handleDataChange();
@@ -33,7 +39,7 @@ export default async function goToCategory() {
   const search = document.getElementById("internal-search");
   search.addEventListener("input", handleSearch);
 
-  const allAdmins = await getCategoriesData();
+  const allAdmins = await getCategoriesData(cursor, size, next);
   console.log("all cats", allAdmins);
   if (allAdmins.length == 0) {
     const addBtn = document.getElementById("add-button");
@@ -43,6 +49,7 @@ export default async function goToCategory() {
     homeRoot.appendChild(div);
   } else {
     createCategoryTable(allAdmins);
+    addPagination(goToCategory, Maincursor);
   }
 }
 
@@ -71,6 +78,7 @@ const handleSearch = async (e) => {
       const contracts = searchResult.data;
       console.log(contracts);
       createCategoryTable(contracts);
+      addPagination(goToCategory, Maincursor);
     }
   }
 };
@@ -149,6 +157,8 @@ const createCategoryTable = async (categories) => {
     row.appendChild(div);
 
     table.appendChild(row);
+
+    // const pagination = document.createElement
   });
 
   const toolTip = document.getElementsByClassName("tooltip");
@@ -165,14 +175,12 @@ const createCategoryTable = async (categories) => {
 };
 
 function handleMouseEnter(i) {
-  console.log("hover-element");
   const toolTipText = document.getElementsByClassName("tooltiptext");
   const toolTipTextArr = [...toolTipText];
 
   let I = 0;
 
   toolTipTextArr.map((single) => {
-    console.log(i, " - ", I);
     if (i == I) {
       single.classList.remove("hidden");
     }
@@ -181,7 +189,6 @@ function handleMouseEnter(i) {
 }
 
 function handleMouseLeave(i) {
-  console.log("hover-element");
   const toolTipText = document.getElementsByClassName("tooltiptext");
   const toolTipTextArr = [...toolTipText];
 
