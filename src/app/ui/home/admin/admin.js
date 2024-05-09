@@ -10,6 +10,7 @@ import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
 import { searchUser } from "../../../service/searchApi";
+import { addPagination } from "../../../common/components/pagination";
 
 const getAdminsData = async () => {
   try {
@@ -29,42 +30,46 @@ export default async function goToAdmin() {
 
   handleMultipleDropdown();
 
-  const allAdmins = await getAdminsData();
-  if (allAdmins.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Admins", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createAdminTable(allAdmins);
-  }
+  addPagination(getAdmins, createAdminTable);
+
+  // const allAdmins = await getAdminsData();
+  // if (allAdmins.length == 0) {
+  //   const addBtn = document.getElementById("add-button");
+  //   const div = noDataAdded("Admins", addBtn);
+  //   const homeRoot = document.getElementsByClassName("container")[0];
+  //   homeRoot.innerHTML = "";
+  //   homeRoot.appendChild(div);
+  // } else {
+  //   createAdminTable(allAdmins);
+  // }
 }
 
 const handleSearch = async (e) => {
   const value = e.target.value;
   if (value.length === 0) {
-    const allContracts = await getAdminsData();
-    if (allContracts == null || allContracts.length == 0) {
-      const contactTable = document.getElementsByClassName("admin-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = allContracts;
-      createAdminTable(contracts);
-    }
+    addPagination(getAdmins, createAdminTable);
+    // const allContracts = await getAdminsData();
+    // if (allContracts == null || allContracts.length == 0) {
+    //   const contactTable = document.getElementsByClassName("admin-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = allContracts;
+    //   createAdminTable(contracts);
+    // }
   }
   if (value.length >= 2) {
-    const searchResult = await searchUser(value);
+    addPagination(getAdmins, createAdminTable, value);
+    // const searchResult = await searchUser(value);
 
-    if (searchResult.data == null || searchResult.data.length == 0) {
-      // showEmptyPage();
-      const contactTable = document.getElementsByClassName("admin-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = searchResult.data;
-      console.log(contracts);
-      createAdminTable(contracts);
-    }
+    // if (searchResult.data == null || searchResult.data.length == 0) {
+    //   // showEmptyPage();
+    //   const contactTable = document.getElementsByClassName("admin-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = searchResult.data;
+    //   console.log(contracts);
+    //   createAdminTable(contracts);
+    // }
   }
 };
 

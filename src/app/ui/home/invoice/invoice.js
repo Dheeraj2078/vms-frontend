@@ -14,6 +14,7 @@ import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
+import { addPagination } from "../../../common/components/pagination";
 
 const getInvoices = async () => {
   try {
@@ -33,42 +34,46 @@ export default async function goToInvoice() {
   search.addEventListener("input", handleSearch);
   handleMultipleDropdown();
 
-  const allInvoices = await getInvoices();
-  if (allInvoices == null || allInvoices.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Invoices", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createInvoiceTable(allInvoices);
-  }
+  addPagination(getAllInvoice, createInvoiceTable);
+
+  // const allInvoices = await getInvoices();
+  // if (allInvoices == null || allInvoices.length == 0) {
+  //   const addBtn = document.getElementById("add-button");
+  //   const div = noDataAdded("Invoices", addBtn);
+  //   const homeRoot = document.getElementsByClassName("container")[0];
+  //   homeRoot.innerHTML = "";
+  //   homeRoot.appendChild(div);
+  // } else {
+  //   createInvoiceTable(allInvoices);
+  // }
 }
 
 const handleSearch = async (e) => {
   const value = e.target.value;
   if (value.length === 0) {
-    const allContracts = await getInvoices();
-    if (allContracts == null || allContracts.length == 0) {
-      const contactTable = document.getElementsByClassName("invoice-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = allContracts;
-      createInvoiceTable(contracts);
-    }
+    addPagination(getAllInvoice, createInvoiceTable);
+    // const allContracts = await getInvoices();
+    // if (allContracts == null || allContracts.length == 0) {
+    //   const contactTable = document.getElementsByClassName("invoice-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = allContracts;
+    //   createInvoiceTable(contracts);
+    // }
   }
   if (value.length >= 2) {
-    const contractsData = await searchInvoices(value);
+    addPagination(getAllInvoice, createInvoiceTable, value);
+    // const contractsData = await searchInvoices(value);
 
-    if (contractsData.data == null || contractsData.data.length == 0) {
-      // showEmptyPage();
-      const contactTable = document.getElementsByClassName("invoice-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = contractsData.data;
-      console.log(contracts);
-      createInvoiceTable(contracts);
-    }
+    // if (contractsData.data == null || contractsData.data.length == 0) {
+    //   // showEmptyPage();
+    //   const contactTable = document.getElementsByClassName("invoice-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = contractsData.data;
+    //   console.log(contracts);
+    //   createInvoiceTable(contracts);
+    // }
   }
 };
 

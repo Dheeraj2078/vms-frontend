@@ -237,7 +237,7 @@ export async function handleDataChange(caller) {
 
   const categoryDropdownOptionArr = [...categoryDropdownOption];
   const catArr = allCategory.value.split(";");
-  console.log("1. categoryDropdownOptionArr", categoryDropdownOptionArr);
+  // console.log("1. categoryDropdownOptionArr", categoryDropdownOptionArr);
 
   categoryDropdownOptionArr.map((category) => {
     if (catArr.includes(category.value)) {
@@ -246,7 +246,7 @@ export async function handleDataChange(caller) {
     }
   });
 
-  console.log("CRRRRRRRRRRRRRRRRRRRRRRRRR", categoryDropdownOptionArr);
+  // console.log("CRRRRRRRRRRRRRRRRRRRRRRRRR", categoryDropdownOptionArr);
   categoryDropdownOptionArr.map((category) => {
     console.log("CR", category.checked);
     category.addEventListener("change", (e) => {
@@ -430,6 +430,12 @@ const dataAndCheck = () => {
   }
   return postData;
 };
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    handleAddVendor();
+  }
+});
 
 export async function handleAddVendor() {
   const postData = dataAndCheck();

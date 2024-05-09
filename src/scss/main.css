@@ -637,7 +637,34 @@ body {
 
 .pagination {
   display: flex;
+  flex-direction: row;
   justify-content: end;
+  align-items: center;
   gap: 1.5rem;
   font-size: 13px;
+}
+
+.pagination-arrows {
+  display: flex;
+  gap: 2px;
+}
+
+.disabled-arrow {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.pagination-left-arrow,
+.pagination-right-arrow {
+  border: 1px solid black;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  border-radius: 100%;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 }/*# sourceMappingURL=main.css.map */

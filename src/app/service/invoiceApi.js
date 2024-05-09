@@ -33,16 +33,15 @@ export const addInvoice = async (formData) => {
     });
 };
 
-export const getAllInvoice = async (page, size) => {
+export const getAllInvoice = async (cursor, size, next, filter) => {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  const response = await makeRequest(
-    baseUrl + `/invoice/get-invoices?page=${page}&size=${size}`,
-    httpMethods.GET,
-    headers
-  );
+  const url = filter
+    ? `/invoice/get-invoices?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`
+    : `/invoice/get-invoices?cursor=${cursor}&size=${size}&next=${next}`;
+  const response = await makeRequest(baseUrl + url, httpMethods.GET, headers);
 
   return response;
 };

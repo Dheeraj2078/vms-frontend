@@ -144,6 +144,12 @@ const handleDataChange = () => {
   });
 };
 
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    handleAddAdmin();
+  }
+});
+
 export async function handleAddAdmin() {
   const firstNameError = document.getElementsByClassName("first-name-error")[0];
   const lastNameError = document.getElementsByClassName("last-name-error")[0];

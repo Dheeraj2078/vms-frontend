@@ -108,3 +108,9 @@ export async function handleAddCategory() {
 
   console.log(postCategoryData);
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    handleAddCategory();
+  }
+});

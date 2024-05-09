@@ -16,6 +16,7 @@ import { goToRoute } from "../../../common/components/goToRoute.js";
 import { confirmationModal } from "../../../common/components/confirmationModal.js";
 import { updateVendorModal } from "./vendorFrom/vendorUpdateForm.js";
 import { searchVendors } from "../../../service/searchApi.js";
+import { addPagination } from "../../../common/components/pagination.js";
 
 const getAllVendorsUtil = async () => {
   try {
@@ -35,16 +36,18 @@ export default async function goToVendor() {
 
   handleMultipleDropdown();
 
-  const allVendors = await getAllVendorsUtil();
-  if (allVendors == null || allVendors.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Vendors", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createVendorTable(allVendors);
-  }
+  addPagination(getAllVendors, createVendorTable);
+
+  // const allVendors = await getAllVendorsUtil();
+  // if (allVendors == null || allVendors.length == 0) {
+  //   const addBtn = document.getElementById("add-button");
+  //   const div = noDataAdded("Vendors", addBtn);
+  //   const homeRoot = document.getElementsByClassName("container")[0];
+  //   homeRoot.innerHTML = "";
+  //   homeRoot.appendChild(div);
+  // } else {
+  //   createVendorTable(allVendors);
+  // }
 }
 
 const toggleStatus = async (id) => {

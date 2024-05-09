@@ -14,6 +14,7 @@ import {
   getAllContracts,
   searchContract,
 } from "../../../service/contractsApi";
+import { addPagination } from "../../../common/components/pagination";
 
 const getContractData = async () => {
   try {
@@ -42,46 +43,50 @@ export default async function goToContract() {
   console.log("handle Multiple dropdown....");
   handleMultipleDropdown();
 
-  const allContracts = await getContractData();
-  console.log("AA", allContracts);
-  if (allContracts == null || allContracts.pagenationData.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Contracts", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createContractTable(allContracts.pagenationData);
-  }
+  addPagination(getAllContracts, createContractTable);
+
+  // const allContracts = await getContractData();
+  // console.log("AA", allContracts);
+  // if (allContracts == null || allContracts.pagenationData.length == 0) {
+  //   const addBtn = document.getElementById("add-button");
+  //   const div = noDataAdded("Contracts", addBtn);
+  //   const homeRoot = document.getElementsByClassName("container")[0];
+  //   homeRoot.innerHTML = "";
+  //   homeRoot.appendChild(div);
+  // } else {
+  //   createContractTable(allContracts.pagenationData);
+  // }
 }
 
 const handleSearch = async (e) => {
   const value = e.target.value;
   if (value.length === 0) {
-    const allContracts = await getContractData();
-    if (allContracts == null || allContracts.pagenationData.length == 0) {
-      const contactTable = document.getElementsByClassName("contract-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = allContracts.pagenationData;
-      createContractTable(contracts);
-    }
+    addPagination(getAllContracts, createContractTable);
+    // const allContracts = await getContractData();
+    // if (allContracts == null || allContracts.pagenationData.length == 0) {
+    //   const contactTable = document.getElementsByClassName("contract-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = allContracts.pagenationData;
+    //   createContractTable(contracts);
+    // }
   }
   if (value.length >= 2) {
-    const contractsData = await searchContract(value, 0, 10);
+    addPagination(getAllContracts, createContractTable, value);
+    // const contractsData = await searchContract(value, 0, 10);
 
-    if (
-      contractsData.data == null ||
-      contractsData.data.pagenationData.length == 0
-    ) {
-      // showEmptyPage();
-      const contactTable = document.getElementsByClassName("contract-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = contractsData.data.pagenationData;
-      console.log(contracts);
-      createContractTable(contracts);
-    }
+    // if (
+    //   contractsData.data == null ||
+    //   contractsData.data.pagenationData.length == 0
+    // ) {
+    //   // showEmptyPage();
+    //   const contactTable = document.getElementsByClassName("contract-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = contractsData.data.pagenationData;
+    //   console.log(contracts);
+    //   createContractTable(contracts);
+    // }
   }
 };
 

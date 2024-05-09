@@ -17,69 +17,94 @@ import { searchCategories } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
 
 let Maincursor = 0;
+
+let pagenationDto = {
+  cursor: 0,
+};
 const getCategoriesData = async (cursor, size, next) => {
   console.log("main cursor 1", Maincursor);
   try {
     const res = await getAllCategories(cursor, size, next);
-    console.log(res);
-    console.log("THALA", res.data.pagenationData);
+    // console.log(res);
+    // console.log("THALA", res.data.pagenationData);
     Maincursor = res.data.cursor;
-    console.log("main cursor 2", Maincursor);
+    pagenationDto = res.data;
+    // console.log("main cursor 2", Maincursor);
     return res.data.pagenationData;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
-export default async function goToCategory(cursor, size, next) {
+export default async function goToCategory() {
   sessionStorage.setItem("tab", "category");
   goToRoute(categoriesHtml, categoriesFormHtml, handleCross, handleAddCategory);
   handleDataChange();
 
   const search = document.getElementById("internal-search");
   search.addEventListener("input", handleSearch);
-
-  const allAdmins = await getCategoriesData(cursor, size, next);
-  console.log("all cats", allAdmins);
-  if (allAdmins.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Category", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createCategoryTable(allAdmins);
-    addPagination(goToCategory, Maincursor);
-  }
+  addPagination(getAllCategories, createCategoryTable);
+  // renderTable(true, 10);
 }
+
+// async function renderTable(next, size) {
+//   let allAdmins;
+//   // if (pagenationDto === null) {
+//   //   pagenationDto.cursor = 0;
+//   // }
+//   // console.log("********************************", pagenationDto);
+//   if (next) {
+//     allAdmins = await getCategoriesData(pagenationDto.cursor, size, true);
+//   } else {
+//     allAdmins = await getCategoriesData(
+//       pagenationDto.previousCursor,
+//       size,
+//       false
+//     );
+//   }
+
+//   console.log("all cats", allAdmins);
+//   if (allAdmins.length == 0) {
+//     const addBtn = document.getElementById("add-button");
+//     const div = noDataAdded("Category", addBtn);
+//     const homeRoot = document.getElementsByClassName("container")[0];
+//     homeRoot.innerHTML = "";
+//     homeRoot.appendChild(div);
+//   } else {
+//     createCategoryTable(allAdmins);
+//     addPagination(renderTable);
+//   }
+// }
 
 const handleSearch = async (e) => {
   const value = e.target.value;
   if (value.length === 0) {
-    const allContracts = await getCategoriesData();
-    if (allContracts == null || allContracts.length == 0) {
-      const contactTable =
-        document.getElementsByClassName("categories-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = allContracts;
-      createCategoryTable(contracts);
-    }
+    addPagination(getAllCategories, createCategoryTable);
+    // const allContracts = await getCategoriesData();
+    // if (allContracts == null || allContracts.length == 0) {
+    //   const contactTable =
+    //     document.getElementsByClassName("categories-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = allContracts;
+    //   createCategoryTable(contracts);
+    // }
   }
   if (value.length >= 2) {
-    const searchResult = await searchCategories(value);
+    addPagination(getAllCategories, createCategoryTable, value);
+    // const searchResult = await searchCategories(value);
 
-    if (searchResult.data == null || searchResult.data.length == 0) {
-      // showEmptyPage();
-      const contactTable =
-        document.getElementsByClassName("categories-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = searchResult.data;
-      console.log(contracts);
-      createCategoryTable(contracts);
-      addPagination(goToCategory, Maincursor);
-    }
+    // if (searchResult.data == null || searchResult.data.length == 0) {
+    //   // showEmptyPage();
+    //   const contactTable =
+    //     document.getElementsByClassName("categories-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = searchResult.data;
+    //   console.log(contracts);
+    //   createCategoryTable(contracts);
+    //   addPagination(goToCategory, Maincursor);
+    // }
   }
 };
 
