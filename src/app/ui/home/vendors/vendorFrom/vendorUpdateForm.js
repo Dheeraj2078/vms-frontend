@@ -67,3 +67,9 @@ export function updateVendorModal(vendorDetail) {
   addVendorBtn.innerHTML = "Update Vendor";
   addVendorBtn.addEventListener("click", () => handleUpdateVendor(vendor.id));
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    handleUpdateVendor();
+  }
+});

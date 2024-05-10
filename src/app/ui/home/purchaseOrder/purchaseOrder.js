@@ -1,10 +1,13 @@
-import invoiceHtml from "../invoice/invoice.html";
-import invoiceFormHtml from "../../home/invoice/invoiceForm/invoiceForm.html";
+// import invoiceHtml from "../invoice/invoice.html";
+import purchaseOrderHtml from "../purchaseOrder/purchaseOrder.html";
+// import invoiceFormHtml from "../../home/invoice/invoiceForm/invoiceForm.html";
+import purchaseOrderFormHtml from "../../home/purchaseOrder/purchaseOrderForm/purchaseOrderForm.html";
 import {
   handleCross,
-  handleAddInvoice,
+  handleAddRurchaseOrder,
   handleMultipleDropdown,
-} from "./invoiceForm/invoiceForm";
+} from "./purchaseOrderForm/purchaseOrderForm";
+import { createItemsTable } from "./purchaseOrderForm/purchaseOrderForm";
 // import { getAdmins } from "../../../service/admins";
 // import { createTableHeader } from "../../../common/components/table";
 // import { noDataAdded } from "../../../common/components/emptyData";
@@ -14,8 +17,6 @@ import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
-import { addPagination } from "../../../common/components/pagination";
-import { searchModel } from "../../../common/components/search";
 
 const getInvoices = async () => {
   try {
@@ -27,62 +28,59 @@ const getInvoices = async () => {
   }
 };
 
-export default async function goToInvoice() {
-  sessionStorage.setItem("tab", "invoice");
-  goToRoute(invoiceHtml, invoiceFormHtml, handleCross, handleAddInvoice);
+export default async function goToPurchaseOrder() {
+  sessionStorage.setItem("tab", "purchaseOrder");
+  goToRoute(
+    purchaseOrderHtml,
+    purchaseOrderFormHtml,
+    handleCross,
+    handleAddRurchaseOrder
+  );
 
-  // const search = document.getElementById("internal-search");
-  // search.addEventListener("input", handleSearch);
+  createItemsTable();
 
-  searchModel("Search Invoices", filterResults);
-  handleMultipleDropdown();
+  //   const search = document.getElementById("internal-search");
+  //   search.addEventListener("input", handleSearch);
+  //   handleMultipleDropdown();
 
-  addPagination(getAllInvoice, createInvoiceTable);
-
-  // const allInvoices = await getInvoices();
-  // if (allInvoices == null || allInvoices.length == 0) {
-  //   const addBtn = document.getElementById("add-button");
-  //   const div = noDataAdded("Invoices", addBtn);
-  //   const homeRoot = document.getElementsByClassName("container")[0];
-  //   homeRoot.innerHTML = "";
-  //   homeRoot.appendChild(div);
-  // } else {
-  //   createInvoiceTable(allInvoices);
-  // }
+  //   const allInvoices = await getInvoices();
+  //   if (allInvoices == null || allInvoices.length == 0) {
+  //     const addBtn = document.getElementById("add-button");
+  //     const div = noDataAdded("Invoices", addBtn);
+  //     const homeRoot = document.getElementsByClassName("container")[0];
+  //     homeRoot.innerHTML = "";
+  //     homeRoot.appendChild(div);
+  //   } else {
+  //     createInvoiceTable(allInvoices);
+  //   }
 }
 
-// const handleSearch = async (e) => {
-//   const value = e.target.value;
-
-// };
-
-function filterResults(value) {
+const handleSearch = async (e) => {
+  const value = e.target.value;
   if (value.length === 0) {
-    addPagination(getAllInvoice, createInvoiceTable);
-    // const allContracts = await getInvoices();
-    // if (allContracts == null || allContracts.length == 0) {
-    //   const contactTable = document.getElementsByClassName("invoice-table")[0];
-    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    // } else {
-    //   const contracts = allContracts;
-    //   createInvoiceTable(contracts);
-    // }
+    const allContracts = await getInvoices();
+    if (allContracts == null || allContracts.length == 0) {
+      const contactTable = document.getElementsByClassName("invoice-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = allContracts;
+      createInvoiceTable(contracts);
+    }
   }
   if (value.length >= 2) {
-    addPagination(getAllInvoice, createInvoiceTable, value);
-    // const contractsData = await searchInvoices(value);
+    const contractsData = await searchInvoices(value);
 
-    // if (contractsData.data == null || contractsData.data.length == 0) {
-    //   // showEmptyPage();
-    //   const contactTable = document.getElementsByClassName("invoice-table")[0];
-    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    // } else {
-    //   const contracts = contractsData.data;
-    //   console.log(contracts);
-    //   createInvoiceTable(contracts);
-    // }
+    if (contractsData.data == null || contractsData.data.length == 0) {
+      // showEmptyPage();
+      const contactTable = document.getElementsByClassName("invoice-table")[0];
+      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    } else {
+      const contracts = contractsData.data;
+      console.log(contracts);
+      createInvoiceTable(contracts);
+    }
   }
-}
+};
 
 const createInvoiceTable = async (invoices) => {
   const invoiceTable = document.getElementsByClassName("invoice-table")[0];

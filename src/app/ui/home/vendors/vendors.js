@@ -16,6 +16,8 @@ import { goToRoute } from "../../../common/components/goToRoute.js";
 import { confirmationModal } from "../../../common/components/confirmationModal.js";
 import { updateVendorModal } from "./vendorFrom/vendorUpdateForm.js";
 import { searchVendors } from "../../../service/searchApi.js";
+import { addPagination } from "../../../common/components/pagination.js";
+import { searchModel } from "../../../common/components/search";
 
 const getAllVendorsUtil = async () => {
   try {
@@ -30,21 +32,25 @@ export default async function goToVendor() {
   sessionStorage.setItem("tab", "vendor");
   goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
 
-  const search = document.getElementById("internal-search");
-  search.addEventListener("input", handleSearch);
+  // const search = document.getElementById("internal-search");
+  // search.addEventListener("input", handleSearch);
+
+  searchModel("Search Vendors", filterResults);
 
   handleMultipleDropdown();
 
-  const allVendors = await getAllVendorsUtil();
-  if (allVendors == null || allVendors.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Vendors", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createVendorTable(allVendors);
-  }
+  addPagination(getAllVendors, createVendorTable);
+
+  // const allVendors = await getAllVendorsUtil();
+  // if (allVendors == null || allVendors.length == 0) {
+  //   const addBtn = document.getElementById("add-button");
+  //   const div = noDataAdded("Vendors", addBtn);
+  //   const homeRoot = document.getElementsByClassName("container")[0];
+  //   homeRoot.innerHTML = "";
+  //   homeRoot.appendChild(div);
+  // } else {
+  //   createVendorTable(allVendors);
+  // }
 }
 
 const toggleStatus = async (id) => {
@@ -144,32 +150,19 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
   });
 };
 
-const handleSearch = async (e) => {
-  const value = e.target.value;
+// const handleSearch = async (e) => {
+//   const value = e.target.value;
+
+// };
+
+function filterResults(value) {
   if (value.length === 0) {
-    const allContracts = await getAllVendorsUtil();
-    if (allContracts == null || allContracts.length == 0) {
-      const contactTable = document.getElementsByClassName("vendor-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = allContracts;
-      createVendorTable(contracts);
-    }
+    addPagination(getAllVendors, createVendorTable);
   }
   if (value.length >= 2) {
-    const contractsData = await searchVendors(value);
-
-    if (contractsData.data == null || contractsData.data.length == 0) {
-      // showEmptyPage();
-      const contactTable = document.getElementsByClassName("vendor-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = contractsData.data;
-      console.log(contracts);
-      createVendorTable(contracts);
-    }
+    addPagination(getAllVendors, createVendorTable, value);
   }
-};
+}
 
 const createVendorTable = async (vendorsDetails) => {
   const vendorTable = document.getElementsByClassName("vendor-table")[0];

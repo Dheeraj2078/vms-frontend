@@ -494,8 +494,16 @@ body {
   cursor: pointer;
 }
 
+.po-header {
+  display: flex;
+}
+
+.exsq-address {
+  line-height: 1.2;
+}
+
 .container {
-  padding: 3.2rem 6.2rem;
+  padding: 3.2rem 6.4rem 3.2rem 12rem;
 }
 .container .top-heading {
   font-size: 24px;
@@ -539,20 +547,34 @@ body {
 .container .add-search-wrapper .search-container {
   display: flex;
   border: 1px solid #e7e6e6;
-  padding: 10px;
   gap: 12px;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   border-radius: 4px;
 }
 .container .add-search-wrapper .search-container .search-icon {
   height: 16px;
   width: 16px;
+  margin: 10px;
+}
+.container .add-search-wrapper .search-container .search-cross-icon {
+  height: 16px;
+  width: 16px;
+  margin: 10px;
+  cursor: pointer;
 }
 .container .add-search-wrapper .search-container input {
   outline: none;
   border: none;
   width: 350px;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-1 {
+  opacity: 1;
 }
 
 .blur-background {
@@ -625,4 +647,38 @@ body {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 13px;
+}
+
+.pagination-arrows {
+  display: flex;
+  gap: 2px;
+}
+
+.disabled-arrow {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.pagination-left-arrow,
+.pagination-right-arrow {
+  border: 1px solid black;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  border-radius: 100%;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 }/*# sourceMappingURL=main.css.map */

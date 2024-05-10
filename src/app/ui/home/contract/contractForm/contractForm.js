@@ -288,7 +288,23 @@ export async function handleDataChange() {
   status = document.getElementById("status");
   contactDocument = document.getElementById("contact-document");
 
-  console.log("MMMMMMMMM", vendorOrgDropdownOption);
+  startDate.addEventListener("keydown", (e) => {
+    e.preventDefault();
+  });
+
+  endDate.addEventListener("keydown", (e) => {
+    e.preventDefault();
+  });
+
+  startDate.addEventListener("click", (e) => {
+    startDate.blur();
+  });
+
+  endDate.addEventListener("click", () => {
+    endDate.blur();
+  });
+
+  // console.log("MMMMMMMMM", vendorOrgDropdownOption);
 
   const vendorOrgDropdownOptionArr = [...vendorOrgDropdownOption];
   vendorOrgDropdownOptionArr.map((org) => {
@@ -561,3 +577,9 @@ export async function handleAddContract() {
     }
   }
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.Key === "Enter") {
+    handleAddContract();
+  }
+});

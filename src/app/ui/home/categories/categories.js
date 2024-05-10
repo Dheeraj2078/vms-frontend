@@ -14,14 +14,26 @@ import {
 import { goToRoute } from "../../../common/components/goToRoute";
 import { confirmationModal } from "../../../common/components/confirmationModal";
 import { searchCategories } from "../../../service/searchApi";
+import { addPagination } from "../../../common/components/pagination";
+import { searchModel } from "../../../common/components/search";
 
-const getCategoriesData = async () => {
+let Maincursor = 0;
+
+let pagenationDto = {
+  cursor: 0,
+};
+const getCategoriesData = async (cursor, size, next) => {
+  console.log("main cursor 1", Maincursor);
   try {
-    const res = await getAllCategories();
-    console.log(res);
-    return res.data;
+    const res = await getAllCategories(cursor, size, next);
+    // console.log(res);
+    // console.log("THALA", res.data.pagenationData);
+    Maincursor = res.data.cursor;
+    pagenationDto = res.data;
+    // console.log("main cursor 2", Maincursor);
+    return res.data.pagenationData;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -30,50 +42,76 @@ export default async function goToCategory() {
   goToRoute(categoriesHtml, categoriesFormHtml, handleCross, handleAddCategory);
   handleDataChange();
 
-  const search = document.getElementById("internal-search");
-  search.addEventListener("input", handleSearch);
-
-  const allAdmins = await getCategoriesData();
-  console.log("all cats", allAdmins);
-  if (allAdmins.length == 0) {
-    const addBtn = document.getElementById("add-button");
-    const div = noDataAdded("Category", addBtn);
-    const homeRoot = document.getElementsByClassName("container")[0];
-    homeRoot.innerHTML = "";
-    homeRoot.appendChild(div);
-  } else {
-    createCategoryTable(allAdmins);
-  }
+  // const search = document.getElementById("internal-search");
+  // search.addEventListener("input", handleSearch);
+  searchModel("Search Categories", filterResults);
+  addPagination(getAllCategories, createCategoryTable);
+  // renderTable(true, 10);
 }
 
-const handleSearch = async (e) => {
-  const value = e.target.value;
-  if (value.length === 0) {
-    const allContracts = await getCategoriesData();
-    if (allContracts == null || allContracts.length == 0) {
-      const contactTable =
-        document.getElementsByClassName("categories-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = allContracts;
-      createCategoryTable(contracts);
-    }
+// async function renderTable(next, size) {
+//   let allAdmins;
+//   // if (pagenationDto === null) {
+//   //   pagenationDto.cursor = 0;
+//   // }
+//   // console.log("********************************", pagenationDto);
+//   if (next) {
+//     allAdmins = await getCategoriesData(pagenationDto.cursor, size, true);
+//   } else {
+//     allAdmins = await getCategoriesData(
+//       pagenationDto.previousCursor,
+//       size,
+//       false
+//     );
+//   }
+
+//   console.log("all cats", allAdmins);
+//   if (allAdmins.length == 0) {
+//     const addBtn = document.getElementById("add-button");
+//     const div = noDataAdded("Category", addBtn);
+//     const homeRoot = document.getElementsByClassName("container")[0];
+//     homeRoot.innerHTML = "";
+//     homeRoot.appendChild(div);
+//   } else {
+//     createCategoryTable(allAdmins);
+//     addPagination(renderTable);
+//   }
+// }
+
+// const handleSearch = async (e) => {
+//   const value = e.target.value;
+// };
+
+function filterResults(value) {
+  if (value.trim().length === 0) {
+    addPagination(getAllCategories, createCategoryTable);
+    // const allContracts = await getCategoriesData();
+    // if (allContracts == null || allContracts.length == 0) {
+    //   const contactTable =
+    //     document.getElementsByClassName("categories-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = allContracts;
+    //   createCategoryTable(contracts);
+    // }
   }
   if (value.length >= 2) {
-    const searchResult = await searchCategories(value);
+    addPagination(getAllCategories, createCategoryTable, value);
+    // const searchResult = await searchCategories(value);
 
-    if (searchResult.data == null || searchResult.data.length == 0) {
-      // showEmptyPage();
-      const contactTable =
-        document.getElementsByClassName("categories-table")[0];
-      contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    } else {
-      const contracts = searchResult.data;
-      console.log(contracts);
-      createCategoryTable(contracts);
-    }
+    // if (searchResult.data == null || searchResult.data.length == 0) {
+    //   // showEmptyPage();
+    //   const contactTable =
+    //     document.getElementsByClassName("categories-table")[0];
+    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
+    // } else {
+    //   const contracts = searchResult.data;
+    //   console.log(contracts);
+    //   createCategoryTable(contracts);
+    //   addPagination(goToCategory, Maincursor);
+    // }
   }
-};
+}
 
 async function deleteCategory(id) {
   try {
@@ -149,6 +187,8 @@ const createCategoryTable = async (categories) => {
     row.appendChild(div);
 
     table.appendChild(row);
+
+    // const pagination = document.createElement
   });
 
   const toolTip = document.getElementsByClassName("tooltip");
@@ -165,14 +205,12 @@ const createCategoryTable = async (categories) => {
 };
 
 function handleMouseEnter(i) {
-  console.log("hover-element");
   const toolTipText = document.getElementsByClassName("tooltiptext");
   const toolTipTextArr = [...toolTipText];
 
   let I = 0;
 
   toolTipTextArr.map((single) => {
-    console.log(i, " - ", I);
     if (i == I) {
       single.classList.remove("hidden");
     }
@@ -181,7 +219,6 @@ function handleMouseEnter(i) {
 }
 
 function handleMouseLeave(i) {
-  console.log("hover-element");
   const toolTipText = document.getElementsByClassName("tooltiptext");
   const toolTipTextArr = [...toolTipText];
 

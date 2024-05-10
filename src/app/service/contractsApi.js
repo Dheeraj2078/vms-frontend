@@ -53,16 +53,15 @@ export const addContract = async (formData) => {
     });
 };
 
-export const getAllContracts = async (lastId, pageSize) => {
+export const getAllContracts = async (cursor, size, next, filter) => {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  const response = await makeRequest(
-    baseUrl + `/contracts/get-contracts?lastId=${lastId}&pageSize=${pageSize}`,
-    httpMethods.GET,
-    headers
-  );
+  const url = filter
+    ? `/contracts/get-contracts?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`
+    : `/contracts/get-contracts?cursor=${cursor}&size=${size}&next=${next}`;
+  const response = await makeRequest(baseUrl + url, httpMethods.GET, headers);
 
   return response;
 };

@@ -4,16 +4,15 @@ import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
 const baseUrl = apiUrlLocal;
 const token = getCurrentUserToken();
 
-export const getAllCategories = async () => {
+export const getAllCategories = async (cursor, size, next, filter) => {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  const response = await makeRequest(
-    baseUrl + "/category/get-all-categories",
-    httpMethods.GET,
-    headers
-  );
+  const url = !filter
+    ? `/category/get-categories?cursor=${cursor}&size=${size}&next=${next}`
+    : `/category/get-categories?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`;
+  const response = await makeRequest(baseUrl + url, httpMethods.GET, headers);
 
   return response;
 };
