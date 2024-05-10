@@ -449,7 +449,7 @@ export async function handleAddVendor() {
     console.log("RESSSS", res);
 
     if (res.error == null) {
-      successModal("Vendor Added", handleCross);
+      successModal("Vendor added", handleCross);
     }
   } catch (error) {
     console.log(error);

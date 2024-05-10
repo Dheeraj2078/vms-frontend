@@ -9,7 +9,7 @@ import {
 // import { createTableHeader } from "../../../common/components/table";
 // import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
-import { getAllInvoice } from "../../../service/invoiceApi";
+import { getAllInvoice, getInvoiceStats } from "../../../service/invoiceApi";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
@@ -155,29 +155,27 @@ const createInvoiceTable = async (invoices) => {
     table.appendChild(row);
   });
 
-  populateInvoiceStatus(invoices);
+  populateInvoiceStats();
 };
 
-const populateInvoiceStatus = (vendorsDetailsArr) => {
-  console.log("arr", vendorsDetailsArr);
-  let activeVendorsCount = 0,
-    inActiveVectorsCount = 0;
-  for (let vendorDetail of vendorsDetailsArr) {
-    if (vendorDetail.status == true) {
-      activeVendorsCount += 1;
-    } else {
-      inActiveVectorsCount += 1;
-    }
+const populateInvoiceStats = async () => {
+  try {
+    const invoiceStats = await getInvoiceStats();
+    const invoiceStatsData = invoiceStats.data;
+
+    let totalVendorsCount = invoiceStatsData.total;
+    let activeVendorsCount = invoiceStatsData.active,
+      inActiveVectorsCount = totalVendorsCount - activeVendorsCount;
+
+    const totalVendors = document.getElementById("total-vendors");
+    totalVendors.innerHTML = totalVendorsCount;
+
+    const activeVendors = document.getElementById("active-vendors");
+    activeVendors.innerHTML = activeVendorsCount;
+
+    const inActiveVendors = document.getElementById("inactive-vendors");
+    inActiveVendors.innerHTML = inActiveVectorsCount;
+  } catch (error) {
+    console.log(error);
   }
-
-  let totalVendorsCount = vendorsDetailsArr.length;
-
-  const totalVendors = document.getElementById("total-vendors");
-  totalVendors.innerHTML = totalVendorsCount;
-
-  const activeVendors = document.getElementById("active-vendors");
-  activeVendors.innerHTML = activeVendorsCount;
-
-  const inActiveVendors = document.getElementById("inactive-vendors");
-  inActiveVendors.innerHTML = inActiveVectorsCount;
 };

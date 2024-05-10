@@ -60,7 +60,7 @@ export const getAllVendors = async (cursor, size, next) => {
     httpMethods.GET,
     headers
   );
-
+  console.log("SAHIL", response);
   return response;
 };
 
@@ -90,4 +90,18 @@ export const toggleVendorStatus = async (vendorId) => {
   );
 
   return response;
+};
+
+export const getVendorStats = async () => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await fetch(baseUrl + `/utility/get-count/vendor`, {
+    method: httpMethods.GET,
+    headers: headers,
+  });
+
+  const res = await response.json();
+  return res;
 };

@@ -540,10 +540,11 @@ export async function handleAddContract() {
 
   const cancelBtn = document.getElementsByClassName("btn-light")[0];
   const saveBtn = document.getElementsByClassName("btn-sm")[0];
+  const formCorss = document.getElementById("form-cross");
 
-  console.log("sace", saveBtn);
   saveBtn.classList.add("disabled");
   cancelBtn.classList.add("disabled-light");
+  formCorss.classList.add("disabled-cross");
   try {
     const res = await addContract(formData);
     console.log("data 2", res);
@@ -558,6 +559,9 @@ export async function handleAddContract() {
     }
     if (cancelBtn.classList.contains("disabled-light")) {
       cancelBtn.classList.remove("disabled-light");
+    }
+    if (formCorss.classList.contains("disabled-cross")) {
+      formCorss.classList.remove("disabled-cross");
     }
   }
 }

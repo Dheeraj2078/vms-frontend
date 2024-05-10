@@ -8,6 +8,7 @@ import {
 import { createTableHeader } from "../../../common/components/table.js";
 import {
   getAllVendors,
+  getVendorStats,
   toggleVendorStatus,
 } from "../../../service/vendorsApi.js";
 import { vendorDetails } from "./vendorDetails/vendorDetails.js";
@@ -261,29 +262,28 @@ const createVendorTable = async (vendorsDetails) => {
 
   vendorTable.appendChild(table);
 
-  populateVendorStatus(vendorsDetails);
+  populateVendorStats();
 };
 
-const populateVendorStatus = (vendorsDetailsArr) => {
-  console.log("arr", vendorsDetailsArr);
-  let activeVendorsCount = 0,
-    inActiveVectorsCount = 0;
-  for (let vendorDetail of vendorsDetailsArr) {
-    if (vendorDetail.item1.status == true) {
-      activeVendorsCount += 1;
-    } else {
-      inActiveVectorsCount += 1;
-    }
+const populateVendorStats = async () => {
+  try {
+    const invoiceStats = await getVendorStats();
+    console.log("NNN", invoiceStats);
+    const invoiceStatsData = invoiceStats.data;
+
+    let totalVendorsCount = invoiceStatsData.total;
+    let activeVendorsCount = invoiceStatsData.active,
+      inActiveVectorsCount = totalVendorsCount - activeVendorsCount;
+
+    const totalVendors = document.getElementById("total-vendors");
+    totalVendors.innerHTML = totalVendorsCount;
+
+    const activeVendors = document.getElementById("active-vendors");
+    activeVendors.innerHTML = activeVendorsCount;
+
+    const inActiveVendors = document.getElementById("inactive-vendors");
+    inActiveVendors.innerHTML = inActiveVectorsCount;
+  } catch (error) {
+    console.log(error);
   }
-
-  let totalVendorsCount = vendorsDetailsArr.length;
-
-  const totalVendors = document.getElementById("total-vendors");
-  totalVendors.innerHTML = totalVendorsCount;
-
-  const activeVendors = document.getElementById("active-vendors");
-  activeVendors.innerHTML = activeVendorsCount;
-
-  const inActiveVendors = document.getElementById("inactive-vendors");
-  inActiveVendors.innerHTML = inActiveVectorsCount;
 };

@@ -45,3 +45,17 @@ export const getAllInvoice = async (cursor, size, next, filter) => {
 
   return response;
 };
+
+export const getInvoiceStats = async () => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await fetch(baseUrl + `/utility/get-count/invoice`, {
+    method: httpMethods.GET,
+    headers: headers,
+  });
+
+  const res = await response.json();
+  return res;
+};
