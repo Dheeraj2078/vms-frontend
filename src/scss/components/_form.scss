@@ -240,3 +240,8 @@
 .exsq-address {
   line-height: 1.2;
 }
+
+label:after {
+  content: " *";
+  color: red;
+}

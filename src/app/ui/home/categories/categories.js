@@ -175,7 +175,7 @@ const createCategoryTable = async (categories) => {
       div.innerHTML = `
         <div>
           <img class="height-20 btn-disabled tooltip" src=${image} />
-          <span class="tooltiptext hidden">vendor needs to be active for this action</span>
+          <span class="tooltiptext hidden">This Category is a part of some vendor</span>
         </div>
       `;
     } else {

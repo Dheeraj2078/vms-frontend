@@ -101,13 +101,18 @@ body {
 
 .disabled {
   background-color: #fb9d91;
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .disabled-light {
   border: 1px solid #fb9d91;
   color: #fb9d91;
-  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.disabled-cross {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .btn-disabled {
@@ -500,6 +505,11 @@ body {
 
 .exsq-address {
   line-height: 1.2;
+}
+
+label:after {
+  content: " *";
+  color: red;
 }
 
 .container {

@@ -220,7 +220,7 @@ export async function handleDataChange() {
         organizationName.value = "Select Vendor Types";
       } else {
         organizationName.value = organizationName_;
-
+        allCategory.value = "";
         try {
           // const response = await fetch()
           const id = mapOrgNameToOrgId[organizationName_];
@@ -568,10 +568,12 @@ export async function handleAddInvoice() {
 
   const cancelBtn = document.getElementsByClassName("btn-light")[0];
   const saveBtn = document.getElementsByClassName("btn-sm")[0];
+  const formCorss = document.getElementById("form-cross");
 
   console.log("sace", saveBtn);
   saveBtn.classList.add("disabled");
   cancelBtn.classList.add("disabled-light");
+  formCorss.classList.add("disabled-cross");
 
   console.log("fr", formData);
   try {
@@ -588,6 +590,9 @@ export async function handleAddInvoice() {
     }
     if (cancelBtn.classList.contains("disabled-light")) {
       cancelBtn.classList.remove("disabled-light");
+    }
+    if (formCorss.classList.contains("disabled-cross")) {
+      formCorss.classList.remove("disabled-cross");
     }
   }
 }

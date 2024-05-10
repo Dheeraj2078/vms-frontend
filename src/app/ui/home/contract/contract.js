@@ -97,6 +97,7 @@ function filterResults(value) {
 
 export const handleFileDownload = async (fileName, id) => {
   console.log("downloading... ", fileName);
+  console.log("down ", id);
 
   const currentInvoiceId = document.getElementById(id);
   console.log(" -> ", currentInvoiceId);
@@ -204,7 +205,7 @@ const createContractTable = async (contracts) => {
     div.innerHTML = `<img id=${contractId} class="height-20 btn-clickable" src=${imageUrl} />`;
     const download_btn = div.getElementsByClassName("btn-clickable");
     download_btn[0].addEventListener("click", () =>
-      handleFileDownload(contract.fileName, "contract" + contractId)
+      handleFileDownload(contract.fileName, "contract" + contract.id)
     );
     row.appendChild(div);
 
