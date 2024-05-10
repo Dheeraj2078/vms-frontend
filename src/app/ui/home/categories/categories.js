@@ -15,6 +15,7 @@ import { goToRoute } from "../../../common/components/goToRoute";
 import { confirmationModal } from "../../../common/components/confirmationModal";
 import { searchCategories } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
+import { searchModel } from "../../../common/components/search";
 
 let Maincursor = 0;
 
@@ -41,8 +42,9 @@ export default async function goToCategory() {
   goToRoute(categoriesHtml, categoriesFormHtml, handleCross, handleAddCategory);
   handleDataChange();
 
-  const search = document.getElementById("internal-search");
-  search.addEventListener("input", handleSearch);
+  // const search = document.getElementById("internal-search");
+  // search.addEventListener("input", handleSearch);
+  searchModel("Search Categories", filterResults);
   addPagination(getAllCategories, createCategoryTable);
   // renderTable(true, 10);
 }
@@ -76,9 +78,12 @@ export default async function goToCategory() {
 //   }
 // }
 
-const handleSearch = async (e) => {
-  const value = e.target.value;
-  if (value.length === 0) {
+// const handleSearch = async (e) => {
+//   const value = e.target.value;
+// };
+
+function filterResults(value) {
+  if (value.trim().length === 0) {
     addPagination(getAllCategories, createCategoryTable);
     // const allContracts = await getCategoriesData();
     // if (allContracts == null || allContracts.length == 0) {
@@ -106,7 +111,7 @@ const handleSearch = async (e) => {
     //   addPagination(goToCategory, Maincursor);
     // }
   }
-};
+}
 
 async function deleteCategory(id) {
   try {

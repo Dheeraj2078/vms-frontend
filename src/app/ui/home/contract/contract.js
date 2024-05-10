@@ -15,6 +15,7 @@ import {
   searchContract,
 } from "../../../service/contractsApi";
 import { addPagination } from "../../../common/components/pagination";
+import { searchModel } from "../../../common/components/search";
 
 const getContractData = async () => {
   try {
@@ -37,9 +38,9 @@ export default async function goToContract() {
   sessionStorage.setItem("tab", "contract");
   goToRoute(contractHtml, contractFormHtml, handleCross, handleAddContract);
 
-  const search = document.getElementById("contract-search");
-  search.addEventListener("input", handleSearch);
-
+  // const search = document.getElementById("contract-search");
+  // search.addEventListener("input", handleSearch);
+  searchModel("Search Contracts", filterResults);
   console.log("handle Multiple dropdown....");
   handleMultipleDropdown();
 
@@ -58,9 +59,13 @@ export default async function goToContract() {
   // }
 }
 
-const handleSearch = async (e) => {
-  const value = e.target.value;
-  if (value.length === 0) {
+// const handleSearch = async (e) => {
+//   const value = e.target.value;
+
+// };
+
+function filterResults(value) {
+  if (value.trim().length === 0) {
     addPagination(getAllContracts, createContractTable);
     // const allContracts = await getContractData();
     // if (allContracts == null || allContracts.pagenationData.length == 0) {
@@ -88,7 +93,7 @@ const handleSearch = async (e) => {
     //   createContractTable(contracts);
     // }
   }
-};
+}
 
 export const handleFileDownload = async (fileName, id) => {
   console.log("downloading... ", fileName);
