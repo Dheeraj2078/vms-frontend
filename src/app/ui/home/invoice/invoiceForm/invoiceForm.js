@@ -197,7 +197,16 @@ export async function handleDataChange() {
   status = document.getElementById("status");
   contactDocument = document.getElementById("contact-document");
 
-  console.log("MMMMMMMMM", vendorOrgDropdownOption);
+  startDate.addEventListener("keydown", (e) => {
+    e.preventDefault();
+  });
+
+  startDate.addEventListener("click", () => {
+    // startDate.blur();
+    startDate.click();
+  });
+
+  // console.log("MMMMMMMMM", vendorOrgDropdownOption);
 
   const vendorOrgDropdownOptionArr = [...vendorOrgDropdownOption];
   vendorOrgDropdownOptionArr.map((org) => {

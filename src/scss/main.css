@@ -557,20 +557,34 @@ label:after {
 .container .add-search-wrapper .search-container {
   display: flex;
   border: 1px solid #e7e6e6;
-  padding: 10px;
   gap: 12px;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   border-radius: 4px;
 }
 .container .add-search-wrapper .search-container .search-icon {
   height: 16px;
   width: 16px;
+  margin: 10px;
+}
+.container .add-search-wrapper .search-container .search-cross-icon {
+  height: 16px;
+  width: 16px;
+  margin: 10px;
+  cursor: pointer;
 }
 .container .add-search-wrapper .search-container input {
   outline: none;
   border: none;
   width: 350px;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-1 {
+  opacity: 1;
 }
 
 .blur-background {

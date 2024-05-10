@@ -53,7 +53,7 @@ passwordRef.addEventListener("input", (e) => {
   password = e.target.value;
 });
 
-const loginFn = async (e) => {
+const loginFn = async () => {
   const loginData = {
     email,
     password,
@@ -115,7 +115,6 @@ const loginFn = async (e) => {
 };
 
 loginBtn.addEventListener("click", loginFn);
-
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     loginFn();

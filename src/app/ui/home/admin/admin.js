@@ -7,10 +7,12 @@ import {
 } from "./AdminForm/AdminForm";
 import { getAdmins } from "../../../service/admins";
 import { createTableHeader } from "../../../common/components/table";
+// import searchHtml from "../../../common/components/search.html";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
 import { searchUser } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
+import { searchModel } from "../../../common/components/search";
 
 const getAdminsData = async () => {
   try {
@@ -25,8 +27,17 @@ export default async function goToAdmin() {
   sessionStorage.setItem("tab", "admin");
   goToRoute(adminHtml, adminFormHtml, handleCross, handleAddAdmin);
 
-  const search = document.getElementById("internal-search");
-  search.addEventListener("input", handleSearch);
+  // const searchContainer = document.getElementsByClassName("search-holder")[0];
+  // searchContainer.innerHTML = searchHtml;
+
+  // // const searchInput = document.getElementById("internal-search");
+  // // searchInput.setAttribute("placeholder", "Search Admins");
+
+  // const search = document.getElementById("internal-search");
+  // search.addEventListener("input", handleSearch);
+  // search.setAttribute("placeholder", "Search Admins");
+
+  searchModel("Search Admins", filterResults);
 
   handleMultipleDropdown();
 
@@ -44,9 +55,12 @@ export default async function goToAdmin() {
   // }
 }
 
-const handleSearch = async (e) => {
-  const value = e.target.value;
-  if (value.length === 0) {
+// const handleSearch = async (e) => {
+//   const value = e.target.value;
+// };
+
+function filterResults(value) {
+  if (value.trim().length === 0) {
     addPagination(getAdmins, createAdminTable);
     // const allContracts = await getAdminsData();
     // if (allContracts == null || allContracts.length == 0) {
@@ -71,7 +85,7 @@ const handleSearch = async (e) => {
     //   createAdminTable(contracts);
     // }
   }
-};
+}
 
 const createAdminTable = async (admins) => {
   console.log("ADMINS", admins);

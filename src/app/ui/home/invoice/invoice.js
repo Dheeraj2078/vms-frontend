@@ -15,6 +15,7 @@ import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
+import { searchModel } from "../../../common/components/search";
 
 const getInvoices = async () => {
   try {
@@ -30,8 +31,10 @@ export default async function goToInvoice() {
   sessionStorage.setItem("tab", "invoice");
   goToRoute(invoiceHtml, invoiceFormHtml, handleCross, handleAddInvoice);
 
-  const search = document.getElementById("internal-search");
-  search.addEventListener("input", handleSearch);
+  // const search = document.getElementById("internal-search");
+  // search.addEventListener("input", handleSearch);
+
+  searchModel("Search Invoices", filterResults);
   handleMultipleDropdown();
 
   addPagination(getAllInvoice, createInvoiceTable);
@@ -48,8 +51,12 @@ export default async function goToInvoice() {
   // }
 }
 
-const handleSearch = async (e) => {
-  const value = e.target.value;
+// const handleSearch = async (e) => {
+//   const value = e.target.value;
+
+// };
+
+function filterResults(value) {
   if (value.length === 0) {
     addPagination(getAllInvoice, createInvoiceTable);
     // const allContracts = await getInvoices();
@@ -75,7 +82,7 @@ const handleSearch = async (e) => {
     //   createInvoiceTable(contracts);
     // }
   }
-};
+}
 
 const createInvoiceTable = async (invoices) => {
   const invoiceTable = document.getElementsByClassName("invoice-table")[0];
