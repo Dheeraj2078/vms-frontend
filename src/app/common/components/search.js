@@ -9,10 +9,7 @@ export const searchModel = (placeholder, onInputFunction) => {
 
   const search = document.getElementById("internal-search");
 
-  search.addEventListener("input", (e) => {
-    const value = e.target.value;
-    handleCrossVisibility(value);
-  });
+  search.setAttribute("placeholder", placeholder);
 
   const handleCrossVisibility = (value) => {
     if (value.length > 0) {
@@ -27,9 +24,14 @@ export const searchModel = (placeholder, onInputFunction) => {
     handleCrossVisibility(search.value);
     onInputFunction(search.value);
   });
+  let timeoutId;
   search.addEventListener("input", (e) => {
     const value = e.target.value;
-    onInputFunction(value);
+    handleCrossVisibility(value);
+    // onInputFunction(value);
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(function () {
+      onInputFunction(value);
+    }, 500);
   });
-  search.setAttribute("placeholder", placeholder);
 };

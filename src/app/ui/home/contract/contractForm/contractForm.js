@@ -324,7 +324,7 @@ export async function handleDataChange() {
           const id = mapOrgNameToOrgId[organizationName_];
           const response = await getContractCategory(id);
           const categoriesForOrg = response.data;
-          console.log("categoriesForOrg", categoriesForOrg);
+          // console.log("categoriesForOrg", categoriesForOrg);
 
           const associatedCategory = document.getElementById(
             "associated-category"
