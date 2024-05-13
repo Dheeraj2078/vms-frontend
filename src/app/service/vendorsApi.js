@@ -50,13 +50,16 @@ export const getVendorFormDropdown = async () => {
   return response;
 };
 
-export const getAllVendors = async (cursor, size, next) => {
+export const getAllVendors = async (cursor, size, next, filter) => {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
+  const url = filter
+    ? `/vendor/get-vendors?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`
+    : `/vendor/get-vendors?cursor=${cursor}&size=${size}&next=${next}`;
   const response = await makeRequest(
-    `${baseUrl}/vendor/get-vendors?cursor=${cursor}&size=${size}&next=${next}`,
+    `${baseUrl}${url}`,
     httpMethods.GET,
     headers
   );

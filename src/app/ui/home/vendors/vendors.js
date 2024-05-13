@@ -161,6 +161,7 @@ function filterResults(value) {
     addPagination(getAllVendors, createVendorTable);
   }
   if (value.length >= 2) {
+    console.log("searching", value);
     addPagination(getAllVendors, createVendorTable, value);
   }
 }
