@@ -1,0 +1,144 @@
+.container {
+  padding: 3.2rem 3.2rem;
+
+  // 1
+  .top-heading {
+    font-size: 24px;
+    padding-bottom: 20px;
+    color:$gray-800;
+    font-weight: 500;
+  }
+
+  // 2
+  .statistics {
+    &-container {
+      display: flex;
+      gap: 1.6rem;
+      padding-bottom: 32px;
+    }
+
+    &-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0px 0px 8px 0px $black;
+      border: 1px solid $gray-very-light;
+      padding: 2.4rem;
+      flex-basis: 100%;
+      border-radius: 4px;
+
+      &-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2.4rem;
+
+        p{
+          font-size: 1.4rem;
+          color: $gray-900;
+          font-weight: 400;
+        }
+        h2{
+          font-size: 3.2rem;
+        }
+      }
+
+      &-right {
+        width: 7rem;
+      }
+    }
+  }
+
+  // 3
+  .add-search-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+
+    .search-container {
+      display: flex;
+      border: 1px solid $gray-very-light;
+      padding: 10px;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+
+      .search-icon {
+        height: 16px;
+        width: 16px;
+      }
+
+      input {
+        outline: none;
+        border: none;
+        width: 350px;
+      }
+    }
+  }
+}
+
+// generic
+.blur-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: 0.1;
+  filter: alpha(opacity=10);
+  overflow: none;
+}
+
+::placeholder {
+  color:$gray-lightest-100;
+}
+
+#add-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plus-icon {
+  height: 14px;
+  width: 14px;
+}
+
+.status {
+  padding: 4px 8px 4px 8px;
+  border-radius: 16px;
+  text-align: center;
+  display: inline-block;
+}
+
+.active {
+  color: #14ae6d;
+  background-color: #E7F5F0;
+}
+
+.inactive {
+  color: $orange-lightest;
+  background: #f03e3e1a;
+}
+
+// NO DATA ADDED
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 100px;
+  div img {
+    height: 250px;
+  }
+
+  .no-text {
+    font-size: 14px;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}

@@ -1,48 +1,53 @@
-<main class="container">
-  <div class="vendor-statistics-container">
-    <div class="vendor-statistics-card">
-      <div class="vendor-statistics-card-left">
-        <div>Total Vendors</div>
-        <div>40</div>
+
+  <section class="container">
+    <!-- 1.heading -->
+    <h1 class="top-heading">Vendors</h1>
+    <!-- 2. Stats -->
+    <div class="statistics-container">
+      <div class="statistics-card">
+        <div class="statistics-card-left">
+          <p>Total Vendors</p>
+          <h2 id="total-vendors"></h2>
+        </div>
+        <img class="statistics-card-right" src="../../../../assets/images/totalVendors.png"  alt="TotalVendorImage"/>
       </div>
-      <img
-        class="vendor-statistics-card-right"
-        src="../../../../assets/images/totalVendors.png"
-      />
-    </div>
-    <div class="vendor-statistics-card">
-      <div class="vendor-statistics-card-left">
-        <div>Active Vendors</div>
-        <div>36</div>
+      <div class="statistics-card">
+        <div class="statistics-card-left">
+          <p>Active Vendors</p>
+          <h2 id="active-vendors"></h2>
+        </div>
+        <img class="statistics-card-right" src="../../../../assets/images/activeVendors.png" alt="VendoractiveImage"/>
       </div>
-      <img
-        class="vendor-statistics-card-right"
-        src="../../../../assets/images/activeVendors.png"
-      />
+      <div class="statistics-card">
+        <div class="statistics-card-left">
+          <p>Inactive Vendors</p>
+          <h2 id="inactive-vendors">40</h2>
+        </div>
+        <img class="statistics-card-right" src="../../../../assets/images/inactiveVendors.png" alt="VendoractiveImage"/>
+      </div>
     </div>
 
-    <div class="vendor-statistics-card">
-      <div class="vendor-statistics-card-left">
-        <div>Inactive Vendors</div>
-        <div>04</div>
+    <!-- 3. Search + addbutton -->
+    <div class="add-search-wrapper">
+      <div class="search-container">
+        <svg class="search-icon">
+          <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
+        </svg>
+        <input type="text" placeholder="Search Vendors" name="search" />
       </div>
-      <img
-        class="vendor-statistics-card-right"
-        src="../../../../assets/images/inactiveVendors.png"
-      />
+      <button id="add-button" class="btn-sm">
+        <svg class="plus-icon">
+          <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
+        </svg>
+        <span>Add New Vendor</span>
+      </button>
     </div>
-  </div>
-
-  <div class="vendor-heading">Vendors</div>
-  <div class="add-vendors-button-wrapper">
-    <div class="search-container">
-      <svg class="search-icon">
-        <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
-      </svg>
-      <input type="text" placeholder="Quick Search.." name="search" />
+    <!-- 4 Table -->
+    <div class="vendor-table table-container"></div>
+    <div class="hidden active-vendor-icon">
+      <img src="../../../../assets/images/active.png" alt="activeImage" />
     </div>
-    <button id="add-vendors-button" class="btn-sm">+ Add New Vendor</button>
-  </div>
-
-  <div class="vendor-table-container"></div>
-</main>
+    <div class="hidden inactive-vendor-icon">
+      <img src="../../../../assets/images/inactive.png"  alt="InactiveImage"/>
+    </div>
+  </section>

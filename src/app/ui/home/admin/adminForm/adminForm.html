@@ -1,0 +1,76 @@
+<div class="form-container">
+  <div class="form-header">
+    <h3 class="form-header-text">Create Admin</h3>
+    <svg id="form-cross">
+      <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
+    </svg>
+  </div>
+  <div class="form-main">
+    <div class="form-wrapper">
+      <form class="form-item">
+        <label>First Name</label>
+        <input
+          type="text"
+          name=""
+          id="first-name"
+          placeholder="Enter First Name"
+        />
+        <p class="hidden error-message first-name-error">
+          Please enter the First Name
+        </p>
+      </form>
+      <form class="form-item">
+        <label>Last Name</label>
+        <input
+          type="text"
+          name=""
+          id="last-name"
+          placeholder="Enter Last Name"
+        />
+        <p class="hidden error-message last-name-error">
+          Please enter the Last Name
+        </p>
+      </form>
+      <form class="form-item">
+        <label>Email</label>
+        <input
+          type="text"
+          name=""
+          id="admin-email"
+          placeholder="Enter Email Address"
+        />
+        <p class="hidden error-message email-error">
+          Please enter the Email Address
+        </p>
+      </form>
+      <form class="form-item associated-category-wrapper">
+        <label>Role</label>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="all-roles"
+            value=""
+            placeholder="Select a role"
+            class="default-cursor"
+            readonly
+          />
+          <svg class="dropdown-icon">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="admin-roles" class="hidden"></div>
+        <p class="hidden error-message role-error">Please select a role</p>
+      </form>
+    </div>
+    <div class="form-buttons">
+      <button class="btn-light form-cancel">Cancel</button>
+      <button class="btn-sm" id="add-to-db">Save</button>
+    </div>
+    <p class="email-exists error-message hidden">
+      Either Email is incorrect or already exists
+    </p>
+  </div>
+</div>

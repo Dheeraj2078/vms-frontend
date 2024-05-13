@@ -1,4 +1,5 @@
 import navBarHtml from "../common/navbar.html";
+import { localStorageKeys } from "./constants.js";
 
 function base64urlDecode(str) {
   str = str.replace(/-/g, "+").replace(/_/g, "/");
@@ -22,8 +23,13 @@ export function decodeJwt(token) {
   return { header, payload, signature };
 }
 
+export function getCurrentUserToken() {
+  const token = localStorage.getItem(localStorageKeys.token);
+  return token;
+}
+
 export function validateToken() {
-  const token = localStorage.getItem("token");
+  const token = getCurrentUserToken();
   if (token == null) return false;
 
   const info = decodeJwt(token);
@@ -33,6 +39,12 @@ export function validateToken() {
   } else {
     return true;
   }
+}
+
+export function getCurrentUserInfo() {
+  const token = getCurrentUserToken();
+  const info = decodeJwt(token);
+  return info.payload;
 }
 
 export async function makeRequest(
@@ -61,9 +73,10 @@ export async function makeRequest(
 }
 
 export function loadNavBar() {
-  const div = document.createElement("div");
+  const div = document.createElement("aside");
+  div.classList.add("navbar-wrapper")
   div.innerHTML = navBarHtml;
-  const firstChild = document.getElementById("main-container");
+  const firstChild = document.getElementById("home-root");
   firstChild.appendChild(div);
 }
 

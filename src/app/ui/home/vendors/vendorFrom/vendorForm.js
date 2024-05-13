@@ -1,12 +1,17 @@
 import { getVendorFormDropdown } from "../../../../service/vendorsApi";
 import { addVendor } from "../../../../service/vendorsApi";
+import { successModal } from "../../../../common/components/successModal";
+import goToVendor from "../vendors";
 
 export function handleCross() {
-  const vendorFormOutput = document.getElementById("vendor-form-output");
+  const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
 
-  const mainContainer = document.getElementById("main-container");
+  const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
+  document.body.classList.remove("overflow-hidden");
+
+  goToVendor();
 }
 
 let mapCategoryToId = {};
@@ -270,7 +275,10 @@ export async function handleAddVendor() {
   try {
     const res = await addVendor(postData);
     console.log(res);
-    handleCross();
+
+    if (res.error == null) {
+      successModal("Vendor Added", handleCross);
+    }
   } catch (error) {
     console.log(error);
   }

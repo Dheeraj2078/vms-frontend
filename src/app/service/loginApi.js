@@ -1,5 +1,5 @@
-import { makeRequest } from "../util/util.js";
-import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
+import { makeRequest, getCurrentUserToken } from "../util/util.js";
+import { httpMethods, apiUrlLocal, apiUrl } from "../util/constants.js";
 
 const baseUrl = apiUrl;
 
@@ -98,6 +98,27 @@ export const updatePassword = async (userToken, loginData) => {
     return response;
   } catch (error) {
     console.log(error);
+    throw Error;
+  }
+};
+
+export const createAdmin = async (postAdminData) => {
+  const token = getCurrentUserToken();
+  try {
+    const body = postAdminData;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await makeRequest(
+      baseUrl + `/user/create-user/`,
+      httpMethods.POST,
+      headers,
+      body
+    );
+
+    return response;
+  } catch (error) {
     throw Error;
   }
 };
