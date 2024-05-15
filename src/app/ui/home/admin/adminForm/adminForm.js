@@ -28,7 +28,7 @@ export async function handleMultipleDropdown() {
   input.value = "admin";
   input.classList.add("cursor-pointer");
 
-  const label = document.createElement("label");
+  const label = document.createElement("span");
   label.setAttribute("for", "admin");
   label.innerHTML = "admin";
   label.classList.add("cursor-pointer");

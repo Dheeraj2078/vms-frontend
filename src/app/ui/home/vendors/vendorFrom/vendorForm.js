@@ -35,7 +35,7 @@ export async function handleMultipleDropdown() {
     const allVendorType = categoriesAndVendorType.data.vednorTypes;
 
     allCategories.map((category) => {
-      const label = document.createElement("label");
+      const label = document.createElement("span");
       label.classList.add("category-dropdown-option");
 
       const input = document.createElement("input");
@@ -75,7 +75,7 @@ export async function handleMultipleDropdown() {
       input.value = vendorType.name;
       input.classList.add("cursor-pointer");
 
-      const label = document.createElement("label");
+      const label = document.createElement("span");
       label.setAttribute("for", vendorType.name);
       label.innerHTML = vendorType.name;
       label.classList.add("cursor-pointer");

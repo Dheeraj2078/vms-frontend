@@ -143,6 +143,7 @@ const createContractTable = async (contracts) => {
 
   // console.log(",,,", contracts);
 
+  const tBody = document.createElement("tbody");
   contracts.map((contract) => {
     const row = document.createElement("tr");
 
@@ -209,6 +210,8 @@ const createContractTable = async (contracts) => {
     );
     row.appendChild(div);
 
-    table.appendChild(row);
+    tBody.appendChild(row);
   });
+
+  table.appendChild(tBody);
 };

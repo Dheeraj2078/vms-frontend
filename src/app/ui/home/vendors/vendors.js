@@ -105,6 +105,8 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
   let currentVendorDetails = vendorDetail.item1;
 
   const cIds = cIdsArr.slice(1);
+
+  // const tBody = document.createElement("tbody");
   cIds.map((cId) => {
     lastOrgDiv.classList.add("border-bottom-none");
     const row = document.createElement("tr");
@@ -149,6 +151,8 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
     row.appendChild(div);
     table.appendChild(row);
   });
+
+  // table.appendChild(tBody);
 };
 
 // const handleSearch = async (e) => {
@@ -182,6 +186,7 @@ const createVendorTable = async (vendorsDetails) => {
 
   // const vendorsDetails = await getAllVendorsUtil();
 
+  const tBody = document.createElement("tbody");
   for (let vendorDetail of vendorsDetails) {
     const row = document.createElement("tr");
     let OrgDiv = document.createElement("td");
@@ -246,10 +251,12 @@ const createVendorTable = async (vendorsDetails) => {
     div.appendChild(statusToggle);
 
     row.appendChild(div);
-    table.appendChild(row);
+    tBody.appendChild(row);
 
-    getMoreRows(table, OrgDiv, vendorDetail);
+    getMoreRows(tBody, OrgDiv, vendorDetail);
   }
+
+  table.appendChild(tBody);
 
   vendorTable.appendChild(table);
 
