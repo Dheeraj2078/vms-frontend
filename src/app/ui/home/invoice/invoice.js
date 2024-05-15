@@ -104,6 +104,7 @@ const createInvoiceTable = async (invoices) => {
   // console.log(",,,", contracts);
 
   // const invoices = await getInvoices();
+  const tBody = document.createElement("tbody");
   invoices.map((invoice) => {
     const row = document.createElement("tr");
 
@@ -159,8 +160,11 @@ const createInvoiceTable = async (invoices) => {
     );
     row.appendChild(div);
 
-    table.appendChild(row);
+    // table.appendChild(row);
+    tBody.append(row);
   });
+
+  table.appendChild(tBody);
 
   populateInvoiceStats();
 };

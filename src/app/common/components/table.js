@@ -3,6 +3,8 @@ export const createTableHeader = (tableFieldsArr) => {
   table.setAttribute("cellpadding", "0");
   table.setAttribute("cellspacing", "0");
 
+  const tHead = document.createElement("thead");
+
   const header = document.createElement("tr");
 
   tableFieldsArr.map((field) => {
@@ -15,7 +17,9 @@ export const createTableHeader = (tableFieldsArr) => {
     header.appendChild(div);
   });
 
-  table.appendChild(header);
+  tHead.appendChild(header);
+  table.append(tHead)
+  
 
   return table;
 };

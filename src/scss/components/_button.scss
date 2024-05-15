@@ -12,7 +12,7 @@
   &-sm {
     padding: 0.8rem 1.6rem;
     color: #fff;
-    background: #f85c47;
+    background: $orange;
     border-radius: 4px;
     font-size: 1.6rem;
     border: none;
@@ -25,7 +25,7 @@
     width: 100%;
     padding: 1.6rem 5.6rem;
     color: #fff;
-    background: #f85c47;
+    background: $orange;
     border-radius: 4px;
     font-size: 1.6rem;
     border: none;
@@ -35,9 +35,9 @@
   }
 
   &-light {
-    border: 1px solid #f85c47;
+    border: 1px solid $orange;
     padding: 0.8rem 1.6rem;
-    color: #f85c47;
+    color: $orange;
     border-radius: 4px;
     font-size: 1.6rem;
     transition: all 0.1s ease;
@@ -68,3 +68,11 @@
 .btn-clickable {
   cursor: pointer;
 }
+
+/*
+
+.disabled {
+  background-color: $gray-lightest;
+  cursor: not-allowed;
+}
+*/

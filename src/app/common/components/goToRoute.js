@@ -1,6 +1,6 @@
 export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
-  console.log("handle", handleCross);
   const homeRoot = document.querySelector("main");
+  console.log(homeRoot);
   homeRoot.innerHTML = "";
   const div = document.createElement("div");
   div.innerHTML = pageHtml;

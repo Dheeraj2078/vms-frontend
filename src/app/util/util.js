@@ -76,15 +76,10 @@ export async function makeRequest(
 }
 
 export function loadNavBar() {
-  // console.log("nabvar is added");
-  const div = document.createElement("div");
+  const div = document.createElement("aside");
+  div.classList.add("navbar-wrapper");
   div.innerHTML = navBarHtml;
-  // console.log("1.", div);
   const firstChild = document.getElementById("home-root");
-  // console.log("2.", firstChild);
-
-  // console.log("3.", div);
-
   firstChild.appendChild(div);
 }
 

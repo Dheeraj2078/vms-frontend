@@ -1,15 +1,13 @@
 <div class="form-container">
   <div class="form-header">
-    <div>Create Category</div>
-
+    <h3 class="form-header-text">Create Category</h3>
     <svg id="form-cross">
       <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
     </svg>
   </div>
   <div class="form-main">
-    <div class="form-heading"></div>
     <div class="form-wrapper">
-      <div class="form-item">
+      <form class="form-item">
         <label>Category Name</label>
         <input
           type="text"
@@ -17,12 +15,11 @@
           id="category-name"
           placeholder="Enter category name"
         />
-        <div class="hidden error-message category-name-error">
-          Please enter the category Name
-        </div>
-      </div>
-
-      <div class="form-item">
+        <p class="hidden error-message category-name-error">
+          Please enter the Category Name
+        </p>
+      </form>
+      <form class="form-item">
         <label>Category Description</label>
         <input
           type="text"
@@ -30,10 +27,10 @@
           id="category-description"
           placeholder="Enter category description"
         />
-        <div class="hidden error-message category-description-error">
+        <p class="hidden error-message category-description-error">
           Please enter the category description
-        </div>
-      </div>
+        </p>
+      </form>
     </div>
 
     <div class="already-exists error-message hidden">

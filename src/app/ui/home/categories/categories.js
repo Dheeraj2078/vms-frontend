@@ -151,6 +151,7 @@ const createCategoryTable = async (categories) => {
   categoriesTable.appendChild(table);
 
   // const categories = await getCategoriesData();
+  const tBody = document.createElement("tbody");
   categories.map((category) => {
     const row = document.createElement("tr");
 
@@ -186,10 +187,12 @@ const createCategoryTable = async (categories) => {
 
     row.appendChild(div);
 
-    table.appendChild(row);
+    tBody.appendChild(row);
 
     // const pagination = document.createElement
   });
+
+  table.appendChild(tBody);
 
   const toolTip = document.getElementsByClassName("tooltip");
   if (toolTip) {
