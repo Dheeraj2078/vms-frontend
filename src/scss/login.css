@@ -197,7 +197,7 @@ main .auth-left .logo-image {
 }
 main .auth-right {
   background-color: #fff;
-  padding: 48px 0;
+  padding: 30px 0;
   border-radius: 5rem 0 0 5rem;
   box-shadow: 0 0 2rem 0 rgba(248, 92, 71, 0.5019607843);
   display: flex;
@@ -205,14 +205,9 @@ main .auth-right {
   align-items: center;
   flex-direction: column;
 }
-@media only screen and (min-width: 1280px) {
+@media only screen and (min-width: 1440px) {
   main .auth-right {
-    width: 745px;
-  }
-}
-@media only screen and (min-width: 1280px) {
-  main .auth-right {
-    width: 849px;
+    width: 895px;
   }
 }
 main .auth-right .login-form {

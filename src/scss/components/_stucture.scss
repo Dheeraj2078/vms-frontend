@@ -1,6 +1,6 @@
 .container {
   // padding: 3.2rem 6.2rem;
-  padding: 3.2rem 6.4rem 3.2rem 12rem;
+  padding: 24px 32px 0px 32px;
 
   // 1
   .top-heading {
@@ -168,12 +168,9 @@
 
 //pagination
 .pagination {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: center;
-  gap: 1.5rem;
+  @include flex(flex,null,end,center,1.5rem);
   font-size: 13px;
+  margin-top: 10px;
 }
 
 .pagination-arrows {

@@ -197,7 +197,6 @@ body {
   border-left: 4px solid #fff;
   background: linear-gradient(89.31deg, rgba(255, 255, 255, 0.23) 2.62%, #f85c47 100.93%);
   box-shadow: 0px 0px 8px 0px rgba(15, 15, 15, 0.2);
-  padding-left: 6px !important;
 }
 
 .hidden {
@@ -228,7 +227,7 @@ body {
 
 #home-root {
   display: grid;
-  grid-template-columns: 126px auto;
+  grid-template-columns: 186px auto;
 }
 #home-root main {
   grid-column-start: 2;
@@ -258,7 +257,7 @@ body {
 }
 .table-container table tbody {
   display: block;
-  height: 275px;
+  height: 158px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -273,6 +272,7 @@ body {
   border-bottom: 1px solid #e7e6e6;
   color: #474643;
   font-weight: 400;
+  word-break: break-all;
 }
 
 .border-bottom-none {
@@ -559,7 +559,7 @@ label:after {
 }
 
 .container {
-  padding: 3.2rem 6.4rem 3.2rem 12rem;
+  padding: 24px 32px 0px 32px;
 }
 .container .top-heading {
   font-size: 24px;
@@ -712,11 +712,11 @@ label:after {
 
 .pagination {
   display: flex;
-  flex-direction: row;
   justify-content: end;
   align-items: center;
   gap: 1.5rem;
   font-size: 13px;
+  margin-top: 10px;
 }
 
 .pagination-arrows {

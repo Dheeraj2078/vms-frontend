@@ -102,6 +102,7 @@
   $remValue: ($value / 18) + rem;
   @return $remValue;
 }
+
 $desktop-width: 1440px;
 $laptop-screen-width: 1280px;
 $ipad-pro-width: 1024px;

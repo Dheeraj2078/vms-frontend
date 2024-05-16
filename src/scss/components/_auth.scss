@@ -3,7 +3,7 @@ main {
 
   .auth {
     &-container {
-      @include grid(grid, 130px, 1fr auto, null, null, null);
+      @include grid(grid, 130px, 1fr auto, null, null, null);      
       height: 100vh;
     }
     &-left {
@@ -54,12 +54,15 @@ main {
 
     &-right {
       background-color: $white;
-      padding: 48px 0;
-      @include device(laptop) {
-        width: 745px;
-      }
-      @include device(laptop) {
-        width: 849px;
+      padding: 30px 0;
+      // @include device(laptop) {
+      //   width: 745px;
+      // }
+      // @include device(laptop) {
+      //   width: 849px;
+      // }
+      @include device(desktop) {
+        width: 895px;
       }
       border-radius: 5rem 0 0 5rem;
       box-shadow: 0 0 2rem 0 $orange-very-light;
