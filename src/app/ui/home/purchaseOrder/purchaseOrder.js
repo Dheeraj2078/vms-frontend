@@ -41,7 +41,7 @@ export default async function goToPurchaseOrder() {
 
   //   const search = document.getElementById("internal-search");
   //   search.addEventListener("input", handleSearch);
-  //   handleMultipleDropdown();
+  handleMultipleDropdown();
 
   //   const allInvoices = await getInvoices();
   //   if (allInvoices == null || allInvoices.length == 0) {

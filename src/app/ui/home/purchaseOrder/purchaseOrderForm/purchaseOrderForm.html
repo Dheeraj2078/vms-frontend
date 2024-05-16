@@ -6,23 +6,58 @@
     </svg>
   </div>
 
-  <h3>Vendor Address</h3>
-  <textarea name="" id="" cols="30" rows="10"></textarea>
-  <div>
-    <button class="btn-sm add-items-row">Add Row</button>
-    <div class="admin-table table-container">
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-          <th>#</th>
-          <th>Items & Description</th>
-          <th>Qty</th>
-          <th>Rate</th>
-          <th>Amount</th>
-        </tr>
-      </table>
+  <div class="padding-top-sm form-wrapper">
+    <div class="form-item associated-category-wrapper">
+      <label>Vendor Organization Name</label>
+      <div
+        class="vendor-inner-wrapper dropdown-icon-wrapper associated-category-wrapper organization-name-block"
+      >
+        <input
+          type="text"
+          name=""
+          id="vendor-organization-name"
+          value=""
+          placeholder="Select organization name"
+          class="cursor-pointer"
+          readonly
+        />
+        <svg class="po-dropdown-icon cursor-pointer">
+          <use
+            xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+          ></use>
+        </svg>
+      </div>
+      <div id="dropdown-options" class="hidden"></div>
+      <span id="organization-name-error" class="hidden error-message"></span>
     </div>
 
-    <div>
+    <div class="form-item">
+      <label>Vendor Address</label>
+      <input
+        type="text"
+        name=""
+        id="vendor-address"
+        placeholder="Enter Address"
+      />
+      <span id="orgName-error" class="hidden error-message"></span>
+    </div>
+  </div>
+
+  <div class="padding-x admin-table table-container">
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <th>#</th>
+        <th>Items & Description</th>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+    </table>
+  </div>
+
+  <div class="flex-center">
+    <button class="btn-sm add-items-row">Add Row</button>
+    <div class="amount-wrapper">
       <div>
         <span>Sub Total</span>
         <span id="sub-total">0</span>
@@ -40,7 +75,7 @@
 
   <div class="form-buttons">
     <button class="btn-light form-cancel">Cancel</button>
-    <button id="preview-btn" class="btn-light form-cancel">Preview</button>
-    <button class="btn-sm" id="add-to-db">Add Invoice</button>
+    <button id="preview-btn" class="btn-light">Preview</button>
+    <button class="btn-sm" id="add-to-db">Add Purchase Order</button>
   </div>
 </div>

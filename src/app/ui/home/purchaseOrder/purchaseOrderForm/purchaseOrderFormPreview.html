@@ -13,7 +13,7 @@
     </div>
   </div>
   <div>
-    <p>PURCHASE ORDER</p>
+    <h2>PURCHASE ORDER</h2>
     <p># EX2PO112200109</p>
   </div>
 </div>
@@ -23,7 +23,7 @@
   <div>address</div>
 </div>
 
-<div>
+<div class="po-address">
   <h3>Deliver To</h3>
   <p>EX Squared Solutions India Pvt. Ltd.</p>
   <p>Plot No 35,Sector 27-A</p>
@@ -45,8 +45,11 @@
       <th>Amount</th>
     </tr>
   </table>
+</div>
 
-  <div>
+<div class="flex-end">
+  <!-- <button class="btn-sm add-items-row">Add Row</button> -->
+  <div class="amount-wrapper">
     <div>
       <span>Sub Total</span>
       <span id="sub-total">0</span>
@@ -64,4 +67,6 @@
 
 <div class="form-buttons">
   <button class="btn-light form-cancel">Cancel</button>
+  <button id="back-btn" class="btn-light">Back</button>
+  <button class="btn-sm" id="add-to-db">Add Purchase Order</button>
 </div>

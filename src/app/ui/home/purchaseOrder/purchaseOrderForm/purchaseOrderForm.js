@@ -1,4 +1,6 @@
 import purchaseOrderFormPreviewHtml from "./purchaseOrderFormPreview.html";
+import goToPurchaseOrder from "../purchaseOrder";
+import { getPurchaseOrderFormData } from "../../../../service/purchaseOrder";
 
 let itemName_ = "";
 let itemQty_ = "";
@@ -6,6 +8,17 @@ let itemRate_ = "";
 let currentId = 1;
 let total = 0;
 const itemsData = {};
+
+export function handleCross() {
+  const vendorFormOutput = document.getElementById("form-output");
+  vendorFormOutput.classList.add("hidden");
+
+  const mainContainer = document.getElementsByClassName("main-container")[0];
+  mainContainer.classList.remove("blur-background");
+  document.body.classList.remove("overflow-hidden");
+
+  goToPurchaseOrder();
+}
 
 const addNewRow = (id) => {
   const row = document.createElement("tr");
@@ -15,6 +28,7 @@ const addNewRow = (id) => {
 
   div = document.createElement("td");
   const itemNameInput = document.createElement("input");
+  itemNameInput.classList.add("po-form-input");
   itemNameInput.addEventListener("change", (e) => {
     itemName_ = e.target.value;
   });
@@ -23,6 +37,7 @@ const addNewRow = (id) => {
 
   div = document.createElement("td");
   const itemNameQty = document.createElement("input");
+  itemNameQty.classList.add("po-form-input");
   itemNameQty.addEventListener("change", (e) => {
     itemQty_ = e.target.value;
   });
@@ -31,6 +46,7 @@ const addNewRow = (id) => {
 
   div = document.createElement("td");
   const itemNameRate = document.createElement("input");
+  itemNameRate.classList.add("po-form-input");
   itemNameRate.addEventListener("change", (e) => {
     itemRate_ = e.target.value;
   });
@@ -83,11 +99,67 @@ const addNewRow = (id) => {
 
       const subTotal = document.getElementById("sub-total");
       subTotal.innerHTML = total;
+
+      const gst = document.getElementById("gst");
+      gst.innerHTML = round(0.18 * total);
+
+      const totalAmt = document.getElementById("total");
+      totalAmt.innerHTML = round(total + 0.18 * total);
     }
   });
 
   return row;
 };
+
+function round(num) {
+  return Math.round(num * 100) / 100;
+}
+
+export async function handleMultipleDropdown() {
+  const vendorOrganizationDropdown =
+    document.getElementById("dropdown-options");
+
+  const allOrgs = document.getElementsByClassName("dropdown-icon-wrapper")[0];
+  allOrgs.addEventListener("click", (e) => {
+    if (vendorOrganizationDropdown.classList.contains("hidden")) {
+      vendorOrganizationDropdown.classList.remove("hidden");
+    } else {
+      vendorOrganizationDropdown.classList.add("hidden");
+    }
+  });
+
+  try {
+    const response = await getPurchaseOrderFormData();
+    console.log("res", response);
+
+    const OrganizationNames = response.data.vendor;
+
+    OrganizationNames.map((organizationObject) => {
+      const div = document.createElement("div");
+      div.classList.add("vendor-type-dropdown-option");
+      const input = document.createElement("input");
+      input.classList.add("org-name-checkbox");
+      input.type = "radio";
+      input.id = organizationObject.organizationName;
+      input.name = "vendorType";
+      input.value = organizationObject.organizationName;
+      input.classList.add("cursor-pointer");
+
+      const label = document.createElement("label");
+      label.setAttribute("for", organizationObject.organizationName);
+      label.innerHTML = organizationObject.organizationName;
+      label.classList.add("cursor-pointer");
+
+      div.appendChild(input);
+      div.appendChild(label);
+
+      console.log("-->", vendorOrganizationDropdown);
+      vendorOrganizationDropdown.appendChild(div);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const createItemsTable = () => {
   const table = document.querySelector("table");
@@ -103,6 +175,9 @@ export const createItemsTable = () => {
 
   const previewBtn = document.getElementById("preview-btn");
   previewBtn.addEventListener("click", showPreview);
+
+  const cancelBtn = document.getElementsByClassName("form-cancel")[0];
+  cancelBtn.addEventListener("click", handleCross);
 };
 
 export const showPreview = () => {
@@ -143,12 +218,17 @@ export const showPreview = () => {
     subTotal.innerHTML = total;
 
     const gst = document.getElementById("gst");
-    gst.innerHTML = 0.18 * total;
+    gst.innerHTML = round(0.18 * total);
 
     const totalAmt = document.getElementById("total");
-    totalAmt.innerHTML = total + 0.18 * total;
+    totalAmt.innerHTML = round(total + 0.18 * total);
   }
+
+  const previewBtn = document.getElementById("back-btn");
+  // previewBtn.addEventListener("click", showPreview);
+
+  const cancelBtn = document.getElementsByClassName("form-cancel")[0];
+  cancelBtn.addEventListener("click", handleCross);
 };
 
 export const handleAddRurchaseOrder = () => {};
-export const handleCross = () => {};

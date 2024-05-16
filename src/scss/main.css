@@ -468,6 +468,15 @@ body {
   right: 10px;
   transform: translate(0, -50%);
 }
+.associated-category-wrapper .category-inner-wrapper .po-dropdown-icon,
+.associated-category-wrapper .vendor-inner-wrapper .po-dropdown-icon {
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translate(0, -50%);
+}
 
 .align-center {
   text-align: center;
@@ -501,15 +510,58 @@ body {
 
 .po-header {
   display: flex;
+  justify-content: space-between;
 }
 
 .exsq-address {
-  line-height: 1.2;
+  line-height: 1.5;
 }
 
 label:after {
   content: " *";
   color: red;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+}
+
+.amount-wrapper {
+  width: 150px;
+  font-size: 12px;
+}
+.amount-wrapper div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.padding-x {
+  padding: 20px 0;
+}
+
+.po-form-input {
+  border: 1px solid rgba(15, 15, 15, 0.2);
+  height: 30px;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.po-form-input:focus {
+  outline: none;
+}
+
+.po-address {
+  line-height: 1.5;
 }
 
 .container {
