@@ -59,15 +59,11 @@
     .search-container {
       display: flex;
       border: 1px solid $gray-very-light;
-      padding: 10px;
-      border: 1px solid #e7e6e6;
-
+      padding: 10px 0 10px 12px;      
       gap: 12px;
-      justify-content: center;
-      // align-items: center;
+      justify-content: center;      
       align-items: stretch;
       border-radius: 4px;
-      // background-color: #d68d00;
 
       .search-icon {
         height: 16px;
