@@ -429,7 +429,8 @@ body {
 #associated-category,
 #associated-vendor-type,
 #admin-roles,
-#status-dropdown-options {
+#status-dropdown-options,
+#dropdown-options {
   z-index: 100;
   position: absolute;
   top: 60px;
@@ -440,6 +441,13 @@ body {
   max-height: 150px;
   overflow: auto;
   box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+}
+#associated-category span,
+#associated-vendor-type span,
+#admin-roles span,
+#status-dropdown-options span,
+#dropdown-options span {
+  font-size: 12px;
 }
 
 .status-dropdown {
@@ -496,6 +504,9 @@ body {
 }
 .vendor-type-dropdown-option input {
   width: 20px;
+}
+.vendor-type-dropdown-option span {
+  font-size: 12px;
 }
 
 .associated-category-wrapper {
@@ -607,7 +618,7 @@ label:after {
 .container .add-search-wrapper .search-container {
   display: flex;
   border: 1px solid #e7e6e6;
-  padding: 10px 0 10px 12px;
+  padding: 0;
   gap: 12px;
   justify-content: center;
   align-items: stretch;

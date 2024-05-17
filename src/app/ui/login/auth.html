@@ -1,16 +1,23 @@
 <main>
   <section class="auth-container">
-    <div class="auth-left">      
-      <div class="auth-left-innerBox">        
+    <div class="auth-left">
+      <div class="auth-left-innerBox">
         <div class="welcome-message">
-          <img class="logo-image" src="../../../../src/assets/images/logo.png" alt="logo" />
+          <img
+            class="logo-image"
+            src="../../../../src/assets/images/logo.png"
+            alt="logo"
+          />
           <div class="welcome-message-text">
             <p>Welcome to <span class="bold">EX Squared</span></p>
-            <p>Vendor Insight Hub</p> 
-          </div>         
+            <p>Vendor Insight Hub</p>
+          </div>
         </div>
-        <img class="vendor-image" src="../../../../src/assets/images/vendor.png" />
-      </div>      
+        <img
+          class="vendor-image"
+          src="../../../../src/assets/images/vendor.png"
+        />
+      </div>
     </div>
     <div class="auth-right">
       <div class="login-form">
@@ -18,35 +25,51 @@
         <p class="login-description">Please login to continue</p>
         <form class="fieldWrapper">
           <label class="label emailLabel">EMAIL</label>
-          <input type="email" id="email" autofocus="autofocus" class="userInput emailInput" placeholder="Email" />
+          <input
+            type="email"
+            id="email"
+            autofocus="autofocus"
+            class="userInput emailInput"
+            placeholder="Email"
+          />
           <label class="label">PASSWORD</label>
           <div class="passwordEyeWrapper">
-            <input id="password" type="password" class="userInput" placeholder="Password" />
+            <input
+              id="password"
+              type="password"
+              class="userInput"
+              placeholder="Password"
+            />
             <svg class="eye closedEyeImage">
-              <use xlink:href="../../../../src/assets/icons/icons.svg#openEye"></use>
+              <use
+                xlink:href="../../../../src/assets/icons/icons.svg#openEye"
+              ></use>
             </svg>
           </div>
         </form>
-      </div>      
 
-      <div class="hidden authencity not-email-password"><p>Please enter your credentials</p></div>
-      <div class="hidden authencity not-password"><p>Please enter the password</p></div>
-      <div class="hidden authencity not-email">        
-        <p>Please enter the registered email address</p>
-      </div>
-      <div class="hidden authencity wrong-email-or-password">        
-        <p>Either email address or password is incorrect.</p>
-      </div>
+        <div class="hidden authencity not-email-password">
+          <p>Please enter your credentials</p>
+        </div>
+        <div class="hidden authencity not-password">
+          <p>Please enter the password</p>
+        </div>
+        <div class="hidden authencity not-email">
+          <p>Please enter the registered email address</p>
+        </div>
+        <div class="hidden authencity wrong-email-or-password">
+          <p>Either email address or password is incorrect.</p>
+        </div>
 
-      <div class="login-bottom">
-        <label class="remember-me-container">
-          <input id="rememberMeCheckbox" type="checkbox"/>
-          <span>Remember me</span>
-        </label>
-        <a id="forgotPassword">Forgot Password?</a>
+        <div class="login-bottom">
+          <label class="remember-me-container">
+            <input id="rememberMeCheckbox" type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <a id="forgotPassword">Forgot Password?</a>
+        </div>
+        <button class="login-button btn-lg">Log In</button>
       </div>
-      <button class="login-button btn-lg">Log In</button>
-    </div>
     </div>
   </section>
 </main>

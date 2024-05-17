@@ -59,9 +59,9 @@
     .search-container {
       display: flex;
       border: 1px solid $gray-very-light;
-      padding: 10px 0 10px 12px;      
+      padding: 0;
       gap: 12px;
-      justify-content: center;      
+      justify-content: center;
       align-items: stretch;
       border-radius: 4px;
 
@@ -168,7 +168,7 @@
 
 //pagination
 .pagination {
-  @include flex(flex,null,end,center,1.5rem);
+  @include flex(flex, null, end, center, 1.5rem);
   font-size: 13px;
   margin-top: 10px;
 }

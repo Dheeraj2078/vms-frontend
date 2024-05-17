@@ -205,6 +205,11 @@ main .auth-right {
   align-items: center;
   flex-direction: column;
 }
+@media only screen and (min-width: 1280px) {
+  main .auth-right {
+    width: 745px;
+  }
+}
 @media only screen and (min-width: 1440px) {
   main .auth-right {
     width: 895px;

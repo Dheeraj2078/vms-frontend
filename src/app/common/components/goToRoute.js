@@ -1,10 +1,10 @@
 export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
   const homeRoot = document.querySelector("main");
   console.log(homeRoot);
-  homeRoot.innerHTML = "";
-  const div = document.createElement("div");
-  div.innerHTML = pageHtml;
-  homeRoot.appendChild(div);
+  homeRoot.innerHTML = pageHtml;
+  // const div = document.createElement("div");
+  // div.innerHTML = pageHtml;
+  // homeRoot.appendChild(div);
 
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.innerHTML = formHtml;
