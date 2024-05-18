@@ -1,0 +1,169 @@
+<h4 class="form-heading">Address</h4>
+
+<div class="form-wrapper">
+  <p>Billing Address</p>
+  <p>Shipping Address(Copy billing address)</p>
+  <form class="form-item">
+    <label>Attention</label>
+    <input type="text" name="" id="b-attention" placeholder="" />
+    <span id="orgName-error" class="hidden error-message"></span>
+  </form>
+  <form class="form-item">
+    <label>Attention</label>
+    <input type="text" name="" id="s-attention" placeholder="" />
+    <span id="orgName-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item associated-category-wrapper">
+    <label>Country/Region</label>
+    <div class="vendor-inner-wrapper dropdown-icon-wrapper">
+      <input
+        type="text"
+        name=""
+        id="b-country"
+        value=""
+        placeholder="Select vendor type"
+        readonly
+        class="cursor-pointer"
+      />
+      <svg class="dropdown-icon cursor-pointer">
+        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
+      </svg>
+    </div>
+    <div id="dropdown-options" class="hidden b-country-wrapper"></div>
+    <span id="vendorType-error" class="hidden error-message"></span>
+  </form>
+  <form class="form-item associated-category-wrapper">
+    <label>Country/Region</label>
+    <div class="vendor-inner-wrapper dropdown-icon-wrapper">
+      <input
+        type="text"
+        name=""
+        id="s-country"
+        value=""
+        placeholder="Select vendor type"
+        readonly
+        class="cursor-pointer"
+      />
+      <svg class="dropdown-icon cursor-pointer">
+        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
+      </svg>
+    </div>
+    <div id="dropdown-options" class="hidden s-country-wrapper"></div>
+    <span id="vendorType-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>Address</label>
+    <textarea type="text" id="b-address-1" placeholder="Street 1"></textarea>
+    <textarea type="text" id="b-address-2" placeholder="Street 2"></textarea>
+    <span id="name-error" class="hidden error-message"></span>
+  </form>
+  <form class="form-item">
+    <label>Address</label>
+    <textarea type="text" id="s-address-1" placeholder="Street 1"></textarea>
+    <textarea type="text" id="s-address-2" placeholder="Street 2"></textarea>
+    <span id="name-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>City</label>
+    <input type="text" name="" id="b-city" placeholder="Enter city" />
+    <span id="relationship-duration-error" class="hidden error-message"></span>
+  </form>
+  <form class="form-item">
+    <label>City</label>
+    <input type="text" name="" id="s-city" placeholder="Enter city" />
+    <span id="relationship-duration-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item associated-category-wrapper">
+    <label>State</label>
+
+    <div class="category-inner-wrapper dropdown-icon-wrapper">
+      <input
+        type="text"
+        name=""
+        id="b-state"
+        value=""
+        placeholder="Select State"
+        class="cursor-pointer"
+        readonly
+      />
+      <svg class="dropdown-icon cursor-pointer">
+        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
+      </svg>
+    </div>
+
+    <div id="associated-category" class="hidden b-state-wrapper"></div>
+    <span id="category-error" class="hidden error-message"></span>
+  </form>
+  <form class="form-item associated-category-wrapper">
+    <label>State</label>
+
+    <div class="category-inner-wrapper dropdown-icon-wrapper">
+      <input
+        type="text"
+        name=""
+        id="s-state"
+        value=""
+        placeholder="Select State"
+        class="cursor-pointer"
+        readonly
+      />
+      <svg class="dropdown-icon cursor-pointer">
+        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
+      </svg>
+    </div>
+
+    <div id="associated-category" class="hidden s-state-wrapper"></div>
+    <span id="category-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>Pin Code</label>
+    <input type="text" name="" id="b-pin-code" placeholder="Enter pin code" />
+    <span id="email-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>Pin Code</label>
+    <input type="text" name="" id="s-pin-code" placeholder="Enter pin code" />
+    <span id="email-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>Phone</label>
+    <input
+      type="text"
+      name=""
+      id="b-phone"
+      placeholder="Enter phone number"
+      maxlength="10"
+    />
+    <span id="phNumber-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>Phone</label>
+    <input
+      type="text"
+      name=""
+      id="s-phone"
+      placeholder="Enter phone number"
+      maxlength="10"
+    />
+    <span id="phNumber-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label>Fax Number</label>
+    <input type="text" name="" id="b-fax-number" placeholder="Enter address" />
+    <span id="address-error" class="hidden error-message"></span>
+  </form>
+  <form class="form-item">
+    <label>Fax Number</label>
+    <input type="text" name="" id="s-fax-number" placeholder="Enter address" />
+    <span id="address-error" class="hidden error-message"></span>
+  </form>
+</div>

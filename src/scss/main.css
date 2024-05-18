@@ -513,11 +513,13 @@ body {
   position: relative;
 }
 .associated-category-wrapper .category-inner-wrapper,
-.associated-category-wrapper .vendor-inner-wrapper {
+.associated-category-wrapper .vendor-inner-wrapper,
+.associated-category-wrapper .relative-inner-wrapper {
   position: relative;
 }
 .associated-category-wrapper .category-inner-wrapper .dropdown-icon,
-.associated-category-wrapper .vendor-inner-wrapper .dropdown-icon {
+.associated-category-wrapper .vendor-inner-wrapper .dropdown-icon,
+.associated-category-wrapper .relative-inner-wrapper .dropdown-icon {
   height: 10px;
   width: 10px;
   position: absolute;

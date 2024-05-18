@@ -1,5 +1,5 @@
 import { formDetails } from "../../../../common/components/formDetails";
-import { handleCross } from "../vendorFrom/vendorForm";
+import { handleCross } from "../vendorForm/vendorForm";
 import { getVendorsById } from "../../../../service/vendorsApi";
 
 const getVendorInfo = async (vendorId) => {
@@ -50,5 +50,5 @@ export const vendorDetails = async (e) => {
 
   const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.add("blur-background");
-  document.body.classList.add("overflow-hidden");
+  // document.body.classList.add("overflow-hidden");
 };

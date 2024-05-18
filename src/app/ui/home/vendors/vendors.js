@@ -1,10 +1,10 @@
 import vendorHtml from "../vendors/vendors.html";
-import vendorFormHtml from "../vendors/vendorFrom/vendorForm.html";
+import vendorFormHtml from "../vendors/vendorForm/vendorForm.html";
 import {
   handleCross,
   handleMultipleDropdown,
   handleAddVendor,
-} from "./vendorFrom/vendorForm.js";
+} from "./vendorForm/vendorForm.js";
 import { createTableHeader } from "../../../common/components/table.js";
 import {
   getAllVendors,
@@ -15,10 +15,12 @@ import { vendorDetails } from "./vendorDetails/vendorDetails.js";
 import { noDataAdded } from "../../../common/components/emptyData.js";
 import { goToRoute } from "../../../common/components/goToRoute.js";
 import { confirmationModal } from "../../../common/components/confirmationModal.js";
-import { updateVendorModal } from "./vendorFrom/vendorUpdateForm.js";
+import { updateVendorModal } from "./vendorForm/vendorUpdateForm.js";
 import { searchVendors } from "../../../service/searchApi.js";
 import { addPagination } from "../../../common/components/pagination.js";
 import { searchModel } from "../../../common/components/search";
+import { changeVendorRoute } from "./vendorNav.js";
+import { handleMultipleDropdownForOther } from "./vendorForm/otherDetails.js";
 
 const getAllVendorsUtil = async () => {
   try {
@@ -32,13 +34,14 @@ const getAllVendorsUtil = async () => {
 export default async function goToVendor() {
   sessionStorage.setItem("tab", "vendor");
   goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
-
+  changeVendorRoute();
   // const search = document.getElementById("internal-search");
   // search.addEventListener("input", handleSearch);
 
   searchModel("Search Vendors", filterResults);
 
   handleMultipleDropdown();
+  // handleMultipleDropdownForOther();
 
   addPagination(getAllVendors, createVendorTable);
 
@@ -242,7 +245,6 @@ const createVendorTable = async (vendorsDetails) => {
 
     const editIcon = document.createElement("div");
     editIcon.innerHTML = `<img class="height-20 btn-clickable" src="/9a16a6f5e2a3c69ec1a9.png" />`; // TEMP
-    console.log("dddd", vendorDetail);
     editIcon.addEventListener("click", () => updateVendorModal(vendorDetail));
 
     div = document.createElement("td");
@@ -266,7 +268,6 @@ const createVendorTable = async (vendorsDetails) => {
 const populateVendorStats = async () => {
   try {
     const invoiceStats = await getVendorStats();
-    console.log("NNN", invoiceStats);
     const invoiceStatsData = invoiceStats.data;
 
     let totalVendorsCount = invoiceStatsData.total;

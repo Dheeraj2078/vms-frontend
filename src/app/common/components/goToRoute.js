@@ -32,5 +32,5 @@ export const goToRoute = (pageHtml, formHtml, handleCross, handleAddBtn) => {
 export const changeBackgroundOnModal = () => {
   const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.add("blur-background");
-  document.body.classList.add("overflow-hidden");
+  // document.body.classList.add("overflow-hidden");
 };
