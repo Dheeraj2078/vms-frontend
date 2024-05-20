@@ -1,9 +1,14 @@
 import { makeRequest, getCurrentUserToken } from "../util/util.js";
-import { httpMethods, apiUrlLocal, apiUrl } from "../util/constants.js";
+import {
+  httpMethods,
+  apiUrlLocal,
+  apiUrl,
+  currentUrl,
+} from "../util/constants.js";
 import { successModal } from "../common/components/successModal.js";
 import { handleCross } from "../ui/home/contract/contractForm/contractForm.js";
 
-const baseUrl = apiUrl;
+const baseUrl = currentUrl;
 const token = getCurrentUserToken();
 
 // export const addContract = async (vendorData) => {

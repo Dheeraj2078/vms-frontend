@@ -1,3 +1,5 @@
+import { getVendorFormDropdown } from "../../../../service/vendorsApi";
+
 const togglePopup = (div, div2) => {
   div.addEventListener("click", (e) => {
     if (div2.classList.contains("hidden")) {
@@ -11,50 +13,46 @@ const togglePopup = (div, div2) => {
 export const handleMultipleDropdownForOther = async () => {
   try {
     // const formData = await getVendorFormData(); //api
+    const formData = await getVendorFormDropdown();
+    console.log("FORMDATA", formData);
 
-    const gstTreatmentList = [
-      {
-        name: "aaaa",
-      },
-      { name: "bbb" },
-    ];
+    // const gstTreatmentList = [
+    //   {
+    //     name: "aaaa",
+    //   },
+    //   { name: "bbb" },
+    // ];
 
-    let gstTreatment = document.getElementById("gst-treatment");
-    const gstTreatmentWrapper = document.getElementsByClassName(
-      "gst-treatment-wrapper"
-    )[0];
-    gstTreatmentList.map((item) => {
-      const div = document.createElement("div");
-      div.classList.add("vendor-type-dropdown-option");
+    // let gstTreatment = document.getElementById("gst-treatment");
+    // const gstTreatmentWrapper = document.getElementsByClassName(
+    //   "gst-treatment-wrapper"
+    // )[0];
+    // gstTreatmentList.map((item) => {
+    //   const div = document.createElement("div");
+    //   div.classList.add("vendor-type-dropdown-option");
 
-      const input = document.createElement("input");
-      input.type = "radio";
-      input.id = item.name;
-      input.name = "gstTreatment";
-      input.value = item.name;
-      input.classList.add("cursor-pointer");
-      input.classList.add("gst-treatment-item");
+    //   const input = document.createElement("input");
+    //   input.type = "radio";
+    //   input.id = item.name;
+    //   input.name = "gstTreatment";
+    //   input.value = item.name;
+    //   input.classList.add("cursor-pointer");
+    //   input.classList.add("gst-treatment-item");
 
-      const label = document.createElement("span");
-      label.setAttribute("for", item.name);
-      label.innerHTML = item.name;
-      label.classList.add("cursor-pointer");
+    //   const label = document.createElement("span");
+    //   label.setAttribute("for", item.name);
+    //   label.innerHTML = item.name;
+    //   label.classList.add("cursor-pointer");
 
-      div.appendChild(input);
-      div.appendChild(label);
+    //   div.appendChild(input);
+    //   div.appendChild(label);
 
-      gstTreatmentWrapper.appendChild(div);
-    });
-    togglePopup(gstTreatment, gstTreatmentWrapper);
+    //   gstTreatmentWrapper.appendChild(div);
+    // });
+    // togglePopup(gstTreatment, gstTreatmentWrapper);
 
-    const sourceOfsupplyList = [
-      {
-        name: "[DEL] - Delhi",
-      },
-      {
-        name: "[HR] - Haryana",
-      },
-    ];
+    const sourceOfsupplyList = formData.data.states;
+    console.log("MSD7", sourceOfsupplyList);
     let sourceOfsupply = document.getElementById("source-of-supply");
     const sourceOfsupplyWrapper = document.getElementsByClassName(
       "source-of-supply-wrapper"
@@ -83,14 +81,7 @@ export const handleMultipleDropdownForOther = async () => {
     });
     togglePopup(sourceOfsupply, sourceOfsupplyWrapper);
 
-    const currencyList = [
-      {
-        name: "INR",
-      },
-      {
-        name: "US",
-      },
-    ];
+    const currencyList = formData.data.currency;
     let currency = document.getElementById("currency");
     const currencyWrapper =
       document.getElementsByClassName("currency-wrapper")[0];
@@ -100,15 +91,15 @@ export const handleMultipleDropdownForOther = async () => {
 
       const input = document.createElement("input");
       input.type = "radio";
-      input.id = item.name;
+      input.id = item;
       input.name = "vendorType";
-      input.value = item.name;
+      input.value = item;
       input.classList.add("cursor-pointer");
       input.classList.add("currency-item");
 
       const label = document.createElement("span");
-      label.setAttribute("for", item.name);
-      label.innerHTML = item.name;
+      label.setAttribute("for", item);
+      label.innerHTML = item;
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
@@ -118,14 +109,7 @@ export const handleMultipleDropdownForOther = async () => {
     });
     togglePopup(currency, currencyWrapper);
 
-    const paymentTermsList = [
-      {
-        name: "online",
-      },
-      {
-        name: "cash",
-      },
-    ];
+    const paymentTermsList = formData.data.paymentTerms;
     let paymentTerms = document.getElementById("payment-terms");
     const paymentTermsWrapper = document.getElementsByClassName(
       "payment-terms-wrapper"
@@ -136,15 +120,15 @@ export const handleMultipleDropdownForOther = async () => {
 
       const input = document.createElement("input");
       input.type = "radio";
-      input.id = item.name;
+      input.id = item;
       input.name = "vendorType";
-      input.value = item.name;
+      input.value = item;
       input.classList.add("cursor-pointer");
       input.classList.add("payment-terms-item");
 
       const label = document.createElement("span");
-      label.setAttribute("for", item.name);
-      label.innerHTML = item.name;
+      label.setAttribute("for", item);
+      label.innerHTML = item;
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
@@ -154,12 +138,7 @@ export const handleMultipleDropdownForOther = async () => {
     });
     togglePopup(paymentTerms, paymentTermsWrapper);
 
-    const tdsList = [
-      {
-        name: "tds 1",
-      },
-      { name: "tds 2" },
-    ];
+    const tdsList = formData.data.tdsOptions;
     let tds = document.getElementById("tds");
     const tdsWrapper = document.getElementsByClassName("tds-wrapper")[0];
     tdsList.map((item) => {
@@ -192,7 +171,7 @@ export const handleMultipleDropdownForOther = async () => {
   handleDataChange();
 };
 
-let gstTreatment_ = "";
+// let gstTreatment_ = "";
 let gstIn_ = "";
 let sos_ = "";
 let pan_ = "";
@@ -201,8 +180,8 @@ let paymentTerms_ = "";
 let tds_ = "";
 let document_ = "";
 
-let gstTreatment = document.getElementById("gst-treatment");
-let gstTreatmentItem = document.getElementsByClassName("gst-treatment-item");
+// let gstTreatment = document.getElementById("gst-treatment");
+// let gstTreatmentItem = document.getElementsByClassName("gst-treatment-item");
 
 let sos = document.getElementById("source-of-supply");
 let sosItem = document.getElementsByClassName("sos-item");
@@ -220,9 +199,9 @@ let tds = document.getElementById("tds");
 let tdsItem = document.getElementsByClassName("tds-item");
 
 const handleDataChange = () => {
-  console.log("->", gstTreatment_);
-  gstTreatment = document.getElementById("gst-treatment");
-  gstTreatment.value = gstTreatment_;
+  // console.log("->", gstTreatment_);
+  // gstTreatment = document.getElementById("gst-treatment");
+  // gstTreatment.value = gstTreatment_;
   sos = document.getElementById("source-of-supply");
   sos.value = sos_;
   gstIn = document.getElementById("gstin");
@@ -236,29 +215,29 @@ const handleDataChange = () => {
   tds = document.getElementById("tds");
   tds.value = tds_;
 
-  const gstTreatmentArr = [...gstTreatmentItem];
-  gstTreatmentArr.map((item) => {
-    item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
-      if (item.checked) {
-        gstTreatment_ = e.target.value;
-      }
+  // const gstTreatmentArr = [...gstTreatmentItem];
+  // gstTreatmentArr.map((item) => {
+  //   item.addEventListener("change", (e) => {
+  //     // removeBorder(allVendorTypes);
+  //     // document.getElementById("vendorType-error").classList.add("hidden");
+  //     if (item.checked) {
+  //       gstTreatment_ = e.target.value;
+  //     }
 
-      if (gstTreatment_ == "") {
-        gstTreatment.value = "Select GST Treatment";
-      } else {
-        gstTreatment.value = gstTreatment_;
-      }
+  //     if (gstTreatment_ == "") {
+  //       gstTreatment.value = "Select GST Treatment";
+  //     } else {
+  //       gstTreatment.value = gstTreatment_;
+  //     }
 
-      const gstTreatmentId = document.getElementsByClassName(
-        "gst-treatment-wrapper"
-      )[0];
-      gstTreatmentId.classList.add("hidden");
+  //     const gstTreatmentId = document.getElementsByClassName(
+  //       "gst-treatment-wrapper"
+  //     )[0];
+  //     gstTreatmentId.classList.add("hidden");
 
-      console.log("gst treatment", gstTreatment_);
-    });
-  });
+  //     console.log("gst treatment", gstTreatment_);
+  //   });
+  // });
 
   const sosItemArr = [...sosItem];
   sosItemArr.map((item) => {
@@ -361,3 +340,17 @@ const handleDataChange = () => {
     });
   });
 };
+
+export async function getVendorOtherInformation() {
+  const postData = {
+    gstin: gstIn_,
+    // sos: sos_,
+    // pan: pan_,
+    currency: currency_,
+    paymentTerms: paymentTerms_,
+    tdsId: 1, // tds_,
+    document: document_,
+  };
+
+  return postData;
+}

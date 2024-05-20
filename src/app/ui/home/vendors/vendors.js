@@ -3,7 +3,7 @@ import vendorFormHtml from "../vendors/vendorForm/vendorForm.html";
 import {
   handleCross,
   handleMultipleDropdown,
-  handleAddVendor,
+  // handleAddVendor,
 } from "./vendorForm/vendorForm.js";
 import { createTableHeader } from "../../../common/components/table.js";
 import {
@@ -11,6 +11,7 @@ import {
   getVendorStats,
   toggleVendorStatus,
 } from "../../../service/vendorsApi.js";
+
 import { vendorDetails } from "./vendorDetails/vendorDetails.js";
 import { noDataAdded } from "../../../common/components/emptyData.js";
 import { goToRoute } from "../../../common/components/goToRoute.js";
@@ -19,7 +20,7 @@ import { updateVendorModal } from "./vendorForm/vendorUpdateForm.js";
 import { searchVendors } from "../../../service/searchApi.js";
 import { addPagination } from "../../../common/components/pagination.js";
 import { searchModel } from "../../../common/components/search";
-import { changeVendorRoute } from "./vendorNav.js";
+import { changeVendorRoute, handleAddVendor } from "./vendorNav.js";
 import { handleMultipleDropdownForOther } from "./vendorForm/otherDetails.js";
 
 const getAllVendorsUtil = async () => {

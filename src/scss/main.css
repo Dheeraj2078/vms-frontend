@@ -596,6 +596,35 @@ label:after {
   color: #f85c47;
 }
 
+.vendor-contact {
+  display: flex;
+  gap: 16px;
+}
+
+.salutation {
+  width: 80px !important;
+}
+
+.v-first-name,
+.v-last-name {
+  width: 200px !important;
+}
+
+#salutation-dropdown {
+  z-index: 100;
+  position: absolute;
+  top: 60px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow: auto;
+  box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+}
+#salutation-dropdown span {
+  font-size: 12px;
+}
+
 .container {
   padding: 24px 32px 0px 32px;
 }

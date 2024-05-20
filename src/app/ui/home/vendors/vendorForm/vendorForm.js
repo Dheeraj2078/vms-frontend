@@ -28,11 +28,48 @@ export async function handleMultipleDropdown() {
 
   const associatedVendorType = document.getElementById("dropdown-options");
 
-  try {
-    const categoriesAndVendorType = await getVendorFormDropdown();
+  const slautationDropdown = document.getElementById("salutation-dropdown");
 
-    const allCategories = categoriesAndVendorType.data.categories;
-    const allVendorType = categoriesAndVendorType.data.vednorTypes;
+  try {
+    const formData = await getVendorFormDropdown();
+
+    const allCategories = formData.data.categories;
+    const allVendorType = formData.data.vednorTypes;
+    const salutation = formData.data.salutations;
+
+    const allSalutations = document.getElementsByClassName(
+      "dropdown-icon-wrapper"
+    )[0];
+    allSalutations.addEventListener("click", (e) => {
+      if (slautationDropdown.classList.contains("hidden")) {
+        slautationDropdown.classList.remove("hidden");
+      } else {
+        slautationDropdown.classList.add("hidden");
+      }
+    });
+
+    salutation.map((sal) => {
+      const div = document.createElement("div");
+      div.classList.add("vendor-type-dropdown-option");
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.id = sal;
+      input.name = "vendorType";
+      input.value = sal;
+      input.classList.add("cursor-pointer");
+      input.classList.add("salutation-item");
+
+      const label = document.createElement("span");
+      label.setAttribute("for", sal);
+      label.innerHTML = sal;
+      label.classList.add("cursor-pointer");
+
+      div.appendChild(input);
+      div.appendChild(label);
+
+      slautationDropdown.appendChild(div);
+    });
 
     allCategories.map((category) => {
       const label = document.createElement("span");
@@ -55,7 +92,7 @@ export async function handleMultipleDropdown() {
 
     const allCategory = document.getElementsByClassName(
       "dropdown-icon-wrapper"
-    )[1];
+    )[2];
     allCategory.addEventListener("click", (e) => {
       if (associatedCategorySelector.classList.contains("hidden")) {
         associatedCategorySelector.classList.remove("hidden");
@@ -74,6 +111,7 @@ export async function handleMultipleDropdown() {
       input.name = "vendorType";
       input.value = vendorType.name;
       input.classList.add("cursor-pointer");
+      input.classList.add("vendor-type-item");
 
       const label = document.createElement("span");
       label.setAttribute("for", vendorType.name);
@@ -89,7 +127,7 @@ export async function handleMultipleDropdown() {
 
     const allVendorTypeDropdown = document.getElementsByClassName(
       "dropdown-icon-wrapper"
-    )[0];
+    )[1];
     allVendorTypeDropdown.addEventListener("click", (e) => {
       if (associatedVendorType.classList.contains("hidden")) {
         associatedVendorType.classList.remove("hidden");
@@ -104,25 +142,31 @@ export async function handleMultipleDropdown() {
   handleDataChange();
 }
 
+let salutation_ = "";
 let organizationName_ = "";
 let vendorType_ = "";
 let relationshipDuration_ = "";
 let contactPerson_ = "";
+let lastName_ = "";
 let contactEmail_ = "";
 let contactPhoneNumber_ = "";
-let vendorAddress_ = "";
+// let vendorAddress_ = "";
 let categories_ = new Set();
 
 let organizationName = document.getElementById("vendor-organization-name");
 let relationshipDuration = document.getElementById("relationship-duration");
 let contactPerson = document.getElementById("contact-person");
+let lastName = document.getElementById("last-name");
 let contactEmail = document.getElementById("contact-email");
 let contactPhoneNumber = document.getElementById("contact-phone-number");
-let vendorAddress = document.getElementById("vendor-address");
+// let vendorAddress = document.getElementById("vendor-address");
 let categoryDropdownOption = document.querySelectorAll("input[type=checkbox]");
-let vendorTypeDropdownOption = document.querySelectorAll("input[type=radio]");
+let vendorTypeDropdownOption =
+  document.getElementsByClassName("vendor-type-item");
 let allCategory = document.getElementById("all-category");
 let allVendorTypes = document.getElementById("all-vendor-types");
+let salutation = document.getElementById("salutation");
+let salutationItem = document.getElementsByClassName("salutation-item");
 
 function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
@@ -182,6 +226,13 @@ const checkFieldValues = () => {
     checkResult = false;
   }
 
+  if (isNullOrEmpty(lastName_)) {
+    const error_element = document.getElementById("name-error");
+    showErrorMessage(error_element, "Please enter Contact Person Name");
+    lastName.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
   if (isNullOrEmpty(contactEmail_)) {
     const error_element = document.getElementById("email-error");
     showErrorMessage(error_element, "Please enter contact Person Email");
@@ -194,12 +245,12 @@ const checkFieldValues = () => {
     contactPhoneNumber.classList.add("empty-field-border");
     checkResult = false;
   }
-  if (isNullOrEmpty(vendorAddress_)) {
-    const error_element = document.getElementById("address-error");
-    showErrorMessage(error_element, "Please enter Address");
-    vendorAddress.classList.add("empty-field-border");
-    checkResult = false;
-  }
+  // if (isNullOrEmpty(vendorAddress_)) {
+  //   const error_element = document.getElementById("address-error");
+  //   showErrorMessage(error_element, "Please enter Address");
+  //   vendorAddress.classList.add("empty-field-border");
+  //   checkResult = false;
+  // }
 
   if (!validateEmail(contactEmail_)) {
     const error_ele = document.getElementById("email-error");
@@ -226,13 +277,17 @@ export async function handleDataChange(caller) {
   organizationName = document.getElementById("vendor-organization-name");
   relationshipDuration = document.getElementById("relationship-duration");
   contactPerson = document.getElementById("contact-person");
+  lastName = document.getElementById("last-name");
   contactEmail = document.getElementById("contact-email");
   contactPhoneNumber = document.getElementById("contact-phone-number");
-  vendorAddress = document.getElementById("vendor-address");
+  // vendorAddress = document.getElementById("vendor-address");
   allCategory = document.getElementById("all-category");
   categoryDropdownOption = document.querySelectorAll("input[type=checkbox]");
-  vendorTypeDropdownOption = document.querySelectorAll("input[type=radio]");
+  vendorTypeDropdownOption =
+    document.getElementsByClassName("vendor-type-item");
   allVendorTypes = document.getElementById("all-vendor-types");
+  salutation = document.getElementById("salutation");
+  salutationItem = document.getElementsByClassName("salutation-item");
   categories_ = new Set();
 
   const categoryDropdownOptionArr = [...categoryDropdownOption];
@@ -308,6 +363,29 @@ export async function handleDataChange(caller) {
     });
   });
 
+  const salutationArr = [...salutationItem];
+  console.log("DDDDDDDDDD", salutationArr);
+  salutationArr.map((vendorType) => {
+    vendorType.addEventListener("change", (e) => {
+      removeBorder(salutation);
+      // document.getElementById("vendorType-error").classList.add("hidden");
+      if (vendorType.checked) {
+        salutation_ = e.target.value;
+      }
+
+      if (salutation_ == "") {
+        salutation.value = "Select Vendor Types";
+      } else {
+        salutation.value = salutation_;
+      }
+
+      const associatedVendorType = document.getElementById(
+        "salutation-dropdown"
+      );
+      associatedVendorType.classList.add("hidden");
+    });
+  });
+
   organizationName.value = organizationName_;
   organizationName.addEventListener("input", (e) => {
     removeBorder(organizationName);
@@ -331,6 +409,13 @@ export async function handleDataChange(caller) {
     document.getElementById("name-error").classList.add("hidden");
   });
 
+  lastName.value = lastName_;
+  lastName.addEventListener("input", (e) => {
+    removeBorder(lastName);
+    lastName_ = e.target.value;
+    document.getElementById("name-error").classList.add("hidden");
+  });
+
   contactEmail.value = contactEmail_;
   contactEmail.addEventListener("input", (e) => {
     removeBorder(contactEmail);
@@ -345,12 +430,12 @@ export async function handleDataChange(caller) {
     document.getElementById("phNumber-error").classList.add("hidden");
   });
 
-  vendorAddress.value = vendorAddress_;
-  vendorAddress.addEventListener("input", (e) => {
-    removeBorder(vendorAddress);
-    vendorAddress_ = e.target.value;
-    document.getElementById("address-error").classList.add("hidden");
-  });
+  // vendorAddress.value = vendorAddress_;
+  // vendorAddress.addEventListener("input", (e) => {
+  //   removeBorder(vendorAddress);
+  //   vendorAddress_ = e.target.value;
+  //   document.getElementById("address-error").classList.add("hidden");
+  // });
 }
 
 const dataAndCheck = () => {
@@ -362,24 +447,29 @@ const dataAndCheck = () => {
   const vendorTypeId = mapVendorTypeToId[vendorType_];
 
   const postData = {
-    organizationName: organizationName_,
-    vendorTypeId: vendorTypeId,
-    address: vendorAddress_,
-    contactPersonName: contactPerson_,
-    contactPersonNumber: contactPhoneNumber_,
-    ContactPersonEmail: contactEmail_,
+    salutation: salutation_,
+    companyName: organizationName_,
+    typeId: vendorTypeId,
+    // address: vendorAddress_,
+    firstName: contactPerson_,
+    lastName: lastName_,
+    workPhone: contactPhoneNumber_,
+    mobilePhone: "8888888888",
+    email: contactEmail_,
     relationshipDuration: relationshipDuration_,
     categoryIds: categoriesIds,
   };
 
   console.log(postData);
 
+  salutation_ = salutation_.trim();
   organizationName_ = organizationName_.trim();
   relationshipDuration_ = relationshipDuration_.trim();
   contactEmail_ = contactEmail_.trim();
   contactPhoneNumber_ = contactPhoneNumber_.trim();
-  vendorAddress_ = vendorAddress_.trim();
+  // vendorAddress_ = vendorAddress_.trim();
   contactPerson_ = contactPerson_.trim();
+  lastName_ = lastName_.trim();
   vendorType_ = vendorType_.trim();
 
   console.log(postData);
@@ -424,36 +514,46 @@ const dataAndCheck = () => {
   //   allVendorTypes.classList.add("empty-field-border");
   // }
 
-  if (!checkFieldValues()) {
-    console.log("all fields are mandatory");
-    return null;
-  }
+  // if (!checkFieldValues()) {
+  //   console.log("all fields are mandatory");
+  //   return null;
+  // }
   return postData;
 };
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    handleAddVendor();
-  }
-});
+// document.addEventListener("keydown", (e) => {
+//   if (e.key === "Enter") {
+//     handleAddVendor();
+//   }
+// });
 
-export async function handleAddVendor() {
+// export async function handleAddVendor() {
+//   const postData = dataAndCheck();
+
+//   if (postData == null) {
+//     return;
+//   }
+
+//   try {
+//     const res = await addVendor(postData);
+//     console.log("RESSSS", res);
+
+//     if (res.error == null) {
+//       successModal("Vendor added", handleCross);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+export async function getVendorFormInformation() {
   const postData = dataAndCheck();
 
-  if (postData == null) {
-    return;
-  }
+  // if (postData == null) {
+  //   return null;
+  // }
 
-  try {
-    const res = await addVendor(postData);
-    console.log("RESSSS", res);
-
-    if (res.error == null) {
-      successModal("Vendor added", handleCross);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  return postData;
 }
 
 export async function handleUpdateVendor(id) {

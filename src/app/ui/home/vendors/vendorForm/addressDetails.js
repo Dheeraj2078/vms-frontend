@@ -1,3 +1,5 @@
+import { getVendorFormDropdown } from "../../../../service/vendorsApi";
+
 export const togglePopup = (div, div2) => {
   div.addEventListener("click", (e) => {
     if (div2.classList.contains("hidden")) {
@@ -10,15 +12,8 @@ export const togglePopup = (div, div2) => {
 
 export const handleMultipleDropdownForBillingAddress = async () => {
   try {
-    // const formData = await getVendorFormData(); //api
-    const countryList = [
-      {
-        name: "India",
-      },
-      {
-        name: "USA",
-      },
-    ];
+    const formData = await getVendorFormDropdown(); //api
+    const countryList = formData.data.country;
     let bCountry = document.getElementById("b-country");
     const bCountryWrapper =
       document.getElementsByClassName("b-country-wrapper")[0];
@@ -28,15 +23,15 @@ export const handleMultipleDropdownForBillingAddress = async () => {
 
       const input = document.createElement("input");
       input.type = "radio";
-      input.id = item.name;
+      input.id = item;
       input.name = "bCountry";
-      input.value = item.name;
+      input.value = item;
       input.classList.add("cursor-pointer");
       input.classList.add("b-country-item");
 
       const label = document.createElement("span");
-      label.setAttribute("for", item.name);
-      label.innerHTML = item.name;
+      label.setAttribute("for", item);
+      label.innerHTML = item;
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
@@ -46,15 +41,7 @@ export const handleMultipleDropdownForBillingAddress = async () => {
     });
     togglePopup(bCountry, bCountryWrapper);
 
-    const stateList = [
-      {
-        name: "California",
-      },
-      {
-        name: "Texas",
-      },
-      // Add more states as needed
-    ];
+    const stateList = formData.data.states;
 
     let bState = document.getElementById("b-state");
     const bStateWrapper = document.getElementsByClassName("b-state-wrapper")[0];
@@ -213,3 +200,19 @@ export const copyBillingToShipping = () => {
     if (sStateRadio) sStateRadio.checked = true;
   }
 };
+
+export async function getVendorBillingAddress() {
+  const postData = {
+    attention: bAttention_,
+    country: bCountry_,
+    addressLine1: bAddress_,
+    addressLine2: "",
+    city: bCity_,
+    state: 1, // bState_,
+    pinCode: bPinCode_,
+    phone: bPhone_,
+    faxNumber: bFaxNumber_,
+  };
+
+  return postData;
+}

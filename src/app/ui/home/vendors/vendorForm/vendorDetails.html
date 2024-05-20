@@ -1,5 +1,47 @@
 <h4 class="form-heading">Vendor Details</h4>
 
+<form class="form-item associated-category-wrapper">
+  <label>Contact Person</label>
+
+  <div class="vendor-contact">
+    <div>
+      <div class="vendor-inner-wrapper dropdown-icon-wrapper">
+        <input
+          type="text"
+          name=""
+          id="salutation"
+          value=""
+          placeholder=""
+          readonly
+          class="cursor-pointer salutation"
+        />
+        <svg class="dropdown-icon cursor-pointer">
+          <use
+            xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+          ></use>
+        </svg>
+      </div>
+      <div id="salutation-dropdown" class="hidden"></div>
+      <span id="vendorType-error" class="hidden error-message"></span>
+    </div>
+    <input
+      type="text"
+      name=""
+      id="contact-person"
+      placeholder="Enter contact person"
+      class="v-first-name"
+    />
+    <input
+      type="text"
+      name=""
+      id="last-name"
+      placeholder="Enter contact person"
+      class="v-first-name"
+    />
+  </div>
+  <span id="name-error" class="hidden error-message"></span>
+</form>
+
 <div class="form-wrapper">
   <form class="form-item">
     <label>Vendor Organization Name</label>
@@ -66,17 +108,6 @@
   </form>
 
   <form class="form-item">
-    <label>Contact Person</label>
-    <input
-      type="text"
-      name=""
-      id="contact-person"
-      placeholder="Enter contact person"
-    />
-    <span id="name-error" class="hidden error-message"></span>
-  </form>
-
-  <form class="form-item">
     <label>Contact Email</label>
     <input
       type="text"
@@ -99,7 +130,7 @@
     <span id="phNumber-error" class="hidden error-message"></span>
   </form>
 
-  <form class="form-item">
+  <!-- <form class="form-item">
     <label>Vendor Address</label>
     <input
       type="text"
@@ -108,5 +139,5 @@
       placeholder="Enter address"
     />
     <span id="address-error" class="hidden error-message"></span>
-  </form>
+  </form> -->
 </div>

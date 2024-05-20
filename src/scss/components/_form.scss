@@ -280,3 +280,34 @@ label:after {
     color: $orange;
   }
 }
+
+.vendor-contact {
+  display: flex;
+  gap: 16px;
+}
+
+.salutation {
+  width: 80px !important;
+}
+
+.v-first-name,
+.v-last-name {
+  width: 200px !important;
+}
+
+#salutation-dropdown {
+  z-index: 100;
+  position: absolute;
+  top: 60px;
+  background-color: $white;
+  padding: 10px;
+  // width: 100%;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow: auto;
+  box-shadow: 0px 4px 8px 0px $black;
+
+  span {
+    font-size: 12px;
+  }
+}

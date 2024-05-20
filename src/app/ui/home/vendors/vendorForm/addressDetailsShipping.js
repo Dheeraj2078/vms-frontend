@@ -1,16 +1,10 @@
+import { getVendorFormDropdown } from "../../../../service/vendorsApi";
 import { togglePopup } from "./addressDetails";
 
 export const handleMultipleDropdownForShippingAddress = async () => {
   try {
-    // const formData = await getVendorFormData(); //api
-    const countryList = [
-      {
-        name: "India",
-      },
-      {
-        name: "USA",
-      },
-    ];
+    const formData = await getVendorFormDropdown(); //api
+    const countryList = formData.data.country;
     let sCountry = document.getElementById("s-country");
     const sCountryWrapper =
       document.getElementsByClassName("s-country-wrapper")[0];
@@ -20,15 +14,15 @@ export const handleMultipleDropdownForShippingAddress = async () => {
 
       const input = document.createElement("input");
       input.type = "radio";
-      input.id = item.name;
+      input.id = item;
       input.name = "sCountry";
-      input.value = item.name;
+      input.value = item;
       input.classList.add("cursor-pointer");
       input.classList.add("s-country-item");
 
       const label = document.createElement("span");
-      label.setAttribute("for", item.name);
-      label.innerHTML = item.name;
+      label.setAttribute("for", item);
+      label.innerHTML = item;
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
@@ -38,15 +32,7 @@ export const handleMultipleDropdownForShippingAddress = async () => {
     });
     togglePopup(sCountry, sCountryWrapper);
 
-    const stateList = [
-      {
-        name: "California",
-      },
-      {
-        name: "Texas",
-      },
-      // Add more states as needed
-    ];
+    const stateList = formData.data.states;
 
     let sState = document.getElementById("s-state");
     const sStateWrapper = document.getElementsByClassName("s-state-wrapper")[0];
@@ -169,3 +155,19 @@ const handleDataChange = () => {
     sFaxNumber_ = e.target.value;
   });
 };
+
+export async function getVendorShippingAddress() {
+  const postData = {
+    attention: sAttention_,
+    country: sCountry_,
+    addressLine1: sAddress_,
+    addressLine2: "",
+    city: sCity_,
+    state: 1, // sState_,
+    pincode: sPinCode_,
+    phone: sPhone_,
+    faxNumber: sFaxNumber_,
+  };
+
+  return postData;
+}

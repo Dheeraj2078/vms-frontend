@@ -1,13 +1,24 @@
 import vendorDetailsHtml from "../vendors/vendorForm/vendorDetails.html";
 import otherDetailsHtml from "../vendors/vendorForm/otherDetails.html";
 import addressDetailsHtml from "../vendors/vendorForm/addressDetails.html";
-import { handleMultipleDropdownForOther } from "./vendorForm/otherDetails";
+import {
+  getVendorOtherInformation,
+  handleMultipleDropdownForOther,
+} from "./vendorForm/otherDetails";
 import {
   handleMultipleDropdownForBillingAddress,
   copyBillingToShipping,
+  getVendorBillingAddress,
 } from "./vendorForm/addressDetails";
-import { handleMultipleDropdown } from "./vendorForm/vendorForm";
-import { handleMultipleDropdownForShippingAddress } from "./vendorForm/addressDetailsShipping";
+import {
+  getVendorFormInformation,
+  handleMultipleDropdown,
+} from "./vendorForm/vendorForm";
+import {
+  getVendorShippingAddress,
+  handleMultipleDropdownForShippingAddress,
+} from "./vendorForm/addressDetailsShipping";
+import { addVendor } from "../../../service/vendorsApi";
 
 const changeVendorRouteUI = (thisClass) => {
   const routes = document.getElementsByClassName("vendor-nav")[0];
@@ -57,3 +68,40 @@ export const changeVendorRoute = () => {
     changeVendorRouteUI("v-address");
   });
 };
+
+export async function handleAddVendor() {
+  try {
+    const info = await getVendorFormInformation();
+    const otherInfo = await getVendorOtherInformation();
+    const billingAddress = await getVendorBillingAddress();
+    const shippingAddress = await getVendorShippingAddress();
+    console.log("radhe radhe");
+
+    console.log(info);
+    console.log(otherInfo);
+    console.log(billingAddress);
+    console.log(shippingAddress);
+
+    // for (const property in info) {
+    //   console.log(`${property}: ${object[property]}`);
+    //   postData.property = object[property];
+    // }
+
+    const postData = {
+      ...info,
+      ...otherInfo,
+      billingDto: billingAddress,
+      shippingDto: shippingAddress,
+    };
+
+    console.log("POST", postData);
+
+    const res = await addVendor(postData);
+    console.log("RESSSS", res);
+    if (res.error == null) {
+      successModal("Vendor added", handleCross);
+    }
+  } catch (error) {
+    console.log("vednor", error);
+  }
+}

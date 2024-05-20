@@ -1,7 +1,12 @@
 import { getCurrentUserToken, makeRequest } from "../util/util.js";
-import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
+import {
+  httpMethods,
+  apiUrl,
+  apiUrlLocal,
+  currentUrl,
+} from "../util/constants.js";
 
-const baseUrl = apiUrl;
+const baseUrl = currentUrl;
 
 export const getAdmins = async (cursor, size, next, filter) => {
   const token = getCurrentUserToken();

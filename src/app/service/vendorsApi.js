@@ -1,7 +1,12 @@
 import { makeRequest, getCurrentUserToken } from "../util/util.js";
-import { httpMethods, apiUrlLocal, apiUrl } from "../util/constants.js";
+import {
+  httpMethods,
+  apiUrlLocal,
+  apiUrl,
+  currentUrl,
+} from "../util/constants.js";
 
-const baseUrl = apiUrl;
+const baseUrl = currentUrl;
 const token = getCurrentUserToken();
 
 export const addVendor = async (vendorData) => {
