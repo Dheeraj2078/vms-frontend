@@ -1,0 +1,157 @@
+<div class="form-container">
+  <div class="form-header">
+    <div id="add-vendor-heading">Add Invoice</div>
+    <svg id="form-cross">
+      <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
+    </svg>
+  </div>
+  <div>
+    <div class="form-heading"></div>
+
+    <div class="form-wrapper">
+      <div class="form-item associated-category-wrapper">
+        <label>Vendor Organization Name</label>
+        <div
+          class="vendor-inner-wrapper dropdown-icon-wrapper associated-category-wrapper organization-name-block"
+        >
+          <input
+            type="text"
+            name=""
+            id="vendor-organization-name"
+            value=""
+            placeholder="Select organization name"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="dropdown-options" class="hidden"></div>
+        <span id="organization-name-error" class="hidden error-message"></span>
+      </div>
+
+      <div
+        class="form-item associated-category-wrapper associated-category-wrapper"
+      >
+        <label> Category</label>
+
+        <div class="category-inner-wrapper dropdown-icon-wrapper">
+          <input
+            type="text"
+            name=""
+            id="all-category"
+            value=""
+            placeholder="Select category"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+
+        <div id="associated-category" class="hidden"></div>
+        <span id="category-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Contact Person Name</label>
+        <input
+          type="text"
+          name=""
+          id="contact-person-name"
+          value=""
+          placeholder="Enter contact person name"
+        />
+        <span id="contact-name-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Contact Person Email</label>
+        <input
+          type="text"
+          name=""
+          id="contact-person-email"
+          placeholder="Enter contact person email"
+        />
+        <span id="contact-email-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Amount</label>
+        <input type="text" name="" id="amount" placeholder="Enter amount" />
+        <span id="amount-error" class="hidden error-message"></span>
+      </div>
+
+      <!-- <div class="form-item">
+        <label>Payment Mode</label>
+        <input
+          type="text"
+          name=""
+          id="payment-mode"
+          placeholder="Payment Mode"
+        />
+      </div> -->
+
+      <div class="form-item">
+        <label>Due Date</label>
+        <input
+          type="date"
+          name=""
+          id="due-date"
+          placeholder="Enter contact email"
+        />
+        <span id="due-date-error" class="hidden error-message"></span>
+      </div>
+
+      <!-- <div class="form-item">
+        <label>End Date</label>
+        <input type="date" name="" id="end-date" placeholder="Phone Number" />
+      </div> -->
+
+      <div class="form-item associated-category-wrapper">
+        <label>Status</label>
+        <div class="vendor-inner-wrapper dropdown-icon-wrapper">
+          <input
+            type="text"
+            name=""
+            id="status"
+            value=""
+            placeholder="Select status"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="status-dropdown-options" class="status-dropdown hidden"></div>
+        <span id="status-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Invoice Document</label>
+        <input
+          type="file"
+          name=""
+          id="contact-document"
+          placeholder="Enter address"
+          accept=".pdf,.jpg,.png"
+        />
+        <span id="document-error" class="hidden error-message"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button class="btn-light form-cancel">Cancel</button>
+    <button class="btn-sm" id="add-to-db">Add Invoice</button>
+  </div>
+</div>

@@ -1,36 +1,55 @@
 .navbar {
+  &-logout {
+    position: absolute;
+
+    bottom: 20px;
+    // width: 120px;
+    padding: 10px;
+    // top: 50%;
+    // // right: 50%;
+    // transform: translate(-50%, -50%);
+  }
+  &-logo {
+    position: absolute;
+    top: 0;
+    width: 90px;
+    padding-top: 24px;
+    // top: 50%;
+    // // right: 50%;
+    // transform: translate(-50%, -50%);
+  }
   &-wrapper {
     background-color: $orange;
     position: fixed;
     top: 0;
     left: 0;
-    margin: 0.5rem;
     border-radius: 0.8rem;
-    height: 99%;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 6px 0px 0px 6px;
 
     ul {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 2.4rem;
+      gap: 0.5rem;
 
       li {
         display: flex;
         align-items: center;
-        padding: 10px;
+        padding: 10px 24px;
         color: $white;
-        gap: 8px;
+        gap: 15px;
         cursor: pointer;
 
-        div {
+        span {
           font-size: 14px;
         }
 
         img {
-          width: 15px;
+          width: 20px;
         }
       }
     }
@@ -38,12 +57,43 @@
 }
 
 .selected-route {
-  border-left: 4px solid white;
+  border-left: 4px solid $white;
   background: linear-gradient(
     89.31deg,
     rgba(255, 255, 255, 0.23) 2.62%,
-    #f85c47 100.93%
+    $orange 100.93%
   );
+  box-shadow: 0px 0px 8px 0px $black;
+  
+}
+
+.hidden {
+  display: none !important;
+}
+
+.success-modal-cross {
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+}
+
+.success-model-close {
+  cursor: pointer;
+}
+
+.btn-logout {
+  border: 1px solid #f96c59;
+  padding: 0.8rem 1.6rem;
+  color: #f85c47;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  transition: all 0.1s ease;
+  cursor: pointer;
+  background: $white;
+  // background: linear-gradient(
+  //   89.31deg,
+  //   rgba(255, 255, 255, 0.23) 2.62%,
+  //   #f96c59 100.93%
+  // );
   box-shadow: 0px 0px 8px 0px #00000026;
-  padding-left: 6px !important;
 }

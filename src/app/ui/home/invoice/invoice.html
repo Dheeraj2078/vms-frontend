@@ -1,0 +1,64 @@
+<section class="container">
+  <!-- 1.heading -->
+  <h1 class="top-heading">Invoice</h1>
+
+  <!-- 2. Stats -->
+  <div class="statistics-container">
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <p>Total Invoices</p>
+        <h2 id="total-vendors"></h2>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/totalInvoice.png"
+        alt="total-Invoice"
+      />
+    </div>
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <p>Paid Invoices</p>
+        <h2 id="active-vendors"></h2>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/paidInvoice.png"
+        alt="paid-Invoice"
+      />
+    </div>
+
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <p>Pending Invoices</p>
+        <h2 id="inactive-vendors"></h2>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/pendingInvoice.png"
+        alt="Pending-Invoice"
+      />
+    </div>
+  </div>
+
+  <!-- 3. Search + addbutton -->
+  <div class="add-search-wrapper">
+    <div class="search-holder"></div>
+    <button id="add-button" class="btn-sm">
+      <svg class="plus-icon">
+        <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
+      </svg>
+      <span>New Invoice</span>
+    </button>
+  </div>
+
+  <!-- 4 Table -->
+  <div class="invoice-table table-container"></div>
+  <div class="pagination"></div>
+  <div class="hidden active-vendor-icon">
+    <img src="../../../../assets/images/active.png" alt="active-Vendor"/>
+  </div>
+
+  <div class="hidden inactive-vendor-icon">
+    <img src="../../../../assets/images/inactive.png" alt="Inactive-Vendor"/>
+  </div>
+</section>

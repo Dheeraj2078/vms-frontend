@@ -56,9 +56,5 @@ resetPasswordBtn.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
     wrongEmail.classList.remove("hidden");
-    emailRef.classList.add("empty-field-border");
-    if (resetPasswordBtn.classList.contains("disabled")) {
-      resetPasswordBtn.classList.remove("disabled");
-    }
   }
 });

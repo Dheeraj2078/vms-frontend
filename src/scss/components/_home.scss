@@ -1,5 +1,11 @@
+
 #home-root {
-  margin-left: 12rem;
+  display: grid;
+  grid-template-columns: 186px auto;
+
+  main{
+    grid-column-start: 2;
+  }
 }
 
 .hidden {

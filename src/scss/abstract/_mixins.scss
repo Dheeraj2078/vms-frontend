@@ -73,6 +73,7 @@
 @mixin grid(
   $grid: null,
   $gap: null,
+  $column:null,
   $justify: null,
   $align_item: null,
   $rows: null
@@ -83,9 +84,9 @@
   @if $gap != null {
     grid-gap: $gap;
   }
-  // @if $column != null{
-  //   grid-template-columns: $column;
-  // }
+  @if $column != null{
+    grid-template-columns: $column;
+  }
   @if $justify != null {
     justify-content: $justify;
   }
@@ -101,7 +102,8 @@
   $remValue: ($value / 18) + rem;
   @return $remValue;
 }
-$desktop-width: 1499px;
+
+$desktop-width: 1440px;
 $laptop-screen-width: 1280px;
 $ipad-pro-width: 1024px;
 $ipad-mini-width: 991px;
@@ -110,7 +112,7 @@ $small-phone-width: 480px;
 
 @mixin device($media) {
   @if $media == desktop {
-    @media only screen and (min-width: #{$desktop-width + 1}) {
+    @media only screen and (min-width: #{$desktop-width}) {
       @content;
     }
   }

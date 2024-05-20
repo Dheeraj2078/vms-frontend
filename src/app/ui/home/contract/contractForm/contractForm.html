@@ -1,0 +1,154 @@
+<div class="form-container">
+  <div class="form-header">
+    <div id="add-vendor-heading">Add Contract</div>
+    <svg id="form-cross">
+      <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
+    </svg>
+  </div>
+  <div>
+    <div class="form-heading"></div>
+
+    <div class="form-wrapper">
+      <div class="form-item associated-category-wrapper">
+        <label>Vendor Organization Name</label>
+        <div
+          class="vendor-inner-wrapper dropdown-icon-wrapper associated-category-wrapper organization-name-block"
+        >
+          <input
+            type="text"
+            name=""
+            id="vendor-organization-name"
+            value=""
+            placeholder="Select organization name"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="dropdown-options" class="hidden"></div>
+        <span id="orgName-error" class="hidden error-message"></span>
+      </div>
+
+      <div
+        class="form-item associated-category-wrapper associated-category-wrapper"
+      >
+        <label> Category</label>
+
+        <div class="category-inner-wrapper dropdown-icon-wrapper">
+          <input
+            type="text"
+            name=""
+            id="all-category"
+            value=""
+            placeholder="Select category"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+
+        <div id="associated-category" class="hidden"></div>
+        <span id="category-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Contact Person Name</label>
+        <input
+          type="text"
+          name=""
+          id="contact-person-name"
+          value=""
+          placeholder="Enter contact person name"
+        />
+        <span id="name-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Contact Person Email</label>
+        <input
+          type="text"
+          name=""
+          id="contact-person-email"
+          placeholder="Enter contact person email"
+        />
+        <span id="email-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Amount</label>
+        <input type="text" name="" id="amount" placeholder="Enter amount" />
+        <span id="amount-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item associated-category-wrapper">
+        <label>Status</label>
+        <div class="vendor-inner-wrapper dropdown-icon-wrapper">
+          <input
+            type="text"
+            name=""
+            id="status"
+            value=""
+            placeholder="Select status"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="status-dropdown-options" class="hidden"></div>
+        <span id="status-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Start Date</label>
+        <input type="date" name="" id="start-date" placeholder="Start Date" />
+        <span id="startDate-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>End Date</label>
+        <input type="date" name="" id="end-date" placeholder="End Date" />
+        <span id="endDate-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Payment Mode</label>
+        <input
+          type="text"
+          name=""
+          id="payment-mode"
+          placeholder="Enter payment mode"
+        />
+        <span id="paymentMode-error" class="hidden error-message"></span>
+      </div>
+
+      <div class="form-item">
+        <label>Contract Document</label>
+        <input
+          type="file"
+          name=""
+          id="contact-document"
+          placeholder="Upload Document"
+          accept=".pdf,.jpg,.png"
+        />
+        <span id="document-error" class="hidden error-message"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button class="btn-light form-cancel">Cancel</button>
+    <button class="btn-sm" id="add-to-db">Add Contract</button>
+  </div>
+</div>

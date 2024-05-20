@@ -113,6 +113,7 @@ resetPasswordBtn.addEventListener("click", async (e) => {
 
     if (updatedPassword.data == true) {
       loginForm.innerHTML = changePasswordSuccessHtml;
+      localStorage.clear();
       import("./changePasswordSuccess.js")
         .then((module) => {
           console.log("changePasswordSuccess imported");
@@ -149,8 +150,8 @@ function expireLink() {
   )[0];
   resetPasswordContainer.innerHTML = `
   <div class="reset-password-exprire">
-    <div>Link is Invalid or Expried. </div>
-    <div>Try Sending Email again</div>
+    <div>This link has expired. </div>
+    <div>Try sending the email again.</div>
   </div>`;
 
   const authRight = document.getElementsByClassName("auth-right")[0];

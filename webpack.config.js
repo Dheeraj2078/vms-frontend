@@ -16,9 +16,10 @@ module.exports = {
   devServer: {
     allowedHosts: "all",
     static: {
-      directory: path.resolve(__dirname, "./src/app/ui"), // Serve files from the 'dist' directory
+      directory: path.resolve(__dirname, "./dist"), // Serve files from the 'dist' directory
     },
     port: 4000, // Specify a port number
+
     hot: false,
     liveReload: true,
   },
@@ -29,6 +30,14 @@ module.exports = {
         // loader: "html-loader",
         use: ["html-loader"],
       },
+      // {
+      //   test: /\.(png|jpe?g|gif)$/i,
+      //   use: [
+      //     {
+      //       loader: "file-loader",
+      //     },
+      //   ],
+      // },
     ],
   },
   plugins: [

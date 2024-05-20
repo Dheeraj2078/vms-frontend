@@ -1,14 +1,14 @@
-import { makeRequest } from "../util/util.js";
-import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
+import { makeRequest, getCurrentUserToken } from "../util/util.js";
+import { httpMethods, apiUrlLocal, apiUrl } from "../util/constants.js";
 
-const baseUrl = apiUrlLocal;
+const baseUrl = apiUrl;
+const token = getCurrentUserToken();
 
 export const addVendor = async (vendorData) => {
   const body = vendorData;
   const headers = {
     "Content-Type": "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRoZWVyYWoiLCJlbWFpbCI6ImRoZ3VwdGFAZXgyaW5kaWEuY29tIiwicm9sZSI6ImFkbWluIiwibmJmIjoxNzEzMTY2NDAxLCJleHAiOjE3MTM1MTIwMDEsImlhdCI6MTcxMzE2NjQwMSwiaXNzIjoiVGVzdElzc3VlciIsImF1ZCI6IlRlc3RBdWRpZW5jZSJ9.MsaVHPUUl0Z2cXCVimncZ6Blib4KIh6BGTkAGajFjUg",
+    Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
     baseUrl + "/vendor/create-vendor",
@@ -20,11 +20,26 @@ export const addVendor = async (vendorData) => {
   return response;
 };
 
+export const updateVendor = async (id, vendorData) => {
+  const body = vendorData;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/vendor/update-vendor/${id}`,
+    httpMethods.PATCH,
+    headers,
+    body
+  );
+
+  return response;
+};
+
 export const getVendorFormDropdown = async () => {
   const headers = {
     "Content-Type": "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRoZWVyYWoiLCJlbWFpbCI6ImRoZ3VwdGFAZXgyaW5kaWEuY29tIiwicm9sZSI6ImFkbWluIiwibmJmIjoxNzEzMjYyMDk2LCJleHAiOjE3MTM2MDc2OTYsImlhdCI6MTcxMzI2MjA5NiwiaXNzIjoiVGVzdElzc3VlciIsImF1ZCI6IlRlc3RBdWRpZW5jZSJ9.yQaGSlDt3TGXO3VFu3yBZefhDwUH-QzX4nug_n0hb60",
+    Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
     baseUrl + "/vendor/get-form-creation-data",
@@ -33,4 +48,63 @@ export const getVendorFormDropdown = async () => {
   );
 
   return response;
+};
+
+export const getAllVendors = async (cursor, size, next, filter) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const url = filter
+    ? `/vendor/get-vendors?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`
+    : `/vendor/get-vendors?cursor=${cursor}&size=${size}&next=${next}`;
+  const response = await makeRequest(
+    `${baseUrl}${url}`,
+    httpMethods.GET,
+    headers
+  );
+  console.log("SAHIL", response);
+  return response;
+};
+
+export const getVendorsById = async (vendorId) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/vendor/get-vendor/${vendorId}`,
+    httpMethods.GET,
+    headers
+  );
+
+  return response;
+};
+
+export const toggleVendorStatus = async (vendorId) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/vendor/update-vendor-status/${vendorId}`,
+    httpMethods.POST,
+    headers
+  );
+
+  return response;
+};
+
+export const getVendorStats = async () => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await fetch(baseUrl + `/utility/get-count/vendor`, {
+    method: httpMethods.GET,
+    headers: headers,
+  });
+
+  const res = await response.json();
+  return res;
 };

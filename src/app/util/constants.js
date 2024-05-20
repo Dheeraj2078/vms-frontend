@@ -10,6 +10,7 @@ export const httpMethods = {
   POST: "POST",
   PUT: "PUT",
   DELETE: "DELETE",
+  PATCH: "PATCH",
 };
 
 export const localStorageKeys = {

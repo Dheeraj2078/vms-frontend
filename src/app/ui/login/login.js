@@ -15,8 +15,8 @@ const fetchAuth = () => {
 };
 
 (function initLogin() {
-  const rememberMe = localStorage.getItem(localStorageKeys.rememberMe);
-  if (rememberMe == null) {
+  const token = localStorage.getItem(localStorageKeys.token);
+  if (token == null) {
     fetchAuth();
     return;
   }
@@ -24,6 +24,7 @@ const fetchAuth = () => {
   if (validateToken() == false) {
     fetchAuth();
   } else {
-    window.location.href = "./home.html";
+    window.location.href = "/dist/home.html";
   }
+  
 })();

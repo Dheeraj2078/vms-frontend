@@ -1,17 +1,46 @@
-import { makeRequest } from "../util/util.js";
+import { getCurrentUserToken, makeRequest } from "../util/util.js";
 import { httpMethods, apiUrl, apiUrlLocal } from "../util/constants.js";
 
-const baseUrl = apiUrlLocal;
+const baseUrl = apiUrl;
+const token = getCurrentUserToken();
 
-export const getAllCategories = async () => {
+export const getAllCategories = async (cursor, size, next, filter) => {
   const headers = {
     "Content-Type": "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImRoZWVyYWoiLCJlbWFpbCI6ImRoZ3VwdGFAZXgyaW5kaWEuY29tIiwicm9sZSI6ImFkbWluIiwibmJmIjoxNzEzMTY2NDAxLCJleHAiOjE3MTM1MTIwMDEsImlhdCI6MTcxMzE2NjQwMSwiaXNzIjoiVGVzdElzc3VlciIsImF1ZCI6IlRlc3RBdWRpZW5jZSJ9.MsaVHPUUl0Z2cXCVimncZ6Blib4KIh6BGTkAGajFjUg",
+    Authorization: `Bearer ${token}`,
+  };
+  const url = !filter
+    ? `/category/get-categories?cursor=${cursor}&size=${size}&next=${next}`
+    : `/category/get-categories?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`;
+  const response = await makeRequest(baseUrl + url, httpMethods.GET, headers);
+
+  return response;
+};
+
+export const postCategory = async (categoryData) => {
+  const body = categoryData;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    baseUrl + "/category/get-all-categories",
-    httpMethods.GET,
+    baseUrl + "/category/create-category",
+    httpMethods.POST,
+    headers,
+    body
+  );
+
+  return response;
+};
+
+export const deleteCategoryById = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/category/delete/${id}`,
+    httpMethods.DELETE,
     headers
   );
 

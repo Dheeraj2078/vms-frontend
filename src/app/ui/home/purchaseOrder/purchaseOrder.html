@@ -1,0 +1,73 @@
+<section class="container">
+  <!-- 1.heading -->
+  <div class="top-heading">Purchase Orders</div>
+
+  <!-- 2. Stats -->
+  <div class="statistics-container">
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <p>Total Orders</p>
+        <h2 id="total-vendors"></h2>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/totalInvoice.png"
+        alt="total-Invoice"
+      />
+    </div>
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <p>Paid Orders</p>
+        <h2 id="active-vendors"></h2>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/paidInvoice.png"
+        alt="paid-Invoice"
+      />
+    </div>
+
+    <div class="statistics-card">
+      <div class="statistics-card-left">
+        <p>Pending Orders</p>
+        <h2 id="inactive-vendors"></h2>
+      </div>
+      <img
+        class="statistics-card-right"
+        src="../../../../assets/images/pendingInvoice.png"
+        alt="Pending-Invoice"
+      />
+    </div>
+  </div>
+
+  <!-- 3. Search + addbutton -->
+  <div class="add-search-wrapper">
+    <div class="search-container">
+      <svg class="search-icon">
+        <use xlink:href="../../../../assets/icons/icons.svg#search"></use>
+      </svg>
+      <input
+        id="internal-search"
+        type="text"
+        placeholder="Search Invoice"
+        name="search"
+      />
+    </div>
+    <button id="add-button" class="btn-sm">
+      <svg class="plus-icon">
+        <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
+      </svg>
+      <span>New Purchase Order</span>
+    </button>
+  </div>
+
+  <!-- 4 Table -->
+  <div class="invoice-table table-container"></div>
+  <div class="hidden active-vendor-icon">
+    <img src="../../../../assets/images/active.png" alt="active-vendor"/>
+  </div>
+
+  <div class="hidden inactive-vendor-icon">
+    <img src="../../../../assets/images/inactive.png" alt="inactive-vendor" />
+  </div>
+</section>
