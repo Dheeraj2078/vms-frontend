@@ -225,7 +225,7 @@ main .auth-right .login-heading {
   margin-bottom: 0.5rem;
 }
 main .auth-right .login-description {
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 400;
   color: #3b3a38;
   margin-bottom: 3.2rem;
@@ -235,12 +235,15 @@ main .auth-right .fieldWrapper {
   flex-direction: column;
   gap: 2.4rem;
 }
+main .auth-right .fieldWrapper .emailwrapper .label {
+  margin-bottom: 10px;
+}
 main .auth-right .fieldWrapper .passwordEyeWrapper {
   position: relative;
 }
 main .auth-right .fieldWrapper .passwordEyeWrapper .closedEyeImage {
   position: absolute;
-  top: 50%;
+  top: 70%;
   right: 0;
   transform: translate(-50%, -50%);
   width: 1.7rem;
@@ -260,7 +263,7 @@ main .auth-right .weak-password,
 main .auth-right .repeated-password {
   color: #ff0000;
   font-size: 1.4rem;
-  padding-top: 1.4rem;
+  padding-top: 1rem;
 }
 main .auth-right .login-bottom {
   display: flex;
@@ -277,8 +280,14 @@ main .auth-right .login-bottom .remember-me-container {
   align-items: center;
   gap: 8px;
 }
+main .auth-right .login-bottom .remember-me-container span {
+  font-weight: 400;
+  font-size: 14px;
+}
 main .auth-right .login-bottom #forgotPassword {
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
 }
 main .auth-right-center {
   display: flex;
@@ -298,6 +307,7 @@ main input[type=text] {
   outline: none;
   font-size: 1.6rem;
   border-radius: 0.4rem;
+  margin-top: 8px;
 }
 main .label {
   font-size: 1.4rem;

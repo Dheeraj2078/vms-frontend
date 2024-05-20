@@ -13,33 +13,21 @@
             <p>Vendor Insight Hub</p>
           </div>
         </div>
-        <img
-          class="vendor-image"
-          src="../../../../src/assets/images/vendor.png"
-        />
+        <img class="vendor-image" src="../../../../src/assets/images/vendor.png" />
       </div>
     </div>
     <div class="auth-right">
       <div class="login-form">
-        <h2 class="login-heading">Log In.</h2>
-        <p class="login-description">Please login to continue</p>
+        <h2 class="login-heading">Log In</h2>
+        <p class="login-description">Please login to continue.</p>
         <form class="fieldWrapper">
-          <label class="label emailLabel">EMAIL</label>
-          <input
-            type="email"
-            id="email"
-            autofocus="autofocus"
-            class="userInput emailInput"
-            placeholder="Email"
-          />
-          <label class="label">PASSWORD</label>
+          <div class="emailwrapper">
+            <label class="label emailLabel">EMAIL</label>
+            <input type="email" id="email" autofocus="autofocus" class="userInput emailInput"/>
+          </div>
           <div class="passwordEyeWrapper">
-            <input
-              id="password"
-              type="password"
-              class="userInput"
-              placeholder="Password"
-            />
+            <label class="label">PASSWORD</label>
+            <input id="password" type="password" class="userInput" />
             <svg class="eye closedEyeImage">
               <use
                 xlink:href="../../../../src/assets/icons/icons.svg#openEye"
@@ -47,7 +35,6 @@
             </svg>
           </div>
         </form>
-
         <div class="hidden authencity not-email-password">
           <p>Please enter your credentials</p>
         </div>
@@ -60,16 +47,16 @@
         <div class="hidden authencity wrong-email-or-password">
           <p>Either email address or password is incorrect.</p>
         </div>
-
-        <div class="login-bottom">
-          <label class="remember-me-container">
-            <input id="rememberMeCheckbox" type="checkbox" />
-            <span>Remember me</span>
-          </label>
-          <a id="forgotPassword">Forgot Password?</a>
-        </div>
-        <button class="login-button btn-lg">Log In</button>
       </div>
+      <div class="login-bottom">
+        <label class="remember-me-container">
+          <input id="rememberMeCheckbox" type="checkbox" />
+          <span>Remember me</span>
+        </label>
+        <a id="forgotPassword">Forgot Password?</a>
+      </div>
+      <button class="login-button btn-lg">Log In</button>
+    </div>
     </div>
   </section>
 </main>

@@ -28,6 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 6px 0px 0px 6px;
 
     ul {
       display: flex;
@@ -83,12 +84,12 @@
 .btn-logout {
   border: 1px solid #f96c59;
   padding: 0.8rem 1.6rem;
-  color: #fff;
+  color: #f85c47;
   border-radius: 4px;
   font-size: 1.6rem;
   transition: all 0.1s ease;
   cursor: pointer;
-  background: #f96c59;
+  background: $white;
   // background: linear-gradient(
   //   89.31deg,
   //   rgba(255, 255, 255, 0.23) 2.62%,
