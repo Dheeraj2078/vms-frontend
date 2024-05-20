@@ -308,14 +308,14 @@ export async function handleDataChange(caller) {
     });
   });
 
-  organizationName_ = organizationName.value;
+  organizationName.value = organizationName_;
   organizationName.addEventListener("input", (e) => {
     removeBorder(organizationName);
     organizationName_ = e.target.value;
     document.getElementById("orgName-error").classList.add("hidden");
   });
 
-  relationshipDuration_ = relationshipDuration.value;
+  relationshipDuration.value = relationshipDuration_;
   relationshipDuration.addEventListener("input", (e) => {
     removeBorder(relationshipDuration);
     relationshipDuration_ = e.target.value;
@@ -324,28 +324,28 @@ export async function handleDataChange(caller) {
       .classList.add("hidden");
   });
 
-  contactPerson_ = contactPerson.value;
+  contactPerson.value = contactPerson_;
   contactPerson.addEventListener("input", (e) => {
     removeBorder(contactPerson);
     contactPerson_ = e.target.value;
     document.getElementById("name-error").classList.add("hidden");
   });
 
-  contactEmail_ = contactEmail.value;
+  contactEmail.value = contactEmail_;
   contactEmail.addEventListener("input", (e) => {
     removeBorder(contactEmail);
     contactEmail_ = e.target.value;
     document.getElementById("email-error").classList.add("hidden");
   });
 
-  contactPhoneNumber_ = contactPhoneNumber.value;
+  contactPhoneNumber.value = contactPhoneNumber_;
   contactPhoneNumber.addEventListener("input", (e) => {
     removeBorder(contactPhoneNumber);
     contactPhoneNumber_ = e.target.value;
     document.getElementById("phNumber-error").classList.add("hidden");
   });
 
-  vendorAddress_ = vendorAddress.value;
+  vendorAddress.value = vendorAddress_;
   vendorAddress.addEventListener("input", (e) => {
     removeBorder(vendorAddress);
     vendorAddress_ = e.target.value;

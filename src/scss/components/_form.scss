@@ -254,3 +254,27 @@ label:after {
   content: " *";
   color: red;
 }
+
+.vendor-nav {
+  display: flex;
+  gap: 18px;
+  padding-top: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  color: $text;
+
+  .selected {
+    border-bottom: 2px solid $orange;
+    font-weight: 700;
+  }
+}
+
+.address-header {
+  font-size: 12px;
+  font-weight: 700;
+
+  #copy-billing-to-shipping {
+    cursor: pointer;
+    color: $orange;
+  }
+}

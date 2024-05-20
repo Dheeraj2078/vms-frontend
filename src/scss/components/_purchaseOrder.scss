@@ -1,0 +1,245 @@
+.po {
+  // GENERAL
+  &-form {
+    &-container {
+      padding: 20px 30px;
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        width: 600px;
+        padding-bottom: 10px;
+
+        #associated-dropdown {
+          z-index: 100;
+          position: absolute;
+          top: 40px;
+          left: 280px;
+          background-color: #fff;
+          padding: 10px;
+          width: 320px;
+          border-radius: 4px;
+          max-height: 150px;
+          overflow: auto;
+          box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+
+          .vendor-type-dropdown-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            input {
+              width: 20px;
+            }
+          }
+        }
+      }
+
+      .btn-and-total-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        padding: 20px;
+
+        .total-wrapper {
+          display: flex;
+          justify-content: space-between;
+          background-color: #fff3f1;
+          width: 300px;
+          border-radius: 8px;
+          padding: 4px 8px;
+          font-size: 12px;
+
+          .flex {
+            display: flex;
+            justify-content: space-between;
+            width: 150px;
+
+            div {
+              padding: 6px;
+            }
+
+            .input-container {
+              position: relative;
+              width: 100px; /* Adjust the width as needed */
+              //   border: 1px solid rgba(15, 15, 15, 0.2);
+              // height: 40px;
+              //   border-radius: 4px;
+              //   padding: 8px;
+
+              #percentage-input {
+                width: 100%; /* Full width to the container */
+                padding-right: 20px; /* Space for the percentage symbol */
+                box-sizing: border-box; /* Include padding in the width */
+                border: 1px solid rgba(15, 15, 15, 0.2);
+                // height: 40px;
+                border-radius: 4px;
+                padding: 2px 5px;
+              }
+              #percentage-input:focus {
+                outline: none;
+              }
+
+              .percentage-symbol {
+                position: absolute;
+                right: 10px; /* Adjust this value to position the symbol */
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none; /* Allow clicking through the symbol */
+                color: #666; /* Adjust color as needed */
+              }
+            }
+          }
+
+          .amount-right {
+            div {
+              padding: 6px;
+            }
+          }
+        }
+      }
+    }
+
+    &-item {
+      //   display: flex;
+      //   align-items: center;
+      //   flex-direction: column;
+
+      label {
+        font-size: 12px;
+      }
+
+      input,
+      select {
+        width: 320px;
+        border: 1px solid $black;
+        height: 40px;
+        border-radius: 4px;
+        padding: 8px;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+      }
+    }
+
+    &-detail-item {
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        width: 256px;
+      }
+
+      div:first-child {
+        color: $gray-500;
+      }
+      div:last-child {
+        color: $gray-800;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+
+      justify-content: center;
+      gap: 24px;
+      padding: 30px 30px 10px 30px;
+    }
+  }
+
+  &-item {
+    &-container {
+      form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // width: 600px;
+        padding-bottom: 10px;
+      }
+
+      .flex {
+        form {
+          padding: 10px 30px 0 0;
+          align-items: center;
+          //   width: 350px;
+          input {
+            width: 150px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  // width: 150px;
+}
+
+.save-or-cancel {
+  box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+}
+
+.email {
+  &-wrapper {
+    padding: 20px 30px;
+  }
+
+  &-box {
+    border: 1px solid $gray;
+    // padding: 10px;
+    font-size: 15px;
+    border-radius: 4px;
+
+    .toolbar {
+      // margin-bottom: 10px;
+      border-top: 1px solid $gray;
+      border-bottom: 1px solid $gray;
+      padding: 10px;
+      background: $orange-light;
+    }
+    .toolbar button {
+      padding: 5px 10px;
+      margin-right: 5px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .toolbar button.active {
+      background-color: #e9e9e9;
+    }
+    .editor {
+      border: 1px solid #ccc;
+      border: none;
+      min-height: 300px;
+      padding: 10px;
+    }
+    .editor:focus {
+      outline: none;
+    }
+  }
+
+  &-header {
+    display: flex;
+    gap: 30px;
+    padding: 10px;
+  }
+  &-input {
+    display: block;
+    border: none;
+    font-size: 14px;
+    height: 24px;
+  }
+  &-input:focus {
+    outline: none;
+  }
+}

@@ -11,12 +11,17 @@ import { createItemsTable } from "./purchaseOrderForm/purchaseOrderForm";
 // import { getAdmins } from "../../../service/admins";
 // import { createTableHeader } from "../../../common/components/table";
 // import { noDataAdded } from "../../../common/components/emptyData";
-import { goToRoute } from "../../../common/components/goToRoute";
+import {
+  goToPurchaseOrderUtil,
+  goToRoute,
+} from "../../../common/components/goToRoute";
 import { getAllInvoice } from "../../../service/invoiceApi";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
+import { handleMultipleDropdownForPurchaseOrder } from "./purchaseOrderForm/purchaseOrderForm";
+import { handleAddNewRow } from "./purchaseOrderForm/purchaseOrderItem";
 
 const getInvoices = async () => {
   try {
@@ -30,14 +35,26 @@ const getInvoices = async () => {
 
 export default async function goToPurchaseOrder() {
   sessionStorage.setItem("tab", "purchaseOrder");
-  goToRoute(
-    purchaseOrderHtml,
-    purchaseOrderFormHtml,
-    handleCross,
-    handleAddRurchaseOrder
-  );
+  goToPurchaseOrderUtil(purchaseOrderHtml);
+  // goToRoute(
+  //   purchaseOrderHtml,
+  //   purchaseOrderFormHtml,
+  //   handleCross,
+  //   handleAddRurchaseOrder
+  // );
 
-  createItemsTable();
+  const addButton = document.getElementById("add-button");
+
+  // addButton.addEventListener("click", () => { // TEMP
+  const homeRoot = document.querySelector("main");
+  homeRoot.innerHTML = purchaseOrderFormHtml;
+
+  handleMultipleDropdownForPurchaseOrder();
+  const addNewRow = document.getElementById("po-add-row");
+  addNewRow.addEventListener("click", handleAddNewRow);
+  // });
+
+  // createItemsTable();
 
   //   const search = document.getElementById("internal-search");
   //   search.addEventListener("input", handleSearch);
