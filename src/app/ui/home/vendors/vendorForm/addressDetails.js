@@ -10,9 +10,10 @@ export const togglePopup = (div, div2) => {
   });
 };
 
-export const handleMultipleDropdownForBillingAddress = async () => {
+const mapStateNameToId = {};
+export const handleMultipleDropdownForBillingAddress = async (formData) => {
   try {
-    const formData = await getVendorFormDropdown(); //api
+    // const formData = await getVendorFormDropdown(); //api
     const countryList = formData.data.country;
     let bCountry = document.getElementById("b-country");
     const bCountryWrapper =
@@ -67,6 +68,8 @@ export const handleMultipleDropdownForBillingAddress = async () => {
       div.appendChild(label);
 
       bStateWrapper.appendChild(div);
+
+      mapStateNameToId[item.name] = item.stateCode;
     });
 
     togglePopup(bState, bStateWrapper);
@@ -77,6 +80,7 @@ export const handleMultipleDropdownForBillingAddress = async () => {
 let bAttention_ = "";
 let bCountry_ = "";
 let bAddress_ = "";
+let bAddress2_ = "";
 let bCity_ = "";
 let bState_ = "";
 let bPinCode_ = "";
@@ -89,8 +93,10 @@ let bCountry = document.getElementById("b-country");
 let bCountryItem = document.getElementsByClassName("b-country-item");
 
 let bAddress = document.getElementById("b-address-1");
+let bAddress2 = document.getElementById("b-address-2");
 let bCity = document.getElementById("b-city");
 let bState = document.getElementById("b-state");
+let bStateItem = document.getElementsByClassName("b-state-item");
 let bPinCode = document.getElementById("b-pin-code");
 let bPhone = document.getElementById("b-phone");
 let bFaxNumber = document.getElementById("b-fax-number");
@@ -102,6 +108,8 @@ const handleDataChange = () => {
   bCountry.value = bCountry_;
   bAddress = document.getElementById("b-address-1");
   bAddress.value = bAddress_;
+  bAddress2 = document.getElementById("b-address-2");
+  bAddress2.value = bAddress2_;
   bCity = document.getElementById("b-city");
   bCity.value = bCity_;
   bState = document.getElementById("b-state");
@@ -140,27 +148,54 @@ const handleDataChange = () => {
     });
   });
 
-  bAddress.addEventListener("click", (e) => {
+  const bStateArr = [...bStateItem];
+  bStateArr.map((item) => {
+    item.addEventListener("change", (e) => {
+      // removeBorder(allVendorTypes);
+      // document.getElementById("vendorType-error").classList.add("hidden");
+      if (item.checked) {
+        bState_ = e.target.value;
+      }
+
+      if (bState == "") {
+        bState.value = "Select State";
+      } else {
+        bState.value = bState_;
+      }
+
+      const bCountryWrapper =
+        document.getElementsByClassName("b-state-wrapper")[0];
+      bCountryWrapper.classList.add("hidden");
+
+      console.log("country", bState_);
+    });
+  });
+
+  bAddress.addEventListener("input", (e) => {
     bAddress_ = e.target.value;
   });
 
-  bCity.addEventListener("click", (e) => {
+  bAddress2.addEventListener("input", (e) => {
+    bAddress2_ = e.target.value;
+  });
+
+  bCity.addEventListener("input", (e) => {
     bCity_ = e.target.value;
   });
 
-  bState.addEventListener("click", (e) => {
+  bState.addEventListener("input", (e) => {
     bState_ = e.target.value;
   });
 
-  bPinCode.addEventListener("click", (e) => {
+  bPinCode.addEventListener("input", (e) => {
     bPinCode_ = e.target.value;
   });
 
-  bPhone.addEventListener("click", (e) => {
+  bPhone.addEventListener("input", (e) => {
     bPhone_ = e.target.value;
   });
 
-  bFaxNumber.addEventListener("click", (e) => {
+  bFaxNumber.addEventListener("input", (e) => {
     bFaxNumber_ = e.target.value;
   });
 };
@@ -170,6 +205,7 @@ export const copyBillingToShipping = () => {
   const bCountryElem = document.querySelector('input[name="bCountry"]:checked');
   const bCountry = bCountryElem ? bCountryElem.value : "";
   const bAddress = document.getElementById("b-address-1").value;
+  const bAddress2 = document.getElementById("b-address-2").value;
   const bCity = document.getElementById("b-city").value;
   const bStateElem = document.querySelector('input[name="bState"]:checked');
   const bState = bStateElem ? bStateElem.value : "";
@@ -179,6 +215,7 @@ export const copyBillingToShipping = () => {
 
   document.getElementById("s-attention").value = bAttention;
   document.getElementById("s-address-1").value = bAddress;
+  document.getElementById("s-address-2").value = bAddress2;
   document.getElementById("s-city").value = bCity;
   document.getElementById("s-pin-code").value = bPinCode;
   document.getElementById("s-phone").value = bPhone;
@@ -206,9 +243,9 @@ export async function getVendorBillingAddress() {
     attention: bAttention_,
     country: bCountry_,
     addressLine1: bAddress_,
-    addressLine2: "",
+    addressLine2: bAddress2_,
     city: bCity_,
-    state: 1, // bState_,
+    stateId: mapStateNameToId[bState_], // bState_,
     pinCode: bPinCode_,
     phone: bPhone_,
     faxNumber: bFaxNumber_,

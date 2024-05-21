@@ -19,6 +19,8 @@ import {
   handleMultipleDropdownForShippingAddress,
 } from "./vendorForm/addressDetailsShipping";
 import { addVendor } from "../../../service/vendorsApi";
+import { successModal } from "../../../common/components/successModal";
+import { getVendorFormDropdown } from "../../../service/vendorsApi";
 
 const changeVendorRouteUI = (thisClass) => {
   const routes = document.getElementsByClassName("vendor-nav")[0];
@@ -37,36 +39,46 @@ const changeVendorRouteUI = (thisClass) => {
   });
 };
 
-export const changeVendorRoute = () => {
-  const vendorFormTabs = document.getElementsByClassName("vendor-form-tabs")[0];
-  vendorFormTabs.innerHTML = vendorDetailsHtml;
+export const changeVendorRoute = async () => {
+  // let formData = "";
+  try {
+    const formData = await getVendorFormDropdown();
+    console.log("FORMDATA", formData);
 
-  const vendorDetailsRoute = document.getElementById("vendorDetailsRoute");
-  vendorDetailsRoute.addEventListener("click", (e) => {
+    const vendorFormTabs =
+      document.getElementsByClassName("vendor-form-tabs")[0];
     vendorFormTabs.innerHTML = vendorDetailsHtml;
-    handleMultipleDropdown();
-    changeVendorRouteUI("v-details");
-  });
 
-  const otherDetailsRoute = document.getElementById("otherDetailsRoute");
-  otherDetailsRoute.addEventListener("click", (e) => {
-    vendorFormTabs.innerHTML = otherDetailsHtml;
-    handleMultipleDropdownForOther();
-    changeVendorRouteUI("o-details");
-  });
+    const vendorDetailsRoute = document.getElementById("vendorDetailsRoute");
+    vendorDetailsRoute.addEventListener("click", (e) => {
+      vendorFormTabs.innerHTML = vendorDetailsHtml;
+      console.log("COMIING", formData);
+      handleMultipleDropdown(formData);
+      changeVendorRouteUI("v-details");
+    });
 
-  const addressDetailsRoute = document.getElementById("addressDetailsRoute");
-  addressDetailsRoute.addEventListener("click", (e) => {
-    vendorFormTabs.innerHTML = addressDetailsHtml;
+    const otherDetailsRoute = document.getElementById("otherDetailsRoute");
+    otherDetailsRoute.addEventListener("click", (e) => {
+      vendorFormTabs.innerHTML = otherDetailsHtml;
+      handleMultipleDropdownForOther(formData);
+      changeVendorRouteUI("o-details");
+    });
 
-    handleMultipleDropdownForBillingAddress();
-    handleMultipleDropdownForShippingAddress();
+    const addressDetailsRoute = document.getElementById("addressDetailsRoute");
+    addressDetailsRoute.addEventListener("click", (e) => {
+      vendorFormTabs.innerHTML = addressDetailsHtml;
 
-    const copyButton = document.getElementById("copy-billing-to-shipping");
-    copyButton.addEventListener("click", copyBillingToShipping);
+      handleMultipleDropdownForBillingAddress(formData);
+      handleMultipleDropdownForShippingAddress(formData);
 
-    changeVendorRouteUI("v-address");
-  });
+      const copyButton = document.getElementById("copy-billing-to-shipping");
+      copyButton.addEventListener("click", copyBillingToShipping);
+
+      changeVendorRouteUI("v-address");
+    });
+  } catch (error) {
+    console.log("err", error);
+  }
 };
 
 export async function handleAddVendor() {

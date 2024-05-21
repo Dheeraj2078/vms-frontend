@@ -62,6 +62,7 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, filter) => {
 
   async function populateTable(cursor, size, next, filter) {
     const response = await dataSourceFn(cursor, size, next, filter);
+    console.log("NEW VENDOR 2", response);
     paginationDto = response.data;
     renderDataFn(response.data.pagenationData);
     showArrows();
@@ -70,7 +71,7 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, filter) => {
 
 // function(next: bool, size: number)
 export const addPagination = (dataSourceFn, renderDataFn, value) => {
-  // console.log("LOADED");
+  console.log("LOADED");
   const pagination = document.getElementsByClassName("pagination")[0];
   // console.log("pagination", pagination);
   pagination.innerHTML = paginationHtml;

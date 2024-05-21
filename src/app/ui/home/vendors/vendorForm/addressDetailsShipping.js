@@ -1,9 +1,10 @@
 import { getVendorFormDropdown } from "../../../../service/vendorsApi";
 import { togglePopup } from "./addressDetails";
 
-export const handleMultipleDropdownForShippingAddress = async () => {
+const mapStateNameToId = {};
+export const handleMultipleDropdownForShippingAddress = async (formData) => {
   try {
-    const formData = await getVendorFormDropdown(); //api
+    // const formData = await getVendorFormDropdown(); //api
     const countryList = formData.data.country;
     let sCountry = document.getElementById("s-country");
     const sCountryWrapper =
@@ -58,6 +59,8 @@ export const handleMultipleDropdownForShippingAddress = async () => {
       div.appendChild(label);
 
       sStateWrapper.appendChild(div);
+
+      mapStateNameToId[item.name] = item.stateCode;
     });
 
     togglePopup(sState, sStateWrapper);
@@ -68,6 +71,7 @@ export const handleMultipleDropdownForShippingAddress = async () => {
 let sAttention_ = "";
 let sCountry_ = "";
 let sAddress_ = "";
+let sAddress2_ = "";
 let sCity_ = "";
 let sState_ = "";
 let sPinCode_ = "";
@@ -80,8 +84,10 @@ let sCountry = document.getElementById("s-country");
 let sCountryItem = document.getElementsByClassName("s-country-item");
 
 let sAddress = document.getElementById("s-address-1");
+let sAddress2 = document.getElementById("s-address-2");
 let sCity = document.getElementById("s-city");
 let sState = document.getElementById("s-state");
+let sStateItem = document.getElementsByClassName("s-state-item");
 let sPinCode = document.getElementById("s-pin-code");
 let sPhone = document.getElementById("s-phone");
 let sFaxNumber = document.getElementById("s-fax-number");
@@ -93,6 +99,8 @@ const handleDataChange = () => {
   sCountry.value = sCountry_;
   sAddress = document.getElementById("s-address-1");
   sAddress.value = sAddress_;
+  sAddress2 = document.getElementById("s-address-2");
+  sAddress2.value = sAddress2_;
   sCity = document.getElementById("s-city");
   sCity.value = sCity_;
   sState = document.getElementById("s-state");
@@ -131,40 +139,77 @@ const handleDataChange = () => {
     });
   });
 
-  sAddress.addEventListener("click", (e) => {
+  const sStateArr = [...sStateItem];
+  sStateArr.map((item) => {
+    item.addEventListener("change", (e) => {
+      // removeBorder(allVendorTypes);
+      // document.getElementById("vendorType-error").classList.add("hidden");
+      if (item.checked) {
+        sState_ = e.target.value;
+      }
+
+      if (sState == "") {
+        sState.value = "Select State";
+      } else {
+        sState.value = sState_;
+      }
+
+      const bCountryWrapper =
+        document.getElementsByClassName("b-state-wrapper")[0];
+      bCountryWrapper.classList.add("hidden");
+
+      console.log("country", sState_);
+    });
+  });
+
+  sAddress.addEventListener("input", (e) => {
     sAddress_ = e.target.value;
   });
 
-  sCity.addEventListener("click", (e) => {
+  sAddress2.addEventListener("input", (e) => {
+    sAddress2_ = e.target.value;
+  });
+
+  sCity.addEventListener("input", (e) => {
     sCity_ = e.target.value;
   });
 
-  sState.addEventListener("click", (e) => {
+  sState.addEventListener("input", (e) => {
     sState_ = e.target.value;
   });
 
-  sPinCode.addEventListener("click", (e) => {
+  sPinCode.addEventListener("input", (e) => {
     sPinCode_ = e.target.value;
   });
 
-  sPhone.addEventListener("click", (e) => {
+  sPhone.addEventListener("input", (e) => {
     sPhone_ = e.target.value;
   });
 
-  sFaxNumber.addEventListener("click", (e) => {
+  sFaxNumber.addEventListener("input", (e) => {
     sFaxNumber_ = e.target.value;
   });
 };
 
 export async function getVendorShippingAddress() {
+  sAttention_ = sAttention.value;
+  sCountry_ = sCountry.value;
+  sAddress_ = sAddress.value;
+  sAddress2_ = sAddress2.value;
+  sCity_ = sCity.value;
+  sState_ = sState.value;
+  sPinCode_ = sPinCode.value;
+  sPhone_ = sPhone.value;
+  sFaxNumber_ = sFaxNumber.value;
+
   const postData = {
     attention: sAttention_,
     country: sCountry_,
     addressLine1: sAddress_,
-    addressLine2: "",
+    addressLine2: sAddress2_,
     city: sCity_,
-    state: 1, // sState_,
-    pincode: sPinCode_,
+    stateId: mapStateNameToId[sState_],
+    pinCode: sPinCode_,
     phone: sPhone_,
     faxNumber: sFaxNumber_,
   };

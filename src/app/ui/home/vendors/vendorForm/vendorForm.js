@@ -21,7 +21,7 @@ export function handleCross() {
 
 let mapCategoryToId = {};
 let mapVendorTypeToId = {};
-export async function handleMultipleDropdown() {
+export async function handleMultipleDropdown(formData) {
   const associatedCategorySelector = document.getElementById(
     "associated-category"
   );
@@ -31,7 +31,7 @@ export async function handleMultipleDropdown() {
   const slautationDropdown = document.getElementById("salutation-dropdown");
 
   try {
-    const formData = await getVendorFormDropdown();
+    // const formData = await getVendorFormDropdown();
 
     const allCategories = formData.data.categories;
     const allVendorType = formData.data.vednorTypes;

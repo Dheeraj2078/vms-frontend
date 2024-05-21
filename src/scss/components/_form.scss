@@ -311,3 +311,23 @@ label:after {
     font-size: 12px;
   }
 }
+
+.vendor-form-tabs {
+  max-height: 400px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.address-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  textarea {
+    padding: 5px;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
+}

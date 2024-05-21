@@ -68,7 +68,7 @@ export const getAllVendors = async (cursor, size, next, filter) => {
     httpMethods.GET,
     headers
   );
-  console.log("SAHIL", response);
+
   return response;
 };
 

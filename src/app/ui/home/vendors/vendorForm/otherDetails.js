@@ -10,11 +10,11 @@ const togglePopup = (div, div2) => {
   });
 };
 
-export const handleMultipleDropdownForOther = async () => {
+export const handleMultipleDropdownForOther = async (formData) => {
   try {
     // const formData = await getVendorFormData(); //api
-    const formData = await getVendorFormDropdown();
-    console.log("FORMDATA", formData);
+    // const formData = await getVendorFormDropdown();
+    // console.log("FORMDATA", formData);
 
     // const gstTreatmentList = [
     //   {
