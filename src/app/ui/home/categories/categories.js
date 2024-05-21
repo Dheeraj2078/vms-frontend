@@ -152,6 +152,8 @@ const createCategoryTable = async (categories) => {
 
   // const categories = await getCategoriesData();
   const tBody = document.createElement("tbody");
+  tBody.classList.add("table-body");
+  tBody.style.height = "330px"
   categories.map((category) => {
     const row = document.createElement("tr");
 

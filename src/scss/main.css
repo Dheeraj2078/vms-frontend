@@ -156,8 +156,6 @@ body {
   padding: 10px;
 }
 .navbar-logo {
-  position: absolute;
-  top: 0;
   width: 90px;
   padding-top: 24px;
 }
@@ -167,10 +165,12 @@ body {
   top: 0;
   left: 0;
   border-radius: 0.8rem;
-  height: 100vh;
+  height: 98vh;
+  margin: 6px 0px 6px 6px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 110px;
 }
 .navbar-wrapper ul {
   display: flex;
@@ -255,18 +255,17 @@ body {
   color: #716d69;
   font-weight: 400;
 }
-.table-container table tbody {
+.table-container table .table-body {
   display: block;
-  height: 158px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.table-container table tbody tr {
+.table-container table .table-body tr {
   display: table;
   table-layout: fixed;
   width: 100%;
 }
-.table-container table tbody tr td {
+.table-container table .table-body tr td {
   padding: 12px;
   font-size: 12px;
   border-bottom: 1px solid #e7e6e6;
@@ -348,6 +347,7 @@ body {
 }
 .form-header-text {
   font-size: 24px;
+  font-weight: 500;
 }
 .form-header div:last-child {
   font-size: 12px;
@@ -355,7 +355,7 @@ body {
 }
 .form-heading {
   font-size: 16px;
-  padding: 1.2rem 0 1.2rem 0;
+  padding-top: 1rem;
   font-weight: 500;
 }
 .form-wrapper {
@@ -383,6 +383,7 @@ body {
   height: 40px;
   border-radius: 4px;
   padding: 8px;
+  margin-top: 4px;
 }
 .form-item input:focus,
 .form-item select:focus {
@@ -576,7 +577,7 @@ label:after {
 }
 .container .top-heading {
   font-size: 24px;
-  padding-bottom: 20px;
+  padding-bottom: 24px;
   color: #474643;
   font-weight: 500;
 }
@@ -615,7 +616,7 @@ label:after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 28px;
 }
 .container .add-search-wrapper .search-container {
   display: flex;
@@ -675,7 +676,7 @@ label:after {
 #add-button {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .plus-icon {

@@ -1,7 +1,6 @@
 .navbar {
   &-logout {
     position: absolute;
-
     bottom: 20px;
     // width: 120px;
     padding: 10px;
@@ -10,13 +9,8 @@
     // transform: translate(-50%, -50%);
   }
   &-logo {
-    position: absolute;
-    top: 0;
     width: 90px;
     padding-top: 24px;
-    // top: 50%;
-    // // right: 50%;
-    // transform: translate(-50%, -50%);
   }
   &-wrapper {
     background-color: $orange;
@@ -24,11 +18,9 @@
     top: 0;
     left: 0;
     border-radius: 0.8rem;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    height: 98vh;
+    margin: 6px 0px 6px 6px;
+    @include flex(flex,null,null,center,110px,column);
     ul {
       display: flex;
       flex-direction: column;
@@ -42,7 +34,6 @@
         color: $white;
         gap: 15px;
         cursor: pointer;
-
         span {
           font-size: 14px;
         }
@@ -62,8 +53,7 @@
     rgba(255, 255, 255, 0.23) 2.62%,
     $orange 100.93%
   );
-  box-shadow: 0px 0px 8px 0px $black;
-  
+  box-shadow: 0px 0px 8px 0px $black;  
 }
 
 .hidden {
@@ -89,10 +79,5 @@
   transition: all 0.1s ease;
   cursor: pointer;
   background: #f96c59;
-  // background: linear-gradient(
-  //   89.31deg,
-  //   rgba(255, 255, 255, 0.23) 2.62%,
-  //   #f96c59 100.93%
-  // );
   box-shadow: 0px 0px 8px 0px #00000026;
 }

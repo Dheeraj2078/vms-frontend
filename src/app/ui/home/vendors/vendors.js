@@ -190,6 +190,8 @@ const createVendorTable = async (vendorsDetails) => {
   // const vendorsDetails = await getAllVendorsUtil();
 
   const tBody = document.createElement("tbody");
+  tBody.classList.add("table-body");
+  tBody.style.height = "158px"
   for (let vendorDetail of vendorsDetails) {
     const row = document.createElement("tr");
     let OrgDiv = document.createElement("td");
