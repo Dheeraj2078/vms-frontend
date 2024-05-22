@@ -1,4 +1,4 @@
-<h4 class="form-heading">Vendor Details</h4>
+<!-- <h4 class="form-heading">Vendor Details</h4> -->
 
 <form class="form-item associated-category-wrapper">
   <label>Contact Person</label>
@@ -22,24 +22,29 @@
         </svg>
       </div>
       <div id="salutation-dropdown" class="hidden"></div>
-      <span id="vendorType-error" class="hidden error-message"></span>
+      <span id="salutation-error" class="hidden error-message"></span>
     </div>
-    <input
-      type="text"
-      name=""
-      id="contact-person"
-      placeholder="Enter contact person"
-      class="v-first-name"
-    />
-    <input
-      type="text"
-      name=""
-      id="last-name"
-      placeholder="Enter contact person"
-      class="v-first-name"
-    />
+    <div class="text-and-error">
+      <input
+        type="text"
+        name=""
+        id="contact-person"
+        placeholder="Enter first name"
+        class="v-first-name"
+      />
+      <span id="name-error" class="hidden error-message"></span>
+    </div>
+    <div class="text-and-error">
+      <input
+        type="text"
+        name=""
+        id="last-name"
+        placeholder="Enter second name"
+        class="v-first-name"
+      />
+      <span id="l-name-error" class="hidden error-message"></span>
+    </div>
   </div>
-  <span id="name-error" class="hidden error-message"></span>
 </form>
 
 <div class="form-wrapper">
@@ -96,7 +101,7 @@
     <span id="category-error" class="hidden error-message"></span>
   </form>
 
-  <form class="form-item">
+  <!-- <form class="form-item">
     <label>Relationship Duration</label>
     <input
       type="text"
@@ -105,7 +110,7 @@
       placeholder="Enter relationship duration"
     />
     <span id="relationship-duration-error" class="hidden error-message"></span>
-  </form>
+  </form> -->
 
   <form class="form-item">
     <label>Contact Email</label>
@@ -119,15 +124,27 @@
   </form>
 
   <form class="form-item">
-    <label>Contact Phone Number</label>
+    <label>Contact Number</label>
     <input
       type="text"
       name=""
       id="contact-phone-number"
-      placeholder="Enter phone number"
+      placeholder="Enter work phone"
       maxlength="10"
     />
     <span id="phNumber-error" class="hidden error-message"></span>
+  </form>
+
+  <form class="form-item">
+    <label></label>
+    <input
+      type="text"
+      name=""
+      id="relationship-duration"
+      placeholder="Enter mobile number"
+      maxlength="10"
+    />
+    <span id="relationship-duration-error" class="hidden error-message"></span>
   </form>
 
   <!-- <form class="form-item">

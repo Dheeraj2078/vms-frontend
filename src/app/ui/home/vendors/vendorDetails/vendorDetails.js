@@ -5,16 +5,20 @@ import { getVendorsById } from "../../../../service/vendorsApi";
 const getVendorInfo = async (vendorId) => {
   try {
     const vendorInfo = await getVendorsById(vendorId);
+
     const info = vendorInfo.data;
 
     const data = {
-      "Vendor Organization Name": info.organizationName,
-      "Vendor Organization Address": info.address,
-      "Vendor Type": info.vendorType.name,
-      "Relationship Duration": info.relationshipDuration,
-      "Contact Person Name": info.contactPersonName,
-      "Contact Person Phone": info.contactPersonNumber,
-      "Contact Person Email": info.contactPersonEmail,
+      "Vendor Company Name": info.companyName,
+      "Vendor Company Address":
+        info.billingAddress.addressLine1 +
+        ", " +
+        info.billingAddress.addressLine2,
+      "Vendor Type": info.type,
+      GST: info.gstin,
+      "Contact Person Name": info.primaryContact.firstName,
+      "Contact Person Phone": info.primaryContact.mobilePhone,
+      "Contact Person Email": info.primaryContact.email,
     };
 
     console.log("info", info);
@@ -26,7 +30,7 @@ const getVendorInfo = async (vendorId) => {
 
 export const vendorDetails = async (e) => {
   console.log("SSSSSSSSSSSSSS");
-
+  console.log("_______", e.currentTarget);
   const id = e.currentTarget.id;
   console.log("ID", id);
   const vendorInfo = await getVendorInfo(id);

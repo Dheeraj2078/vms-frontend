@@ -10,6 +10,7 @@ const togglePopup = (div, div2) => {
   });
 };
 
+const mapTdsToId = {};
 export const handleMultipleDropdownForOther = async (formData) => {
   try {
     // const formData = await getVendorFormData(); //api
@@ -162,6 +163,7 @@ export const handleMultipleDropdownForOther = async (formData) => {
       div.appendChild(label);
 
       tdsWrapper.appendChild(div);
+      mapTdsToId[item.name] = item.id;
     });
     togglePopup(tds, tdsWrapper);
   } catch (error) {
@@ -197,6 +199,85 @@ let paymentTermsItem = document.getElementsByClassName("payment-terms-item");
 
 let tds = document.getElementById("tds");
 let tdsItem = document.getElementsByClassName("tds-item");
+
+function removeBorder(column) {
+  if (column.classList.contains("empty-field-border")) {
+    column.classList.remove("empty-field-border");
+  }
+  // column = column.trim();
+}
+
+const isNullOrEmpty = (value) => {
+  if (
+    typeof value === "string" &&
+    (value === null || value.trim().length === 0)
+  ) {
+    return true;
+  }
+  return value === null;
+};
+
+const showErrorMessage = (error_element, text) => {
+  if (error_element) {
+    error_element.innerHTML = text;
+    error_element.classList.remove("hidden");
+  }
+};
+
+const checkFieldValues = () => {
+  let checkResult = true;
+  if (isNullOrEmpty(gstIn_)) {
+    const error_element = document.getElementById("gst-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please Select  Salutation");
+    salutation.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(sos_)) {
+    const error_element = document.getElementById("sos-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please Select Organization Name");
+    organizationName.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(pan_)) {
+    const error_element = document.getElementById("pan-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please select category");
+    allCategory.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if (isNullOrEmpty(currency_)) {
+    const error_element = document.getElementById("currency-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please select Vendor Type");
+    allVendorTypes.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(paymentTerms_)) {
+    const error_element = document.getElementById("payment-terms-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter mobile number");
+    relationshipDuration.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(tds_)) {
+    const error_element = document.getElementById("tds-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter first Name");
+    contactPerson.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  // if (isNullOrEmpty(lastName_)) {
+  //   const error_element = document.getElementById("document-error");
+  //   showErrorMessage(error_element, "Please enter last Name");
+  //   lastName.classList.add("empty-field-border");
+  //   checkResult = false;
+  // }
+
+  return checkResult;
+};
 
 const handleDataChange = () => {
   // console.log("->", gstTreatment_);
@@ -342,15 +423,30 @@ const handleDataChange = () => {
 };
 
 export async function getVendorOtherInformation() {
+  if (!checkFieldValues()) {
+    console.log("all fields are mandatory");
+    return null;
+  }
+
   const postData = {
     gstin: gstIn_,
     // sos: sos_,
     // pan: pan_,
     currency: currency_,
     paymentTerms: paymentTerms_,
-    tdsId: 1, // tds_,
+    tdsId: mapTdsToId[tds_], // tds_,
     document: document_,
   };
 
   return postData;
+}
+
+export async function clearOtherData() {
+  gstIn_ = "";
+  sos_ = "";
+  pan_ = "";
+  currency_ = "";
+  paymentTerms_ = "";
+  tds_ = "";
+  document_ = "";
 }

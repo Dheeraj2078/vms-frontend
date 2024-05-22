@@ -41,7 +41,7 @@ export default async function goToVendor() {
 
   searchModel("Search Vendors", filterResults);
 
-  handleMultipleDropdown();
+  // handleMultipleDropdown();
   // handleMultipleDropdownForOther();
 
   addPagination(getAllVendors, createVendorTable); // TEMP
@@ -100,9 +100,9 @@ const handleToggleStatue = (status, id) => {
 };
 
 const showModalOnClick = (column, value) => {
-  console.log("CLICKED");
+  // console.log("CLICKED, ", value);
   column.addEventListener("click", vendorDetails);
-  column.id = value.id;
+  column.id = value.vendorId;
 };
 
 const getMoreRows = (table, lastOrgDiv, vendorDetail) => {

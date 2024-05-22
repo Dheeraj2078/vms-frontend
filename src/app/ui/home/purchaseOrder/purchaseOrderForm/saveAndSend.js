@@ -1,3 +1,5 @@
+import purchaseOrderFormPreviewHtml from "./purchaseOrderFormPreview.html";
+
 export const createWord = () => {
   const boldBtn = document.getElementById("bold-btn");
   const italicBtn = document.getElementById("italic-btn");
@@ -43,4 +45,31 @@ export const createWord = () => {
   document
     .querySelector(".editor")
     .addEventListener("mouseup", updateActiveButtons);
+};
+
+export const showPdfPreview = () => {
+  const emailPdf = document.getElementsByClassName("email-pdf")[0];
+  emailPdf.addEventListener("click", () => {
+    const formOutput = document.getElementById("form-output");
+    formOutput.innerHTML = purchaseOrderFormPreviewHtml;
+    formOutput.classList.remove("hidden");
+    changeBackgroundOnModal();
+
+    const formCancel = document.getElementsByClassName("form-cancel")[0];
+    formCancel.addEventListener("click", (e) => {
+      // handleCross();
+      formOutput.classList.add("hidden");
+
+      const mainContainer =
+        document.getElementsByClassName("main-container")[0];
+      mainContainer.classList.remove("blur-background");
+      document.body.classList.remove("overflow-hidden");
+    });
+  });
+};
+
+export const changeBackgroundOnModal = () => {
+  const mainContainer = document.getElementsByClassName("main-container")[0];
+  mainContainer.classList.add("blur-background");
+  // document.body.classList.add("overflow-hidden");
 };

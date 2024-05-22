@@ -1,94 +1,5 @@
 // import purchaseOrderFormPreviewHtml from "./purchaseOrderFormPreview.html";
 
-// let itemName_ = "";
-// let itemQty_ = "";
-// let itemRate_ = "";
-// let currentId = 1;
-// let total = 0;
-// const itemsData = {};
-
-// const addNewRow = (id) => {
-//   const row = document.createElement("tr");
-//   let div = document.createElement("td");
-//   div.innerHTML = id;
-//   row.appendChild(div);
-
-//   div = document.createElement("td");
-//   const itemNameInput = document.createElement("input");
-//   itemNameInput.addEventListener("change", (e) => {
-//     itemName_ = e.target.value;
-//   });
-//   div.appendChild(itemNameInput);
-//   row.appendChild(div);
-
-//   div = document.createElement("td");
-//   const itemNameQty = document.createElement("input");
-//   itemNameQty.addEventListener("change", (e) => {
-//     itemQty_ = e.target.value;
-//   });
-//   div.appendChild(itemNameQty);
-//   row.appendChild(div);
-
-//   div = document.createElement("td");
-//   const itemNameRate = document.createElement("input");
-//   itemNameRate.addEventListener("change", (e) => {
-//     itemRate_ = e.target.value;
-//   });
-//   div.appendChild(itemNameRate);
-//   row.appendChild(div);
-
-//   div = document.createElement("td");
-//   div.id = id + "-po-amount";
-//   row.appendChild(div);
-
-//   itemNameRate.addEventListener("change", () => {
-//     if (itemQty_ != "") {
-//       const amountId = document.getElementById(id + "-po-amount");
-//       console.log(itemQty_ + " * " + itemRate_);
-//       amountId.innerHTML = itemQty_ * itemRate_;
-
-//       itemsData[id] = {
-//         id: id,
-//         name: itemName_,
-//         qty: itemQty_,
-//         rate: itemRate_,
-//       };
-
-//       console.log(itemsData);
-//       total = 0;
-//       for (const item in itemsData) {
-//         console.log("item", itemsData[item].rate);
-//         total += itemsData[item].rate * itemsData[item].qty;
-//       }
-//       const subTotal = document.getElementById("sub-total");
-//       subTotal.innerHTML = total;
-//     }
-//   });
-//   itemNameQty.addEventListener("change", () => {
-//     if (itemRate_ != "") {
-//       const amountId = document.getElementById(id + "-po-amount");
-//       console.log(itemQty_ + " * " + itemRate_);
-//       amountId.innerHTML = itemQty_ * itemRate_;
-
-//       itemsData[id] = {
-//         id: id,
-//         name: itemName_,
-//         qty: itemQty_,
-//         rate: itemRate_,
-//       };
-//       total = 0;
-//       for (const item in itemsData) {
-//         total += itemsData[item].rate * itemsData[item].qty;
-//       }
-
-//       const subTotal = document.getElementById("sub-total");
-//       subTotal.innerHTML = total;
-//     }
-//   });
-
-//   return row;
-// };
-
 // export const createItemsTable = () => {
 //   const table = document.querySelector("table");
 //   console.log("table", table);
@@ -153,7 +64,7 @@
 // export const handleAddRurchaseOrder = () => {};
 // export const handleCross = () => {};
 
-import { createWord } from "./saveAndSend";
+import { createWord, showPdfPreview } from "./saveAndSend";
 import saveAndSendHtml from "./saveAndSend.html";
 
 const togglePopup = (div, div2) => {
@@ -406,5 +317,6 @@ const nextActionBtns = () => {
   saveAndSend.addEventListener("click", () => {
     homeRoot.innerHTML = saveAndSendHtml;
     createWord();
+    showPdfPreview();
   });
 };

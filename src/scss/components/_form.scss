@@ -331,3 +331,32 @@ label:after {
     outline: none;
   }
 }
+
+.tpo-tr {
+  display: flex;
+
+  .tpo-td {
+    padding: 0 !important;
+
+    input {
+    }
+
+    textarea {
+      height: 70px;
+      resize: none;
+      padding: 10px;
+      border: 1px solid #e7e6e6;
+    }
+    textarea:focus {
+      outline: none;
+    }
+    input:focus {
+      outline: none;
+    }
+  }
+}
+
+.text-and-error {
+  display: flex;
+  flex-direction: column;
+}

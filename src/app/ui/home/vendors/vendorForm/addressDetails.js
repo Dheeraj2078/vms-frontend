@@ -106,6 +106,10 @@ const handleDataChange = () => {
   bAttention.value = bAttention_;
   bCountry = document.getElementById("b-country");
   bCountry.value = bCountry_;
+  const bCountryRadio = document.querySelector(
+    `input[name="bCountry"][value="${bCountry_}"]`
+  );
+  if (bCountryRadio) bCountryRadio.checked = true;
   bAddress = document.getElementById("b-address-1");
   bAddress.value = bAddress_;
   bAddress2 = document.getElementById("b-address-2");
@@ -114,6 +118,10 @@ const handleDataChange = () => {
   bCity.value = bCity_;
   bState = document.getElementById("b-state");
   bState.value = bState_;
+  const bStateRadio = document.querySelector(
+    `input[name="bState"][value="${bState_}"]`
+  );
+  if (bStateRadio) bStateRadio.checked = true;
   bPinCode = document.getElementById("b-pin-code");
   bPinCode.value = bPinCode_;
   bPhone = document.getElementById("b-phone");
@@ -200,44 +208,6 @@ const handleDataChange = () => {
   });
 };
 
-export const copyBillingToShipping = () => {
-  const bAttention = document.getElementById("b-attention").value;
-  const bCountryElem = document.querySelector('input[name="bCountry"]:checked');
-  const bCountry = bCountryElem ? bCountryElem.value : "";
-  const bAddress = document.getElementById("b-address-1").value;
-  const bAddress2 = document.getElementById("b-address-2").value;
-  const bCity = document.getElementById("b-city").value;
-  const bStateElem = document.querySelector('input[name="bState"]:checked');
-  const bState = bStateElem ? bStateElem.value : "";
-  const bPinCode = document.getElementById("b-pin-code").value;
-  const bPhone = document.getElementById("b-phone").value;
-  const bFaxNumber = document.getElementById("b-fax-number").value;
-
-  document.getElementById("s-attention").value = bAttention;
-  document.getElementById("s-address-1").value = bAddress;
-  document.getElementById("s-address-2").value = bAddress2;
-  document.getElementById("s-city").value = bCity;
-  document.getElementById("s-pin-code").value = bPinCode;
-  document.getElementById("s-phone").value = bPhone;
-  document.getElementById("s-fax-number").value = bFaxNumber;
-
-  if (bCountryElem) {
-    document.getElementById("s-country").value = bCountry;
-    const sCountryRadio = document.querySelector(
-      `input[name="sCountry"][value="${bCountry}"]`
-    );
-    if (sCountryRadio) sCountryRadio.checked = true;
-  }
-
-  if (bStateElem) {
-    document.getElementById("s-state").value = bState;
-    const sStateRadio = document.querySelector(
-      `input[name="sState"][value="${bState}"]`
-    );
-    if (sStateRadio) sStateRadio.checked = true;
-  }
-};
-
 export async function getVendorBillingAddress() {
   const postData = {
     attention: bAttention_,
@@ -245,11 +215,22 @@ export async function getVendorBillingAddress() {
     addressLine1: bAddress_,
     addressLine2: bAddress2_,
     city: bCity_,
-    stateId: mapStateNameToId[bState_], // bState_,
+    stateId: mapStateNameToId[bState_],
     pinCode: bPinCode_,
     phone: bPhone_,
     faxNumber: bFaxNumber_,
   };
 
   return postData;
+}
+
+export async function clearBillingData() {
+  bAttention_ = "";
+  bCountry_ = "";
+  bAddress_ = "";
+  bAddress2_ = "";
+  bCity_ = "";
+  bState_ = "";
+  bPhone_ = "";
+  bFaxNumber_ = "";
 }

@@ -52,6 +52,10 @@ export default async function goToPurchaseOrder() {
   handleMultipleDropdownForPurchaseOrder();
   const addNewRow = document.getElementById("po-add-row");
   addNewRow.addEventListener("click", handleAddNewRow);
+
+  const poTable = [];
+  localStorage.setItem("poTableData", JSON.stringify(poTable));
+
   // });
 
   // createItemsTable();
