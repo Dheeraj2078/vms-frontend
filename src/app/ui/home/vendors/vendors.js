@@ -188,7 +188,9 @@ const createVendorTable = async (vendorsDetailsInfo) => {
   // const vendorsDetails = await getAllVendorsUtil();
 
   const tBody = document.createElement("tbody");
-  for (let vendorDetail of vendorsDetailsInfo) {
+  tBody.classList.add("table-body");
+  tBody.style.height = "158px";
+  for (let vendorDetail of vendorsDetails) {
     const row = document.createElement("tr");
     let OrgDiv = document.createElement("td");
     OrgDiv.innerHTML = vendorDetail.companyName;

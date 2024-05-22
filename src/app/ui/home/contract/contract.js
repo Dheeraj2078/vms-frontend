@@ -144,6 +144,8 @@ const createContractTable = async (contracts) => {
   // console.log(",,,", contracts);
 
   const tBody = document.createElement("tbody");
+  tBody.classList.add("table-body");
+  tBody.style.height = "330px";
   contracts.map((contract) => {
     const row = document.createElement("tr");
 

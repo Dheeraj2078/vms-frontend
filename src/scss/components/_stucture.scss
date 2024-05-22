@@ -5,7 +5,7 @@
   // 1
   .top-heading {
     font-size: 24px;
-    padding-bottom: 20px;
+    padding-bottom: 24px;
     color: $gray-800;
     font-weight: 500;
   }
@@ -54,7 +54,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 28px;
 
     .search-container {
       display: flex;
@@ -116,7 +116,7 @@
 #add-button {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .plus-icon {

@@ -104,7 +104,9 @@ const createAdminTable = async (admins) => {
 
   // const admins = await getAdminsData();
 
-  const tBody = document.createElement("tbody")
+  const tBody = document.createElement("tbody");
+  tBody.classList.add("table-body");
+  tBody.style.height = "330px"
   admins.map((admin) => {
     const row = document.createElement("tr");
 

@@ -21,9 +21,8 @@
       }
     }
 
-    tbody {
-      display: block;
-      height: 158px;
+    .table-body {
+      display: block;      
       overflow-y: auto;
       overflow-x: hidden;
       tr {

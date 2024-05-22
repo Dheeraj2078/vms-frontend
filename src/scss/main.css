@@ -156,8 +156,6 @@ body {
   padding: 10px;
 }
 .navbar-logo {
-  position: absolute;
-  top: 0;
   width: 90px;
   padding-top: 24px;
 }
@@ -167,11 +165,12 @@ body {
   top: 0;
   left: 0;
   border-radius: 0.8rem;
-  height: 100vh;
+  height: 98vh;
+  margin: 6px 0px 6px 6px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 6px 0px 0px 6px;
+  flex-direction: column;
+  gap: 110px;
 }
 .navbar-wrapper ul {
   display: flex;
@@ -196,7 +195,11 @@ body {
 
 .selected-route {
   border-left: 4px solid #fff;
-  background: linear-gradient(89.31deg, rgba(255, 255, 255, 0.23) 2.62%, #f85c47 100.93%);
+  background: linear-gradient(
+    89.31deg,
+    rgba(255, 255, 255, 0.23) 2.62%,
+    #f85c47 100.93%
+  );
   box-shadow: 0px 0px 8px 0px rgba(15, 15, 15, 0.2);
 }
 
@@ -222,7 +225,7 @@ body {
   font-size: 1.6rem;
   transition: all 0.1s ease;
   cursor: pointer;
-  background: #fff;
+  background: #f96c59;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1490196078);
 }
 
@@ -256,18 +259,17 @@ body {
   color: #716d69;
   font-weight: 400;
 }
-.table-container table tbody {
+.table-container table .table-body {
   display: block;
-  height: 158px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.table-container table tbody tr {
+.table-container table .table-body tr {
   display: table;
   table-layout: fixed;
   width: 100%;
 }
-.table-container table tbody tr td {
+.table-container table .table-body tr td {
   padding: 12px;
   font-size: 12px;
   border-bottom: 1px solid #e7e6e6;
@@ -357,7 +359,7 @@ body {
 }
 .form-heading {
   font-size: 16px;
-  padding: 1.2rem 0 1.2rem 0;
+  padding-top: 1rem;
   font-weight: 500;
 }
 .form-wrapper {
@@ -672,7 +674,7 @@ label:after {
 }
 .container .top-heading {
   font-size: 24px;
-  padding-bottom: 20px;
+  padding-bottom: 24px;
   color: #474643;
   font-weight: 500;
 }
@@ -698,7 +700,7 @@ label:after {
 }
 .container .statistics-card-left p {
   font-size: 1.4rem;
-  color: #605D5A;
+  color: #605d5a;
   font-weight: 400;
 }
 .container .statistics-card-left h2 {
@@ -711,7 +713,7 @@ label:after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 28px;
 }
 .container .add-search-wrapper .search-container {
   display: flex;
@@ -771,7 +773,7 @@ label:after {
 #add-button {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .plus-icon {
@@ -880,7 +882,11 @@ label:after {
   align-items: center;
   gap: 15px;
 }
-.po-form-container form #associated-dropdown .vendor-type-dropdown-option input {
+.po-form-container
+  form
+  #associated-dropdown
+  .vendor-type-dropdown-option
+  input {
   width: 20px;
 }
 .po-form-container .btn-and-total-wrapper {
@@ -906,11 +912,20 @@ label:after {
 .po-form-container .btn-and-total-wrapper .total-wrapper .flex div {
   padding: 6px;
 }
-.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container {
+.po-form-container
+  .btn-and-total-wrapper
+  .total-wrapper
+  .flex
+  .input-container {
   position: relative;
   width: 100px; /* Adjust the width as needed */
 }
-.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input {
+.po-form-container
+  .btn-and-total-wrapper
+  .total-wrapper
+  .flex
+  .input-container
+  #percentage-input {
   width: 100%; /* Full width to the container */
   padding-right: 20px; /* Space for the percentage symbol */
   box-sizing: border-box; /* Include padding in the width */
@@ -918,10 +933,20 @@ label:after {
   border-radius: 4px;
   padding: 2px 5px;
 }
-.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus {
+.po-form-container
+  .btn-and-total-wrapper
+  .total-wrapper
+  .flex
+  .input-container
+  #percentage-input:focus {
   outline: none;
 }
-.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container .percentage-symbol {
+.po-form-container
+  .btn-and-total-wrapper
+  .total-wrapper
+  .flex
+  .input-container
+  .percentage-symbol {
   position: absolute;
   right: 10px; /* Adjust this value to position the symbol */
   top: 50%;
@@ -1076,4 +1101,4 @@ label:after {
 
 .tpo-td {
   position: relative;
-}/*# sourceMappingURL=main.css.map */
+} /*# sourceMappingURL=main.css.map */
