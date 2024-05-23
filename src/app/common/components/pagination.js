@@ -1,6 +1,6 @@
 import paginationHtml from "./pagination.html";
 
-const addPaginationUtil = (dataSourceFn, renderDataFn, filter) => {
+const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
   let paginationDto = {
     cursor: 0,
     previousCursor: 0,
@@ -60,21 +60,42 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, filter) => {
     }
   }
 
+  const loader = document.getElementById("loader");
+  const content = document.getElementsByClassName("table-container")[0];
+
+  // Show the loader, hide the content
+  // loader.style.display = "block";
+  loader.classList.remove("hidden");
+  content.style.display = "none";
+
   async function populateTable(cursor, size, next, filter) {
     const response = await dataSourceFn(cursor, size, next, filter);
     console.log("NEW VENDOR 2", response);
+
+    loader.classList.add("hidden");
+    content.style.display = "block";
+
     paginationDto = response.data;
-    renderDataFn(response.data.pagenationData);
-    showArrows();
+
+    if (paginationDto.pagenationData.length > 0) {
+      renderDataFn(response.data.pagenationData);
+      // showArrows();
+      console.log("yha pe hu");
+    } else {
+      console.log("------>");
+      const tableContainer =
+        document.getElementsByClassName("table-container")[0];
+      tableContainer.innerHTML = noFound;
+    }
   }
 };
 
 // function(next: bool, size: number)
-export const addPagination = (dataSourceFn, renderDataFn, value) => {
+export const addPagination = (dataSourceFn, renderDataFn, noFound, value) => {
   console.log("LOADED");
   const pagination = document.getElementsByClassName("pagination")[0];
   // console.log("pagination", pagination);
   pagination.innerHTML = paginationHtml;
 
-  addPaginationUtil(dataSourceFn, renderDataFn, value);
+  addPaginationUtil(dataSourceFn, renderDataFn, noFound, value);
 };

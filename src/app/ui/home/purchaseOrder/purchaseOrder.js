@@ -49,6 +49,9 @@ export default async function goToPurchaseOrder() {
   const homeRoot = document.querySelector("main");
   homeRoot.innerHTML = purchaseOrderFormHtml;
 
+  try {
+  } catch (error) {}
+
   handleMultipleDropdownForPurchaseOrder();
   const addNewRow = document.getElementById("po-add-row");
   addNewRow.addEventListener("click", handleAddNewRow);

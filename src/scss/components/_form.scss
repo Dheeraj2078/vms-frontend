@@ -22,7 +22,7 @@
 
   &-heading {
     font-size: 16px;
-    padding-top: 1rem ;
+    padding-top: 1rem;
     font-weight: 500;
   }
 
@@ -325,6 +325,9 @@ label:after {
 
   textarea {
     padding: 5px;
+    resize: none;
+    border: 1px solid rgba(15, 15, 15, 0.2);
+    border-radius: 4px;
   }
 
   textarea:focus {
@@ -338,14 +341,13 @@ label:after {
   .tpo-td {
     padding: 0 !important;
 
-    input {
-    }
-
     textarea {
       height: 70px;
       resize: none;
       padding: 10px;
       border: 1px solid #e7e6e6;
+      resize: none;
+      // border: 1px solid rgba(15, 15, 15, 0.2);
     }
     textarea:focus {
       outline: none;

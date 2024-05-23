@@ -101,6 +101,109 @@ let bPinCode = document.getElementById("b-pin-code");
 let bPhone = document.getElementById("b-phone");
 let bFaxNumber = document.getElementById("b-fax-number");
 
+function removeBorder(column) {
+  if (column.classList.contains("empty-field-border")) {
+    column.classList.remove("empty-field-border");
+  }
+  // column = column.trim();
+}
+
+const isNullOrEmpty = (value) => {
+  if (
+    typeof value === "string" &&
+    (value === null || value.trim().length === 0)
+  ) {
+    return true;
+  }
+  return value === null;
+};
+
+const showErrorMessage = (error_element, text) => {
+  if (error_element) {
+    error_element.innerHTML = text;
+    error_element.classList.remove("hidden");
+  }
+};
+
+const checkFieldValues = () => {
+  let checkResult = true;
+  if (isNullOrEmpty(bAttention_)) {
+    const error_element = document.getElementById("b-attention-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter attention");
+    bAttention.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(bCountry_)) {
+    const error_element = document.getElementById("b-country-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please select country");
+    bCountry.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(bAddress_)) {
+    const error_element = document.getElementById("b-address-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter the address");
+    bAddress.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if (isNullOrEmpty(bAddress2_)) {
+    const error_element = document.getElementById("b-address-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter the address");
+    bAddress2.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if (isNullOrEmpty(bCity_)) {
+    const error_element = document.getElementById("b-city-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter the city");
+    bCity.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(bState_)) {
+    const error_element = document.getElementById("b-state-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please select payment terms");
+    bState.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(bPinCode_)) {
+    const error_element = document.getElementById("b-pincode-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter pin code");
+    bPinCode.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if (isNullOrEmpty(bPhone_)) {
+    const error_element = document.getElementById("b-phone-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter phone number");
+    bPhone.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  if (isNullOrEmpty(bFaxNumber_)) {
+    const error_element = document.getElementById("b-fax-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter fax number");
+    bFaxNumber.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  // if (isNullOrEmpty(lastName_)) {
+  //   const error_element = document.getElementById("document-error");
+  //   showErrorMessage(error_element, "Please enter last Name");
+  //   lastName.classList.add("empty-field-border");
+  //   checkResult = false;
+  // }
+
+  return checkResult;
+};
+
 const handleDataChange = () => {
   bAttention = document.getElementById("b-attention");
   bAttention.value = bAttention_;
@@ -130,14 +233,16 @@ const handleDataChange = () => {
   bFaxNumber.value = bFaxNumber_;
 
   bAttention.addEventListener("input", (e) => {
+    removeBorder(bAttention);
+    document.getElementById("b-attention-error").classList.add("hidden");
     bAttention_ = e.target.value;
   });
 
   const bCountryArr = [...bCountryItem];
   bCountryArr.map((item) => {
     item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      removeBorder(bCountry);
+      document.getElementById("b-country-error").classList.add("hidden");
       if (item.checked) {
         bCountry_ = e.target.value;
       }
@@ -159,8 +264,8 @@ const handleDataChange = () => {
   const bStateArr = [...bStateItem];
   bStateArr.map((item) => {
     item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      removeBorder(bState);
+      document.getElementById("b-state-error").classList.add("hidden");
       if (item.checked) {
         bState_ = e.target.value;
       }
@@ -180,35 +285,54 @@ const handleDataChange = () => {
   });
 
   bAddress.addEventListener("input", (e) => {
+    removeBorder(bAddress);
+    document.getElementById("b-address-error").classList.add("hidden");
     bAddress_ = e.target.value;
   });
 
   bAddress2.addEventListener("input", (e) => {
+    removeBorder(bAddress2);
+    document.getElementById("b-address-error").classList.add("hidden");
     bAddress2_ = e.target.value;
   });
 
   bCity.addEventListener("input", (e) => {
+    removeBorder(bCity);
+    document.getElementById("b-city-error").classList.add("hidden");
     bCity_ = e.target.value;
   });
 
   bState.addEventListener("input", (e) => {
+    removeBorder(bState);
+    document.getElementById("b-state-error").classList.add("hidden");
     bState_ = e.target.value;
   });
 
   bPinCode.addEventListener("input", (e) => {
+    removeBorder(bPinCode);
+    document.getElementById("b-pincode-error").classList.add("hidden");
     bPinCode_ = e.target.value;
   });
 
   bPhone.addEventListener("input", (e) => {
+    removeBorder(bPhone);
+    document.getElementById("b-phone-error").classList.add("hidden");
     bPhone_ = e.target.value;
   });
 
   bFaxNumber.addEventListener("input", (e) => {
+    removeBorder(bFaxNumber);
+    document.getElementById("b-fax-error").classList.add("hidden");
     bFaxNumber_ = e.target.value;
   });
 };
 
 export async function getVendorBillingAddress() {
+  if (!checkFieldValues()) {
+    console.log("all fields are mandatory");
+    return null;
+  }
+
   const postData = {
     attention: bAttention_,
     country: bCountry_,
@@ -233,4 +357,17 @@ export async function clearBillingData() {
   bState_ = "";
   bPhone_ = "";
   bFaxNumber_ = "";
+  bPinCode_ = "";
+}
+
+export async function updateVendorB(objB) {
+  bAttention_ = objB.attention;
+  bCountry_ = objB.country;
+  bAddress_ = objB.addressLine1;
+  bAddress2_ = objB.addressLine2;
+  bCity_ = objB.city;
+  bState_ = objB.state;
+  bPhone_ = objB.phone;
+  bFaxNumber_ = objB.faxNumber;
+  bPinCode_ = objB.pinCode;
 }

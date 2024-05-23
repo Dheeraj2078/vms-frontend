@@ -195,7 +195,7 @@ const checkFieldValues = () => {
   let checkResult = true;
   if (isNullOrEmpty(salutation_)) {
     const error_element = document.getElementById("salutation-error");
-    showErrorMessage(error_element, "Please Select  Salutation");
+    showErrorMessage(error_element, "");
     salutation.classList.add("empty-field-border");
     checkResult = false;
   }
@@ -228,23 +228,23 @@ const checkFieldValues = () => {
   }
   if (isNullOrEmpty(contactPerson_)) {
     const error_element = document.getElementById("name-error");
-    showErrorMessage(error_element, "Please enter first Name");
+    showErrorMessage(error_element, "Please enter first name");
     contactPerson.classList.add("empty-field-border");
     checkResult = false;
   }
   if (isNullOrEmpty(lastName_)) {
     const error_element = document.getElementById("l-name-error");
-    showErrorMessage(error_element, "Please enter last Name");
+    showErrorMessage(error_element, "Please enter last name");
     lastName.classList.add("empty-field-border");
     checkResult = false;
   }
 
-  if (isNullOrEmpty(lastName_)) {
-    const error_element = document.getElementById("name-error");
-    showErrorMessage(error_element, "Please enter contact person name");
-    lastName.classList.add("empty-field-border");
-    checkResult = false;
-  }
+  // if (isNullOrEmpty(lastName_)) {
+  //   const error_element = document.getElementById("name-error");
+  //   showErrorMessage(error_element, "Please enter contact person name");
+  //   lastName.classList.add("empty-field-border");
+  //   checkResult = false;
+  // }
 
   if (isNullOrEmpty(contactEmail_)) {
     const error_element = document.getElementById("email-error");
@@ -254,7 +254,7 @@ const checkFieldValues = () => {
   }
   if (isNullOrEmpty(contactPhoneNumber_)) {
     const error_element = document.getElementById("phNumber-error");
-    showErrorMessage(error_element, "Please enter Contact Person Phone Number");
+    showErrorMessage(error_element, "Please enter contact person phone number");
     contactPhoneNumber.classList.add("empty-field-border");
     checkResult = false;
   }
@@ -276,6 +276,11 @@ const checkFieldValues = () => {
     checkResult = false;
   }
 
+  if (!validatePhoneNumber(relationshipDuration_)) {
+    const error_ele = document.getElementById("relationship-duration-error");
+    showErrorMessage(error_ele, "Please enter correct phone number");
+    checkResult = false;
+  }
   return checkResult;
 };
 
@@ -286,7 +291,7 @@ function validatePhoneNumber(phoneNumber) {
   return phoneRegex.test(phoneNumber);
 }
 
-export async function handleDataChange(caller) {
+export async function handleDataChange() {
   organizationName = document.getElementById("vendor-organization-name");
   relationshipDuration = document.getElementById("relationship-duration");
   contactPerson = document.getElementById("contact-person");
@@ -381,11 +386,10 @@ export async function handleDataChange(caller) {
   });
 
   const salutationArr = [...salutationItem];
-  console.log("DDDDDDDDDD", salutationArr);
   salutationArr.map((vendorType) => {
     vendorType.addEventListener("change", (e) => {
       removeBorder(salutation);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      document.getElementById("salutation-error").classList.add("hidden");
       if (vendorType.checked) {
         salutation_ = e.target.value;
       }
@@ -396,10 +400,8 @@ export async function handleDataChange(caller) {
         salutation.value = salutation_;
       }
 
-      const associatedVendorType = document.getElementById(
-        "salutation-dropdown"
-      );
-      associatedVendorType.classList.add("hidden");
+      const salutationDropdown = document.getElementById("salutation-dropdown");
+      salutationDropdown.classList.add("hidden");
     });
   });
 
@@ -430,7 +432,7 @@ export async function handleDataChange(caller) {
   lastName.addEventListener("input", (e) => {
     removeBorder(lastName);
     lastName_ = e.target.value;
-    document.getElementById("name-error").classList.add("hidden");
+    document.getElementById("l-name-error").classList.add("hidden");
   });
 
   contactEmail.value = contactEmail_;
@@ -603,3 +605,27 @@ export async function clearVendorData() {
   relationshipDuration_ = "";
   categoryString_ = "";
 }
+
+export const updateVendorObj = (obj) => {
+  console.log("OBJ", obj);
+  salutation_ = obj.salutation;
+  organizationName_ = obj.companyName;
+  vendorType_ = obj.vendorType;
+  contactPerson_ = obj.contactPerson;
+  lastName_ = obj.lastName;
+  contactPhoneNumber_ = obj.contactPhoneNumber;
+  contactEmail_ = obj.contactEmail;
+  relationshipDuration_ = obj.mobilePhone;
+  categoryString_ = obj.categoryString;
+
+  console.log("--->", categoryString_);
+  const cat = categoryString_.split(";");
+  // for (let v in cat) {
+  //   categories_.add(v);
+  // }
+  cat.map((c) => {
+    categories_.add(c);
+  });
+  console.log("CCC", cat);
+  console.log(categories_);
+};

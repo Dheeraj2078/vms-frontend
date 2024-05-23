@@ -10,6 +10,14 @@ const togglePopup = (div, div2) => {
   });
 };
 
+const decodePaymentTerms = (str, delimiter1, delimiter2) => {
+  const arr = str.split(delimiter1);
+  const res = arr.join(delimiter2);
+
+  console.log("SHOUT", res);
+  return res;
+};
+
 const mapTdsToId = {};
 export const handleMultipleDropdownForOther = async (formData) => {
   try {
@@ -123,13 +131,13 @@ export const handleMultipleDropdownForOther = async (formData) => {
       input.type = "radio";
       input.id = item;
       input.name = "vendorType";
-      input.value = item;
+      input.value = decodePaymentTerms(item, "_", " ");
       input.classList.add("cursor-pointer");
       input.classList.add("payment-terms-item");
 
       const label = document.createElement("span");
       label.setAttribute("for", item);
-      label.innerHTML = item;
+      label.innerHTML = decodePaymentTerms(item, "_", " ");
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
@@ -229,44 +237,44 @@ const checkFieldValues = () => {
   if (isNullOrEmpty(gstIn_)) {
     const error_element = document.getElementById("gst-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please Select  Salutation");
-    salutation.classList.add("empty-field-border");
+    showErrorMessage(error_element, "Please enter gstin/uin");
+    gstIn.classList.add("empty-field-border");
     checkResult = false;
   }
   if (isNullOrEmpty(sos_)) {
     const error_element = document.getElementById("sos-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please Select Organization Name");
-    organizationName.classList.add("empty-field-border");
+    showErrorMessage(error_element, "Please select source of supply");
+    sos.classList.add("empty-field-border");
     checkResult = false;
   }
   if (isNullOrEmpty(pan_)) {
     const error_element = document.getElementById("pan-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please select category");
-    allCategory.classList.add("empty-field-border");
+    showErrorMessage(error_element, "Please enter pan number");
+    pan.classList.add("empty-field-border");
     checkResult = false;
   }
 
   if (isNullOrEmpty(currency_)) {
     const error_element = document.getElementById("currency-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please select Vendor Type");
-    allVendorTypes.classList.add("empty-field-border");
+    showErrorMessage(error_element, "Please select currency");
+    currency.classList.add("empty-field-border");
     checkResult = false;
   }
   if (isNullOrEmpty(paymentTerms_)) {
     const error_element = document.getElementById("payment-terms-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please enter mobile number");
-    relationshipDuration.classList.add("empty-field-border");
+    showErrorMessage(error_element, "Please select payment terms");
+    paymentTerms.classList.add("empty-field-border");
     checkResult = false;
   }
   if (isNullOrEmpty(tds_)) {
     const error_element = document.getElementById("tds-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please enter first Name");
-    contactPerson.classList.add("empty-field-border");
+    showErrorMessage(error_element, "Please select tds");
+    tds.classList.add("empty-field-border");
     checkResult = false;
   }
   // if (isNullOrEmpty(lastName_)) {
@@ -323,8 +331,8 @@ const handleDataChange = () => {
   const sosItemArr = [...sosItem];
   sosItemArr.map((item) => {
     item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      removeBorder(sos);
+      document.getElementById("sos-error").classList.add("hidden");
       if (item.checked) {
         sos_ = e.target.value;
       }
@@ -346,17 +354,21 @@ const handleDataChange = () => {
 
   gstIn.addEventListener("input", (e) => {
     gstIn_ = e.target.value;
+    removeBorder(gstIn);
+    document.getElementById("gst-error").classList.add("hidden");
   });
 
   pan.addEventListener("input", (e) => {
     pan_ = e.target.value;
+    removeBorder(pan);
+    document.getElementById("pan-error").classList.add("hidden");
   });
 
   const currencyArr = [...currencyItem];
   currencyArr.map((item) => {
     item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      removeBorder(currency);
+      document.getElementById("currency-error").classList.add("hidden");
       if (item.checked) {
         currency_ = e.target.value;
       }
@@ -378,8 +390,8 @@ const handleDataChange = () => {
   const paymentTermsArr = [...paymentTermsItem];
   paymentTermsArr.map((item) => {
     item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      removeBorder(paymentTerms);
+      document.getElementById("payment-terms-error").classList.add("hidden");
       if (item.checked) {
         paymentTerms_ = e.target.value;
       }
@@ -402,8 +414,8 @@ const handleDataChange = () => {
   const tdsArr = [...tdsItem];
   tdsArr.map((item) => {
     item.addEventListener("change", (e) => {
-      // removeBorder(allVendorTypes);
-      // document.getElementById("vendorType-error").classList.add("hidden");
+      removeBorder(tds);
+      document.getElementById("tds-error").classList.add("hidden");
       if (item.checked) {
         tds_ = e.target.value;
       }
@@ -433,9 +445,9 @@ export async function getVendorOtherInformation() {
     // sos: sos_,
     // pan: pan_,
     currency: currency_,
-    paymentTerms: paymentTerms_,
+    paymentTerms: decodePaymentTerms(paymentTerms_, " ", "_"),
     tdsId: mapTdsToId[tds_], // tds_,
-    document: document_,
+    // document: document_,
   };
 
   return postData;
@@ -450,3 +462,13 @@ export async function clearOtherData() {
   tds_ = "";
   document_ = "";
 }
+
+export const updateVendorOther = (objOther) => {
+  gstIn_ = objOther.gstin;
+  sos_ = objOther.sos;
+  pan_ = objOther.pan;
+  currency_ = objOther.currency;
+  paymentTerms_ = objOther.paymentTerms;
+  tds_ = objOther.tds;
+  document_ = "";
+};

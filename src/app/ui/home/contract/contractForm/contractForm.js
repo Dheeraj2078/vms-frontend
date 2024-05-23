@@ -87,8 +87,11 @@ export async function handleMultipleDropdown() {
       div.appendChild(label);
 
       vendorOrganizationDropdown.appendChild(div);
-      mapOrgNameToOrgId[organizationObject.organizationName] =
-        organizationObject.id;
+      mapOrgNameToOrgId[organizationObject.organizationName] = {
+        id: organizationObject.id,
+        name: organizationObject.contactPersonName,
+        email: organizationObject.contactPersonEmail,
+      };
     });
 
     console.log("SSSSSS", statuses);
@@ -321,7 +324,23 @@ export async function handleDataChange() {
         allCategory.value = "";
         try {
           // const response = await fetch()
-          const id = mapOrgNameToOrgId[organizationName_];
+
+          const vendorOrganizationDropdown =
+            document.getElementById("dropdown-options");
+          vendorOrganizationDropdown.classList.add("hidden");
+          const contactPersonName = document.getElementById(
+            "contact-person-name"
+          );
+          contactPersonName.value = mapOrgNameToOrgId[organizationName_].name;
+          contactPersonName_ = mapOrgNameToOrgId[organizationName_].name;
+
+          const contactPersonEmail = document.getElementById(
+            "contact-person-email"
+          );
+          contactPersonEmail.value = mapOrgNameToOrgId[organizationName_].email;
+          contactPersonEmail_ = mapOrgNameToOrgId[organizationName_].email;
+
+          const id = mapOrgNameToOrgId[organizationName_].id;
           const response = await getContractCategory(id);
           const categoriesForOrg = response.data;
           // console.log("categoriesForOrg", categoriesForOrg);
@@ -359,9 +378,6 @@ export async function handleDataChange() {
         }
       }
 
-      const vendorOrganizationDropdown =
-        document.getElementById("dropdown-options");
-      vendorOrganizationDropdown.classList.add("hidden");
       handleCategoryChange();
     });
   });

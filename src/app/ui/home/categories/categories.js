@@ -45,7 +45,7 @@ export default async function goToCategory() {
   // const search = document.getElementById("internal-search");
   // search.addEventListener("input", handleSearch);
   searchModel("Search Categories", filterResults);
-  addPagination(getAllCategories, createCategoryTable);
+  addPagination(getAllCategories, createCategoryTable, "No Category Found");
   // renderTable(true, 10);
 }
 
@@ -84,7 +84,7 @@ export default async function goToCategory() {
 
 function filterResults(value) {
   if (value.trim().length === 0) {
-    addPagination(getAllCategories, createCategoryTable);
+    addPagination(getAllCategories, createCategoryTable, "No Category Found");
     // const allContracts = await getCategoriesData();
     // if (allContracts == null || allContracts.length == 0) {
     //   const contactTable =
@@ -96,7 +96,12 @@ function filterResults(value) {
     // }
   }
   if (value.length >= 2) {
-    addPagination(getAllCategories, createCategoryTable, value);
+    addPagination(
+      getAllCategories,
+      createCategoryTable,
+      "No Category Found",
+      value
+    );
     // const searchResult = await searchCategories(value);
 
     // if (searchResult.data == null || searchResult.data.length == 0) {
@@ -153,7 +158,7 @@ const createCategoryTable = async (categories) => {
   // const categories = await getCategoriesData();
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
-  tBody.style.height = "330px"
+  tBody.style.height = "330px";
   categories.map((category) => {
     const row = document.createElement("tr");
 
@@ -176,7 +181,9 @@ const createCategoryTable = async (categories) => {
 
     if (category.isUsed) {
       div.innerHTML = `
-        <div>
+        <div style="
+        position: relative;
+    ">
           <img class="height-20 btn-disabled tooltip" src=${image} />
           <span class="tooltiptext hidden">This Category is a part of some vendor</span>
         </div>

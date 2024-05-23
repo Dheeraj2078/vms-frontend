@@ -195,11 +195,7 @@ body {
 
 .selected-route {
   border-left: 4px solid #fff;
-  background: linear-gradient(
-    89.31deg,
-    rgba(255, 255, 255, 0.23) 2.62%,
-    #f85c47 100.93%
-  );
+  background: linear-gradient(89.31deg, rgba(255, 255, 255, 0.23) 2.62%, #f85c47 100.93%);
   box-shadow: 0px 0px 8px 0px rgba(15, 15, 15, 0.2);
 }
 
@@ -225,7 +221,7 @@ body {
   font-size: 1.6rem;
   transition: all 0.1s ease;
   cursor: pointer;
-  background: #f96c59;
+  background: #fff;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1490196078);
 }
 
@@ -640,6 +636,9 @@ label:after {
 }
 .address-wrapper textarea {
   padding: 5px;
+  resize: none;
+  border: 1px solid rgba(15, 15, 15, 0.2);
+  border-radius: 4px;
 }
 .address-wrapper textarea:focus {
   outline: none;
@@ -656,6 +655,7 @@ label:after {
   resize: none;
   padding: 10px;
   border: 1px solid #e7e6e6;
+  resize: none;
 }
 .tpo-tr .tpo-td textarea:focus {
   outline: none;
@@ -700,7 +700,7 @@ label:after {
 }
 .container .statistics-card-left p {
   font-size: 1.4rem;
-  color: #605d5a;
+  color: #605D5A;
   font-weight: 400;
 }
 .container .statistics-card-left h2 {
@@ -855,6 +855,76 @@ label:after {
   font-size: 14px;
 }
 
+.loader,
+.loader div {
+  box-sizing: border-box;
+}
+
+.loader {
+  display: inline-block;
+  color: #f85c47;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader div {
+  position: absolute;
+  top: 33.33333px;
+  width: 13.33333px;
+  height: 13.33333px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader div:nth-child(1) {
+  left: 8px;
+  animation: loader1 0.6s infinite;
+}
+
+.loader div:nth-child(2) {
+  left: 8px;
+  animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(3) {
+  left: 32px;
+  animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(4) {
+  left: 56px;
+  animation: loader3 0.6s infinite;
+}
+
+@keyframes loader1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes loader3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes loader2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
 .po-form-container {
   padding: 20px 30px;
 }
@@ -882,11 +952,7 @@ label:after {
   align-items: center;
   gap: 15px;
 }
-.po-form-container
-  form
-  #associated-dropdown
-  .vendor-type-dropdown-option
-  input {
+.po-form-container form #associated-dropdown .vendor-type-dropdown-option input {
   width: 20px;
 }
 .po-form-container .btn-and-total-wrapper {
@@ -912,20 +978,11 @@ label:after {
 .po-form-container .btn-and-total-wrapper .total-wrapper .flex div {
   padding: 6px;
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container {
   position: relative;
   width: 100px; /* Adjust the width as needed */
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #percentage-input {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input {
   width: 100%; /* Full width to the container */
   padding-right: 20px; /* Space for the percentage symbol */
   box-sizing: border-box; /* Include padding in the width */
@@ -933,20 +990,10 @@ label:after {
   border-radius: 4px;
   padding: 2px 5px;
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #percentage-input:focus {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus {
   outline: none;
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  .percentage-symbol {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container .percentage-symbol {
   position: absolute;
   right: 10px; /* Adjust this value to position the symbol */
   top: 50%;
@@ -1101,4 +1148,4 @@ label:after {
 
 .tpo-td {
   position: relative;
-} /*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

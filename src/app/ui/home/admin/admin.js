@@ -41,7 +41,7 @@ export default async function goToAdmin() {
 
   handleMultipleDropdown();
 
-  addPagination(getAdmins, createAdminTable);
+  addPagination(getAdmins, createAdminTable, "No Admin Found");
 
   // const allAdmins = await getAdminsData();
   // if (allAdmins.length == 0) {
@@ -61,7 +61,7 @@ export default async function goToAdmin() {
 
 function filterResults(value) {
   if (value.trim().length === 0) {
-    addPagination(getAdmins, createAdminTable);
+    addPagination(getAdmins, createAdminTable, "No Admin Found");
     // const allContracts = await getAdminsData();
     // if (allContracts == null || allContracts.length == 0) {
     //   const contactTable = document.getElementsByClassName("admin-table")[0];
@@ -72,7 +72,7 @@ function filterResults(value) {
     // }
   }
   if (value.length >= 2) {
-    addPagination(getAdmins, createAdminTable, value);
+    addPagination(getAdmins, createAdminTable, "No Admin Found", value);
     // const searchResult = await searchUser(value);
 
     // if (searchResult.data == null || searchResult.data.length == 0) {
@@ -106,7 +106,7 @@ const createAdminTable = async (admins) => {
 
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
-  tBody.style.height = "330px"
+  tBody.style.height = "330px";
   admins.map((admin) => {
     const row = document.createElement("tr");
 
@@ -145,5 +145,5 @@ const createAdminTable = async (admins) => {
     tBody.appendChild(row);
   });
 
-  table.appendChild(tBody)
+  table.appendChild(tBody);
 };

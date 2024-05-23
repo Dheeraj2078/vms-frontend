@@ -44,7 +44,7 @@ export default async function goToContract() {
   console.log("handle Multiple dropdown....");
   handleMultipleDropdown();
 
-  addPagination(getAllContracts, createContractTable);
+  addPagination(getAllContracts, createContractTable, "No Contract Found");
 
   // const allContracts = await getContractData();
   // console.log("AA", allContracts);
@@ -66,7 +66,7 @@ export default async function goToContract() {
 
 function filterResults(value) {
   if (value.trim().length === 0) {
-    addPagination(getAllContracts, createContractTable);
+    addPagination(getAllContracts, createContractTable, "No Contract Found");
     // const allContracts = await getContractData();
     // if (allContracts == null || allContracts.pagenationData.length == 0) {
     //   const contactTable = document.getElementsByClassName("contract-table")[0];
@@ -77,7 +77,12 @@ function filterResults(value) {
     // }
   }
   if (value.length >= 2) {
-    addPagination(getAllContracts, createContractTable, value);
+    addPagination(
+      getAllContracts,
+      createContractTable,
+      "No Contract Found",
+      value
+    );
     // const contractsData = await searchContract(value, 0, 10);
 
     // if (

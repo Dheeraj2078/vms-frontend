@@ -44,7 +44,7 @@ export default async function goToVendor() {
   // handleMultipleDropdown();
   // handleMultipleDropdownForOther();
 
-  addPagination(getAllVendors, createVendorTable); // TEMP
+  addPagination(getAllVendors, createVendorTable, "No Vendor Found"); // TEMP
 
   // const allVendors = await getAllVendorsUtil();
   // if (allVendors == null || allVendors.length == 0) {
@@ -87,7 +87,7 @@ const handleToggleStatue = (status, id) => {
     // errorMessage.classList.remove("hidden");
   };
 
-  const successModalMessage = "Status Updated";
+  const successModalMessage = "Status updated";
 
   const reply = confirmationModal(
     question,
@@ -162,11 +162,11 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
 
 function filterResults(value) {
   if (value.length === 0) {
-    addPagination(getAllVendors, createVendorTable);
+    addPagination(getAllVendors, createVendorTable, "No Vendor Found");
   }
   if (value.length >= 2) {
     console.log("searching", value);
-    addPagination(getAllVendors, createVendorTable, value);
+    addPagination(getAllVendors, createVendorTable, "No Vendor Found", value);
   }
 }
 
@@ -190,7 +190,7 @@ const createVendorTable = async (vendorsDetailsInfo) => {
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
   tBody.style.height = "158px";
-  for (let vendorDetail of vendorsDetails) {
+  for (let vendorDetail of vendorsDetailsInfo) {
     const row = document.createElement("tr");
     let OrgDiv = document.createElement("td");
     OrgDiv.innerHTML = vendorDetail.companyName;
@@ -232,15 +232,14 @@ const createVendorTable = async (vendorsDetailsInfo) => {
     // action
     let active = "/fc364e677a0ec292045d.png"; // TEMP
     const statusToggle = document.createElement("div");
-    statusToggle.addEventListener(
-      "click",
-      () => handleToggleStatue(true, vendorDetail.id) // TEMP
+    statusToggle.addEventListener("click", () =>
+      handleToggleStatue(vendorDetail.status, vendorDetail.vendorId)
     );
     // statusToggle.id = vendorDetail.item1.id;
     statusToggle.innerHTML = `<img class="height-20 btn-clickable" src=${active} />`;
 
-    active = "/f98d92a34b2133068786.png"; // TEMP
-    if (!true) {
+    active = "/f98d92a34b2133068786.png";
+    if (!vendorDetail.status) {
       statusToggle.innerHTML = `<img class="height-20 btn-clickable" src=${active} />`;
     }
 

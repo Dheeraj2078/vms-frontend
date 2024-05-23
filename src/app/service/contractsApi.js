@@ -76,16 +76,21 @@ export const downloadContract = async (fileName) => {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  const response = await fetch(
-    baseUrl + `/contracts/download?fileName=${fileName}`,
-    {
-      method: httpMethods.GET,
-      headers: headers,
-    }
-  );
 
-  const res = await response.blob();
-  return res;
+  try {
+    const response = await fetch(
+      baseUrl + `/contracts/download?fileName=${fileName}`,
+      {
+        method: httpMethods.GET,
+        headers: headers,
+      }
+    );
+
+    const res = await response.blob();
+    return res;
+  } catch (error) {
+    console.log("EEEE", error);
+  }
 };
 
 export const getContractFormData = async () => {

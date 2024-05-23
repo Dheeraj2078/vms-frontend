@@ -31,13 +31,14 @@ export default async function goToInvoice() {
   sessionStorage.setItem("tab", "invoice");
   goToRoute(invoiceHtml, invoiceFormHtml, handleCross, handleAddInvoice);
 
+  populateInvoiceStats();
   // const search = document.getElementById("internal-search");
   // search.addEventListener("input", handleSearch);
 
   searchModel("Search Invoices", filterResults);
   handleMultipleDropdown();
 
-  addPagination(getAllInvoice, createInvoiceTable);
+  addPagination(getAllInvoice, createInvoiceTable, "No Invoices Found");
 
   // const allInvoices = await getInvoices();
   // if (allInvoices == null || allInvoices.length == 0) {
@@ -58,7 +59,7 @@ export default async function goToInvoice() {
 
 function filterResults(value) {
   if (value.length === 0) {
-    addPagination(getAllInvoice, createInvoiceTable);
+    addPagination(getAllInvoice, createInvoiceTable, "No Invoices Found");
     // const allContracts = await getInvoices();
     // if (allContracts == null || allContracts.length == 0) {
     //   const contactTable = document.getElementsByClassName("invoice-table")[0];
@@ -69,7 +70,12 @@ function filterResults(value) {
     // }
   }
   if (value.length >= 2) {
-    addPagination(getAllInvoice, createInvoiceTable, value);
+    addPagination(
+      getAllInvoice,
+      createInvoiceTable,
+      "No Invoices Found",
+      value
+    );
     // const contractsData = await searchInvoices(value);
 
     // if (contractsData.data == null || contractsData.data.length == 0) {
@@ -106,7 +112,7 @@ const createInvoiceTable = async (invoices) => {
   // const invoices = await getInvoices();
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
-  tBody.style.height = "158px"
+  tBody.style.height = "158px";
   invoices.map((invoice) => {
     const row = document.createElement("tr");
 
@@ -167,8 +173,6 @@ const createInvoiceTable = async (invoices) => {
   });
 
   table.appendChild(tBody);
-
-  populateInvoiceStats();
 };
 
 const populateInvoiceStats = async () => {
