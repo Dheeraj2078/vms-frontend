@@ -49,7 +49,7 @@ export const addContract = async (formData) => {
       console.log("data 1", data);
 
       if (data.error == null) {
-        successModal("Contract Added", handleCross);
+        successModal("Contract added", handleCross);
       }
     })
     .catch((err) => {

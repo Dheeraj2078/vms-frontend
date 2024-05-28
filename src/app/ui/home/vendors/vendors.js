@@ -268,11 +268,13 @@ const createVendorTable = async (vendorsDetailsInfo) => {
 const populateVendorStats = async () => {
   try {
     const invoiceStats = await getVendorStats();
+    console.log("SHOW INVOICE STATS", invoiceStats);
     const invoiceStatsData = invoiceStats.data;
+    console.log(invoiceStatsData.inactive);
 
-    let totalVendorsCount = invoiceStatsData.total;
-    let activeVendorsCount = invoiceStatsData.active,
-      inActiveVectorsCount = totalVendorsCount - activeVendorsCount;
+    let activeVendorsCount = invoiceStatsData.active;
+    let inActiveVectorsCount = invoiceStatsData.inactive;
+    let totalVendorsCount = inActiveVectorsCount + activeVendorsCount;
 
     const totalVendors = document.getElementById("total-vendors");
     totalVendors.innerHTML = totalVendorsCount;

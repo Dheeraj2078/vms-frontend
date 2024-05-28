@@ -181,10 +181,10 @@
   align-items: center;
   gap: 15px;
   input {
-    width: 20px;
+    width: 20px !important;
   }
   span {
-    font-size: 12px;
+    font-size: 12px !important;
   }
 }
 
@@ -252,7 +252,7 @@
   line-height: 1.2;
 }
 
-label:after {
+.required:after {
   content: " *";
   color: red;
 }
@@ -347,6 +347,7 @@ label:after {
       padding: 10px;
       border: 1px solid #e7e6e6;
       resize: none;
+      width: 170px;
       // border: 1px solid rgba(15, 15, 15, 0.2);
     }
     textarea:focus {

@@ -67,7 +67,8 @@
               //   border-radius: 4px;
               //   padding: 8px;
 
-              #percentage-input {
+              #percentage-input,
+              #tcs-input {
                 width: 100%; /* Full width to the container */
                 padding-right: 20px; /* Space for the percentage symbol */
                 box-sizing: border-box; /* Include padding in the width */
@@ -76,7 +77,8 @@
                 border-radius: 4px;
                 padding: 2px 5px;
               }
-              #percentage-input:focus {
+              #percentage-input:focus,
+              #tcs-input:focus {
                 outline: none;
               }
 
@@ -206,6 +208,9 @@
       border-bottom: 1px solid $gray;
       padding: 10px;
       background: $orange-light;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .toolbar button {
       padding: 5px 10px;
@@ -256,10 +261,15 @@
 
     .email-pdf {
       display: flex;
+      align-items: center;
       gap: 10px;
       border: 1px dotted $gray;
       padding: 6px 15px;
       border-radius: 6px;
+
+      img {
+        height: 30px;
+      }
     }
   }
 }
@@ -276,8 +286,132 @@
   max-height: 150px;
   overflow: auto;
   box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+  font-size: 14px;
+  text-transform: uppercase;
+
+  p {
+    border-bottom: 1px solid rgba(15, 15, 15, 0.2);
+    padding: 10px 0 10px 0;
+    cursor: pointer;
+  }
+
+  button {
+  }
 }
 
 .tpo-td {
   position: relative;
+}
+
+.autofill-vendor {
+  padding: 10px 0 20px 0;
+  display: flex;
+  gap: 30px;
+  width: 600px;
+  justify-content: end;
+
+  h4 {
+    font-size: 13px;
+  }
+
+  p {
+    font-size: 13px;
+  }
+}
+
+.display-block {
+  display: block;
+}
+
+#dropdown-options-for-po {
+  z-index: 100;
+  position: absolute;
+  top: 40px;
+  left: 172px;
+  background-color: #fff;
+  padding: 10px;
+  width: 320px;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow: auto;
+  box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+}
+
+input[type="radio"] {
+  width: 20px !important;
+}
+
+.radio-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  span {
+    font-size: 12px;
+  }
+}
+
+.form-scroll {
+  max-height: 600px;
+  overflow: auto;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+#cost-description,
+#selling-description {
+  width: 150px;
+  height: 50px;
+  resize: none;
+  padding: 8px;
+  border: 1px solid rgba(15, 15, 15, 0.2);
+}
+
+.email-subject {
+  width: 350%;
+}
+
+.add-item-btn {
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #ff7e31, #e62c03);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 9;
+  border: 0;
+  transition: box-shadow 0.2s;
+}
+
+.add-item-btn:hover {
+  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}
+
+.po-item-container {
+  max-height: 500px;
+  overflow: auto;
+  padding-right: 12px;
+}
+
+.w-300 {
+  width: 300px;
 }

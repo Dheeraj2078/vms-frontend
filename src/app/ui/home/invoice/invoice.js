@@ -91,6 +91,7 @@ function filterResults(value) {
 }
 
 const createInvoiceTable = async (invoices) => {
+  console.log("all invoices", invoices);
   const invoiceTable = document.getElementsByClassName("invoice-table")[0];
   invoiceTable.innerHTML = "";
 
@@ -179,10 +180,11 @@ const populateInvoiceStats = async () => {
   try {
     const invoiceStats = await getInvoiceStats();
     const invoiceStatsData = invoiceStats.data;
+    console.log("MDDDMDMD", invoiceStatsData);
 
-    let totalVendorsCount = invoiceStatsData.total;
-    let activeVendorsCount = invoiceStatsData.active,
-      inActiveVectorsCount = totalVendorsCount - activeVendorsCount;
+    let activeVendorsCount = invoiceStatsData.active;
+    let inActiveVectorsCount = invoiceStatsData.inactive;
+    let totalVendorsCount = activeVendorsCount + inActiveVectorsCount;
 
     const totalVendors = document.getElementById("total-vendors");
     totalVendors.innerHTML = totalVendorsCount;

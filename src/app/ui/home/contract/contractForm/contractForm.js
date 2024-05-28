@@ -62,7 +62,7 @@ export async function handleMultipleDropdown() {
 
   try {
     const response = await getContractFormData();
-    console.log("res fof form", response);
+    console.log("res  form", response);
 
     const OrganizationNames = response.data.vendor;
     const statuses = response.data.contractStatus;
@@ -73,24 +73,24 @@ export async function handleMultipleDropdown() {
       const input = document.createElement("input");
       input.classList.add("org-name-checkbox");
       input.type = "radio";
-      input.id = organizationObject.organizationName;
+      input.id = organizationObject.companyName;
       input.name = "vendorType";
-      input.value = organizationObject.organizationName;
+      input.value = organizationObject.companyName;
       input.classList.add("cursor-pointer");
 
       const label = document.createElement("span");
-      label.setAttribute("for", organizationObject.organizationName);
-      label.innerHTML = organizationObject.organizationName;
+      label.setAttribute("for", organizationObject.companyName);
+      label.innerHTML = organizationObject.companyName;
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
 
       vendorOrganizationDropdown.appendChild(div);
-      mapOrgNameToOrgId[organizationObject.organizationName] = {
+      mapOrgNameToOrgId[organizationObject.companyName] = {
         id: organizationObject.id,
-        name: organizationObject.contactPersonName,
-        email: organizationObject.contactPersonEmail,
+        name: organizationObject.firstName,
+        email: organizationObject.email,
       };
     });
 
@@ -581,7 +581,7 @@ export async function handleAddContract() {
     const res = await addContract(formData);
     console.log("data 2", res);
     if (res.error == null) {
-      successModal("Contract Added", handleCross);
+      successModal("Contract added", handleCross);
     }
   } catch (error) {
     console.log(error);

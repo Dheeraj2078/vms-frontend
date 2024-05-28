@@ -29,7 +29,7 @@ export const addInvoice = async (formData) => {
       console.log("data 1", data);
 
       if (data.error == null) {
-        successModal("Invoice Added", handleCross);
+        successModal("Invoice added", handleCross);
       }
     })
     .catch((err) => {

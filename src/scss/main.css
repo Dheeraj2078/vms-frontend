@@ -123,6 +123,10 @@ body {
   cursor: pointer;
 }
 
+.w-60 {
+  width: 60px;
+}
+
 /*
 
 .disabled {
@@ -504,10 +508,10 @@ body {
   gap: 15px;
 }
 .vendor-type-dropdown-option input {
-  width: 20px;
+  width: 20px !important;
 }
 .vendor-type-dropdown-option span {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .associated-category-wrapper {
@@ -567,7 +571,7 @@ body {
   line-height: 1.2;
 }
 
-label:after {
+.required:after {
   content: " *";
   color: red;
 }
@@ -656,6 +660,7 @@ label:after {
   padding: 10px;
   border: 1px solid #e7e6e6;
   resize: none;
+  width: 170px;
 }
 .tpo-tr .tpo-td textarea:focus {
   outline: none;
@@ -982,7 +987,8 @@ label:after {
   position: relative;
   width: 100px; /* Adjust the width as needed */
 }
-.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input,
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input {
   width: 100%; /* Full width to the container */
   padding-right: 20px; /* Space for the percentage symbol */
   box-sizing: border-box; /* Include padding in the width */
@@ -990,7 +996,8 @@ label:after {
   border-radius: 4px;
   padding: 2px 5px;
 }
-.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus,
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input:focus {
   outline: none;
 }
 .po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container .percentage-symbol {
@@ -1081,6 +1088,9 @@ label:after {
   border-bottom: 1px solid #d2d0cf;
   padding: 10px;
   background: #ffe5e1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .email-box .toolbar button {
   padding: 5px 10px;
@@ -1128,10 +1138,14 @@ label:after {
 }
 .email-footer .email-pdf {
   display: flex;
+  align-items: center;
   gap: 10px;
   border: 1px dotted #d2d0cf;
   padding: 6px 15px;
   border-radius: 6px;
+}
+.email-footer .email-pdf img {
+  height: 30px;
 }
 
 .po-item-dropdown {
@@ -1144,8 +1158,125 @@ label:after {
   max-height: 150px;
   overflow: auto;
   box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+  font-size: 14px;
+  text-transform: uppercase;
 }
-
+.po-item-dropdown p {
+  border-bottom: 1px solid rgba(15, 15, 15, 0.2);
+  padding: 10px 0 10px 0;
+  cursor: pointer;
+}
 .tpo-td {
   position: relative;
+}
+
+.autofill-vendor {
+  padding: 10px 0 20px 0;
+  display: flex;
+  gap: 30px;
+  width: 600px;
+  justify-content: end;
+}
+.autofill-vendor h4 {
+  font-size: 13px;
+}
+.autofill-vendor p {
+  font-size: 13px;
+}
+
+.display-block {
+  display: block;
+}
+
+#dropdown-options-for-po {
+  z-index: 100;
+  position: absolute;
+  top: 40px;
+  left: 172px;
+  background-color: #fff;
+  padding: 10px;
+  width: 320px;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow: auto;
+  box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
+}
+
+input[type=radio] {
+  width: 20px !important;
+}
+
+.radio-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.radio-center span {
+  font-size: 12px;
+}
+
+.form-scroll {
+  max-height: 600px;
+  overflow: auto;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+#cost-description,
+#selling-description {
+  width: 150px;
+  height: 50px;
+  resize: none;
+  padding: 8px;
+  border: 1px solid rgba(15, 15, 15, 0.2);
+}
+
+.email-subject {
+  width: 350%;
+}
+
+.add-item-btn {
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #ff7e31, #e62c03);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 9;
+  border: 0;
+  transition: box-shadow 0.2s;
+}
+
+.add-item-btn:hover {
+  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}
+
+.po-item-container {
+  max-height: 500px;
+  overflow: auto;
+  padding-right: 12px;
+}
+
+.w-300 {
+  width: 300px;
 }/*# sourceMappingURL=main.css.map */

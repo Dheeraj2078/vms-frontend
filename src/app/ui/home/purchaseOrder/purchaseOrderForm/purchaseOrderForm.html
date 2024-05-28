@@ -1,234 +1,231 @@
-<!-- <div class="form-container">
-  <div class="form-header">
-    <div id="add-vendor-heading">Add Purchase Order</div>
-    <svg id="form-cross">
-      <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
-    </svg>
-  </div>
-
-  <h3>Vendor Address</h3>
-  <textarea name="" id="" cols="30" rows="10"></textarea>
-  <div>
-    <button class="btn-sm add-items-row">Add Row</button>
-    <div class="admin-table table-container">
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-          <th>#</th>
-          <th>Items & Description</th>
-          <th>Qty</th>
-          <th>Rate</th>
-          <th>Amount</th>
-        </tr>
-      </table>
-    </div>
-
-    <div>
-      <div>
-        <span>Sub Total</span>
-        <span id="sub-total">0</span>
-      </div>
-      <div>
-        <span>IGST18(18%)</span>
-        <span id="gst">0</span>
-      </div>
-      <div>
-        <span>Total</span>
-        <span id="total">Rs. 0</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-buttons">
-    <button class="btn-light form-cancel">Cancel</button>
-    <button id="preview-btn" class="btn-light form-cancel">Preview</button>
-    <button class="btn-sm" id="add-to-db">Add Invoice</button>
-  </div>
-</div> -->
 <section class="po-form-container">
   <h2>New Purchase Order</h2>
   <form class="po-form-item associated-category-wrapper">
-    <label>Vendor Name</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="vendor-name"
-        value=""
-        placeholder="Select a vendor"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
+    <label class="required">Vendor Name</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="vendor-name"
+            value=""
+            placeholder="Select a vendor"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="associated-dropdown" class="hidden vendor-name-wrapper"></div>
+      </div>
+      <p id="vendor-name-error" class="hidden error-message role-error">
+        Please enter vendor name
+      </p>
     </div>
-    <div id="associated-dropdown" class="hidden vendor-name-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
+  </form>
+
+  <div id="autofill-vendor-address" class="display-block"></div>
+
+  <form class="po-form-item associated-category-wrapper">
+    <label class="required">Source Of Supply</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="source-of-supply"
+            value=""
+            placeholder="Select a source of supply"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden source-of-supply-wrapper"
+        ></div>
+      </div>
+      <p id="sos-error" class="hidden error-message role-error">
+        Please select source of supply
+      </p>
+    </div>
   </form>
 
   <form class="po-form-item associated-category-wrapper">
-    <label>Source Of Supply</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="source-of-supply"
-        value=""
-        placeholder="Select a source of supply"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
+    <label class="required">Destination of Supply</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="destination-of-supply"
+            value=""
+            placeholder="Select a destination of supply"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden destination-of-supply-wrapper"
+        ></div>
+      </div>
+      <p id="dos-error" class="hidden error-message role-error">
+        Please select destination of supply
+      </p>
     </div>
-    <div id="associated-dropdown" class="hidden source-of-supply-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
+  </form>
+
+  <!-- branch -->
+  <form class="po-form-item associated-category-wrapper">
+    <label class="required">Branch</label>
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="branch"
+            value=""
+            placeholder="Select a branch"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="associated-dropdown" class="hidden branch-wrapper"></div>
+      </div>
+      <p id="branch-error" class="hidden error-message role-error">
+        Please select a branch
+      </p>
+    </div>
   </form>
 
   <form class="po-form-item associated-category-wrapper">
-    <label>Destination of Supply</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="destination-of-supply"
-        value=""
-        placeholder="Select a destination of supply"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
+    <label class="required">Delivery Address</label>
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="delivery-address"
+            value=""
+            placeholder="Select a delivery address"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden delivery-address-wrapper"
+        ></div>
+      </div>
+      <p id="delivery-address-error" class="hidden error-message role-error">
+        Please select a delivery address
+      </p>
     </div>
-    <div
-      id="associated-dropdown"
-      class="hidden destination-of-supply-wrapper"
-    ></div>
-    <p class="hidden error-message role-error">Please select a role</p>
   </form>
 
-  <form class="po-form-item associated-category-wrapper">
-    <label>Branch</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="branch"
-        value=""
-        placeholder="Select a branch"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
-    </div>
-    <div id="associated-dropdown" class="hidden branch-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
-  </form>
+  <div id="autofill-delivery-address" class="display-block"></div>
 
-  <form class="po-form-item associated-category-wrapper">
-    <label>Delivery Address</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="branch"
-        value=""
-        placeholder="Select a branch"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
-    </div>
-    <div id="admin-roles" class="hidden branch-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
+  <form class="po-form-item">
+    <label class="required">Purchase Order#</label>
+    <input type="text" name="" id="purchase-number" placeholder="" readonly />
+    <!-- <p class="hidden error-message purchase-number-error">
+      Please enter the purchase order number
+    </p> -->
   </form>
 
   <form class="po-form-item">
-    <label>Purchase Order#</label>
-    <input type="text" name="" id="first-name" placeholder="" />
-    <p class="hidden error-message first-name-error">
-      Please enter the First Name
-    </p>
-  </form>
-
-  <form class="po-form-item">
-    <label>Referene#</label>
+    <label>Reference#</label>
     <input
       type="text"
       name=""
-      id="first-name"
+      id="reference-number"
       placeholder="Enter reference number"
     />
-    <p class="hidden error-message first-name-error">
-      Please enter the First Name
-    </p>
   </form>
 
   <form class="po-form-item">
     <label>Date</label>
-    <input type="date" name="" id="first-name" placeholder="Enter first name" />
-    <p class="hidden error-message first-name-error">
-      Please enter the First Name
-    </p>
+    <input type="date" name="" id="date" placeholder="Enter first name" />
   </form>
 
   <form class="po-form-item">
     <label>Expected Delivery Date</label>
-    <input type="date" name="" id="first-name" placeholder="Enter first name" />
-    <p class="hidden error-message first-name-error">
+    <input
+      type="date"
+      name=""
+      id="date-delivery"
+      placeholder="Enter first name"
+    />
+    <!-- <p class="hidden error-message first-name-error">
       Please enter the First Name
-    </p>
+    </p> -->
   </form>
 
   <form class="po-form-item associated-category-wrapper">
-    <label>Payment terms</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="payment-terms"
-        value=""
-        placeholder="Select a payment terms"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
+    <label class="required">Payment terms</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="payment-terms"
+            value=""
+            placeholder="Select a payment terms"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden payment-terms-wrapper"
+        ></div>
+      </div>
+      <p id="payment-terms-error" class="hidden error-message role-error">
+        Please select a paymnent terms
+      </p>
     </div>
-    <div id="associated-dropdown" class="hidden payment-terms-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
   </form>
 
-  <form class="po-form-item associated-category-wrapper">
-    <label>Shipment preference</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="shipment-preference"
-        value=""
-        placeholder="Select a shipment preference"
-        class="cursor-pointer"
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
-    </div>
-    <div
-      id="associated-dropdown"
-      class="hidden shipment-preference-wrapper"
-    ></div>
-    <p class="hidden error-message role-error">Please select a role</p>
-  </form>
-
-  <div>Items Table</div>
+  <h2>Items Table</h2>
 
   <div class="table-container">
     <table cellpadding="0" cellspacing="0">
@@ -256,14 +253,14 @@
         <div class="flex">
           <div>Discount</div>
           <div class="input-container">
-            <input type="text" id="percentage-input" />
+            <input type="text" id="percentage-input" value="0" />
             <span class="percentage-symbol">%</span>
           </div>
         </div>
         <div class="flex">
           <div>TCS</div>
           <div class="input-container">
-            <input type="text" id="percentage-input" />
+            <input type="text" id="tcs-input" value="0" />
           </div>
         </div>
         <div class="flex">
@@ -271,10 +268,10 @@
         </div>
       </div>
       <div class="amount-right">
-        <div>5,000</div>
-        <div>0.0</div>
-        <div>0</div>
-        <div class="bold">5,000.00</div>
+        <div id="sub-total">0</div>
+        <div id="discount-provided">0.0</div>
+        <div id="tcs-provided">0</div>
+        <div id="total" class="bold">0</div>
       </div>
     </div>
   </div>

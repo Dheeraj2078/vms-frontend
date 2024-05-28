@@ -71,30 +71,31 @@ export async function handleMultipleDropdown() {
       { id: false, name: "Pending" },
     ];
 
+    console.log("invoice", OrganizationNames);
     OrganizationNames.map((organizationObject) => {
       const div = document.createElement("div");
       div.classList.add("vendor-type-dropdown-option");
       const input = document.createElement("input");
       input.classList.add("org-name-checkbox");
       input.type = "radio";
-      input.id = organizationObject.organizationName;
+      input.id = organizationObject.companyName;
       input.name = "vendorType";
-      input.value = organizationObject.organizationName;
+      input.value = organizationObject.companyName;
       input.classList.add("cursor-pointer");
 
       const label = document.createElement("span");
-      label.setAttribute("for", organizationObject.organizationName);
-      label.innerHTML = organizationObject.organizationName;
+      label.setAttribute("for", organizationObject.companyName);
+      label.innerHTML = organizationObject.companyName;
       label.classList.add("cursor-pointer");
 
       div.appendChild(input);
       div.appendChild(label);
 
       vendorOrganizationDropdown.appendChild(div);
-      mapOrgNameToOrgId[organizationObject.organizationName] = {
+      mapOrgNameToOrgId[organizationObject.companyName] = {
         id: organizationObject.id,
-        name: organizationObject.contactPersonName,
-        email: organizationObject.contactPersonEmail,
+        name: organizationObject.firstName,
+        email: organizationObject.email,
       };
     });
 
@@ -582,7 +583,7 @@ export async function handleAddInvoice() {
     const res = await addInvoice(formData);
     console.log("data 2", res);
     if (res.error == null) {
-      successModal("Invoice Added", handleCross);
+      successModal("Invoice added", handleCross);
     }
   } catch (error) {
     console.log(error);

@@ -1,218 +1,275 @@
 <div class="po-item-container">
   <form class="po-form-item">
-    <label>Type</label>
-    <div>
+    <label class="required">Type</label>
+    <div class="radio-center">
       <input
         type="radio"
-        id="New Vendors"
+        id="goods"
         name="vendorType"
-        value="goods"
-        class="cursor-pointer serviceOrGoods"
+        value="Goods"
+        class="cursor-pointer service-or-goods-item"
         checked
       />
       <span for="New Vendors" class="cursor-pointer">Goods</span>
     </div>
 
-    <div>
+    <div class="radio-center">
       <input
         type="radio"
-        id="New Vendors"
+        id="services"
         name="vendorType"
-        value="services"
-        class="cursor-pointer serviceOrGoods"
+        value="Services"
+        class="cursor-pointer service-or-goods-item"
       />
       <span for="New Vendors" class="cursor-pointer">Service</span>
     </div>
   </form>
 
   <form class="po-form-item">
-    <label>Name</label>
-    <input type="text" name="" id="name" placeholder="" />
-    <p class="hidden error-message first-name-error">
-      Please enter the First Name
-    </p>
+    <label class="required">Name</label>
+    <div class="flex-col">
+      <input type="text" name="" id="name" placeholder="Enter the name" />
+      <p id="name-error" class="hidden error-message first-name-error"></p>
+    </div>
   </form>
 
   <form class="po-form-item associated-category-wrapper">
-    <label>Unit</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="unit"
-        value=""
-        placeholder="Select a unit"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
+    <label class="required">Unit</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="unit"
+            value=""
+            placeholder="Select a unit"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="dropdown-options-for-po" class="hidden unit-wrapper"></div>
+      </div>
+      <p id="unit-error" class="hidden error-message role-error"></p>
     </div>
-    <div id="admin-roles" class="hidden unit-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
   </form>
 
   <form class="po-form-item">
     <label class="sacOrHsn">HSN Code</label>
-    <input type="text" name="" id="sacOrHsn" placeholder="" />
-    <p class="hidden error-message first-name-error">
-      Please enter the First Name
-    </p>
+    <div class="flex-col">
+      <input type="text" name="" id="sacOrHsn" placeholder="Enter the code" />
+      <p
+        id="sac-or-hsn-error"
+        class="hidden error-message first-name-error"
+      ></p>
+    </div>
   </form>
 
   <form class="po-form-item associated-category-wrapper">
-    <label>Tax Preference</label>
-    <div class="vendor-inner-wrapper">
-      <input
-        type="text"
-        name=""
-        id="tax-preference"
-        value=""
-        placeholder="Select a tax preference"
-        class="cursor-pointer"
-        readonly
-      />
-      <svg class="dropdown-icon cursor-pointer">
-        <use xlink:href="../../../../../assets/icons/icons.svg#dropdown"></use>
-      </svg>
+    <label class="required">Tax Preference</label>
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="tax-preference"
+            value=""
+            placeholder="Select a tax preference"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="dropdown-options-for-po"
+          class="hidden tax-preference-wrapper"
+        ></div>
+      </div>
+      <p id="tax-preference-error" class="hidden error-message role-error">
+        Please select a role
+      </p>
     </div>
-    <div id="admin-roles" class="hidden tax-preference-wrapper"></div>
-    <p class="hidden error-message role-error">Please select a role</p>
   </form>
 
-  <div class="flex">
-    <div>
-      <div>Sales Information</div>
+  <div class="flex margin-bottom-sm padding-top-sm">
+    <div class="w-300">
+      <h2>Sales Information</h2>
       <form class="po-form-item">
-        <label>Selling Price</label>
-        <input type="text" name="" id="selling-price" placeholder="" />
-        <p class="hidden error-message first-name-error">
-          Please enter the First Name
-        </p>
-      </form>
+        <label class="required">Selling Price</label>
 
-      <form class="po-form-item associated-category-wrapper">
-        <label>Account</label>
-        <div class="vendor-inner-wrapper">
+        <div class="flex-col">
           <input
             type="text"
             name=""
-            id="s-account"
-            value=""
-            placeholder="Select a branch"
-            class="cursor-pointer"
-            readonly
+            id="selling-price"
+            placeholder="Enter selling price"
           />
-          <svg class="dropdown-icon cursor-pointer">
-            <use
-              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
-            ></use>
-          </svg>
+          <p
+            id="selling-price-error"
+            class="hidden error-message first-name-error"
+          ></p>
         </div>
-        <div id="admin-roles" class="hidden s-account-wrapper"></div>
-        <p class="hidden error-message role-error">Please select a role</p>
       </form>
 
       <form class="po-form-item">
-        <label>Description</label>
-        <textarea type="text" name="" id="first-name" placeholder=""></textarea>
-        <p class="hidden error-message first-name-error">
-          Please enter the First Name
-        </p>
+        <label class="required">Account</label>
+        <div class="flex-col">
+          <input
+            type="text"
+            name=""
+            id="selling-account"
+            placeholder="Enter account"
+          />
+          <p
+            id="selling-account-error"
+            class="hidden error-message first-name-error"
+          ></p>
+        </div>
+      </form>
+
+      <form class="po-form-item">
+        <label class="required">Description</label>
+        <div class="flex-col">
+          <textarea
+            type="text"
+            name=""
+            id="selling-description"
+            placeholder="Enter description"
+          ></textarea>
+          <p
+            id="selling-description-error"
+            class="hidden error-message first-name-error"
+          ></p>
+        </div>
       </form>
     </div>
-    <div>
-      <div>Purchase Information</div>
+    <div class="w-300">
+      <h2>Purchase Information</h2>
       <form class="po-form-item">
-        <label>Cost Price</label>
-        <input type="text" name="" id="first-name" placeholder="" />
-        <p class="hidden error-message first-name-error">
-          Please enter the First Name
-        </p>
-      </form>
-
-      <form class="po-form-item associated-category-wrapper">
-        <label>Account</label>
-        <div class="vendor-inner-wrapper">
+        <label class="required">Cost Price</label>
+        <div class="flex-col">
           <input
             type="text"
             name=""
-            id="branch"
-            value=""
-            placeholder="Select a branch"
-            class="cursor-pointer"
-            readonly
+            id="cost-price"
+            placeholder="Enter cost price"
           />
-          <svg class="dropdown-icon cursor-pointer">
-            <use
-              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
-            ></use>
-          </svg>
+          <p
+            id="cost-price-error"
+            class="hidden error-message first-name-error"
+          ></p>
         </div>
-        <div id="admin-roles" class="hidden branch-wrapper"></div>
-        <p class="hidden error-message role-error">Please select a role</p>
       </form>
 
       <form class="po-form-item">
-        <label>Description</label>
-        <textarea type="text" name="" id="first-name" placeholder=""></textarea>
-        <p class="hidden error-message first-name-error">
-          Please enter the First Name
-        </p>
+        <label class="required">Account</label>
+        <div class="flex-col">
+          <input
+            type="text"
+            name=""
+            id="cost-account"
+            placeholder="Anter Account"
+          />
+          <p
+            id="cost-account-error"
+            class="hidden error-message first-name-error"
+          ></p>
+        </div>
+      </form>
+
+      <form class="po-form-item">
+        <label class="required">Description</label>
+        <div class="flex-col">
+          <textarea
+            type="text"
+            name=""
+            id="cost-description"
+            placeholder="Enter description"
+          ></textarea>
+          <p
+            id="cost-description-error"
+            class="hidden error-message first-name-error"
+          ></p>
+        </div>
       </form>
     </div>
   </div>
 
   <div>
-    <div>Default Tax Rates</div>
+    <h2>Default Tax Rates</h2>
     <form class="po-form-item associated-category-wrapper">
-      <label>Intra State Tax Rate</label>
-      <div class="vendor-inner-wrapper">
-        <input
-          type="text"
-          name=""
-          id="branch"
-          value=""
-          placeholder="Select a tax rate"
-          class="cursor-pointer"
-          readonly
-        />
-        <svg class="dropdown-icon cursor-pointer">
-          <use
-            xlink:href="../../../../../assets/icons/icons.svg#dropdown"
-          ></use>
-        </svg>
+      <label class="required">Intra State Tax Rate</label>
+      <div class="flex-col">
+        <div>
+          <div class="vendor-inner-wrapper">
+            <input
+              type="text"
+              name=""
+              id="intra-tax"
+              value=""
+              placeholder="Select a tax rate"
+              class="cursor-pointer"
+              readonly
+            />
+            <svg class="dropdown-icon cursor-pointer">
+              <use
+                xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+              ></use>
+            </svg>
+          </div>
+          <div
+            id="dropdown-options-for-po"
+            class="hidden intra-tax-wrapper"
+          ></div>
+        </div>
+        <p id="intra-tax-error" class="hidden error-message role-error"></p>
       </div>
-      <div id="admin-roles" class="hidden branch-wrapper"></div>
-      <p class="hidden error-message role-error">Please select a role</p>
     </form>
 
     <form class="po-form-item associated-category-wrapper">
-      <label>Inter State Tax Rate</label>
-      <div class="vendor-inner-wrapper">
-        <input
-          type="text"
-          name=""
-          id="branch"
-          value=""
-          placeholder="Select a tax rate"
-          class="cursor-pointer"
-          readonly
-        />
-        <svg class="dropdown-icon cursor-pointer">
-          <use
-            xlink:href="../../../../../assets/icons/icons.svg#dropdown"
-          ></use>
-        </svg>
+      <label class="required">Inter State Tax Rate</label>
+
+      <div class="flex-col">
+        <div>
+          <div class="vendor-inner-wrapper">
+            <input
+              type="text"
+              name=""
+              id="inter-tax"
+              value=""
+              placeholder="Select a tax rate"
+              class="cursor-pointer"
+              readonly
+            />
+            <svg class="dropdown-icon cursor-pointer">
+              <use
+                xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+              ></use>
+            </svg>
+          </div>
+          <div
+            id="dropdown-options-for-po"
+            class="hidden inter-tax-wrapper"
+          ></div>
+        </div>
+        <p id="inter-tax-error" class="hidden error-message role-error"></p>
       </div>
-      <div id="admin-roles" class="hidden branch-wrapper"></div>
-      <p class="hidden error-message role-error">Please select a role</p>
     </form>
   </div>
 
   <div class="form-buttons">
-    <button class="btn-light form-cancel">Cancel</button>
-    <button class="btn-sm" id="add-to-db">Add</button>
+    <button class="btn-light form-cancel" id="item-form-cross">Cancel</button>
+    <button class="btn-sm" id="add-new-item-btn">Add</button>
   </div>
 </div>
