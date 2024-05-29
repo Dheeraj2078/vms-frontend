@@ -35,7 +35,7 @@ const addNewRowFromList = (item) => {
     itemDetail: item.name,
     itemAccount: item.account,
     quantity: "0.0",
-    rate: "",
+    rate: item.sellingPrice,
     tax: item.gst,
     id: item.id,
   };
@@ -54,10 +54,24 @@ const func = async (id) => {
   innDiv.classList.add("po-item-dropdown" + id);
 
   items.map((item) => {
+    const singleItem = document.createElement("div");
+
     const li = document.createElement("p");
     li.innerHTML = item.name;
-    li.addEventListener("click", () => addNewRowFromList(item));
-    innDiv.appendChild(li);
+    singleItem.appendChild(li);
+
+    let div = document.createElement("div");
+    let span = document.createElement("span");
+    span.innerHTML = `selling price : Rs. ${item.sellingPrice}`;
+    div.appendChild(span);
+
+    span = document.createElement("span");
+    span.innerHTML = `cost price : Rs. ${item.costPrice}`;
+    div.appendChild(span);
+
+    singleItem.appendChild(div);
+    singleItem.addEventListener("click", () => addNewRowFromList(item));
+    innDiv.appendChild(singleItem);
   });
 
   const button = document.createElement("button");
@@ -91,9 +105,6 @@ const addNewRow = (id, data) => {
   div.id = id + "-po-details";
   const itemDetailsInput = document.createElement("textarea");
   itemDetailsInput.value = data.itemDetail;
-  itemDetailsInput.addEventListener("change", (e) => {
-    itemName_ = e.target.value;
-  });
 
   itemDetailsInput.addEventListener("focus", () => func(id));
   div.appendChild(itemDetailsInput);
@@ -104,9 +115,6 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemNameInput = document.createElement("textarea");
   itemNameInput.value = data.itemAccount;
-  itemNameInput.addEventListener("change", (e) => {
-    itemAccount_ = e.target.value;
-  });
   div.appendChild(itemNameInput);
   row.appendChild(div);
 
@@ -116,9 +124,6 @@ const addNewRow = (id, data) => {
   const itemNameQty = document.createElement("textarea");
   console.log("Q", data.quantity);
   itemNameQty.value = data.quantity;
-  itemNameQty.addEventListener("change", (e) => {
-    itemQty_ = e.target.value;
-  });
   div.appendChild(itemNameQty);
   row.appendChild(div);
 
@@ -127,9 +132,6 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemNameRate = document.createElement("textarea");
   itemNameRate.value = data.rate;
-  itemNameRate.addEventListener("change", (e) => {
-    itemRate_ = e.target.value;
-  });
   div.appendChild(itemNameRate);
   row.appendChild(div);
 
@@ -138,9 +140,6 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemtaxRate = document.createElement("textarea");
   itemtaxRate.value = data.tax;
-  itemtaxRate.addEventListener("change", (e) => {
-    itemTax_ = e.target.value;
-  });
   div.appendChild(itemtaxRate);
   row.appendChild(div);
 
@@ -153,104 +152,55 @@ const addNewRow = (id, data) => {
   div.appendChild(tArea);
   row.appendChild(div);
 
-  itemNameRate.addEventListener("change", () => {
-    if (itemQty_ != "") {
-      // const amountId = document.getElementById(id + "-po-amount");
-      console.log(itemQty_ + " * " + itemRate_);
-      tArea.innerHTML = itemQty_ * itemRate_;
-      // amountId.innerHTML = "";
-      // amountId.appendChild(tArea);
-
-      itemsData[id] = {
-        id: id,
-        name: itemName_,
-        qty: itemQty_,
-        rate: itemRate_,
-      };
-
-      console.log(itemsData);
-      total = 0;
-      for (const item in itemsData) {
-        console.log("item", itemsData[item].rate);
-        total += itemsData[item].rate * itemsData[item].qty;
-      }
-      const subTotal = document.getElementById("sub-total");
-      subTotal.innerHTML = total;
-
-      evaluateTotal(total);
-      document
-        .getElementById("percentage-input")
-        .addEventListener("input", () => evaluateTotal(total));
-    }
-  });
-  itemNameQty.addEventListener("change", () => {
-    if (itemRate_ != "") {
-      // const amountId = document.getElementById(id + "-po-amount");
-      console.log(itemQty_ + " * " + itemRate_);
-      tArea.innerHTML = itemQty_ * itemRate_;
-      // amountId.innerHTML = "";
-      // amountId.appendChild(tArea);
-
-      itemsData[id] = {
-        id: id,
-        name: itemName_,
-        qty: itemQty_,
-        rate: itemRate_,
-      };
-      total = 0;
-      for (const item in itemsData) {
-        total += itemsData[item].rate * itemsData[item].qty;
-      }
-
-      const subTotal = document.getElementById("sub-total");
-      subTotal.innerHTML = total;
-
-      evaluateTotal(total);
-
-      document
-        .getElementById("percentage-input")
-        .addEventListener("input", () => evaluateTotal(total));
-    }
-  });
-
-  const evaluateTotal = (subTotal) => {
-    const total = document.getElementById("total");
-    const percentageInput = document.getElementById("percentage-input").value;
-    const discountProvided = document.getElementById("discount-provided");
-
-    console.log(subTotal);
-    console.log(typeof subTotal);
-    console.log(percentageInput);
-    const pI = Number(percentageInput);
-    console.log(pI);
-    console.log(typeof pI);
-    const totalAmt = subTotal - (pI / 100) * subTotal;
-    discountProvided.innerHTML = (pI / 100) * subTotal;
-
-    console.log(totalAmt);
-    console.log(typeof totalAmt);
-    const totalAmtRoundOff = Math.round(totalAmt * 100) / 100;
-
-    total.innerHTML = totalAmtRoundOff;
-  };
-
   let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
-  // tableData.push(["", "", "", "", ""]);
   console.log("CURARR", data);
   const currArr = [];
   for (let d in data) {
     currArr.push(data[d]);
-    console.log("DD", data[d]);
   }
   tableData.push(currArr);
   localStorage.setItem("poTableData", JSON.stringify(tableData));
 
+  const deleteButton = document.createElement("img");
+  deleteButton.src = "9574521e3c2fb864b257.png";
+  deleteButton.alt = "remove item icon";
+  deleteButton.classList.add("delete-button", "height-20");
+
+  // Append the delete button to the last cell of the row
+  const lastCell = row.querySelector("td:last-child");
+  lastCell.appendChild(deleteButton);
+
+  deleteButton.addEventListener("click", () => {
+    const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+    let tableData2 = JSON.parse(localStorage.getItem("poTableData")) || [];
+    tableData2.splice(rowIndex, 1);
+
+    localStorage.setItem("poTableData", JSON.stringify(tableData2));
+    row.remove();
+    recalculateTotals();
+  });
+
   return row;
 };
 
-export const handleAddNewRow = (data) => {
-  console.log("data", data);
+const evaluateTotal = (subTotal) => {
+  const subTotalDiv = document.getElementById("sub-total");
+  subTotalDiv.innerHTML = subTotal;
 
+  const total = document.getElementById("total");
+  const percentageInput = document.getElementById("percentage-input").value;
+  const discountProvided = document.getElementById("discount-provided");
+
+  const pI = Number(percentageInput);
+  const totalAmt = subTotal - (pI / 100) * subTotal;
+  discountProvided.innerHTML = (pI / 100) * subTotal;
+
+  const totalAmtRoundOff = Math.round(totalAmt * 100) / 100;
+
+  total.innerHTML = totalAmtRoundOff;
+};
+
+export const handleAddNewRow = (data) => {
   const tBody = document.querySelector("tbody");
   const row = addNewRow(currentId++, data);
   tBody.appendChild(row);
@@ -267,21 +217,42 @@ export const handleAddNewRow = (data) => {
     const tr = td.closest("tr");
     const columnIndex = Array.from(tr.children).indexOf(td);
 
-    // console.log("Edited Column:", columnIndex);
-
     const rowIndex = Array.from(tr.parentElement.children).indexOf(tr);
 
-    // console.log('Edited Row:', rowIndex);
-
-    // Optionally, you can do something specific based on the row
     console.log(` ${rowIndex} , ${columnIndex} `);
-
     console.log("", textarea.value);
     tableData[rowIndex][columnIndex] = textarea.value;
     localStorage.setItem("poTableData", JSON.stringify(tableData));
 
     console.log("TABLE", tableData);
+
+    recalculateTotals();
   }
+};
+
+const recalculateTotals = () => {
+  let total = 0;
+  const rows = document.querySelectorAll(".tpo-tr");
+  rows.forEach((row, rowIndex) => {
+    // Get all the textarea elements within the current row
+    const textareas = row.querySelectorAll("textarea");
+
+    const value2 = parseFloat(textareas[2].value) || 0; // Use parseFloat to convert to number, default to 0 if not a number
+    const value3 = parseFloat(textareas[3].value) || 0;
+
+    // Compute the sum of the 2nd and 3rd textarea values
+    const mult = value2 * value3;
+
+    // Set the sum into the 4th textarea
+    textareas[5].value = mult;
+
+    total += mult;
+  });
+
+  evaluateTotal(total);
+  document
+    .getElementById("percentage-input")
+    .addEventListener("input", () => evaluateTotal(total));
 };
 
 export const handleAddNewItem = () => {
@@ -388,7 +359,7 @@ const handleMultipleDropdownForItem = async () => {
     input.classList.add("cursor-pointer");
     input.classList.add("unit-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item.name);
     label.innerHTML = item.name;
     label.classList.add("cursor-pointer");
@@ -418,7 +389,7 @@ const handleMultipleDropdownForItem = async () => {
     input.classList.add("cursor-pointer");
     input.classList.add("tax-preference-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item);
     label.innerHTML = item;
     label.classList.add("cursor-pointer");
@@ -445,7 +416,7 @@ const handleMultipleDropdownForItem = async () => {
     input.classList.add("cursor-pointer");
     input.classList.add("intra-tax-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item);
     label.innerHTML = item;
     label.classList.add("cursor-pointer");
@@ -472,7 +443,7 @@ const handleMultipleDropdownForItem = async () => {
     input.classList.add("cursor-pointer");
     input.classList.add("inter-tax-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item);
     label.innerHTML = item;
     label.classList.add("cursor-pointer");

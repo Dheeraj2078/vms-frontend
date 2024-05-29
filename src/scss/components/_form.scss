@@ -246,10 +246,12 @@
 
 .po-header {
   display: flex;
+  justify-content: space-between;
 }
 
 .exsq-address {
-  line-height: 1.2;
+  line-height: 1.3;
+  padding-bottom: 10px;
 }
 
 .required:after {

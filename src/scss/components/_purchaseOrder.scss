@@ -52,10 +52,11 @@
 
           .flex {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             width: 150px;
 
-            div {
+            p {
               padding: 6px;
             }
 
@@ -94,7 +95,7 @@
           }
 
           .amount-right {
-            div {
+            p {
               padding: 6px;
             }
           }
@@ -286,13 +287,22 @@
   max-height: 150px;
   overflow: auto;
   box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
-  font-size: 14px;
-  text-transform: uppercase;
+  // font-size: 14px;
 
   p {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  div {
     border-bottom: 1px solid rgba(15, 15, 15, 0.2);
-    padding: 10px 0 10px 0;
+    font-size: 10px;
     cursor: pointer;
+
+    span {
+      padding: 8px 8px 10px 0;
+      color: $gray;
+    }
   }
 
   button {
@@ -414,4 +424,90 @@ input[type="radio"] {
 
 .w-300 {
   width: 300px;
+}
+
+.delete-button {
+  position: absolute;
+  top: 50%;
+  /* right: -50px; */
+  transform: translate(0, -50%);
+  cursor: pointer;
+  color: red;
+}
+
+.btn-and-total-wrapper {
+  display: flex;
+  justify-content: end;
+
+  padding-top: 10px;
+
+  .total-wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff3f1;
+    width: 300px;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 12px;
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 150px;
+
+      p {
+        padding: 6px;
+      }
+
+      .input-container {
+        position: relative;
+        width: 100px; /* Adjust the width as needed */
+        //   border: 1px solid rgba(15, 15, 15, 0.2);
+        // height: 40px;
+        //   border-radius: 4px;
+        //   padding: 8px;
+
+        #percentage-input,
+        #tcs-input {
+          width: 100%; /* Full width to the container */
+          padding-right: 20px; /* Space for the percentage symbol */
+          box-sizing: border-box; /* Include padding in the width */
+          border: 1px solid rgba(15, 15, 15, 0.2);
+          // height: 40px;
+          border-radius: 4px;
+          padding: 2px 5px;
+        }
+        #percentage-input:focus,
+        #tcs-input:focus {
+          outline: none;
+        }
+
+        .percentage-symbol {
+          position: absolute;
+          right: 10px; /* Adjust this value to position the symbol */
+          top: 50%;
+          transform: translateY(-50%);
+          pointer-events: none; /* Allow clicking through the symbol */
+          color: #666; /* Adjust color as needed */
+        }
+      }
+    }
+
+    .amount-right {
+      p {
+        padding: 6px;
+      }
+    }
+  }
+}
+
+textarea {
+  font-family: "Inter";
+}
+
+.flex-gap {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }

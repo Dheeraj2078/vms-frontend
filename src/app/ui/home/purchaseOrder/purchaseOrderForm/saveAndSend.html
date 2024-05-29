@@ -1,5 +1,5 @@
 <div class="email-wrapper">
-  <p>Email To Test Test</p>
+  <!-- <p>Email To Test Test</p> -->
 
   <div class="email-box">
     <div class="email-header">
@@ -16,6 +16,7 @@
           value="snegi@ex2india.com"
         />
         <input
+          id="send-to"
           class="email-input"
           type="text"
           placeholder=""
@@ -86,8 +87,16 @@
     </div>
   </div>
 
-  <div class="email-footer">
-    <div>Attach Purchase Order Pdf</div>
+  <div class="email-footer cursor-pointer">
+    <label class="flex-gap"
+      ><input
+        type="checkbox"
+        value="Attach Purchase Order Pdf"
+        class="cursor-pointer"
+        checked
+      />
+      <div>Attach Purchase Order Pdf</div>
+    </label>
     <div class="email-pdf">
       <img src="../../../../../assets/images/pdf.png" alt="pdf icon" />
       <p class="po-identifier">EX2PO112200113</p>

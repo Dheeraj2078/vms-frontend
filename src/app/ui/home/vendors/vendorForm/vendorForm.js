@@ -60,7 +60,7 @@ export async function handleMultipleDropdown(formData) {
       input.classList.add("cursor-pointer");
       input.classList.add("salutation-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", sal);
       label.innerHTML = sal;
       label.classList.add("cursor-pointer");
@@ -72,7 +72,7 @@ export async function handleMultipleDropdown(formData) {
     });
 
     allCategories.map((category) => {
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.classList.add("category-dropdown-option");
 
       const input = document.createElement("input");
@@ -113,7 +113,7 @@ export async function handleMultipleDropdown(formData) {
       input.classList.add("cursor-pointer");
       input.classList.add("vendor-type-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", vendorType.name);
       label.innerHTML = vendorType.name;
       label.classList.add("cursor-pointer");

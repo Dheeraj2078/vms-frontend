@@ -1,16 +1,42 @@
 import { changeBackgroundOnModal } from "../../../../common/components/goToRoute";
 import vendorFormHtml from "./vendorForm.html";
-import { handleCross, handleDataChange } from "./vendorForm";
+import {
+  getVendorFormInformation,
+  handleCross,
+  handleDataChange,
+} from "./vendorForm";
 import { handleMultipleDropdown } from "./vendorForm";
 import { handleUpdateVendor } from "./vendorForm";
 import { updateVendorObj } from "./vendorForm";
-import { updateVendorOther } from "./otherDetails";
-import { updateVendorB } from "./addressDetails";
-import { updateVendorS } from "./addressDetailsShipping";
+import {
+  extractDetailsFromGSTIN,
+  getVendorOtherInformation,
+  updateVendorOther,
+} from "./otherDetails";
+import { getVendorBillingAddress, updateVendorB } from "./addressDetails";
+import {
+  getVendorShippingAddress,
+  updateVendorS,
+} from "./addressDetailsShipping";
+import {
+  getVendorFormDropdown,
+  updateVendor,
+} from "../../../../service/vendorsApi";
+import { changeVendorRouteUI, nextOrSubmit } from "../vendorNav";
+import { successModal } from "../../../../common/components/successModal";
 
-export function updateVendorModal(vendorDetail) {
+export async function updateVendorModal(vendorDetail) {
   console.log(vendorFormHtml);
   console.log(vendorDetail);
+
+  const formData = await getVendorFormDropdown();
+  console.log();
+  const states = formData.data.states;
+
+  const mapStateCodeToStateName = {};
+  states.map((state) => {
+    mapStateCodeToStateName[state.stateCode] = state.name;
+  });
 
   const obj = {};
 
@@ -84,10 +110,17 @@ export function updateVendorModal(vendorDetail) {
   const objOther = {};
   document.getElementById("gstin").value = vendor.gstin;
   objOther.gstin = vendor.gstin;
-  document.getElementById("source-of-supply").value = "sos";
-  objOther.sos = "vendor.sos";
-  document.getElementById("pan").value = "vendor.pan";
-  objOther.pan = "vendor.pan";
+
+  const gstInfoObj = extractDetailsFromGSTIN(vendor.gstin);
+  const gstSos = mapStateCodeToStateName[Number(gstInfoObj.stateCode)];
+  const gstPan = gstInfoObj.pan;
+
+  document.getElementById("source-of-supply").value = gstSos;
+  objOther.sos = gstPan;
+
+  document.getElementById("pan").value = gstPan;
+  objOther.pan = gstPan;
+
   document.getElementById("currency").value = vendor.currency;
   objOther.currency = vendor.currency;
   document.getElementById("payment-terms").value = vendor.paymentTerms;
@@ -155,7 +188,8 @@ export function updateVendorModal(vendorDetail) {
   const addVendorBtn = document.getElementById("add-to-db");
   addVendorBtn.innerHTML = "Update Vendor";
   addVendorBtn.addEventListener("click", () =>
-    handleUpdateVendor(vendor.vendorId)
+    // handleUpdateVendor(vendor.vendorId)
+    UpdateVendorUtil(vendor.vendorId)
   );
 }
 
@@ -164,3 +198,69 @@ document.addEventListener("keydown", (e) => {
     handleUpdateVendor();
   }
 });
+
+export async function UpdateVendorUtil(id) {
+  try {
+    const info = await getVendorFormInformation();
+    const otherInfo = await getVendorOtherInformation();
+    const billingAddress = await getVendorBillingAddress();
+    const shippingAddress = await getVendorShippingAddress();
+
+    console.log("INFO", info);
+    console.log("OTHER", otherInfo);
+    console.log("BILLING", billingAddress);
+    console.log("SHIPPING", shippingAddress);
+
+    if (info == null) {
+      changeVendorRouteUI("v-details");
+      nextOrSubmit("add-to-db", "form-next", 1, formData_);
+
+      return;
+    } else if (otherInfo == null) {
+      changeVendorRouteUI("o-details");
+      nextOrSubmit("add-to-db", "form-next", 2, formData_);
+      return;
+    } else if (billingAddress == null || shippingAddress == null) {
+      const copyButton = document.getElementById("copy-billing-to-shipping");
+      copyButton.addEventListener("click", copyBillingToShipping);
+      changeVendorRouteUI("v-address");
+      nextOrSubmit("form-next", "add-to-db", 3, formData_);
+      return;
+    }
+
+    const postData = {
+      ...info,
+      ...otherInfo,
+      billingDto: billingAddress,
+      shippingDto: shippingAddress,
+    };
+
+    console.log("POST", postData);
+
+    const cancelBtn = document.getElementsByClassName("btn-light")[0];
+    const saveBtn = document.getElementsByClassName("add-vendor-btn")[0];
+    const formCorss = document.getElementById("form-cross");
+
+    saveBtn.classList.add("disabled");
+    cancelBtn.classList.add("disabled-light");
+    formCorss.classList.add("disabled-cross");
+
+    const res = await updateVendor(id, postData);
+    console.log("RESSSS", res);
+    if (res.error == null) {
+      // clearAllVendorData();
+      successModal("Vendor added", handleCross);
+    }
+  } catch (error) {
+    console.log("vednor", error);
+    if (saveBtn.classList.contains("disabled")) {
+      saveBtn.classList.remove("disabled");
+    }
+    if (cancelBtn.classList.contains("disabled-light")) {
+      cancelBtn.classList.remove("disabled-light");
+    }
+    if (formCorss.classList.contains("disabled-cross")) {
+      formCorss.classList.remove("disabled-cross");
+    }
+  }
+}

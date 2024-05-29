@@ -23,9 +23,7 @@
         </div>
         <div id="associated-dropdown" class="hidden vendor-name-wrapper"></div>
       </div>
-      <p id="vendor-name-error" class="hidden error-message role-error">
-        Please enter vendor name
-      </p>
+      <p id="vendor-name-error" class="hidden error-message role-error"></p>
     </div>
   </form>
 
@@ -57,9 +55,7 @@
           class="hidden source-of-supply-wrapper"
         ></div>
       </div>
-      <p id="sos-error" class="hidden error-message role-error">
-        Please select source of supply
-      </p>
+      <p id="sos-error" class="hidden error-message role-error"></p>
     </div>
   </form>
 
@@ -89,9 +85,7 @@
           class="hidden destination-of-supply-wrapper"
         ></div>
       </div>
-      <p id="dos-error" class="hidden error-message role-error">
-        Please select destination of supply
-      </p>
+      <p id="dos-error" class="hidden error-message role-error"></p>
     </div>
   </form>
 
@@ -118,9 +112,7 @@
         </div>
         <div id="associated-dropdown" class="hidden branch-wrapper"></div>
       </div>
-      <p id="branch-error" class="hidden error-message role-error">
-        Please select a branch
-      </p>
+      <p id="branch-error" class="hidden error-message role-error"></p>
     </div>
   </form>
 
@@ -149,9 +141,10 @@
           class="hidden delivery-address-wrapper"
         ></div>
       </div>
-      <p id="delivery-address-error" class="hidden error-message role-error">
-        Please select a delivery address
-      </p>
+      <p
+        id="delivery-address-error"
+        class="hidden error-message role-error"
+      ></p>
     </div>
   </form>
 
@@ -160,9 +153,6 @@
   <form class="po-form-item">
     <label class="required">Purchase Order#</label>
     <input type="text" name="" id="purchase-number" placeholder="" readonly />
-    <!-- <p class="hidden error-message purchase-number-error">
-      Please enter the purchase order number
-    </p> -->
   </form>
 
   <form class="po-form-item">
@@ -176,8 +166,11 @@
   </form>
 
   <form class="po-form-item">
-    <label>Date</label>
-    <input type="date" name="" id="date" placeholder="Enter first name" />
+    <label class="required">Date</label>
+    <div class="flex-col">
+      <input type="date" name="" id="date" placeholder="Enter first name" />
+      <p id="date-error" class="hidden error-message role-error"></p>
+    </div>
   </form>
 
   <form class="po-form-item">
@@ -188,9 +181,6 @@
       id="date-delivery"
       placeholder="Enter first name"
     />
-    <!-- <p class="hidden error-message first-name-error">
-      Please enter the First Name
-    </p> -->
   </form>
 
   <form class="po-form-item associated-category-wrapper">
@@ -219,9 +209,7 @@
           class="hidden payment-terms-wrapper"
         ></div>
       </div>
-      <p id="payment-terms-error" class="hidden error-message role-error">
-        Please select a paymnent terms
-      </p>
+      <p id="payment-terms-error" class="hidden error-message role-error"></p>
     </div>
   </form>
 
@@ -248,30 +236,30 @@
     <div class="total-wrapper">
       <div>
         <div class="flex">
-          <div>Sub Total</div>
+          <p>Sub Total</p>
         </div>
         <div class="flex">
-          <div>Discount</div>
+          <p>Discount</p>
           <div class="input-container">
             <input type="text" id="percentage-input" value="0" />
             <span class="percentage-symbol">%</span>
           </div>
         </div>
         <div class="flex">
-          <div>TCS</div>
+          <p>TCS</p>
           <div class="input-container">
             <input type="text" id="tcs-input" value="0" />
           </div>
         </div>
         <div class="flex">
-          <div class="bold">Total</div>
+          <p class="bold">Total</p>
         </div>
       </div>
       <div class="amount-right">
-        <div id="sub-total">0</div>
-        <div id="discount-provided">0.0</div>
-        <div id="tcs-provided">0</div>
-        <div id="total" class="bold">0</div>
+        <p id="sub-total">0</p>
+        <p id="discount-provided">0.0</p>
+        <p id="tcs-provided">0</p>
+        <p id="total" class="bold">0</p>
       </div>
     </div>
   </div>

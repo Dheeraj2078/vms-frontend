@@ -134,6 +134,11 @@ body {
   cursor: not-allowed;
 }
 */
+.btn-sm:hover,
+.btn-lg:hover {
+  background-color: #e04c3c; /* Darker shade example */
+}
+
 main {
   background-color: #ffe5e1;
 }

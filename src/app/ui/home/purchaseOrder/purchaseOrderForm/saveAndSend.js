@@ -6,7 +6,10 @@ import goToPurchaseOrder from "../purchaseOrder";
 import { checkFieldValuesForPo } from "./purchaseOrderForm";
 import purchaseOrderFormPreviewHtml from "./purchaseOrderFormPreview.html";
 
-export const createWord = () => {
+export const createWord = (email) => {
+  const sendTo = document.getElementById("send-to");
+  sendTo.value = email;
+
   const boldBtn = document.getElementById("bold-btn");
   const italicBtn = document.getElementById("italic-btn");
   const underlineBtn = document.getElementById("underline-btn");
@@ -53,7 +56,8 @@ export const createWord = () => {
     .addEventListener("mouseup", updateActiveButtons);
 };
 
-export const showPdfPreview = () => {
+export const showPdfPreview = (amountInfo, identifier, vendorAddressDiv) => {
+  console.log(amountInfo);
   const emailPdf = document.getElementsByClassName("email-pdf")[0];
   emailPdf.addEventListener("click", () => {
     const formOutput = document.getElementById("form-output");
@@ -61,6 +65,9 @@ export const showPdfPreview = () => {
     formOutput.classList.remove("hidden");
     formOutput.classList.add("form-scroll");
     changeBackgroundOnModal();
+
+    const identifierPreview = document.getElementById("identifier-preview");
+    identifierPreview.innerHTML = `#${identifier}`;
 
     const formCancel = document.getElementsByClassName("form-cancel")[0];
     formCancel.addEventListener("click", (e) => {
@@ -74,7 +81,19 @@ export const showPdfPreview = () => {
       document.body.classList.remove("overflow-hidden");
     });
 
+    const subTotal = document.getElementById("sub-total");
+    subTotal.innerHTML = amountInfo.subTotal;
+
+    const percentageInput = document.getElementById("percentage-input");
+    percentageInput.innerHTML = amountInfo.discount;
+
+    let totalAmt =
+      amountInfo.subTotal - amountInfo.subTotal * (amountInfo.discount / 100);
+    const total = document.getElementById("total");
+    total.innerHTML = totalAmt;
+
     handleAddingRowsToTable();
+    handlePreviewDataFill(vendorAddressDiv);
   });
 };
 
@@ -153,6 +172,13 @@ export const handlePreviewDataFill = (
   console.log("v. ", vendorAddressDiv);
   console.log("d. ", deliveryAdressDiv);
   console.log("d. ", branchDiv);
+
+  vendorAddressDiv.classList.add("exsq-address");
+  const vendorAddressPreview = document.getElementById(
+    "vendor-address-preview"
+  );
+  vendorAddressPreview.innerHTML = "";
+  vendorAddressPreview.appendChild(vendorAddressDiv);
 };
 
 export const handleMailOrDraftPo = (data, mailData) => {
@@ -169,6 +195,13 @@ export const handleMailOrDraftPo = (data, mailData) => {
 };
 
 export const preparePostData = async (data, mailData, status) => {
+  const postPo = document.getElementById("post-po");
+  postPo.classList.add("disabled");
+  const saveDraftPo = document.getElementById("save-draft-po");
+  saveDraftPo.classList.add("disabled-light");
+  const formCancel = document.getElementsByClassName("form-cancel")[0];
+  formCancel.classList.add("disabled-light");
+
   data["purchaseStatus"] = status;
 
   if (status == "Issued") {
@@ -182,8 +215,14 @@ export const preparePostData = async (data, mailData, status) => {
     console.log(bodyString);
     mailData.emailBody = bodyString;
 
-    const res = await sendPurchaseOrderMail(mailData);
-    console.log("mail send", res);
+    try {
+      const res = await sendPurchaseOrderMail(mailData);
+      console.log("mail send", res);
+    } catch (error) {
+      postPo.classList.remove("disabled");
+      saveDraftPo.classList.remove("disabled-light");
+      formCancel.classList.remove("disabled-light");
+    }
   }
 
   try {
@@ -192,6 +231,10 @@ export const preparePostData = async (data, mailData, status) => {
     location.reload();
   } catch (error) {
     console.log("error", error);
+
+    postPo.classList.remove("disabled");
+    saveDraftPo.classList.remove("disabled-light");
+    formCancel.classList.remove("disabled-light");
   }
 
   // goToPurchaseOrder();

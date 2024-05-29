@@ -10,7 +10,6 @@ import {
   goToPurchaseOrderUtil,
   goToRoute,
 } from "../../../common/components/goToRoute";
-import { getAllInvoice } from "../../../service/invoiceApi";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
@@ -23,16 +22,6 @@ import {
 } from "../../../service/purchaseOrder";
 import { searchModel } from "../../../common/components/search";
 import { addPagination } from "../../../common/components/pagination";
-
-const getAllPurchaseOrder = async () => {
-  try {
-    const res = await getPurchaseOrders(1, 100);
-    console.log("get me all", res);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export default async function goToPurchaseOrder() {
   sessionStorage.setItem("tab", "purchaseOrder");
@@ -68,30 +57,12 @@ export default async function goToPurchaseOrder() {
     }
   });
 
-  // createItemsTable();
-
   searchModel("Search Purchase Order", filterResults);
   addPagination(
     getPurchaseOrders,
     createPurchaseOrderTable,
     "No purchase Order found"
   );
-
-  // const search = document.getElementById("internal-search");
-  // console.log("search", search);
-  // search.addEventListener("input", handleSearch);
-  //   handleMultipleDropdown();
-
-  //   const allInvoices = await getInvoices();
-  //   if (allInvoices == null || allInvoices.length == 0) {
-  //     const addBtn = document.getElementById("add-button");
-  //     const div = noDataAdded("Invoices", addBtn);
-  //     const homeRoot = document.getElementsByClassName("container")[0];
-  //     homeRoot.innerHTML = "";
-  //     homeRoot.appendChild(div);
-  //   } else {
-  //     createInvoiceTable(allInvoices);
-  //   }
 }
 
 function filterResults(value) {
@@ -101,14 +72,6 @@ function filterResults(value) {
       createPurchaseOrderTable,
       "No purchase Order found"
     );
-    // const allContracts = await getInvoices();
-    // if (allContracts == null || allContracts.length == 0) {
-    //   const contactTable = document.getElementsByClassName("invoice-table")[0];
-    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    // } else {
-    //   const contracts = allContracts;
-    //   createInvoiceTable(contracts);
-    // }
   }
   if (value.length >= 2) {
     addPagination(
@@ -117,17 +80,6 @@ function filterResults(value) {
       "No purchase Order found",
       value
     );
-    // const contractsData = await searchInvoices(value);
-
-    // if (contractsData.data == null || contractsData.data.length == 0) {
-    //   // showEmptyPage();
-    //   const contactTable = document.getElementsByClassName("invoice-table")[0];
-    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    // } else {
-    //   const contracts = contractsData.data;
-    //   console.log(contracts);
-    //   createInvoiceTable(contracts);
-    // }
   }
 }
 

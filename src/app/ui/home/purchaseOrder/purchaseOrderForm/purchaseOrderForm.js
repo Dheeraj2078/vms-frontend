@@ -60,7 +60,7 @@ const togglePopup = (div, div2) => {
   });
 };
 
-const mapVendorNameToVendorId = {};
+const mapVendorNameToVendorDetails = {};
 const mapStateToStateId = {};
 const mapAddressToVendorId = {};
 let ID;
@@ -88,20 +88,23 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
     input.classList.add("cursor-pointer");
     input.classList.add("vendor-name-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item.companyName);
     label.innerHTML = item.companyName;
     label.classList.add("cursor-pointer");
-
     div.appendChild(input);
     div.appendChild(label);
 
     vendorNameWrapper.appendChild(div);
 
-    mapVendorNameToVendorId[item.companyName] = item.id;
+    mapVendorNameToVendorDetails[item.companyName] = {
+      id: item.id,
+      email: item.email,
+    };
   });
   togglePopup(vendorName, vendorNameWrapper);
 
+  // source of supply
   const sourceOfsupplyList = formData.states;
 
   let sourceOfsupply = document.getElementById("source-of-supply");
@@ -114,14 +117,14 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
 
     const input = document.createElement("input");
     input.type = "radio";
-    input.id = item.name;
+    input.id = "sos" + item.name;
     input.name = "vendorType";
     input.value = item.name;
     input.classList.add("cursor-pointer");
     input.classList.add("sos-item");
 
-    const label = document.createElement("span");
-    label.setAttribute("for", item.name);
+    const label = document.createElement("label");
+    label.setAttribute("for", "sos" + item.name);
     label.innerHTML = item.name;
     label.classList.add("cursor-pointer");
 
@@ -134,6 +137,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
   });
   togglePopup(sourceOfsupply, sourceOfsupplyWrapper);
 
+  // destination of supply
   const destinationOfsupplyList = formData.states;
 
   let destinationOfsupply = document.getElementById("destination-of-supply");
@@ -146,14 +150,14 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
 
     const input = document.createElement("input");
     input.type = "radio";
-    input.id = item.name;
+    input.id = "dos" + item.name;
     input.name = "vendorType";
     input.value = item.name;
     input.classList.add("cursor-pointer");
     input.classList.add("dos-item");
 
-    const label = document.createElement("span");
-    label.setAttribute("for", item.name);
+    const label = document.createElement("label");
+    label.setAttribute("for", "dos" + item.name);
     label.innerHTML = item.name;
     label.classList.add("cursor-pointer");
 
@@ -164,6 +168,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
   });
   togglePopup(destinationOfsupply, destinationOfsupplyWrapper);
 
+  // branch
   const branchList = [
     {
       name: "Mohali",
@@ -189,7 +194,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
     input.classList.add("cursor-pointer");
     input.classList.add("branch-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item.name);
     label.innerHTML = item.name;
     label.classList.add("cursor-pointer");
@@ -201,6 +206,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
   });
   togglePopup(branch, branchWrapper);
 
+  // delivery address
   const deliveryAddressList = formData.addresses;
   const deliveryAddress = document.getElementById("delivery-address");
   const deliveryAddressWrapper = document.getElementsByClassName(
@@ -218,7 +224,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
     input.classList.add("cursor-pointer");
     input.classList.add("delivery-address-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item.addressLine1);
     const sItem = getDeliveryItem(item);
     label.appendChild(sItem);
@@ -236,6 +242,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
   let purchaseNumber = document.getElementById("purchase-number");
   purchaseNumber.value = formData.identifier;
 
+  // payment terms
   const paymentTermsList = formData.paymentTerms;
   let paymentTerms = document.getElementById("payment-terms");
   const paymentTermsWrapper = document.getElementsByClassName(
@@ -253,7 +260,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
     input.classList.add("cursor-pointer");
     input.classList.add("payment-terms-item");
 
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     label.setAttribute("for", item);
     label.innerHTML = decodePaymentTerms(item, "_", " ");
     label.classList.add("cursor-pointer");
@@ -301,7 +308,6 @@ let branch = document.getElementById("branch");
 let branchItem = document.getElementsByClassName("branch-item");
 
 let reference = document.getElementById("reference-number");
-// let purchaseNumber = document.getElementById("purchase-number");
 let date = document.getElementById("date");
 let dateDelivery = document.getElementById("date-delivery");
 
@@ -348,10 +354,8 @@ const handleDataChange = () => {
         paymentTermsWrapper.classList.add("hidden");
 
         try {
-          const vendorId = mapVendorNameToVendorId[vendorName_];
-          console.log("IDDD", vendorId);
+          const vendorId = mapVendorNameToVendorDetails[vendorName_].id;
           const response = await getVendorAddress(vendorId);
-          console.log("--", response);
           const addresses = response.data;
 
           const autofillVendorAddress = document.getElementById(
@@ -398,6 +402,7 @@ const handleDataChange = () => {
               : billingAddressDiv.appendChild(div);
 
             vendorAddressDiv = div;
+            console.log("vendorAddressDiv", vendorAddressDiv);
           });
 
           autofillVendorAddress.appendChild(billingAddressDiv);
@@ -450,8 +455,6 @@ const handleDataChange = () => {
         "destination-of-supply-wrapper"
       )[0];
       dosWrapper.classList.add("hidden");
-
-      console.log("gst treatment", dos_);
     });
   });
 
@@ -473,8 +476,6 @@ const handleDataChange = () => {
       const div = getDeliveryItem(currentItem);
 
       branchDiv = div;
-
-      console.log("branch", branch_);
     });
   });
 
@@ -510,10 +511,6 @@ const handleDataChange = () => {
     });
   });
 
-  // purchaseNumber.addEventListener("input", (e) => {
-  //   poId_ = e.target.value;
-  // });
-
   poId_ = document.getElementById("purchase-number").value;
 
   reference.addEventListener("input", (e) => {
@@ -521,8 +518,8 @@ const handleDataChange = () => {
   });
 
   date.addEventListener("input", (e) => {
-    // removeBorder(date);
-    // document.getElementById("startDate-error").classList.add("hidden");
+    removeBorder(date);
+    document.getElementById("date-error").classList.add("hidden");
     date_ = e.target.value;
   });
 
@@ -549,8 +546,6 @@ const handleDataChange = () => {
         "payment-terms-wrapper"
       )[0];
       paymentTermsWrapper.classList.add("hidden");
-
-      console.log("gst treatment", paymentTerms_);
     });
   });
 
@@ -562,7 +557,6 @@ const nextActionBtns = () => {
   const saveAndSend = document.getElementById("save-and-send");
 
   const homeRoot = document.querySelector("main");
-  console.log(homeRoot);
   formCancel.addEventListener("click", () => {
     goToPurchaseOrder();
   });
@@ -571,6 +565,7 @@ const nextActionBtns = () => {
       return;
     }
 
+    let discount = document.getElementById("percentage-input").value;
     homeRoot.innerHTML = saveAndSendHtml;
 
     const poIdentifier = document.getElementsByClassName("po-identifier");
@@ -581,13 +576,9 @@ const nextActionBtns = () => {
 
     const subject = document.getElementsByClassName("email-subject")[0];
     subject.value = `Purchase Order from EX Squared India Pvt Ltd (Purchase Order #${poId_})`;
-    console.log("subject 1", subject.value);
 
     const poDate = document.getElementsByClassName("po-date")[0];
     poDate.innerHTML = date_;
-
-    createWord();
-    showPdfPreview();
 
     const itemArr = [];
     let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
@@ -608,22 +599,17 @@ const nextActionBtns = () => {
       id: ID,
       identifier: poId_,
       creatorId: Number(branch_),
-      vendorId: mapVendorNameToVendorId[vendorName_],
+      vendorId: mapVendorNameToVendorDetails[vendorName_].id,
       customerId: Number(deliveryAddress_),
       sourceStateId: mapStateToStateId[sos_],
       destinationStateId: mapStateToStateId[dos_],
+      date: date_,
       reference: reference_,
-      // date: date_,
-      // deliveryDate: dateDelivery_,
       paymentTerms: decodePaymentTerms(paymentTerms_, " ", "_"),
       amount: 0,
       purchaseStatus: "Draft",
       Items: itemArr,
     };
-
-    if (date_ != "") {
-      data.date = date_;
-    }
 
     if (dateDelivery_ != "") {
       data.deliveryDate = dateDelivery_;
@@ -632,6 +618,7 @@ const nextActionBtns = () => {
     console.log("post data", data);
 
     // handlePreviewDataFill(vendorAddressDiv, deliveryAdressDiv, branchDiv);
+    // handlePreviewDataFill(vendorAddressDiv);
 
     const itemArr2 = [];
     let subTotal = 0;
@@ -655,13 +642,13 @@ const nextActionBtns = () => {
 
     const postMailData = {
       delivaryTo: mapAddressToVendorId[deliveryAddress_],
-      delivaryFrom: mapVendorNameToVendorId[vendorName_],
-      emailBody: "string", // 1
-      emailSubject: "string", // 2
+      delivaryFrom: mapVendorNameToVendorDetails[vendorName_].id,
+      emailBody: "string",
+      emailSubject: "string",
       pdfGenerationDto: {
         creatorId: Number(branch_),
         delivaryTo: mapAddressToVendorId[deliveryAddress_],
-        delivaryFrom: mapVendorNameToVendorId[vendorName_],
+        delivaryFrom: mapVendorNameToVendorDetails[vendorName_].id,
         date: date_,
         purchaseOrderId: poId_,
         rows: itemArr2,
@@ -670,6 +657,18 @@ const nextActionBtns = () => {
       },
     };
 
+    createWord(mapVendorNameToVendorDetails[vendorName_].email);
+
+    discount = Number(discount);
+    console.log("dis", discount);
+    console.log("dist", typeof discount);
+
+    const amountInfo = {
+      subTotal: subTotal,
+      discount: discount,
+    };
+    showPdfPreview(amountInfo, poId_, vendorAddressDiv);
+
     handleMailOrDraftPo(data, postMailData);
   });
 };
@@ -677,8 +676,6 @@ const nextActionBtns = () => {
 export const checkFieldValuesForPo = () => {
   let checkResult = true;
 
-  console.log("vendorName_", vendorName_);
-  console.log("vendorName", vendorName);
   if (isNullOrEmpty(vendorName_)) {
     const error_element = document.getElementById("vendor-name-error");
     console.log(error_element);
@@ -716,6 +713,15 @@ export const checkFieldValuesForPo = () => {
     deliveryAddress.classList.add("empty-field-border");
     checkResult = false;
   }
+
+  if (isNullOrEmpty(date_)) {
+    const error_element = document.getElementById("date-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please select the date");
+    date.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
   if (isNullOrEmpty(paymentTerms_)) {
     const error_element = document.getElementById("payment-terms-error");
     console.log(error_element);
@@ -727,11 +733,11 @@ export const checkFieldValuesForPo = () => {
   return checkResult;
 };
 
+// utils
 function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
     column.classList.remove("empty-field-border");
   }
-  // column = column.trim();
 }
 
 const isNullOrEmpty = (value) => {

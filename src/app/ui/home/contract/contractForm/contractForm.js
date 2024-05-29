@@ -78,7 +78,7 @@ export async function handleMultipleDropdown() {
       input.value = organizationObject.companyName;
       input.classList.add("cursor-pointer");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", organizationObject.companyName);
       label.innerHTML = organizationObject.companyName;
       label.classList.add("cursor-pointer");
@@ -106,7 +106,7 @@ export async function handleMultipleDropdown() {
       input.value = status.name;
       input.classList.add("cursor-pointer");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", status.name);
       label.innerHTML = status.name;
       label.classList.add("cursor-pointer");
@@ -362,7 +362,7 @@ export async function handleDataChange() {
             input.classList.add("particular-category");
             input.classList.add("cursor-pointer");
 
-            const label = document.createElement("span");
+            const label = document.createElement("label");
             label.setAttribute("for", catObj.categoryName);
             label.innerHTML = catObj.categoryName;
             label.classList.add("cursor-pointer");

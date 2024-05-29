@@ -14,16 +14,16 @@
   </div>
   <div>
     <p>PURCHASE ORDER</p>
-    <p># EX2PO112200109</p>
+    <p id="identifier-preview">#EX2PO112200109</p>
   </div>
 </div>
 
 <div>
   <h3>Vendor Address</h3>
-  <div>address</div>
+  <div id="vendor-address-preview">address</div>
 </div>
 
-<div>
+<div class="exsq-address">
   <h3>Deliver To</h3>
   <p>EX Squared Solutions India Pvt. Ltd.</p>
   <p>Plot No 35,Sector 27-A</p>
@@ -48,18 +48,36 @@
     </thead>
   </table>
 
-  <div>
-    <div>
-      <span>Sub Total</span>
-      <span id="sub-total">0</span>
-    </div>
-    <div>
-      <span>IGST18(18%)</span>
-      <span id="gst">0</span>
-    </div>
-    <div>
-      <span>Total</span>
-      <span id="total">Rs. 0</span>
+  <div class="btn-and-total-wrapper">
+    <!-- <button class="btn-sm" id="po-add-row">Add New Row</button> -->
+    <div class="total-wrapper">
+      <div>
+        <div class="flex">
+          <p>Sub Total</p>
+        </div>
+        <div class="flex">
+          <p>Discount</p>
+          <div class="input-container">
+            <span id="percentage-input">0</span>
+            <span class="percentage-symbol">%</span>
+          </div>
+        </div>
+        <div class="flex">
+          <p>TCS</p>
+          <div class="input-container">
+            <span id="tcs-input">0</span>
+          </div>
+        </div>
+        <div class="flex">
+          <p class="bold">Total</p>
+        </div>
+      </div>
+      <div class="amount-right">
+        <p id="sub-total">0</p>
+        <p id="discount-provided">0.0</p>
+        <p id="tcs-provided">0</p>
+        <p id="total" class="bold">0</p>
+      </div>
     </div>
   </div>
 </div>

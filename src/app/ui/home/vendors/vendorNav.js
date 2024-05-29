@@ -30,7 +30,7 @@ import { getVendorFormDropdown } from "../../../service/vendorsApi";
 import { handleCross } from "./vendorForm/vendorForm";
 import { getVendorStats } from "../../../service/vendorsApi";
 
-const changeVendorRouteUI = (thisClass) => {
+export const changeVendorRouteUI = (thisClass) => {
   const routes = document.getElementsByClassName("vendor-nav")[0];
   const routeLi = routes.children;
   const routeLiArr = [...routeLi];
@@ -120,7 +120,7 @@ export const changeVendorRoute = async () => {
   }
 };
 
-const nextOrSubmit = (firstClass, secondClass, curr, formData) => {
+export const nextOrSubmit = (firstClass, secondClass, curr, formData) => {
   const first = document.getElementById(firstClass);
   first.classList.add("hidden");
 

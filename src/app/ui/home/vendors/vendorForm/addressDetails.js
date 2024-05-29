@@ -30,7 +30,7 @@ export const handleMultipleDropdownForBillingAddress = async (formData) => {
       input.classList.add("cursor-pointer");
       input.classList.add("b-country-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", item);
       label.innerHTML = item;
       label.classList.add("cursor-pointer");
@@ -59,7 +59,7 @@ export const handleMultipleDropdownForBillingAddress = async (formData) => {
       input.classList.add("cursor-pointer");
       input.classList.add("b-state-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", item.name);
       label.innerHTML = item.name;
       label.classList.add("cursor-pointer");

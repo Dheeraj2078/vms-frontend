@@ -19,6 +19,7 @@ const decodePaymentTerms = (str, delimiter1, delimiter2) => {
 };
 
 const mapTdsToId = {};
+const mapStateNameToStateCode = {};
 export const handleMultipleDropdownForOther = async (formData) => {
   try {
     // const formData = await getVendorFormData(); //api
@@ -48,7 +49,7 @@ export const handleMultipleDropdownForOther = async (formData) => {
     //   input.classList.add("cursor-pointer");
     //   input.classList.add("gst-treatment-item");
 
-    //   const label = document.createElement("span");
+    //   const label = document.createElement("label");
     //   label.setAttribute("for", item.name);
     //   label.innerHTML = item.name;
     //   label.classList.add("cursor-pointer");
@@ -78,7 +79,7 @@ export const handleMultipleDropdownForOther = async (formData) => {
       input.classList.add("cursor-pointer");
       input.classList.add("sos-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", item.name);
       label.innerHTML = item.name;
       label.classList.add("cursor-pointer");
@@ -87,6 +88,8 @@ export const handleMultipleDropdownForOther = async (formData) => {
       div.appendChild(label);
 
       sourceOfsupplyWrapper.appendChild(div);
+
+      mapStateNameToStateCode[item.stateCode] = item.name;
     });
     togglePopup(sourceOfsupply, sourceOfsupplyWrapper);
 
@@ -106,7 +109,7 @@ export const handleMultipleDropdownForOther = async (formData) => {
       input.classList.add("cursor-pointer");
       input.classList.add("currency-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", item);
       label.innerHTML = item;
       label.classList.add("cursor-pointer");
@@ -135,7 +138,7 @@ export const handleMultipleDropdownForOther = async (formData) => {
       input.classList.add("cursor-pointer");
       input.classList.add("payment-terms-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", item);
       label.innerHTML = decodePaymentTerms(item, "_", " ");
       label.classList.add("cursor-pointer");
@@ -162,7 +165,7 @@ export const handleMultipleDropdownForOther = async (formData) => {
       input.classList.add("cursor-pointer");
       input.classList.add("tds-item");
 
-      const label = document.createElement("span");
+      const label = document.createElement("label");
       label.setAttribute("for", item.name);
       label.innerHTML = item.name;
       label.classList.add("cursor-pointer");
@@ -234,27 +237,27 @@ const showErrorMessage = (error_element, text) => {
 
 const checkFieldValues = () => {
   let checkResult = true;
-  if (isNullOrEmpty(gstIn_)) {
+  if (isNullOrEmpty(gstIn_) || gstIn_.length != 15) {
     const error_element = document.getElementById("gst-error");
     console.log(error_element);
-    showErrorMessage(error_element, "Please enter gstin/uin");
+    showErrorMessage(error_element, "Please enter valid gstin/uin");
     gstIn.classList.add("empty-field-border");
     checkResult = false;
   }
-  if (isNullOrEmpty(sos_)) {
-    const error_element = document.getElementById("sos-error");
-    console.log(error_element);
-    showErrorMessage(error_element, "Please select source of supply");
-    sos.classList.add("empty-field-border");
-    checkResult = false;
-  }
-  if (isNullOrEmpty(pan_)) {
-    const error_element = document.getElementById("pan-error");
-    console.log(error_element);
-    showErrorMessage(error_element, "Please enter pan number");
-    pan.classList.add("empty-field-border");
-    checkResult = false;
-  }
+  // if (isNullOrEmpty(sos_)) {
+  //   const error_element = document.getElementById("sos-error");
+  //   console.log(error_element);
+  //   showErrorMessage(error_element, "Please select source of supply");
+  //   sos.classList.add("empty-field-border");
+  //   checkResult = false;
+  // }
+  // if (isNullOrEmpty(pan_)) {
+  //   const error_element = document.getElementById("pan-error");
+  //   console.log(error_element);
+  //   showErrorMessage(error_element, "Please enter pan number");
+  //   pan.classList.add("empty-field-border");
+  //   checkResult = false;
+  // }
 
   if (isNullOrEmpty(currency_)) {
     const error_element = document.getElementById("currency-error");
@@ -354,6 +357,31 @@ const handleDataChange = () => {
 
   gstIn.addEventListener("input", (e) => {
     gstIn_ = e.target.value;
+
+    const res = extractDetailsFromGSTIN(gstIn_);
+    console.log("res", res);
+    if (res && mapStateNameToStateCode[Number(res.stateCode)]) {
+      const stateCode = res.stateCode;
+      const panNumber = res.pan;
+
+      console.log("state code", stateCode);
+
+      pan.value = panNumber;
+      sos.value = mapStateNameToStateCode[Number(stateCode)];
+
+      const radioButton = document.querySelector(
+        `input[type="radio"][value="${sos.value}"]`
+      );
+      console.log(radioButton);
+      // If found, set it to checked
+      if (radioButton) {
+        radioButton.checked = true;
+      }
+    } else {
+      pan.value = "";
+      sos.value = "";
+    }
+
     removeBorder(gstIn);
     document.getElementById("gst-error").classList.add("hidden");
   });
@@ -472,3 +500,19 @@ export const updateVendorOther = (objOther) => {
   tds_ = objOther.tds;
   document_ = "";
 };
+
+export function extractDetailsFromGSTIN(gstin) {
+  // if (gstin.length !== 15) {
+  //   throw new Error("Invalid GSTIN length");
+  // }
+
+  if (gstin.length == 15) {
+    const stateCode = gstin.slice(0, 2); // First two characters
+    const pan = gstin.slice(2, 12); // Next ten characters
+
+    return {
+      stateCode: stateCode,
+      pan: pan,
+    };
+  }
+}
