@@ -88,7 +88,7 @@ export const sendPurchaseOrderMail = async (data) => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    baseUrl + "/purchase-order/send-purchaseorder-email",
+    "https://localhost:7118" + "/purchase-order/send-purchaseorder-email",
     httpMethods.POST,
     headers,
     body

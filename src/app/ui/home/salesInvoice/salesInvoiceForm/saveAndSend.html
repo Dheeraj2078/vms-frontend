@@ -1,0 +1,111 @@
+<div class="email-wrapper">
+  <!-- <p>Email To Test Test</p> -->
+
+  <div class="email-box">
+    <div class="email-header">
+      <div>
+        <p>From</p>
+        <p>Send To</p>
+        <p>Subject</p>
+      </div>
+      <div>
+        <input
+          class="email-input"
+          type="text"
+          placeholder=""
+          value="snegi@ex2india.com"
+        />
+        <input
+          id="send-to"
+          class="email-input"
+          type="text"
+          placeholder=""
+          value="dhgupta@ex2india.com"
+        />
+        <input
+          class="email-input email-subject"
+          type="text"
+          placeholder=""
+          value="Purchase Order from EX Squared India Pvt Ltd (Purchase Order #EXPO112200113)"
+        />
+      </div>
+    </div>
+    <div class="toolbar">
+      <!-- <button id="bold-btn">Bold</button>
+        <button id="italic-btn">Italic</button>
+        <button id="underline-btn">Underline</button>
+        <button id="strikethrough-btn">Strikethrough</button> -->
+      <img
+        id="bold-btn"
+        alt="bold"
+        src="../../../../../assets/images/bold.png"
+      />
+      <img
+        id="italic-btn"
+        alt="bold"
+        src="../../../../../assets/images/italic.png"
+      />
+      <img
+        id="underline-btn"
+        alt="bold"
+        src="../../../../../assets/images/underline.png"
+      />
+      <img
+        id="strikethrough-btn"
+        alt="bold"
+        src="../../../../../assets/images/strikethrough.png"
+      />
+    </div>
+
+    <div class="editor" contenteditable="true">
+      <p>Dear Test</p>
+      <p>
+        The purchase order (<span class="po-identifier"> EX2PO112200113</span>)
+        is attached with this email
+      </p>
+      <p>An overview of the purchase order is availabe below</p>
+
+      <p>
+        -----------------------------------------------------------------------
+      </p>
+      <p>Purchase Order# : <span class="po-identifier">EX2PO112200113</span></p>
+
+      <p>
+        -----------------------------------------------------------------------
+      </p>
+      <p>Order Date : <span class="po-date"> 25/05/2024 </span></p>
+      <p>Amount : Rs. <span class="po-price">5000</span></p>
+      <p>
+        -----------------------------------------------------------------------
+      </p>
+
+      <p>
+        Please go through it and confirm the order. We look forward to working
+        with you again.
+      </p>
+      <p>Regards</p>
+    </div>
+  </div>
+
+  <div class="email-footer cursor-pointer">
+    <label class="flex-gap"
+      ><input
+        type="checkbox"
+        value="Attach Purchase Order Pdf"
+        class="cursor-pointer"
+        checked
+      />
+      <div>Attach Purchase Order Pdf</div>
+    </label>
+    <div class="email-pdf">
+      <img src="../../../../../assets/images/pdf.png" alt="pdf icon" />
+      <p class="po-identifier">EX2PO112200113</p>
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button class="btn-light" id="save-draft-po">Save as Draft</button>
+    <button class="btn-light form-cancel">Cancel</button>
+    <button class="btn-sm" id="post-po">Send Email</button>
+  </div>
+</div>

@@ -1,14 +1,5 @@
-import invoiceHtml from "../invoice/invoice.html";
-import invoiceFormHtml from "../../home/invoice/invoiceForm/invoiceForm.html";
-import {
-  handleCross,
-  handleAddInvoice,
-  handleMultipleDropdown,
-} from "./invoiceForm/invoiceForm";
-// import { getAdmins } from "../../../service/admins";
-// import { createTableHeader } from "../../../common/components/table";
-// import { noDataAdded } from "../../../common/components/emptyData";
-import { goToRoute } from "../../../common/components/goToRoute";
+import salesInvoiceFormHtml from "./salesInvoiceForm/salesInvoiceForm.html";
+
 import { getAllInvoice, getInvoiceStats } from "../../../service/invoiceApi";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
@@ -16,46 +7,52 @@ import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
 import { searchModel } from "../../../common/components/search";
-import salesInvoiceHtml from "../salesInvoice/salesInvoice.html";
-import goToSalesInvoice from "../salesInvoice/salesInvoice";
+import {
+  getPoFormData,
+  getPurchaseOrders,
+} from "../../../service/purchaseOrder";
+import { handleMultipleDropdownForSalesInvoice } from "./salesInvoiceForm/salesInvoiceForm";
+import { handleAddNewRow } from "./salesInvoiceForm/salesInvoiceItem";
 
-export default async function goToInvoice() {
-  sessionStorage.setItem("tab", "invoice");
-  goToRoute(invoiceHtml, invoiceFormHtml, handleCross, handleAddInvoice);
+export default async function goToSalesInvoice() {
+  console.log("inside sales invoice");
 
-  populateInvoiceStats();
-  // const search = document.getElementById("internal-search");
-  // search.addEventListener("input", handleSearch);
-
-  searchModel("Search Invoices", filterResults);
-  handleMultipleDropdown();
-
-  addPagination(getAllInvoice, createInvoiceTable, "No Invoices Found");
-
-  // const allInvoices = await getInvoices();
-  // if (allInvoices == null || allInvoices.length == 0) {
-  //   const addBtn = document.getElementById("add-button");
-  //   const div = noDataAdded("Invoices", addBtn);
-  //   const homeRoot = document.getElementsByClassName("container")[0];
-  //   homeRoot.innerHTML = "";
-  //   homeRoot.appendChild(div);
-  // } else {
-  //   createInvoiceTable(allInvoices);
-  // }
-
-  const addSalesInvoice = document.getElementById("add-sales-invoice");
-  addSalesInvoice.addEventListener("click", (e) => {
+  const addButton = document.getElementById("add-button");
+  addButton.addEventListener("click", async () => {
+    // TEMP
     const homeRoot = document.querySelector("main");
-    console.log(homeRoot);
-    homeRoot.innerHTML = salesInvoiceHtml;
-    goToSalesInvoice();
+    homeRoot.innerHTML = salesInvoiceFormHtml;
+
+    const invoiceTable = [];
+    localStorage.setItem("invoiceTableData", JSON.stringify(invoiceTable));
+
+    try {
+      const response = await getPoFormData();
+
+      handleMultipleDropdownForSalesInvoice(response.data);
+      const addNewRow = document.getElementById("po-add-row");
+      const data = {
+        itemDetail: "",
+        itemAccount: "",
+        quantity: "0.0",
+        rate: "",
+        tax: "",
+      };
+      addNewRow.addEventListener("click", () => handleAddNewRow(data));
+
+      addNewRow.click();
+    } catch (error) {
+      console.log(error);
+    }
   });
+
+  searchModel("Search Sales Invoice", filterResults);
+  addPagination(
+    getPurchaseOrders,
+    createInvoiceTable,
+    "No Sales Invoice found"
+  );
 }
-
-// const handleSearch = async (e) => {
-//   const value = e.target.value;
-
-// };
 
 function filterResults(value) {
   if (value.length === 0) {
@@ -92,7 +89,9 @@ function filterResults(value) {
 
 const createInvoiceTable = async (invoices) => {
   console.log("all invoices", invoices);
-  const invoiceTable = document.getElementsByClassName("invoice-table")[0];
+  const invoiceTable = document.getElementsByClassName(
+    "sales-invoice-table"
+  )[0];
   invoiceTable.innerHTML = "";
 
   const table = createTableHeader([

@@ -1,4 +1,108 @@
 <section class="container">
   <!-- 1.heading -->
-  <h1 class="top-heading">Dashboard</h1>
+  <div class="dashboard-wrapper">
+    <h1 class="top-heading">Dashboard</h1>
+    <button class="btn-sm" id="signature-btn">Signature</button>
+  </div>
+
+  <div class="main-wrapper">
+    <div class="wrapper">
+      <div class="graph-wrapper" style="width: 55%">
+        <canvas id="myChart"></canvas>
+      </div>
+
+      <div class="expenditure-container">
+        <div class="expenditure-header">
+          <p class="total-expenditure">Total Expenditure</p>
+          <p class="view-all">View All</p>
+        </div>
+        <p class="dashboard-amount">Rs. 50,000</p>
+        <p class="cards-info-text">Breakdown Last 30 Days</p>
+        <div class="expenditure-cards">
+          <!-- 1 -->
+          <div class="expenditure-card">
+            <img src="../../../../assets/images/travel.png" />
+            <div>
+              <p class="expenditure-price">Rs. 2400</p>
+              <p>Electricity</p>
+            </div>
+          </div>
+          <!-- 2 -->
+          <div class="expenditure-card">
+            <img src="../../../../assets/images/education.png" />
+            <div>
+              <p class="expenditure-price">Rs. 2400</p>
+              <p>Domains</p>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="expenditure-card">
+            <img src="../../../../assets/images/health.png" />
+            <div>
+              <p class="expenditure-price">Rs. 2400</p>
+              <p>Food</p>
+            </div>
+          </div>
+          <!-- 4 -->
+          <div class="expenditure-card">
+            <img src="../../../../assets/images/food.png" />
+            <div>
+              <p class="expenditure-price">Rs. 2400</p>
+              <p>Travels</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="vendor-wrapper">
+        <div class="vendor-left">
+          <p>Total Vendors</p>
+          <p>40</p>
+        </div>
+        <div>
+          <p>New : <span>5</span></p>
+          <p>Completed : <span>10</span></p>
+          <p>On Hold : <span>1</span></p>
+          <p>In Progress : <span>3</span></p>
+          <p>Need Follow-up : <span>2</span></p>
+        </div>
+      </div>
+
+      <div class="dashboard-table-container">
+        <table cellpadding="0" cellspacing="0">
+          <thead>
+            <tr>
+              <th>S. NO.</th>
+              <th>EVENT</th>
+              <th>DATE</th>
+              <th>EXPENDITURE</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <tr>
+              <td>1.</td>
+              <td>Parv</td>
+              <td>2023</td>
+              <td>40,000</td>
+            </tr>
+            <tr>
+              <td>2.</td>
+              <td>Holi Party</td>
+              <td>2023</td>
+              <td>30,000</td>
+            </tr>
+            <tr>
+              <td>3.</td>
+              <td>Diwali Party</td>
+              <td>2023</td>
+              <td>1,00,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </section>

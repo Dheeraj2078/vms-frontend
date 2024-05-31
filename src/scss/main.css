@@ -52,6 +52,7 @@ html {
 body {
   color: #3b3a38;
   font: 500 1rem/1.6 "Inter", arial;
+  background: #fbf9f8;
 }
 
 .btn {
@@ -199,7 +200,8 @@ body {
   font-size: 14px;
 }
 .navbar-wrapper ul li img {
-  width: 20px;
+  width: 24px;
+  height: 22px;
 }
 
 .selected-route {
@@ -232,6 +234,10 @@ body {
   cursor: pointer;
   background: #fff;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1490196078);
+}
+
+#purchaseOrderRoute img {
+  filter: invert(1);
 }
 
 #home-root {
@@ -704,6 +710,7 @@ body {
   padding: 2.4rem;
   flex-basis: 100%;
   border-radius: 4px;
+  background: #fff;
 }
 .container .statistics-card-left {
   display: flex;
@@ -735,6 +742,7 @@ body {
   justify-content: center;
   align-items: stretch;
   border-radius: 4px;
+  background: #fff;
 }
 .container .add-search-wrapper .search-container .search-icon {
   height: 16px;
@@ -1364,4 +1372,156 @@ textarea {
   display: flex;
   gap: 5px;
   align-items: center;
+}
+
+.dashboard-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard-wrapper button {
+  margin-bottom: 24px;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 25px;
+}
+
+.graph-wrapper {
+  background-color: #fff;
+  display: flex;
+  border: 1px solid #e7e6e6;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.expenditure-container {
+  background-color: #fff;
+  border: 1px solid #e7e6e6;
+  padding: 16px;
+  border-radius: 4px;
+}
+.expenditure-container .dashboard-amount {
+  font-size: 24px;
+  font-weight: 600;
+}
+.expenditure-container .cards-info-text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #716d69;
+  padding: 7px 0 5px 0;
+}
+.expenditure-header {
+  display: flex;
+  justify-content: space-between;
+}
+.expenditure-header .total-expenditure {
+  font-size: 16px;
+  font-weight: 400;
+}
+.expenditure-header .view-all {
+  font-size: 12px;
+  color: #0446ff;
+}
+.expenditure-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.expenditure-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 50px 8px 20px;
+  background: #fbfbfb;
+  border: 1px solid #e7e6e6;
+  border-radius: 4px;
+}
+.expenditure-card img {
+  height: 35px;
+}
+.expenditure-card div p:first-child {
+  font-size: 18px;
+}
+.expenditure-card div p:last-child {
+  font-size: 14px;
+  color: #8c8884;
+}
+
+.vendor-wrapper {
+  width: 340px;
+  background-color: #fff;
+  display: flex;
+  border: 1px solid #e7e6e6;
+  padding: 16px;
+  border-radius: 4px;
+}
+.vendor-wrapper div:first-child {
+  border-right: 1px solid #e7e6e6;
+  padding-right: 16px;
+}
+.vendor-wrapper div:first-child p:first-child {
+  font-size: 16px;
+}
+.vendor-wrapper div:first-child p:last-child {
+  font-size: 24px;
+}
+.vendor-wrapper div:last-child {
+  padding-left: 16px;
+}
+.vendor-wrapper div:last-child p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #8c8884;
+}
+.vendor-wrapper div:last-child p span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #474643;
+}
+
+.dashboard-table-container {
+  width: 70%;
+}
+.dashboard-table-container table {
+  border: 1px solid #e7e6e6;
+  border-radius: 4px;
+}
+.dashboard-table-container table thead tr {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  text-align: left;
+}
+.dashboard-table-container table thead tr th {
+  background: #fff3f1;
+  padding: 12px;
+  font-size: 12px;
+  color: #716d69;
+  font-weight: 400;
+}
+.dashboard-table-container table .table-body {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.dashboard-table-container table .table-body tr {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.dashboard-table-container table .table-body tr td {
+  padding: 12px;
+  font-size: 12px;
+  border-bottom: 1px solid #e7e6e6;
+  color: #474643;
+  font-weight: 400;
+  word-break: break-all;
 }/*# sourceMappingURL=main.css.map */

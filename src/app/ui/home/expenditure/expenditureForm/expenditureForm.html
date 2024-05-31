@@ -1,0 +1,62 @@
+<div class="form-container">
+  <div class="form-header">
+    <h3 class="form-header-text">Create Expenditure</h3>
+    <svg id="form-cross">
+      <use xlink:href="../../../../../assets/icons/icons.svg#cross"></use>
+    </svg>
+  </div>
+  <div class="form-main">
+    <div class="form-wrapper">
+      <form class="form-item">
+        <label class="required">Event Name</label>
+        <input
+          type="text"
+          name=""
+          id="event-name"
+          placeholder="Enter event name"
+        />
+        <p class="hidden error-message event-name-error"></p>
+      </form>
+
+      <form class="form-item">
+        <label class="required">Event date</label>
+        <input
+          type="date"
+          name=""
+          id="event-date"
+          placeholder="Enter event description"
+        />
+        <p class="hidden error-message event-date-error"></p>
+      </form>
+
+      <form class="form-item">
+        <label class="required">Event Expenditure</label>
+        <input
+          type="text"
+          name=""
+          id="event-expenditure"
+          placeholder="Enter event description"
+        />
+        <p class="hidden error-message event-expenditure-error"></p>
+      </form>
+
+      <form class="form-item">
+        <label class="required">Event description</label>
+        <input
+          type="text"
+          name=""
+          id="event-description"
+          placeholder="Enter event description"
+        />
+        <p class="hidden error-message event-description-error"></p>
+      </form>
+    </div>
+
+    <div class="already-exists error-message hidden">event already exists</div>
+
+    <div class="form-buttons">
+      <button class="btn-light form-cancel">Cancel</button>
+      <button class="btn-sm" id="add-to-db">Save</button>
+    </div>
+  </div>
+</div>

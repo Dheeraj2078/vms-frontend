@@ -12,6 +12,7 @@ import {
   confirmationModalWithoutApi,
 } from "./components/confirmationModal.js";
 import navBarHtml from "./components/../../common/navbar.html";
+import goToExpenditure from "../ui/home/expenditure/expenditure.js";
 
 export const defaultRoute = () => {
   console.log("default");
@@ -82,6 +83,8 @@ export const defaultRoute = () => {
       contractRoute.classList.add("selected-route");
     } else if (currentRoute == "purchaseOrder") {
       purchaseOrderRoute.classList.add("selected-route");
+    } else if (currentRoute == "expenditureRoute") {
+      expenditureRoute.classList.add("selected-route");
     }
   }
 
@@ -163,6 +166,11 @@ purchaseOrderRoute.addEventListener("click", (e) => {
   }
   changeRoute("purchaseOrderRoute");
   goToPurchaseOrder();
+});
+
+expenditureRoute.addEventListener("click", (e) => {
+  changeRoute("expenditureRoute");
+  goToExpenditure();
 });
 
 const logoutBtn = document.getElementById("logout-btn");

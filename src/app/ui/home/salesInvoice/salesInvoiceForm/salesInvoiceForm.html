@@ -1,0 +1,273 @@
+<section class="po-form-container">
+  <h2>New Sales Order</h2>
+  <form class="po-form-item associated-category-wrapper">
+    <label class="required">Vendor Name</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="vendor-name"
+            value=""
+            placeholder="Select a vendor"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="associated-dropdown" class="hidden vendor-name-wrapper"></div>
+      </div>
+      <p id="vendor-name-error" class="hidden error-message role-error"></p>
+    </div>
+  </form>
+
+  <div id="autofill-vendor-address" class="display-block"></div>
+
+  <!-- <form class="po-form-item associated-category-wrapper">
+    <label class="required">Source Of Supply</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="source-of-supply"
+            value=""
+            placeholder="Select a source of supply"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden source-of-supply-wrapper"
+        ></div>
+      </div>
+      <p id="sos-error" class="hidden error-message role-error"></p>
+    </div>
+  </form> -->
+
+  <form class="po-form-item associated-category-wrapper">
+    <label class="required">Destination of Supply</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="destination-of-supply"
+            value=""
+            placeholder="Select a destination of supply"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden destination-of-supply-wrapper"
+        ></div>
+      </div>
+      <p id="dos-error" class="hidden error-message role-error"></p>
+    </div>
+  </form>
+
+  <!-- branch -->
+  <form class="po-form-item associated-category-wrapper">
+    <label class="required">Branch</label>
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="branch"
+            value=""
+            placeholder="Select a branch"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div id="associated-dropdown" class="hidden branch-wrapper"></div>
+      </div>
+      <p id="branch-error" class="hidden error-message role-error"></p>
+    </div>
+  </form>
+
+  <!-- <form class="po-form-item associated-category-wrapper">
+    <label class="required">Delivery Address</label>
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="delivery-address"
+            value=""
+            placeholder="Select a delivery address"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden delivery-address-wrapper"
+        ></div>
+      </div>
+      <p
+        id="delivery-address-error"
+        class="hidden error-message role-error"
+      ></p>
+    </div>
+  </form> -->
+
+  <div id="autofill-delivery-address" class="display-block"></div>
+
+  <form class="po-form-item">
+    <label class="required">Invoice#</label>
+    <input type="text" name="" id="purchase-number" placeholder="" readonly />
+  </form>
+
+  <form class="po-form-item">
+    <label>Reference#</label>
+    <input
+      type="text"
+      name=""
+      id="reference-number"
+      placeholder="Enter reference number"
+    />
+  </form>
+
+  <form class="po-form-item">
+    <label class="required">Date</label>
+    <div class="flex-col">
+      <input type="date" name="" id="date" placeholder="Enter first name" />
+      <p id="date-error" class="hidden error-message role-error"></p>
+    </div>
+  </form>
+
+  <form class="po-form-item">
+    <label>Due Date</label>
+    <input
+      type="date"
+      name=""
+      id="date-delivery"
+      placeholder="Enter first name"
+    />
+  </form>
+
+  <form class="po-form-item associated-category-wrapper">
+    <label class="required">Payment terms</label>
+
+    <div class="flex-col">
+      <div>
+        <div class="vendor-inner-wrapper">
+          <input
+            type="text"
+            name=""
+            id="payment-terms"
+            value=""
+            placeholder="Select a payment terms"
+            class="cursor-pointer"
+            readonly
+          />
+          <svg class="dropdown-icon cursor-pointer">
+            <use
+              xlink:href="../../../../../assets/icons/icons.svg#dropdown"
+            ></use>
+          </svg>
+        </div>
+        <div
+          id="associated-dropdown"
+          class="hidden payment-terms-wrapper"
+        ></div>
+      </div>
+      <p id="payment-terms-error" class="hidden error-message role-error"></p>
+    </div>
+  </form>
+
+  <h2>Items Table</h2>
+
+  <div class="table-container">
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th>ITEM DETAILS</th>
+          <th>ACCOUNT</th>
+          <th>QUANTITY</th>
+          <th>RATE</th>
+          <th>TAX</th>
+          <th>AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="btn-and-total-wrapper">
+    <button class="btn-sm" id="po-add-row">Add New Row</button>
+    <div class="total-wrapper">
+      <div>
+        <div class="flex">
+          <p>Sub Total</p>
+        </div>
+        <div class="flex">
+          <p>Discount</p>
+          <div class="input-container">
+            <input type="text" id="percentage-input" value="0" />
+            <span class="percentage-symbol">%</span>
+          </div>
+        </div>
+        <div class="flex">
+          <p>TCS</p>
+          <div class="input-container">
+            <input type="text" id="tcs-input" value="0" />
+          </div>
+        </div>
+        <div class="flex">
+          <p class="bold">Total</p>
+        </div>
+      </div>
+      <div class="amount-right">
+        <p id="sub-total">0</p>
+        <p id="discount-provided">0.0</p>
+        <p id="tcs-provided">0</p>
+        <p id="total" class="bold">0</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="save-or-cancel">
+  <div class="form-buttons">
+    <button class="btn-light form-cancel">Cancel</button>
+    <button class="btn-sm" id="save-and-send">Save And Send</button>
+  </div>
+</div>

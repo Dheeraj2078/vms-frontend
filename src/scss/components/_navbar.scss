@@ -39,7 +39,8 @@
         }
 
         img {
-          width: 20px;
+          width: 24px;
+          height: 22px;
         }
       }
     }
@@ -80,4 +81,10 @@
   cursor: pointer;
   background: #fff;
   box-shadow: 0px 0px 8px 0px #00000026;
+}
+
+#purchaseOrderRoute {
+  img {
+    filter: invert(1);
+  }
 }
