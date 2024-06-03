@@ -15,7 +15,10 @@
           id="event-name"
           placeholder="Enter event name"
         />
-        <p class="hidden error-message event-name-error"></p>
+        <p
+          id="event-name-error"
+          class="hidden error-message event-name-error"
+        ></p>
       </form>
 
       <form class="form-item">
@@ -24,29 +27,46 @@
           type="date"
           name=""
           id="event-date"
-          placeholder="Enter event description"
+          placeholder="Enter event date"
         />
-        <p class="hidden error-message event-date-error"></p>
+        <p
+          id="event-date-error"
+          class="hidden error-message event-date-error"
+        ></p>
       </form>
 
       <form class="form-item">
-        <label class="required">Event Expenditure</label>
+        <label class="required">Total Expenditure</label>
         <input
           type="text"
           name=""
           id="event-expenditure"
-          placeholder="Enter event description"
+          placeholder="Enter total expenditure"
         />
-        <p class="hidden error-message event-expenditure-error"></p>
+        <p
+          id="event-expenditure-error"
+          class="hidden error-message event-expenditure-error"
+        ></p>
       </form>
 
       <form class="form-item">
-        <label class="required">Event description</label>
+        <label>Event description</label>
         <input
           type="text"
           name=""
           id="event-description"
           placeholder="Enter event description"
+        />
+        <p class="hidden error-message event-description-error"></p>
+      </form>
+
+      <form class="form-item">
+        <label>Memory</label>
+        <input
+          type="text"
+          name=""
+          id="event-memory"
+          placeholder="Enter images link"
         />
         <p class="hidden error-message event-description-error"></p>
       </form>

@@ -38,6 +38,8 @@ export const defaultRoute = () => {
         goToContract();
       } else if (Id == "purchaseOrderRoute") {
         goToPurchaseOrder();
+      } else if (Id == "expenditureRoute") {
+        goToExpenditure();
       }
     }
   });
@@ -83,7 +85,7 @@ export const defaultRoute = () => {
       contractRoute.classList.add("selected-route");
     } else if (currentRoute == "purchaseOrder") {
       purchaseOrderRoute.classList.add("selected-route");
-    } else if (currentRoute == "expenditureRoute") {
+    } else if (currentRoute == "expenditure") {
       expenditureRoute.classList.add("selected-route");
     }
   }

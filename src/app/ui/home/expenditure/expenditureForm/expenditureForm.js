@@ -1,5 +1,5 @@
 import { successModal } from "../../../../common/components/successModal";
-import { postevent } from "../../../../service/eventApi";
+import { postEvent } from "../../../../service/expenditureApi";
 import goToExpenditure from "../expenditure";
 
 export function handleCross() {
@@ -13,10 +13,7 @@ export function handleCross() {
   goToExpenditure();
 }
 
-function removeBorder(column, error) {
-  if (!error.classList.contains("hidden")) {
-    error.classList.add("hidden");
-  }
+function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
     column.classList.remove("empty-field-border");
   }
@@ -26,114 +23,124 @@ let eventName_ = "";
 let eventDate_ = "";
 let eventExpenditure_ = "";
 let eventDescription_ = "";
-
-let eventNameError = document.getElementsByClassName("event-name-error")[0];
-let eventDescError = document.getElementsByClassName(
-  "event-description-error"
-)[0];
+let eventMemory_ = "";
 
 let eventName = document.getElementById("event-name");
 let eventDate = document.getElementById("event-date");
 let eventExpenditure = document.getElementById("event-expenditure");
 let eventDescription = document.getElementById("event-description");
+let eventMemory = document.getElementById("event-memory");
 
 export function handleDataChange() {
   eventName = document.getElementById("event-name");
   eventDescription = document.getElementById("event-description");
-  eventNameError = document.getElementsByClassName("event-name-error")[0];
-  eventDescError = document.getElementsByClassName(
-    "event-description-error"
-  )[0];
+  eventDate = document.getElementById("event-date");
+  eventExpenditure = document.getElementById("event-expenditure");
+  eventMemory = document.getElementById("event-memory");
 
   eventName_ = eventName.value;
   eventName.addEventListener("input", (e) => {
-    removeBorder(eventName, eventNameError);
+    document.getElementById("event-name-error").classList.add("hidden");
+    removeBorder(eventName);
     eventName_ = e.target.value;
-    const alreadyExists = document.getElementsByClassName("already-exists")[0];
-    if (!alreadyExists.classList.contains("hidden")) {
-      alreadyExists.classList.add("hidden");
-    }
   });
 
   eventDate_ = eventDate.value;
   eventDate.addEventListener("input", (e) => {
-    removeBorder(eventDescription, eventDescError);
-    eventDescription_ = e.target.value;
+    document.getElementById("event-date-error").classList.add("hidden");
+    removeBorder(eventDate);
+    eventDate_ = e.target.value;
   });
 
   eventExpenditure_ = eventExpenditure.value;
   eventExpenditure.addEventListener("input", (e) => {
-    removeBorder(eventDescription, eventDescError);
+    document.getElementById("event-expenditure-error").classList.add("hidden");
+    removeBorder(eventExpenditure);
     eventExpenditure_ = e.target.value;
   });
 
   eventDescription_ = eventDescription.value;
   eventDescription.addEventListener("input", (e) => {
-    removeBorder(eventDescription, eventDescError);
     eventDescription_ = e.target.value;
+  });
+
+  eventMemory_ = eventMemory.value;
+  eventMemory.addEventListener("input", (e) => {
+    eventMemory_ = e.target.value;
   });
 }
 
-export async function handleAddevent() {
-  let eventNameError = document.getElementsByClassName("event-name-error")[0];
-  let eventDescError = document.getElementsByClassName(
-    "event-description-error"
-  )[0];
+export async function handleAddEvent() {
   eventName_ = eventName_.trim();
   eventDescription_ = eventDescription_.trim();
 
-  let allValuesProvided = true;
-  if (eventName_ == "") {
-    allValuesProvided = false;
-    eventName.classList.add("empty-field-border");
-    eventNameError.classList.remove("hidden");
-  }
-
-  if (eventDate_ == "") {
-    allValuesProvided = false;
-    eventDate.classList.add("empty-field-border");
-    eventNameError.classList.remove("hidden");
-  }
-
-  if (eventExpenditure_ == "") {
-    allValuesProvided = false;
-    eventName.classList.add("empty-field-border");
-    eventNameError.classList.remove("hidden");
-  }
-  if (eventDescription_ == "") {
-    allValuesProvided = false;
-    eventDescription.classList.add("empty-field-border");
-    eventDescError.classList.remove("hidden");
-  }
-
-  if (allValuesProvided == false) {
+  if (!checkFieldValues()) {
     return;
   }
 
   const posteventData = {
     name: eventName_,
+    budget: parseFloat(eventExpenditure_),
+    date: eventDate_,
     description: eventDescription_,
+    link: eventMemory_,
   };
 
   try {
-    // const res = await postevent(posteventData);
-    // console.log("create event", res);
-    // eventName_ = "";
-    // eventDescription_ = "";
-    // if (res.error == null) {
-    //   successModal("event added", handleCross);
-    // }
+    const res = await postEvent(posteventData);
+    if (res.error == null) {
+      successModal("Event added", handleCross);
+    }
   } catch (error) {
     console.log(error);
-    const alreadyExists = document.getElementsByClassName("already-exists")[0];
-    alreadyExists.classList.remove("hidden");
+  }
+}
+
+const checkFieldValues = () => {
+  let checkResult = true;
+  if (isNullOrEmpty(eventName_)) {
+    const error_element = document.getElementById("event-name-error");
+    showErrorMessage(error_element, "Please enter event name");
+    eventName.classList.add("empty-field-border");
+    checkResult = false;
   }
 
-  console.log(posteventData);
-}
+  if (isNullOrEmpty(eventExpenditure_)) {
+    const error_element = document.getElementById("event-expenditure-error");
+    showErrorMessage(error_element, "Please enter event expenditure");
+    eventExpenditure.classList.add("empty-field-border");
+    checkResult = false;
+  }
+  if (isNullOrEmpty(eventDate_)) {
+    const error_element = document.getElementById("event-date-error");
+    console.log(error_element);
+    showErrorMessage(error_element, "Please enter event date");
+    eventDate.classList.add("empty-field-border");
+    checkResult = false;
+  }
+
+  return checkResult;
+};
+
+const isNullOrEmpty = (value) => {
+  if (
+    typeof value === "string" &&
+    (value === null || value.trim().length === 0)
+  ) {
+    return true;
+  }
+  return value === null;
+};
+
+const showErrorMessage = (error_element, text) => {
+  if (error_element) {
+    error_element.innerHTML = text;
+    error_element.classList.remove("hidden");
+  }
+};
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    handleAddevent();
+    handleAddEvent();
   }
 });

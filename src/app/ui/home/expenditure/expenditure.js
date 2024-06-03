@@ -8,7 +8,7 @@ import { handleCross } from "./expenditureForm/expenditureForm";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { createTableHeader } from "../../../common/components/table";
 import {
-  handleAddCategory,
+  handleAddEvent,
   handleDataChange,
 } from "./expenditureForm/expenditureForm";
 import { goToRoute } from "../../../common/components/goToRoute";
@@ -16,60 +16,146 @@ import { confirmationModal } from "../../../common/components/confirmationModal"
 import { searchCategories } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
 import { searchModel } from "../../../common/components/search";
+import {
+  getAllEvents,
+  getTopExpenditure,
+} from "../../../service/expenditureApi";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 
 export default async function goToExpenditure() {
-  sessionStorage.setItem("tab", "category");
-  goToRoute(
-    expenditureHtml,
-    expenditureFormHtml,
-    handleCross,
-    handleAddCategory
-  );
+  sessionStorage.setItem("tab", "expenditure");
+  goToRoute(expenditureHtml, expenditureFormHtml, handleCross, handleAddEvent);
   handleDataChange();
 
-  // const search = document.getElementById("internal-search");
-  // search.addEventListener("input", handleSearch);
-  searchModel("Search Categories", filterResults);
-  addPagination(getAllCategories, createCategoryTable, "No Expenditure Found");
-  // renderTable(true, 10);
+  //   const search = document.getElementById("internal-search");
+  //   search.addEventListener("input", handleSearch);
+
+  showExpenditureGraphs();
+  searchModel("Search Events", filterResults);
+  addPagination(getAllEvents, createExpenditureTable, "No Expenditure Found");
 }
 
-// async function renderTable(next, size) {
-//   let allAdmins;
-//   // if (pagenationDto === null) {
-//   //   pagenationDto.cursor = 0;
-//   // }
-//   // console.log("********************************", pagenationDto);
-//   if (next) {
-//     allAdmins = await getCategoriesData(pagenationDto.cursor, size, true);
-//   } else {
-//     allAdmins = await getCategoriesData(
-//       pagenationDto.previousCursor,
-//       size,
-//       false
-//     );
-//   }
+const showExpenditureGraphs = async () => {
+  const response = await getTopExpenditure(4);
+  console.log(response);
+  const data = response.data;
 
-//   console.log("all cats", allAdmins);
-//   if (allAdmins.length == 0) {
-//     const addBtn = document.getElementById("add-button");
-//     const div = noDataAdded("Category", addBtn);
-//     const homeRoot = document.getElementsByClassName("container")[0];
-//     homeRoot.innerHTML = "";
-//     homeRoot.appendChild(div);
-//   } else {
-//     createCategoryTable(allAdmins);
-//     addPagination(renderTable);
-//   }
-// }
+  const expenditureCardStats = document.getElementsByClassName(
+    "expenditure-card-stats"
+  )[0];
+  expenditureCardStats.innerHTML = "";
 
-// const handleSearch = async (e) => {
-//   const value = e.target.value;
-// };
+  const labelAsName = [],
+    dataAsAmount = [],
+    color = [
+      "rgba(255, 99, 132)",
+      "rgba(54, 162, 235)",
+      "rgba(255, 206, 86)",
+      "rgba(75, 192, 192)",
+    ];
+
+  let total = 0;
+  let i = 0;
+
+  data.map((event) => {
+    labelAsName.push(event.name);
+    dataAsAmount.push(event.amount);
+    total += event.amount;
+
+    const div = document.createElement("div");
+    div.classList.add("top-single-item");
+    div.style.background = color[i++];
+
+    const left = document.createElement("p");
+    left.innerHTML = event.name;
+    const right = document.createElement("p");
+    right.innerHTML = "&#8377;" + event.amount;
+
+    div.appendChild(left);
+    div.appendChild(right);
+
+    expenditureCardStats.appendChild(div);
+  });
+
+  const totalExpenditureCard = document.getElementsByClassName(
+    "total-expenditure-card"
+  )[0];
+
+  // totalExpenditureCard.innerHTML = "&#8377;" + total;
+  const eHeading = document.createElement("p");
+  eHeading.innerHTML = "Total Expenditure";
+
+  const p = document.createElement("p");
+  p.innerHTML = "&#8377;" + total;
+
+  totalExpenditureCard.appendChild(eHeading);
+  totalExpenditureCard.appendChild(p);
+
+  var ctx = document.getElementById("expenditure-graph").getContext("2d");
+
+  console.log("ctx", ctx);
+  var myChart = new Chart(ctx, {
+    type: "doughnut", // Change this to the type of chart you want to create
+    data: {
+      labels: labelAsName,
+      datasets: [
+        {
+          label: "expenditure",
+          data: dataAsAmount,
+          backgroundColor: [
+            "rgba(255, 99, 132)",
+            "rgba(54, 162, 235)",
+            "rgba(255, 206, 86)",
+            "rgba(75, 192, 192)",
+            "rgba(153, 102, 255)",
+            "rgba(255, 159, 64)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+              display: false,
+            },
+          },
+        ],
+        yAxes: [
+          {
+            gridLines: {
+              display: false,
+            },
+          },
+        ],
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+  });
+};
 
 function filterResults(value) {
   if (value.trim().length === 0) {
-    addPagination(getAllCategories, createCategoryTable, "No Category Found");
+    addPagination(
+      getAllCategories,
+      createExpenditureTable,
+      "No Category Found"
+    );
     // const allContracts = await getCategoriesData();
     // if (allContracts == null || allContracts.length == 0) {
     //   const contactTable =
@@ -77,13 +163,13 @@ function filterResults(value) {
     //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
     // } else {
     //   const contracts = allContracts;
-    //   createCategoryTable(contracts);
+    //   createExpenditureTable(contracts);
     // }
   }
   if (value.length >= 2) {
     addPagination(
       getAllCategories,
-      createCategoryTable,
+      createExpenditureTable,
       "No Category Found",
       value
     );
@@ -97,46 +183,26 @@ function filterResults(value) {
     // } else {
     //   const contracts = searchResult.data;
     //   console.log(contracts);
-    //   createCategoryTable(contracts);
+    //   createExpenditureTable(contracts);
     //   addPagination(goToCategory, Maincursor);
     // }
   }
 }
 
-async function deleteCategory(id) {
-  try {
-    const res = await deleteCategoryById(id);
-    console.log(res);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-const handleDeleteCategory = (e) => {
-  const id = e.currentTarget.id;
-  const question = "Are you sure you want to delete";
-
-  const showError = () => {
-    const errorMessage = document.getElementsByClassName("error-message")[0];
-    errorMessage.classList.remove("hidden");
-  };
-
-  const reply = confirmationModal(
-    question,
-    () => deleteCategory(id),
-    handleCross,
-    showError
-  );
-  console.log("reply", reply);
-};
-
-const createCategoryTable = async (categories) => {
+const createExpenditureTable = async (expenditures) => {
+  console.log("expenditures", expenditures);
   const categoriesTable =
-    document.getElementsByClassName("categories-table")[0];
+    document.getElementsByClassName("expenditure-table")[0];
   categoriesTable.innerHTML = "";
 
-  const table = createTableHeader(["ID", "Name", "Description", "Action"]);
+  const table = createTableHeader([
+    "Id",
+    "Name",
+    "Description",
+    "Date",
+    "Budget",
+    "Memory",
+  ]);
 
   categoriesTable.appendChild(table);
 
@@ -144,40 +210,37 @@ const createCategoryTable = async (categories) => {
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
   tBody.style.height = "330px";
-  categories.map((category) => {
+  expenditures.map((expenditure) => {
     const row = document.createElement("tr");
+    row.addEventListener("click", () => showEventDetails(expenditure.id));
 
     let div = document.createElement("td");
-    div.innerHTML = category.id;
+    div.innerHTML = expenditure.id;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = category.name;
+    div.innerHTML = expenditure.name;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = category.description;
+    div.innerHTML = expenditure.description;
     row.appendChild(div);
 
     div = document.createElement("td");
-    const image = `/9574521e3c2fb864b257.png`; // TEMP
+    div.innerHTML = expenditure.date;
+    row.appendChild(div);
 
-    div.innerHTML = `<img class="height-20 btn-clickable" src=${image} />`;
+    div = document.createElement("td");
+    div.innerHTML = expenditure.budget;
+    row.appendChild(div);
 
-    if (category.isUsed) {
-      div.innerHTML = `
-        <div style="
-        position: relative;
-    ">
-          <img class="height-20 btn-disabled tooltip" src=${image} />
-          <span class="tooltiptext hidden">This Category is a part of some vendor</span>
-        </div>
-      `;
-    } else {
-      div.innerHTML = `<img class="height-20 btn-clickable" src=${image} />`;
-      div.addEventListener("click", handleDeleteCategory);
-    }
-    div.id = category.id;
+    div = document.createElement("td");
+    div.innerHTML = "";
+    const a = document.createElement("a");
+    a.href = expenditure.link;
+    a.target = "_blank";
+    a.innerHTML = "Link";
+    div.appendChild(a);
 
     row.appendChild(div);
 
@@ -187,44 +250,6 @@ const createCategoryTable = async (categories) => {
   });
 
   table.appendChild(tBody);
-
-  const toolTip = document.getElementsByClassName("tooltip");
-  if (toolTip) {
-    const toolTipArr = [...toolTip];
-    let i = 0;
-    toolTipArr.map((tip) => {
-      const I = i;
-      tip.addEventListener("mouseenter", () => handleMouseEnter(I));
-      tip.addEventListener("mouseleave", () => handleMouseLeave(I));
-      i++;
-    });
-  }
 };
 
-function handleMouseEnter(i) {
-  const toolTipText = document.getElementsByClassName("tooltiptext");
-  const toolTipTextArr = [...toolTipText];
-
-  let I = 0;
-
-  toolTipTextArr.map((single) => {
-    if (i == I) {
-      single.classList.remove("hidden");
-    }
-    I++;
-  });
-}
-
-function handleMouseLeave(i) {
-  const toolTipText = document.getElementsByClassName("tooltiptext");
-  const toolTipTextArr = [...toolTipText];
-
-  let I = 0;
-
-  toolTipTextArr.map((single) => {
-    if (i == I) {
-      single.classList.add("hidden");
-    }
-    I++;
-  });
-}
+const showEventDetails = (id) => {};
