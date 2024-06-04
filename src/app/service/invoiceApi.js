@@ -111,3 +111,21 @@ export const sendSalesInvoiceMail = async (data) => {
 
   return response;
 };
+
+export const getSalesInvoices = async (cursor, size, next, filter) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const url = filter
+    ? `/sales-invoice/get-invoices?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`
+    : `/sales-invoice/get-invoices?cursor=${cursor}&size=${size}&next=${next}`;
+  const response = await makeRequest(
+    apiUrlLocal + url,
+    httpMethods.GET,
+    headers
+  );
+
+  return response;
+};

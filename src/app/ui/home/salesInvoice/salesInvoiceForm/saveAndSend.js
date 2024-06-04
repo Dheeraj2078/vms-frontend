@@ -233,10 +233,9 @@ export const preparePostData = async (data, mailData, status) => {
 
   try {
     console.log("post invoice data", data);
-    // const res = await postPurchaseOrder(data);
     const res = await postSalesInvoice(data);
     console.log("res", res);
-    // location.reload();
+    location.reload();
   } catch (error) {
     console.log("error", error);
 

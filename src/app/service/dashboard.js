@@ -1,5 +1,5 @@
 import { makeRequest, getCurrentUserToken } from "../util/util";
-import { currentUrl, httpMethods } from "../util/constants";
+import { currentUrl, httpMethods, apiUrlLocal } from "../util/constants";
 
 const baseUrl = currentUrl;
 
@@ -11,7 +11,7 @@ export const saveSignature = async (signature) => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    `${baseUrl}/utility/save-signature`,
+    `${apiUrlLocal}/utility/save-signature`,
     httpMethods.POST,
     headers,
     body

@@ -1,20 +1,17 @@
 import salesInvoiceFormHtml from "./salesInvoiceForm/salesInvoiceForm.html";
 
 import {
-  getAllInvoice,
   getInvoiceStats,
   getSalesInvoiceFormData,
+  getSalesInvoices,
 } from "../../../service/invoiceApi";
+
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
 import { searchModel } from "../../../common/components/search";
-import {
-  getPoFormData,
-  getPurchaseOrders,
-} from "../../../service/purchaseOrder";
 import { handleMultipleDropdownForSalesInvoice } from "./salesInvoiceForm/salesInvoiceForm";
 import { handleAddNewRow } from "./salesInvoiceForm/salesInvoiceItem";
 
@@ -53,16 +50,12 @@ export default async function goToSalesInvoice() {
   });
 
   searchModel("Search Sales Invoice", filterResults);
-  addPagination(
-    getPurchaseOrders,
-    createInvoiceTable,
-    "No Sales Invoice found"
-  );
+  addPagination(getSalesInvoices, createInvoiceTable, "No Sales Invoice found");
 }
 
 function filterResults(value) {
   if (value.length === 0) {
-    addPagination(getAllInvoice, createInvoiceTable, "No Invoices Found");
+    addPagination(getSalesInvoices, createInvoiceTable, "No Invoices Found");
     // const allContracts = await getInvoices();
     // if (allContracts == null || allContracts.length == 0) {
     //   const contactTable = document.getElementsByClassName("invoice-table")[0];
@@ -74,7 +67,7 @@ function filterResults(value) {
   }
   if (value.length >= 2) {
     addPagination(
-      getAllInvoice,
+      getSalesInvoices,
       createInvoiceTable,
       "No Invoices Found",
       value
@@ -94,21 +87,19 @@ function filterResults(value) {
 }
 
 const createInvoiceTable = async (invoices) => {
-  console.log("all invoices", invoices);
+  console.log("all sales invoices", invoices);
   const invoiceTable = document.getElementsByClassName(
     "sales-invoice-table"
   )[0];
   invoiceTable.innerHTML = "";
 
   const table = createTableHeader([
+    "Id",
     "Vendor Name",
-    "Person Name",
-    "Category",
-    "Email",
-    "Amount",
-    "Due Date",
+    "reference",
+    "Date",
     "Status",
-    "Invoice Document",
+    "Amount",
   ]);
 
   invoiceTable.appendChild(table);
@@ -123,56 +114,56 @@ const createInvoiceTable = async (invoices) => {
     const row = document.createElement("tr");
 
     let div = document.createElement("td");
-    div.innerHTML = invoice.organizationName;
+    div.innerHTML = invoice.identifier;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = invoice.contactPersonName;
+    div.innerHTML = invoice.vendorName;
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = invoice.categoryName;
-    row.appendChild(div);
-
-    div = document.createElement("td");
-    div.innerHTML = invoice.contactPersonEmail;
-    row.appendChild(div);
-
-    div = document.createElement("td");
-    div.innerHTML = invoice.amount;
+    div.innerHTML = invoice.reference ? invoice.reference : "-";
     row.appendChild(div);
 
     div = document.createElement("td");
     div.innerHTML = invoice.dueDate;
     row.appendChild(div);
 
+    div = document.createElement("td");
+    div.innerHTML = invoice.status;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = invoice.amount;
+    row.appendChild(div);
+
     // div = document.createElement("td");
     // div.innerHTML = invoice.status;
     // row.appendChild(div);
-    div = document.createElement("td");
-    const innerdiv = document.createElement("div");
-    innerdiv.classList.add("status");
-    if (invoice.status) {
-      innerdiv.innerHTML = "Paid";
-      innerdiv.classList.add("active");
-    } else {
-      innerdiv.innerHTML = "Pending";
-      innerdiv.classList.add("inactive");
-    }
-    div.appendChild(innerdiv);
-    row.appendChild(div);
+    // div = document.createElement("td");
+    // const innerdiv = document.createElement("div");
+    // innerdiv.classList.add("status");
+    // if (invoice.status) {
+    //   innerdiv.innerHTML = "Paid";
+    //   innerdiv.classList.add("active");
+    // } else {
+    //   innerdiv.innerHTML = "Pending";
+    //   innerdiv.classList.add("inactive");
+    // }
+    // div.appendChild(innerdiv);
+    // row.appendChild(div);
 
-    div = document.createElement("td");
-    div.classList.add("align-center");
+    // div = document.createElement("td");
+    // div.classList.add("align-center");
 
-    const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    const invoiceId = "invoice" + invoice.id;
-    div.innerHTML = `<img id=${invoiceId} class="height-20 btn-clickable" src=${imageUrl} />`;
-    const download_btn = div.getElementsByClassName("btn-clickable");
-    download_btn[0].addEventListener("click", () =>
-      handleFileDownload(invoice.fileName, "invoice" + invoice.id)
-    );
-    row.appendChild(div);
+    // const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
+    // const invoiceId = "invoice" + invoice.id;
+    // div.innerHTML = `<img id=${invoiceId} class="height-20 btn-clickable" src=${imageUrl} />`;
+    // const download_btn = div.getElementsByClassName("btn-clickable");
+    // download_btn[0].addEventListener("click", () =>
+    //   handleFileDownload(invoice.fileName, "invoice" + invoice.id)
+    // );
+    // row.appendChild(div);
 
     // table.appendChild(row);
     tBody.append(row);

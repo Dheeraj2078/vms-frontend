@@ -1,6 +1,9 @@
 import dashBoardHtml from "../dashboard/dashboard.html";
 import signatureHtml from "./signature.html";
+import { getTopEvents } from "../../../../app/service/expenditureApi";
 import { Chart, registerables } from "chart.js";
+import { createTableHeader } from "../../../common/components/table";
+import { saveSignature } from "../../../service/dashboard";
 Chart.register(...registerables);
 
 export default function goToDashboard() {
@@ -12,6 +15,7 @@ export default function goToDashboard() {
 
   addSignature();
   showGraph();
+  createDashBoardTable();
 }
 
 export const showGraph = () => {
@@ -135,17 +139,21 @@ const takeSignature = () => {
   });
 
   // Save the signature
-  document.getElementById("save-signature").addEventListener("click", () => {
-    console.log("Save signature button clicked");
-    const dataURL = canvas.toDataURL();
-    // document.getElementById("saved-signature").src = dataURL;
-    // document.getElementById("saved-signature").style.display = "block";
-    // localStorage.setItem("userSignature", dataURL);
+  document
+    .getElementById("save-signature")
+    .addEventListener("click", async () => {
+      console.log("Save signature button clicked");
+      const dataURL = canvas.toDataURL();
+      // document.getElementById("saved-signature").src = dataURL;
+      // document.getElementById("saved-signature").style.display = "block";
+      // localStorage.setItem("userSignature", dataURL);
+      const res = await saveSignature(dataURL);
+      console.log("save signature", res);
 
-    // POST API CALL;
-    handleCross();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  });
+      // POST API CALL;
+      handleCross();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
 
   // Clear the signature
   document.getElementById("clear-signature").addEventListener("click", () => {
@@ -167,4 +175,48 @@ const handleCross = () => {
   const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
   document.body.classList.remove("overflow-hidden");
+};
+
+const createDashBoardTable = async () => {
+  const response = await getTopEvents(3);
+  const data = response.data;
+
+  const poTable = document.getElementsByClassName(
+    "dashboard-table-container"
+  )[0];
+  poTable.innerHTML = "";
+
+  const table = createTableHeader(["Id", "EVENT", "DATE", "BUDGET"]);
+  const tBody = document.createElement("tbody");
+  tBody.classList.add("table-body");
+
+  poTable.appendChild(table);
+
+  data.map((event) => {
+    const row = document.createElement("tr");
+
+    let div = document.createElement("td");
+    div.innerHTML = event.id;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = event.name;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = event.date;
+    row.appendChild(div);
+
+    div = document.createElement("td");
+    div.innerHTML = event.budget;
+    row.appendChild(div);
+
+    // div = document.createElement("td");
+    // div.innerHTML = event.status;
+    // row.appendChild(div);
+
+    tBody.appendChild(row);
+  });
+
+  table.appendChild(tBody);
 };

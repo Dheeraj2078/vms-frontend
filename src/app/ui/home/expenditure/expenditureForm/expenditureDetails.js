@@ -19,6 +19,7 @@ export const showEventDetail = (event) => {
   const totalExpenditureCard = document.getElementsByClassName(
     "expenditure-right-wrapper"
   )[0];
+  totalExpenditureCard.innerHTML = "";
 
   // 1
   let div = document.createElement("div");
@@ -158,7 +159,7 @@ export async function handleAddEvent(event) {
     const res = await postExpenditure(postExpData, event.id);
     // const res = await postEvent(posteventData);
     if (res.error == null) {
-      successModal("Event added", handleCross);
+      successModal("Event added", () => handleCross(event));
     }
   } catch (error) {
     console.log(error);
@@ -214,11 +215,12 @@ function removeBorder(column) {
   }
 }
 
-function handleCross() {
+function handleCross(event) {
   const vendorFormOutput = document.getElementById("form-output");
   vendorFormOutput.classList.add("hidden");
   const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
+  showEventDetail(event);
 }
 
 async function createExpensesTable(event) {
@@ -289,6 +291,7 @@ async function createExpensesTable(event) {
   showExpenditureGraphs(labelAsName, dataAsAmount);
 }
 
+let myChart;
 const showExpenditureGraphs = async (labelAsName, dataAsAmount) => {
   // const expenditureCardStats = document.getElementsByClassName(
   //   "expenditure-card-stats"
@@ -302,10 +305,14 @@ const showExpenditureGraphs = async (labelAsName, dataAsAmount) => {
     "rgba(75, 192, 192)",
   ];
 
+  if (myChart) {
+    myChart.destroy();
+  }
+
   var ctx = document.getElementById("expenditure-graph").getContext("2d");
 
   console.log("ctx", ctx);
-  var myChart = new Chart(ctx, {
+  myChart = new Chart(ctx, {
     type: "doughnut", // Change this to the type of chart you want to create
     data: {
       labels: labelAsName,
