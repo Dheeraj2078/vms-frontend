@@ -25,14 +25,14 @@ export const postEvent = async (eventData) => {
   return response;
 };
 
-export const postExpenditure = async (expenditureData) => {
+export const postExpenditure = async (expenditureData, id) => {
   const body = expenditureData;
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    baseUrl + "/expenditure/create-expenditure",
+    baseUrl + `/expenditure/create-expenditure/${id}`,
     httpMethods.POST,
     headers,
     body
@@ -75,6 +75,36 @@ export const getTopExpenditure = async (count) => {
 
   const response = await makeRequest(
     baseUrl + `/expenditure/get-top-expenditures/${count}`,
+    httpMethods.GET,
+    headers
+  );
+
+  return response;
+};
+
+export const getTopEvents = async (count) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const response = await makeRequest(
+    baseUrl + `/event/get-top-events/${count}`,
+    httpMethods.GET,
+    headers
+  );
+
+  return response;
+};
+
+export const getExpenditureById = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const response = await makeRequest(
+    baseUrl + `/expenditure/get-expenditures/${id}`,
     httpMethods.GET,
     headers
   );

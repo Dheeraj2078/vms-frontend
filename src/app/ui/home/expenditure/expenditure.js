@@ -18,10 +18,14 @@ import { addPagination } from "../../../common/components/pagination";
 import { searchModel } from "../../../common/components/search";
 import {
   getAllEvents,
+  getTopEvents,
   getTopExpenditure,
 } from "../../../service/expenditureApi";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
+
+import expenditureDetailsHtml from "./expenditureForm/expenditureDetails.html";
+import { showEventDetail } from "./expenditureForm/expenditureDetails";
 
 export default async function goToExpenditure() {
   sessionStorage.setItem("tab", "expenditure");
@@ -37,8 +41,9 @@ export default async function goToExpenditure() {
 }
 
 const showExpenditureGraphs = async () => {
-  const response = await getTopExpenditure(4);
-  console.log(response);
+  const response = await getTopEvents(4);
+
+  console.log("getTopEvents", response);
   const data = response.data;
 
   const expenditureCardStats = document.getElementsByClassName(
@@ -60,8 +65,8 @@ const showExpenditureGraphs = async () => {
 
   data.map((event) => {
     labelAsName.push(event.name);
-    dataAsAmount.push(event.amount);
-    total += event.amount;
+    dataAsAmount.push(event.budget);
+    total += event.budget;
 
     const div = document.createElement("div");
     div.classList.add("top-single-item");
@@ -70,7 +75,7 @@ const showExpenditureGraphs = async () => {
     const left = document.createElement("p");
     left.innerHTML = event.name;
     const right = document.createElement("p");
-    right.innerHTML = "&#8377;" + event.amount;
+    right.innerHTML = "&#8377;" + event.budget;
 
     div.appendChild(left);
     div.appendChild(right);
@@ -212,7 +217,7 @@ const createExpenditureTable = async (expenditures) => {
   tBody.style.height = "330px";
   expenditures.map((expenditure) => {
     const row = document.createElement("tr");
-    row.addEventListener("click", () => showEventDetails(expenditure.id));
+    row.addEventListener("click", () => showEventDetails(expenditure));
 
     let div = document.createElement("td");
     div.innerHTML = expenditure.id;
@@ -252,4 +257,11 @@ const createExpenditureTable = async (expenditures) => {
   table.appendChild(tBody);
 };
 
-const showEventDetails = (id) => {};
+const showEventDetails = (expenditure) => {
+  const homeRoot = document.querySelector("main");
+  console.log(homeRoot);
+  homeRoot.innerHTML = expenditureDetailsHtml;
+
+  console.log("-->", expenditure);
+  showEventDetail(expenditure);
+};

@@ -57,7 +57,7 @@ export const getFormPreviousItems = async () => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    baseUrl + `/item/get-items`,
+    apiUrlLocal + `/item/get-items`,
     httpMethods.GET,
     headers
   );

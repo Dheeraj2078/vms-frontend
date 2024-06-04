@@ -1,4 +1,8 @@
 import {
+  postSalesInvoice,
+  sendSalesInvoiceMail,
+} from "../../../../service/invoiceApi";
+import {
   postPurchaseOrder,
   sendPurchaseOrderMail,
 } from "../../../../service/purchaseOrder";
@@ -202,22 +206,24 @@ export const preparePostData = async (data, mailData, status) => {
   const formCancel = document.getElementsByClassName("form-cancel")[0];
   formCancel.classList.add("disabled-light");
 
-  data["purchaseStatus"] = status;
+  data["status"] = status;
 
   if (status == "Issued") {
     // sendPurchaseOrderMail
     const emailSubject = document.getElementsByClassName("email-subject")[0];
-    mailData.emailSubject = emailSubject.value;
+    mailData.subject = emailSubject.value;
 
     const editor = document.getElementsByClassName("editor")[0];
     const bodyString = editor.outerHTML;
 
     console.log(bodyString);
-    mailData.emailBody = bodyString;
+    mailData.body = bodyString;
 
     try {
-      const res = await sendPurchaseOrderMail(mailData);
+      // const res = await sendPurchaseOrderMail(mailData);
+      const res = await sendSalesInvoiceMail(mailData);
       console.log("mail send", res);
+      console.log("mail data", mailData);
     } catch (error) {
       postPo.classList.remove("disabled");
       saveDraftPo.classList.remove("disabled-light");
@@ -226,9 +232,11 @@ export const preparePostData = async (data, mailData, status) => {
   }
 
   try {
-    const res = await postPurchaseOrder(data);
+    console.log("post invoice data", data);
+    // const res = await postPurchaseOrder(data);
+    const res = await postSalesInvoice(data);
     console.log("res", res);
-    location.reload();
+    // location.reload();
   } catch (error) {
     console.log("error", error);
 
