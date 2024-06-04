@@ -44,12 +44,13 @@ export default async function goToInvoice() {
   // }
 
   const addSalesInvoice = document.getElementById("add-sales-invoice");
-  addSalesInvoice.addEventListener("click", (e) => {
-    const homeRoot = document.querySelector("main");
-    console.log(homeRoot);
-    homeRoot.innerHTML = salesInvoiceHtml;
-    goToSalesInvoice();
-  });
+  // addSalesInvoice.addEventListener("click", (e) => {
+  // IN-TEMP
+  const homeRoot = document.querySelector("main");
+  console.log(homeRoot);
+  homeRoot.innerHTML = salesInvoiceHtml;
+  goToSalesInvoice();
+  // });
 }
 
 // const handleSearch = async (e) => {

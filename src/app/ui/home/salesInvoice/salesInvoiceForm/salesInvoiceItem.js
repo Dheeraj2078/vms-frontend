@@ -38,6 +38,7 @@ const addNewRowFromList = (item) => {
     rate: item.sellingPrice,
     tax: item.gst,
     id: item.id,
+    hsn: item.hsn,
   };
 
   handleAddNewRow(data);
@@ -158,6 +159,7 @@ const addNewRow = (id, data) => {
   for (let d in data) {
     currArr.push(data[d]);
   }
+  currArr.push(data.hsn);
   tableData.push(currArr);
   localStorage.setItem("invoiceTableData", JSON.stringify(tableData));
 
@@ -646,6 +648,7 @@ const handleAddNewRowThroughForm = async () => {
     rate: "",
     tax: interTax_,
     id: res.data,
+    hsn: sacOrHsn_,
   };
 
   removeLastRow();

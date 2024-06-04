@@ -1,6 +1,10 @@
 import salesInvoiceFormHtml from "./salesInvoiceForm/salesInvoiceForm.html";
 
-import { getAllInvoice, getInvoiceStats } from "../../../service/invoiceApi";
+import {
+  getAllInvoice,
+  getInvoiceStats,
+  getSalesInvoiceFormData,
+} from "../../../service/invoiceApi";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { handleFileDownload } from "../contract/contract";
@@ -27,7 +31,8 @@ export default async function goToSalesInvoice() {
     localStorage.setItem("invoiceTableData", JSON.stringify(invoiceTable));
 
     try {
-      const response = await getPoFormData();
+      const response = await getSalesInvoiceFormData(); // CHANGES
+      console.log("sales invoice data", response);
 
       handleMultipleDropdownForSalesInvoice(response.data);
       const addNewRow = document.getElementById("po-add-row");
@@ -37,6 +42,7 @@ export default async function goToSalesInvoice() {
         quantity: "0.0",
         rate: "",
         tax: "",
+        hsn: "",
       };
       addNewRow.addEventListener("click", () => handleAddNewRow(data));
 

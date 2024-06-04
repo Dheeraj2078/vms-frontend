@@ -64,3 +64,50 @@ export const getInvoiceStats = async () => {
   const res = await response.json();
   return res;
 };
+
+// SALES INVOICE
+export const getSalesInvoiceFormData = async () => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    apiUrlLocal + "/sales-invoice/form-details",
+    httpMethods.GET,
+    headers
+  );
+
+  return response;
+};
+
+export const postSalesInvoice = async (data) => {
+  const body = data;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    apiUrlLocal + "/sales-invoice/add-invoices",
+    httpMethods.POST,
+    headers,
+    body
+  );
+
+  return response;
+};
+
+export const sendSalesInvoiceMail = async (data) => {
+  const body = data;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    apiUrlLocal + "/sales-invoice/send-email",
+    httpMethods.POST,
+    headers,
+    body
+  );
+
+  return response;
+};

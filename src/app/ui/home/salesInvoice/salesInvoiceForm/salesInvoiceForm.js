@@ -70,7 +70,7 @@ let deliveryAdressDiv = null;
 export const handleMultipleDropdownForSalesInvoice = (formData) => {
   ID = formData.id;
   // vendor name
-  const vendorNameList = formData.vendor;
+  const vendorNameList = formData.vendors;
 
   let vendorName = document.getElementById("vendor-name");
   const vendorNameWrapper = document.getElementsByClassName(
@@ -165,6 +165,8 @@ export const handleMultipleDropdownForSalesInvoice = (formData) => {
     div.appendChild(label);
 
     destinationOfsupplyWrapper.appendChild(div);
+
+    mapStateToStateId[item.name] = item.id;
   });
   togglePopup(destinationOfsupply, destinationOfsupplyWrapper);
 
@@ -575,7 +577,7 @@ const nextActionBtns = () => {
     });
 
     const subject = document.getElementsByClassName("email-subject")[0];
-    subject.value = `Purchase Order from EX Squared India Pvt Ltd (Purchase Order #${poId_})`;
+    subject.value = `Sales Invoice from EX Squared India Pvt Ltd (Sales Invoice #${poId_})`;
 
     const poDate = document.getElementsByClassName("po-date")[0];
     poDate.innerHTML = date_;
@@ -584,35 +586,37 @@ const nextActionBtns = () => {
     let tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
     tableData.map((item) => {
       const obj = {
-        ItemId: item[5],
-        Account: item[1],
-        Rate: item[3],
-        Quantity: item[2],
-        Tax: item[4],
-        Amount: item[2] * item[3],
+        itemId: item[5],
+        account: item[1],
+        rate: item[3],
+        quantity: item[2],
+        tax: item[4],
+        amount: item[2] * item[3],
+        itemName: item[0],
+        hsn: item[6],
       };
 
       itemArr.push(obj);
     });
 
     const data = {
-      id: ID,
-      identifier: poId_,
+      id: poId_,
+      // identifier: poId_,
       creatorId: Number(branch_),
       vendorId: mapVendorNameToVendorDetails[vendorName_].id,
-      customerId: Number(deliveryAddress_),
-      sourceStateId: mapStateToStateId[sos_],
-      destinationStateId: mapStateToStateId[dos_],
+      // customerId: Number(deliveryAddress_),
+      // sourceStateId: mapStateToStateId[sos_],
+      destinationId: mapStateToStateId[dos_],
       date: date_,
       reference: reference_,
       paymentTerms: decodePaymentTerms(paymentTerms_, " ", "_"),
       amount: 0,
-      purchaseStatus: "Draft",
-      Items: itemArr,
+      status: "Draft",
+      selectedItems: itemArr,
     };
 
     if (dateDelivery_ != "") {
-      data.deliveryDate = dateDelivery_;
+      data.dueDate = dateDelivery_;
     }
 
     console.log("post data", data);
@@ -625,10 +629,13 @@ const nextActionBtns = () => {
     tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
     tableData.map((item) => {
       const obj = {
-        itemAndDescription: item[0],
+        itemName: item[0],
+        hsn: item[6],
         quantity: item[2],
         rate: item[3],
         amount: item[2] * item[3],
+        cgst: item[4],
+        sgst: item[4],
       };
 
       subTotal += item[2] * item[3];
@@ -641,20 +648,17 @@ const nextActionBtns = () => {
     poPrice.innerHTML = subTotal;
 
     const postMailData = {
-      delivaryTo: mapAddressToVendorId[deliveryAddress_],
-      delivaryFrom: mapVendorNameToVendorDetails[vendorName_].id,
-      emailBody: "string",
-      emailSubject: "string",
-      pdfGenerationDto: {
-        creatorId: Number(branch_),
-        delivaryTo: mapAddressToVendorId[deliveryAddress_],
-        delivaryFrom: mapVendorNameToVendorDetails[vendorName_].id,
-        date: date_,
-        purchaseOrderId: poId_,
-        rows: itemArr2,
-        subTotal: subTotal_,
-        gst: 0,
-      },
+      sellingVendor: Number(branch_),
+      buyingVendor: mapVendorNameToVendorDetails[vendorName_].id,
+      invoiceId: poId_,
+      invoiceDate: date_,
+      terms: paymentTerms_,
+      dueDate: dateDelivery_,
+      placeOfSupply: dos_,
+      amountPaid: subTotal_,
+      subject: "string",
+      body: "string",
+      items: itemArr2,
     };
 
     createWord(mapVendorNameToVendorDetails[vendorName_].email);
