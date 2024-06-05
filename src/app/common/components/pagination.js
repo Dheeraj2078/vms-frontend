@@ -7,32 +7,15 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
     hasNextPage: true,
     hasPreviousPage: false,
   };
-  // let lastEntryCursor = 0;
   let size = 10;
   const input = document.getElementById("pagination-page-size");
   input.addEventListener("change", (e) => {
     size = e.target.value;
     console.log(size);
     const curs = paginationDto.previousCursor + 1;
-    // console.log(lastEntryCursor);
     console.log("curs", curs);
     populateTable(curs, size, true, filter);
   });
-  //   input.addEventListener("change", (e) => {
-  //     sz = e.target.value;
-  //   });
-  // const allRowSizes = document.getElementsByClassName("option-page-size");
-  // const allRowSizesArr = [...allRowSizes];
-  // console.log(allRowSizesArr, "**************************************");
-  // allRowSizesArr.map((row) => {
-  //   // console.log("ROW", row);
-  //   row.addEventListener("click", (e) => {
-  //     console.log("*****(((", e, ")))*****");
-  //     size = e.target.value;
-  //     console.log(size);
-  //   });
-  // });
-  // const res = await getAllCategories(cursor, size, next);
 
   const paginationLeft = document.getElementById("pagination-left");
   paginationLeft.addEventListener("click", () => {
@@ -48,11 +31,13 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
 
   function showArrows() {
     console.log(paginationDto);
+    console.log("has next page???", paginationDto.hasNextPage);
     if (!paginationDto.hasNextPage) {
       paginationRight.classList.add("disabled-arrow");
     } else {
       paginationRight.classList.remove("disabled-arrow");
     }
+    console.log("has previous page??", paginationDto.hasPreviousPage);
     if (!paginationDto.hasPreviousPage) {
       paginationLeft.classList.add("disabled-arrow");
     } else {
@@ -63,8 +48,6 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
   const loader = document.getElementById("loader");
   const content = document.getElementsByClassName("table-container")[0];
 
-  // Show the loader, hide the content
-  // loader.style.display = "block";
   loader.classList.remove("hidden");
   content.style.display = "none";
 
@@ -79,22 +62,18 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
 
     if (paginationDto.pagenationData.length > 0) {
       renderDataFn(response.data.pagenationData);
-      // showArrows();
-      console.log("yha pe hu");
     } else {
-      console.log("------>");
       const tableContainer =
         document.getElementsByClassName("table-container")[0];
       tableContainer.innerHTML = noFound;
     }
+    showArrows();
   }
 };
 
-// function(next: bool, size: number)
 export const addPagination = (dataSourceFn, renderDataFn, noFound, value) => {
   console.log("LOADED");
   const pagination = document.getElementsByClassName("pagination")[0];
-  // console.log("pagination", pagination);
   pagination.innerHTML = paginationHtml;
 
   addPaginationUtil(dataSourceFn, renderDataFn, noFound, value);
