@@ -8,12 +8,33 @@
   <div>
     <canvas
       id="signature-pad"
-      style="border: 1px solid #000; width: 300px; height: 150px"
+      style="border: 1px solid #000; width: 330px; height: 150px"
     ></canvas>
 
     <div class="form-buttons">
-      <button class="btn-sm" id="save-signature">Save Signature</button>
-      <button class="btn-sm" id="clear-signature">Clear</button>
+      <button class="btn-light" id="clear-signature">Clear</button>
+      <button class="btn-sm" id="save-signature">Save</button>
+
+      <!-- <button id="add-button" class="btn-sm">
+        <svg class="plus-icon">
+          <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
+        </svg>
+        <span>New Invoice</span>
+      </button> -->
+
+      <label for="upload-signature" class="btn-sm">
+        <svg class="plus-icon">
+          <use xlink:href="../../../../assets/icons/icons.svg#plus"></use>
+        </svg>
+        <span>Upload</span>
+      </label>
+      <input id="upload-signature" type="file" class="hidden" />
+      <!-- <input
+        type="file"
+        id="upload-signature"
+        accept="image/*"
+        class="btn-sm"
+      /> -->
     </div>
   </div>
 </div>

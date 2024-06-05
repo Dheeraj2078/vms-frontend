@@ -288,6 +288,7 @@ let reference_ = "";
 let date_ = "";
 let dateDelivery_ = "";
 let paymentTerms_ = "";
+let amountPaid_ = "0";
 
 let paymentTerms = document.getElementById("payment-terms");
 let paymentTermsItem = document.getElementsByClassName("payment-terms-item");
@@ -312,6 +313,7 @@ let branchItem = document.getElementsByClassName("branch-item");
 let reference = document.getElementById("reference-number");
 let date = document.getElementById("date");
 let dateDelivery = document.getElementById("date-delivery");
+let amountPaid = document.getElementById("payment-made-input");
 
 const handleDataChange = () => {
   paymentTerms = document.getElementById("payment-terms");
@@ -335,6 +337,9 @@ const handleDataChange = () => {
 
   date = document.getElementById("date");
   dateDelivery = document.getElementById("date-delivery");
+
+  amountPaid = document.getElementById("payment-made-input");
+  // paymentMade_ =
 
   const vendorNameArr = [...vendorNameItem];
   vendorNameArr.map((item) => {
@@ -416,28 +421,6 @@ const handleDataChange = () => {
     });
   });
 
-  //   const sosArr = [...sosItem];
-  //   sosArr.map((item) => {
-  //     item.addEventListener("change", (e) => {
-  //       removeBorder(sos);
-  //       document.getElementById("sos-error").classList.add("hidden");
-  //       if (item.checked) {
-  //         sos_ = e.target.value;
-  //       }
-
-  //       if (sos_ == "") {
-  //         sos.value = "";
-  //       } else {
-  //         sos.value = sos_;
-  //       }
-
-  //       const sosWrapper = document.getElementsByClassName(
-  //         "source-of-supply-wrapper"
-  //       )[0];
-  //       sosWrapper.classList.add("hidden");
-  //     });
-  //   });
-
   const dosArr = [...dosItem];
   dosArr.map((item) => {
     item.addEventListener("change", (e) => {
@@ -481,38 +464,6 @@ const handleDataChange = () => {
     });
   });
 
-  //   const deliveryAddressArr = [...deliveryAddressItem];
-  //   deliveryAddressArr.map((item) => {
-  //     item.addEventListener("change", (e) => {
-  //       removeBorder(deliveryAddress);
-  //       document.getElementById("delivery-address-error").classList.add("hidden");
-  //       if (item.checked) {
-  //         deliveryAddress_ = e.target.value;
-  //         deliveryAddress.value = e.target.id;
-
-  //         const autofillDeliveryAddress = document.getElementById(
-  //           "autofill-delivery-address"
-  //         );
-  //         autofillDeliveryAddress.classList.remove("display-block");
-  //         autofillDeliveryAddress.classList.add("autofill-vendor");
-
-  //         let currentItem = deliveryAddressItemSelected[deliveryAddress_];
-  //         const div = getDeliveryItem(currentItem);
-  //         autofillDeliveryAddress.innerHTML = "";
-  //         autofillDeliveryAddress.appendChild(div);
-
-  //         deliveryAdressDiv = div;
-  //       }
-
-  //       const branchWrapper = document.getElementsByClassName(
-  //         "delivery-address-wrapper"
-  //       )[0];
-  //       branchWrapper.classList.add("hidden");
-
-  //       console.log("deliveryAddress_", deliveryAddress_);
-  //     });
-  //   });
-
   poId_ = document.getElementById("purchase-number").value;
 
   reference.addEventListener("input", (e) => {
@@ -527,6 +478,10 @@ const handleDataChange = () => {
 
   dateDelivery.addEventListener("input", (e) => {
     dateDelivery_ = e.target.value;
+  });
+
+  amountPaid.addEventListener("input", (e) => {
+    amountPaid_ = e.target.value;
   });
 
   const paymentTermsArr = [...paymentTermsItem];
@@ -599,8 +554,7 @@ const nextActionBtns = () => {
       itemArr.push(obj);
     });
 
-    let amountPaid = document.getElementById("payment-made-input");
-    amountPaid = Number(amountPaid);
+    console.log("amountPaid_", amountPaid_);
     const data = {
       id: ID,
       creatorId: Number(branch_),
@@ -612,7 +566,7 @@ const nextActionBtns = () => {
       amount: 0,
       status: "Draft",
       selectedItems: itemArr,
-      amountPaid: amountPaid,
+      amountPaid: Number(amountPaid_),
       subject: "string",
       body: "string",
     };

@@ -215,6 +215,7 @@ const createExpenditureTable = async (expenditures) => {
   tBody.style.height = "330px";
   expenditures.map((expenditure) => {
     const row = document.createElement("tr");
+    row.classList.add("cursor-pointer");
     row.addEventListener("click", () => showEventDetails(expenditure));
 
     let div = document.createElement("td");

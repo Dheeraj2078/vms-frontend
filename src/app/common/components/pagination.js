@@ -18,21 +18,6 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
     console.log("curs", curs);
     populateTable(curs, size, true, filter);
   });
-  //   input.addEventListener("change", (e) => {
-  //     sz = e.target.value;
-  //   });
-  // const allRowSizes = document.getElementsByClassName("option-page-size");
-  // const allRowSizesArr = [...allRowSizes];
-  // console.log(allRowSizesArr, "**************************************");
-  // allRowSizesArr.map((row) => {
-  //   // console.log("ROW", row);
-  //   row.addEventListener("click", (e) => {
-  //     console.log("*****(((", e, ")))*****");
-  //     size = e.target.value;
-  //     console.log(size);
-  //   });
-  // });
-  // const res = await getAllCategories(cursor, size, next);
 
   const paginationLeft = document.getElementById("pagination-left");
   paginationLeft.addEventListener("click", () => {
@@ -87,6 +72,7 @@ const addPaginationUtil = (dataSourceFn, renderDataFn, noFound, filter) => {
         document.getElementsByClassName("table-container")[0];
       tableContainer.innerHTML = noFound;
     }
+    showArrows();
   }
 };
 

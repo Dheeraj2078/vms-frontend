@@ -63,12 +63,12 @@ const showModal = (event) => {
     vendorFormOutput.classList.remove("hidden");
     const vendorFormCross = document.getElementById("form-cross");
     vendorFormCross.addEventListener("click", (e) => {
-      // handleCross();
+      handleCross();
     });
 
     const vendorFormCancel = document.getElementsByClassName("form-cancel")[0];
     vendorFormCancel.addEventListener("click", (e) => {
-      // handleCross();
+      handleCross();
     });
 
     changeBackgroundOnModal();
@@ -82,7 +82,7 @@ const showModal = (event) => {
 export const changeBackgroundOnModal = () => {
   const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.add("blur-background");
-  // document.body.classList.add("overflow-hidden");
+  document.body.classList.add("overflow-hidden");
 };
 
 let eventName_ = "";
@@ -220,6 +220,7 @@ function handleCross(event) {
   vendorFormOutput.classList.add("hidden");
   const mainContainer = document.getElementsByClassName("main-container")[0];
   mainContainer.classList.remove("blur-background");
+  document.body.classList.remove("overflow-hidden");
   showEventDetail(event);
 }
 

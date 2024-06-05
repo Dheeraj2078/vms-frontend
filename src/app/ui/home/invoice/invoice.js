@@ -303,10 +303,32 @@ const takeSignature = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 
+  document
+    .getElementById("upload-signature")
+    .addEventListener("change", (event) => {
+      console.log("Upload signature file selected");
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0); // Draw the uploaded image onto the canvas
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
   // Clear the signature
   document.getElementById("clear-signature").addEventListener("click", () => {
     console.log("Clear signature button clicked");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
   });
 };
 
