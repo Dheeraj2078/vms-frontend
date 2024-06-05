@@ -3,10 +3,11 @@ import signatureHtml from "./signature.html";
 import { getTopEvents } from "../../../../app/service/expenditureApi";
 import { Chart, registerables } from "chart.js";
 import { createTableHeader } from "../../../common/components/table";
-import { saveSignature } from "../../../service/dashboard";
+import { saveSignature, getDashboardData } from "../../../service/dashboard";
+import { format } from "path-browserify";
 Chart.register(...registerables);
 
-export default function goToDashboard() {
+export default async function goToDashboard() {
   sessionStorage.setItem("tab", "dashboard");
   const homeRoot = document.querySelector("main");
   homeRoot.innerHTML = dashBoardHtml;
@@ -15,7 +16,8 @@ export default function goToDashboard() {
 
   // addSignature();
   showGraph();
-  createDashBoardTable();
+  await createDashBoardTable();
+  await populateDashBoard();
 }
 
 export const showGraph = () => {
@@ -95,12 +97,58 @@ const createDashBoardTable = async () => {
     div.innerHTML = event.budget;
     row.appendChild(div);
 
-    // div = document.createElement("td");
-    // div.innerHTML = event.status;
-    // row.appendChild(div);
-
     tBody.appendChild(row);
   });
 
   table.appendChild(tBody);
+};
+
+const populateDashBoard = async () => {
+  const result = await getDashboardData();
+  if (!result.error) {
+    const vendorData = result.data.vendorDetails;
+    const expenditure = result.data.expenditure;
+
+    document.getElementById("vendor-totalCount").innerText =
+      vendorData.vendorCount;
+    const innerContainer = document.getElementById("vendorDetails");
+    innerContainer.innerHTML = "";
+    let child = "";
+    vendorData.typeCount.map((vendor) => {
+      child += `<p>
+    ${vendor.type} : <span id="count">${vendor.count}</span>
+  </p>`;
+    });
+    innerContainer.innerHTML = child;
+
+    const currencyFormatter = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+    });
+
+    document.getElementsByClassName("dashboard-amount")[0].innerText =
+      currencyFormatter.format(expenditure.totalExpenditure);
+
+    const expenditureCards =
+      document.getElementsByClassName("expenditure-card");
+    const expenditureCardsArr = [...expenditureCards];
+    let index = 0;
+    // expenditure.categoryExpenditures.forEach((exp) => {
+    //   expenditureCardsArr[index].getElementsByClassName(
+    //     "expenditure-price"
+    //   )[0].innerText = exp.expenditure;
+    //   expenditureCardsArr[index].getElementsByClassName(
+    //     "expenditure-name"
+    //   )[0].innerText = exp.name;
+    // });
+    expenditureCardsArr.forEach((element) => {
+      element.getElementsByClassName("expenditure-price")[0].innerText =
+        currencyFormatter.format(
+          expenditure.categoryExpenditures[index].expenditure
+        );
+      element.getElementsByClassName("expenditure-name")[0].innerText =
+        expenditure.categoryExpenditures[index].name;
+      index++;
+    });
+  }
 };

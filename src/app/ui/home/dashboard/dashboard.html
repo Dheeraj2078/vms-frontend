@@ -7,24 +7,22 @@
 
   <div class="main-wrapper">
     <div class="wrapper">
-      <div class="graph-wrapper" style="width: 55%">
+      <div class="graph-wrapper" style="width: 45%">
         <canvas id="myChart"></canvas>
       </div>
 
       <div class="expenditure-container">
         <div class="expenditure-header">
           <p class="total-expenditure">Total Expenditure</p>
-          <p class="view-all">View All</p>
         </div>
         <p class="dashboard-amount">Rs. 50,000</p>
-        <p class="cards-info-text">Breakdown Last 30 Days</p>
         <div class="expenditure-cards">
           <!-- 1 -->
           <div class="expenditure-card">
             <img src="../../../../assets/images/travel.png" />
             <div>
               <p class="expenditure-price">Rs. 2400</p>
-              <p>Electricity</p>
+              <p class="expenditure-name">Electricity</p>
             </div>
           </div>
           <!-- 2 -->
@@ -32,7 +30,7 @@
             <img src="../../../../assets/images/education.png" />
             <div>
               <p class="expenditure-price">Rs. 2400</p>
-              <p>Domains</p>
+              <p class="expenditure-name">Domains</p>
             </div>
           </div>
 
@@ -41,7 +39,7 @@
             <img src="../../../../assets/images/health.png" />
             <div>
               <p class="expenditure-price">Rs. 2400</p>
-              <p>Food</p>
+              <p class="expenditure-name">Food</p>
             </div>
           </div>
           <!-- 4 -->
@@ -49,7 +47,7 @@
             <img src="../../../../assets/images/food.png" />
             <div>
               <p class="expenditure-price">Rs. 2400</p>
-              <p>Travels</p>
+              <p class="expenditure-name">Travels</p>
             </div>
           </div>
         </div>
@@ -60,14 +58,14 @@
       <div class="vendor-wrapper">
         <div class="vendor-left">
           <p>Total Vendors</p>
-          <p>40</p>
+          <p id="vendor-totalCount">40</p>
         </div>
-        <div>
-          <p>New : <span>5</span></p>
-          <p>Completed : <span>10</span></p>
-          <p>On Hold : <span>1</span></p>
-          <p>In Progress : <span>3</span></p>
-          <p>Need Follow-up : <span>2</span></p>
+        <div id="vendorDetails">
+          <!-- <p>New : <span id="count">5</span></p>
+          <p>Completed : <span id="count">10</span></p>
+          <p>On Hold : <span id="count">1</span></p>
+          <p>In Progress : <span id="count">3</span></p>
+          <p>Need Follow-up : <span id="count">2</span></p> -->
         </div>
       </div>
 
