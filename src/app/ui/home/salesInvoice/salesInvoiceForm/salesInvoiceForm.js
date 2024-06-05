@@ -601,11 +601,8 @@ const nextActionBtns = () => {
 
     const data = {
       id: ID,
-      // identifier: poId_,
       creatorId: Number(branch_),
       vendorId: mapVendorNameToVendorDetails[vendorName_].id,
-      // customerId: Number(deliveryAddress_),
-      // sourceStateId: mapStateToStateId[sos_],
       destinationId: mapStateToStateId[dos_],
       date: date_,
       reference: reference_,
@@ -613,6 +610,9 @@ const nextActionBtns = () => {
       amount: 0,
       status: "Draft",
       selectedItems: itemArr,
+      amountPaid: 0,
+      subject: "string",
+      body: "string",
     };
 
     if (dateDelivery_ != "") {
@@ -647,19 +647,19 @@ const nextActionBtns = () => {
     const poPrice = document.getElementsByClassName("po-price")[0];
     poPrice.innerHTML = subTotal;
 
-    const postMailData = {
-      sellingVendor: Number(branch_),
-      buyingVendor: mapVendorNameToVendorDetails[vendorName_].id,
-      invoiceId: poId_,
-      invoiceDate: date_,
-      terms: paymentTerms_,
-      dueDate: dateDelivery_,
-      placeOfSupply: dos_,
-      amountPaid: subTotal_,
-      subject: "string",
-      body: "string",
-      items: itemArr2,
-    };
+    // const postMailData = {
+    //   sellingVendor: Number(branch_),
+    //   buyingVendor: mapVendorNameToVendorDetails[vendorName_].id,
+    //   invoiceId: poId_,
+    //   invoiceDate: date_,
+    //   terms: paymentTerms_,
+    //   dueDate: dateDelivery_,
+    //   placeOfSupply: dos_,
+    //   amountPaid: subTotal_,
+    //   subject: "string",
+    //   body: "string",
+    //   items: itemArr2,
+    // };
 
     createWord(mapVendorNameToVendorDetails[vendorName_].email);
 
@@ -673,7 +673,8 @@ const nextActionBtns = () => {
     };
     showPdfPreview(amountInfo, poId_, vendorAddressDiv);
 
-    handleMailOrDraftPo(data, postMailData);
+    // handleMailOrDraftPo(data, postMailData);
+    handleMailOrDraftPo(data);
   });
 };
 

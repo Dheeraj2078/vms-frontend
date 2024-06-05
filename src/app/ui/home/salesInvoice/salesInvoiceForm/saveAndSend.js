@@ -185,20 +185,16 @@ export const handlePreviewDataFill = (
   vendorAddressPreview.appendChild(vendorAddressDiv);
 };
 
-export const handleMailOrDraftPo = (data, mailData) => {
-  console.log(mailData);
+export const handleMailOrDraftPo = (data) => {
+  // console.log(mailData);
   const postPo = document.getElementById("post-po");
-  postPo.addEventListener("click", () =>
-    preparePostData(data, mailData, "Issued")
-  );
+  postPo.addEventListener("click", () => preparePostData(data, "Issued"));
 
   const saveDraftPo = document.getElementById("save-draft-po");
-  saveDraftPo.addEventListener("click", () =>
-    preparePostData(data, mailData, "Draft")
-  );
+  saveDraftPo.addEventListener("click", () => preparePostData(data, "Draft"));
 };
 
-export const preparePostData = async (data, mailData, status) => {
+export const preparePostData = async (data, status) => {
   const postPo = document.getElementById("post-po");
   postPo.classList.add("disabled");
   const saveDraftPo = document.getElementById("save-draft-po");
@@ -208,28 +204,35 @@ export const preparePostData = async (data, mailData, status) => {
 
   data["status"] = status;
 
-  if (status == "Issued") {
-    // sendPurchaseOrderMail
-    const emailSubject = document.getElementsByClassName("email-subject")[0];
-    mailData.subject = emailSubject.value;
+  const emailSubject = document.getElementsByClassName("email-subject")[0];
+  data.subject = emailSubject.value;
 
-    const editor = document.getElementsByClassName("editor")[0];
-    const bodyString = editor.outerHTML;
+  const editor = document.getElementsByClassName("editor")[0];
+  const bodyString = editor.outerHTML;
+  data.body = bodyString;
 
-    console.log(bodyString);
-    mailData.body = bodyString;
+  // if (status == "Issued") {
+  //   // sendPurchaseOrderMail
+  //   const emailSubject = document.getElementsByClassName("email-subject")[0];
+  //   mailData.subject = emailSubject.value;
 
-    try {
-      // const res = await sendPurchaseOrderMail(mailData);
-      const res = await sendSalesInvoiceMail(mailData);
-      console.log("mail send", res);
-      console.log("mail data", mailData);
-    } catch (error) {
-      postPo.classList.remove("disabled");
-      saveDraftPo.classList.remove("disabled-light");
-      formCancel.classList.remove("disabled-light");
-    }
-  }
+  //   const editor = document.getElementsByClassName("editor")[0];
+  //   const bodyString = editor.outerHTML;
+
+  //   console.log(bodyString);
+  //   mailData.body = bodyString;
+
+  //   try {
+  //     // const res = await sendPurchaseOrderMail(mailData);
+  //     const res = await sendSalesInvoiceMail(mailData);
+  //     console.log("mail send", res);
+  //     console.log("mail data", mailData);
+  //   } catch (error) {
+  //     postPo.classList.remove("disabled");
+  //     saveDraftPo.classList.remove("disabled-light");
+  //     formCancel.classList.remove("disabled-light");
+  //   }
+  // }
 
   try {
     console.log("post invoice data", data);

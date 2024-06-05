@@ -18,6 +18,10 @@ import { addPagination } from "../../../common/components/pagination";
 import { searchModel } from "../../../common/components/search";
 import salesInvoiceHtml from "../salesInvoice/salesInvoice.html";
 import goToSalesInvoice from "../salesInvoice/salesInvoice";
+import { saveSignature } from "../../../service/dashboard";
+import signatureHtml from "./signature.html";
+import { getCurrentUserInfo } from "../../../util/util";
+import { role } from "../../../util/constants";
 
 export default async function goToInvoice() {
   sessionStorage.setItem("tab", "invoice");
@@ -44,13 +48,15 @@ export default async function goToInvoice() {
   // }
 
   const addSalesInvoice = document.getElementById("add-sales-invoice");
-  // addSalesInvoice.addEventListener("click", (e) => {
-  // IN-TEMP
-  const homeRoot = document.querySelector("main");
-  console.log(homeRoot);
-  homeRoot.innerHTML = salesInvoiceHtml;
-  goToSalesInvoice();
-  // });
+  addSalesInvoice.addEventListener("click", (e) => {
+    // IN-TEMP
+    const homeRoot = document.querySelector("main");
+    console.log(homeRoot);
+    homeRoot.innerHTML = salesInvoiceHtml;
+    goToSalesInvoice();
+  });
+
+  addSignature();
 }
 
 // const handleSearch = async (e) => {
@@ -198,4 +204,123 @@ const populateInvoiceStats = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addSignature = () => {
+  const signatureBtn = document.getElementById("signature-btn");
+  console.log("signatureBtn:", signatureBtn);
+  const info = getCurrentUserInfo();
+  if (info.role == role.admin) {
+    signatureBtn.classList.add("hidden");
+  }
+
+  signatureBtn.addEventListener("click", (e) => {
+    console.log("Signature button clicked");
+    const vendorFormOutput = document.getElementById("form-output");
+    vendorFormOutput.classList.remove("hidden");
+    vendorFormOutput.innerHTML = signatureHtml;
+    takeSignature();
+    changeBackgroundOnModal();
+
+    const vendorFormCross = document.getElementById("form-cross");
+    vendorFormCross.addEventListener("click", (e) => {
+      handleCross2();
+    });
+  });
+};
+
+const takeSignature = () => {
+  console.log("takeSignature: called");
+  const canvas = document.getElementById("signature-pad");
+  const ctx = canvas ? canvas.getContext("2d") : null;
+  console.log("ctx", ctx);
+
+  if (!canvas || !ctx) {
+    console.error("Canvas or context not found");
+    return;
+  }
+
+  let drawing = false;
+
+  // Function to resize the canvas to be fully responsive
+  function resizeCanvas() {
+    console.log("Resizing canvas");
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    ctx.putImageData(data, 0, 0);
+  }
+
+  // Resize canvas on window resize
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  // Get the correct mouse position
+  function getMousePos(canvas, event) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+  }
+
+  // Draw on the canvas
+  canvas.addEventListener("mousedown", (event) => {
+    console.log("mousedown event");
+    drawing = true;
+    ctx.beginPath();
+    const pos = getMousePos(canvas, event);
+    ctx.moveTo(pos.x, pos.y);
+  });
+
+  canvas.addEventListener("mouseup", () => {
+    drawing = false;
+  });
+
+  canvas.addEventListener("mousemove", (event) => {
+    if (drawing) {
+      console.log("mousemove event");
+      const pos = getMousePos(canvas, event);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+  });
+
+  // Save the signature
+  document
+    .getElementById("save-signature")
+    .addEventListener("click", async () => {
+      console.log("Save signature button clicked");
+      const dataURL = canvas.toDataURL();
+      // document.getElementById("saved-signature").src = dataURL;
+      // document.getElementById("saved-signature").style.display = "block";
+      // localStorage.setItem("userSignature", dataURL);
+      const res = await saveSignature(dataURL);
+      console.log("save signature", res);
+
+      // POST API CALL;
+      handleCross2();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+  // Clear the signature
+  document.getElementById("clear-signature").addEventListener("click", () => {
+    console.log("Clear signature button clicked");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+};
+
+export const changeBackgroundOnModal = () => {
+  const mainContainer = document.getElementsByClassName("main-container")[0];
+  mainContainer.classList.add("blur-background");
+  // document.body.classList.add("overflow-hidden");
+};
+
+const handleCross2 = () => {
+  const vendorFormOutput = document.getElementById("form-output");
+  vendorFormOutput.classList.add("hidden");
+
+  const mainContainer = document.getElementsByClassName("main-container")[0];
+  mainContainer.classList.remove("blur-background");
+  document.body.classList.remove("overflow-hidden");
 };
