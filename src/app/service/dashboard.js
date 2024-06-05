@@ -18,3 +18,16 @@ export const saveSignature = async (signature) => {
   );
   return response;
 };
+
+export const getDashboardData = async () => {
+  const token = getCurrentUserToken();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await makeRequest(
+    `${baseUrl}/utility/dashboard`,
+    httpMethods.GET,
+    headers
+  );
+  return response;
+};
