@@ -236,7 +236,4 @@ export const preparePostData = async (data, mailData, status) => {
     saveDraftPo.classList.remove("disabled-light");
     formCancel.classList.remove("disabled-light");
   }
-
-  // goToPurchaseOrder();
-  // location.reload();
 };

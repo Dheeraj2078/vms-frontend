@@ -200,6 +200,26 @@ const evaluateTotal = (subTotal) => {
   const totalAmtRoundOff = Math.round(totalAmt * 100) / 100;
 
   total.innerHTML = totalAmtRoundOff;
+
+  document
+    .getElementById("payment-made-input")
+    .addEventListener("input", () =>
+      handlePaymentAlreadyMade(totalAmtRoundOff)
+    );
+};
+
+const handlePaymentAlreadyMade = (total) => {
+  let paymentAlreadyMade =
+    document.getElementById("payment-made-input").value || "0";
+  if (isNaN(paymentAlreadyMade)) {
+    paymentAlreadyMade = "0";
+  }
+
+  paymentAlreadyMade = Number(paymentAlreadyMade);
+
+  const newTotal = total - paymentAlreadyMade;
+  document.getElementById("payment-made").innerHTML = "- " + paymentAlreadyMade;
+  document.getElementById("total").innerHTML = newTotal;
 };
 
 export const handleAddNewRow = (data) => {

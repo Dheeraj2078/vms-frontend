@@ -1,9 +1,6 @@
 import expenditureHtml from "./expenditure.html";
 import expenditureFormHtml from "./expenditureForm/expenditureForm.html";
-import {
-  deleteCategoryById,
-  getAllCategories,
-} from "../../../service/categoryApi";
+
 import { handleCross } from "./expenditureForm/expenditureForm";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { createTableHeader } from "../../../common/components/table";
@@ -154,11 +151,7 @@ const showExpenditureGraphs = async () => {
 
 function filterResults(value) {
   if (value.trim().length === 0) {
-    addPagination(
-      getAllCategories,
-      createExpenditureTable,
-      "No Category Found"
-    );
+    addPagination(getAllEvents, createExpenditureTable, "No Category Found");
     // const allContracts = await getCategoriesData();
     // if (allContracts == null || allContracts.length == 0) {
     //   const contactTable =
@@ -171,7 +164,7 @@ function filterResults(value) {
   }
   if (value.length >= 2) {
     addPagination(
-      getAllCategories,
+      getAllEvents,
       createExpenditureTable,
       "No Category Found",
       value

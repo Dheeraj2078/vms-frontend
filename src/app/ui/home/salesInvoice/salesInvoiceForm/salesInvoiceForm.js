@@ -104,39 +104,6 @@ export const handleMultipleDropdownForSalesInvoice = (formData) => {
   });
   togglePopup(vendorName, vendorNameWrapper);
 
-  // source of supply
-  //   const sourceOfsupplyList = formData.states;
-
-  //   let sourceOfsupply = document.getElementById("source-of-supply");
-  //   const sourceOfsupplyWrapper = document.getElementsByClassName(
-  //     "source-of-supply-wrapper"
-  //   )[0];
-  //   sourceOfsupplyList.map((item) => {
-  //     const div = document.createElement("div");
-  //     div.classList.add("vendor-type-dropdown-option");
-
-  //     const input = document.createElement("input");
-  //     input.type = "radio";
-  //     input.id = "sos" + item.name;
-  //     input.name = "vendorType";
-  //     input.value = item.name;
-  //     input.classList.add("cursor-pointer");
-  //     input.classList.add("sos-item");
-
-  //     const label = document.createElement("label");
-  //     label.setAttribute("for", "sos" + item.name);
-  //     label.innerHTML = item.name;
-  //     label.classList.add("cursor-pointer");
-
-  //     div.appendChild(input);
-  //     div.appendChild(label);
-
-  //     sourceOfsupplyWrapper.appendChild(div);
-
-  //     mapStateToStateId[item.name] = item.id;
-  //   });
-  //   togglePopup(sourceOfsupply, sourceOfsupplyWrapper);
-
   // destination of supply
   const destinationOfsupplyList = formData.states;
 
@@ -207,39 +174,6 @@ export const handleMultipleDropdownForSalesInvoice = (formData) => {
     branchWrapper.appendChild(div);
   });
   togglePopup(branch, branchWrapper);
-
-  // delivery address
-  //   const deliveryAddressList = formData.addresses;
-  //   const deliveryAddress = document.getElementById("delivery-address");
-  //   const deliveryAddressWrapper = document.getElementsByClassName(
-  //     "delivery-address-wrapper"
-  //   )[0];
-  //   deliveryAddressList.map((item) => {
-  //     const div = document.createElement("div");
-  //     div.classList.add("vendor-type-dropdown-option");
-
-  //     const input = document.createElement("input");
-  //     input.type = "radio";
-  //     input.id = item.addressLine1;
-  //     input.name = "vendorType";
-  //     input.value = item.id;
-  //     input.classList.add("cursor-pointer");
-  //     input.classList.add("delivery-address-item");
-
-  //     const label = document.createElement("label");
-  //     label.setAttribute("for", item.addressLine1);
-  //     const sItem = getDeliveryItem(item);
-  //     label.appendChild(sItem);
-  //     label.classList.add("cursor-pointer");
-
-  //     div.appendChild(input);
-  //     div.appendChild(label);
-
-  //     deliveryAddressWrapper.appendChild(div);
-
-  //     mapAddressToVendorId[item.id] = item.vendorId;
-  //   });
-  //   togglePopup(deliveryAddress, deliveryAddressWrapper);
 
   let purchaseNumber = document.getElementById("purchase-number");
   purchaseNumber.value = formData.identifier;

@@ -7,17 +7,43 @@ import { saveSignature, getDashboardData } from "../../../service/dashboard";
 import { format } from "path-browserify";
 Chart.register(...registerables);
 
+const showLoader = () => {
+  const loader = document.getElementById("loader");
+  const content = document.querySelector("main");
+  loader.classList.remove("hidden");
+  content.style.display = "none";
+};
+
+const removeLoader = () => {
+  const loader = document.getElementById("loader");
+  const content = document.querySelector("main");
+  loader.classList.add("hidden");
+  content.style.display = "block";
+};
+
 export default async function goToDashboard() {
   sessionStorage.setItem("tab", "dashboard");
   const homeRoot = document.querySelector("main");
   homeRoot.innerHTML = dashBoardHtml;
   console.log("D", dashBoardHtml);
   console.log(vendorRoute);
+  showLoader();
 
   // addSignature();
   showGraph();
-  await createDashBoardTable();
-  await populateDashBoard();
+  // await createDashBoardTable();
+  // await populateDashBoard();
+
+  const apiCalls = [createDashBoardTable(), populateDashBoard()];
+
+  try {
+    await Promise.all(apiCalls);
+    console.log("Both API calls have completed successfully.");
+    removeLoader();
+  } catch (error) {
+    console.error("An error occurred while loading the dashboard data:", error);
+    removeLoader();
+  }
 }
 
 export const showGraph = () => {

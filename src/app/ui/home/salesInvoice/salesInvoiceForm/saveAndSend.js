@@ -238,7 +238,7 @@ export const preparePostData = async (data, status) => {
     console.log("post invoice data", data);
     const res = await postSalesInvoice(data);
     console.log("res", res);
-    // location.reload();
+    location.reload();
   } catch (error) {
     console.log("error", error);
 
@@ -246,7 +246,4 @@ export const preparePostData = async (data, status) => {
     saveDraftPo.classList.remove("disabled-light");
     formCancel.classList.remove("disabled-light");
   }
-
-  // goToPurchaseOrder();
-  // location.reload();
 };

@@ -206,11 +206,7 @@ body {
 
 .selected-route {
   border-left: 4px solid #fff;
-  background: linear-gradient(
-    89.31deg,
-    rgba(255, 255, 255, 0.23) 2.62%,
-    #f85c47 100.93%
-  );
+  background: linear-gradient(89.31deg, rgba(255, 255, 255, 0.23) 2.62%, #f85c47 100.93%);
   box-shadow: 0px 0px 8px 0px rgba(15, 15, 15, 0.2);
 }
 
@@ -724,7 +720,7 @@ body {
 }
 .container .statistics-card-left p {
   font-size: 1.4rem;
-  color: #605d5a;
+  color: #605D5A;
   font-weight: 400;
 }
 .container .statistics-card-left h2 {
@@ -977,11 +973,7 @@ body {
   align-items: center;
   gap: 15px;
 }
-.po-form-container
-  form
-  #associated-dropdown
-  .vendor-type-dropdown-option
-  input {
+.po-form-container form #associated-dropdown .vendor-type-dropdown-option input {
   width: 20px;
 }
 .po-form-container .btn-and-total-wrapper {
@@ -1003,31 +995,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 150px;
+  width: 200px;
 }
 .po-form-container .btn-and-total-wrapper .total-wrapper .flex p {
   padding: 6px;
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container {
   position: relative;
   width: 100px; /* Adjust the width as needed */
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #percentage-input,
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #tcs-input {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input,
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input {
   width: 100%; /* Full width to the container */
   padding-right: 20px; /* Space for the percentage symbol */
   box-sizing: border-box; /* Include padding in the width */
@@ -1035,26 +1013,11 @@ body {
   border-radius: 4px;
   padding: 2px 5px;
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #percentage-input:focus,
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #tcs-input:focus {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus,
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input:focus {
   outline: none;
 }
-.po-form-container
-  .btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  .percentage-symbol {
+.po-form-container .btn-and-total-wrapper .total-wrapper .flex .input-container .percentage-symbol {
   position: absolute;
   right: 10px; /* Adjust this value to position the symbol */
   top: 50%;
@@ -1262,7 +1225,7 @@ body {
   box-shadow: 0px 4px 8px 0px rgba(15, 15, 15, 0.2);
 }
 
-input[type="radio"] {
+input[type=radio] {
   width: 20px !important;
 }
 
@@ -1306,8 +1269,7 @@ input[type="radio"] {
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial,
-    sans-serif;
+  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
   height: 40px;
   line-height: 40px;
   outline: 0;
@@ -1318,7 +1280,7 @@ input[type="radio"] {
   text-align: center;
   touch-action: manipulation;
   -moz-user-select: none;
-  user-select: none;
+       user-select: none;
   -webkit-user-select: none;
   vertical-align: top;
   white-space: nowrap;
@@ -1380,11 +1342,7 @@ input[type="radio"] {
 }
 .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input,
 .btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input,
-.btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #payment-made-input {
+.btn-and-total-wrapper .total-wrapper .flex .input-container #payment-made-input {
   width: 100%; /* Full width to the container */
   padding-right: 20px; /* Space for the percentage symbol */
   box-sizing: border-box; /* Include padding in the width */
@@ -1392,24 +1350,12 @@ input[type="radio"] {
   border-radius: 4px;
   padding: 2px 5px;
 }
-.btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #percentage-input:focus,
+.btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus,
 .btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input:focus,
-.btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  #payment-made-input:focus {
+.btn-and-total-wrapper .total-wrapper .flex .input-container #payment-made-input:focus {
   outline: none;
 }
-.btn-and-total-wrapper
-  .total-wrapper
-  .flex
-  .input-container
-  .percentage-symbol {
+.btn-and-total-wrapper .total-wrapper .flex .input-container .percentage-symbol {
   position: absolute;
   right: 10px; /* Adjust this value to position the symbol */
   top: 50%;
@@ -1515,7 +1461,6 @@ textarea {
   border: 1px solid #e7e6e6;
   padding: 16px;
   border-radius: 4px;
-  min-width: 52%;
 }
 .expenditure-container .dashboard-amount {
   font-size: 24px;
@@ -1633,4 +1578,4 @@ textarea {
   color: #474643;
   font-weight: 400;
   word-break: break-all;
-} /*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
