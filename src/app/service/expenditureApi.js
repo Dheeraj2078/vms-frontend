@@ -6,7 +6,7 @@ import {
   currentUrl,
 } from "../util/constants.js";
 
-const baseUrl = apiUrlLocal;
+const baseUrl = currentUrl;
 const token = getCurrentUserToken();
 
 export const postEvent = async (eventData) => {

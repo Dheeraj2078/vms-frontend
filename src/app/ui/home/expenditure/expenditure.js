@@ -54,10 +54,10 @@ const showExpenditureGraphs = async () => {
   const labelAsName = [],
     dataAsAmount = [],
     color = [
-      "rgba(255, 99, 132)",
-      "rgba(54, 162, 235)",
-      "rgba(255, 206, 86)",
-      "rgba(75, 192, 192)",
+      "rgba(231, 251, 232, 1)",
+      "rgba(244, 234, 244, 1)",
+      "rgba(254, 230, 230, 1)",
+      "rgba(255, 245, 232, 1)",
     ];
 
   let total = 0;
@@ -109,20 +109,16 @@ const showExpenditureGraphs = async () => {
           label: "expenditure",
           data: dataAsAmount,
           backgroundColor: [
-            "rgba(255, 99, 132)",
-            "rgba(54, 162, 235)",
-            "rgba(255, 206, 86)",
-            "rgba(75, 192, 192)",
-            "rgba(153, 102, 255)",
-            "rgba(255, 159, 64)",
+            "rgba(231, 251, 232, 1)",
+            "rgba(244, 234, 244, 1)",
+            "rgba(254, 230, 230, 1)",
+            "rgba(255, 245, 232, 1)",
           ],
           borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
+            "rgba(231, 251, 232, 1)",
+            "rgba(244, 234, 244, 1)",
+            "rgba(254, 230, 230, 1)",
+            "rgba(255, 245, 232, 1)",
           ],
           borderWidth: 1,
         },
@@ -150,6 +146,8 @@ const showExpenditureGraphs = async () => {
           display: false,
         },
       },
+      // rotation: -90,
+      // circumference: 180,
     },
   });
 };

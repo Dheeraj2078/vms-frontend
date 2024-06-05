@@ -469,7 +469,8 @@ input[type="radio"] {
         //   padding: 8px;
 
         #percentage-input,
-        #tcs-input {
+        #tcs-input,
+        #payment-made-input {
           width: 100%; /* Full width to the container */
           padding-right: 20px; /* Space for the percentage symbol */
           box-sizing: border-box; /* Include padding in the width */
@@ -479,7 +480,8 @@ input[type="radio"] {
           padding: 2px 5px;
         }
         #percentage-input:focus,
-        #tcs-input:focus {
+        #tcs-input:focus,
+        #payment-made-input:focus {
           outline: none;
         }
 

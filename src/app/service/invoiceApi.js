@@ -72,7 +72,7 @@ export const getSalesInvoiceFormData = async () => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    apiUrlLocal + "/sales-invoice/form-details",
+    currentUrl + "/sales-invoice/form-details",
     httpMethods.GET,
     headers
   );
@@ -87,7 +87,7 @@ export const postSalesInvoice = async (data) => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    apiUrlLocal + "/sales-invoice/add-invoices",
+    currentUrl + "/sales-invoice/add-invoices",
     httpMethods.POST,
     headers,
     body
@@ -103,7 +103,7 @@ export const sendSalesInvoiceMail = async (data) => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    apiUrlLocal + "/sales-invoice/send-email",
+    currentUrl + "/sales-invoice/send-email",
     httpMethods.POST,
     headers,
     body
@@ -122,7 +122,7 @@ export const getSalesInvoices = async (cursor, size, next, filter) => {
     ? `/sales-invoice/get-invoices?cursor=${cursor}&size=${size}&next=${next}&filter=${filter}`
     : `/sales-invoice/get-invoices?cursor=${cursor}&size=${size}&next=${next}`;
   const response = await makeRequest(
-    apiUrlLocal + url,
+    currentUrl + url,
     httpMethods.GET,
     headers
   );

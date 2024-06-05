@@ -82,7 +82,7 @@ const createInvoiceTable = async (invoices) => {
 
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
-  tBody.style.height = "158px";
+  tBody.style.height = "330px";
   invoices.map((invoice) => {
     const row = document.createElement("tr");
 

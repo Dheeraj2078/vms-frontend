@@ -599,6 +599,8 @@ const nextActionBtns = () => {
       itemArr.push(obj);
     });
 
+    let amountPaid = document.getElementById("payment-made-input");
+    amountPaid = Number(amountPaid);
     const data = {
       id: ID,
       creatorId: Number(branch_),
@@ -610,7 +612,7 @@ const nextActionBtns = () => {
       amount: 0,
       status: "Draft",
       selectedItems: itemArr,
-      amountPaid: 0,
+      amountPaid: amountPaid,
       subject: "string",
       body: "string",
     };

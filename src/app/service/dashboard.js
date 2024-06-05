@@ -11,7 +11,7 @@ export const saveSignature = async (signature) => {
     Authorization: `Bearer ${token}`,
   };
   const response = await makeRequest(
-    `${apiUrlLocal}/utility/save-signature`,
+    `${baseUrl}/utility/save-signature`,
     httpMethods.POST,
     headers,
     body

@@ -1341,7 +1341,8 @@ input[type=radio] {
   width: 100px; /* Adjust the width as needed */
 }
 .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input,
-.btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input {
+.btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input,
+.btn-and-total-wrapper .total-wrapper .flex .input-container #payment-made-input {
   width: 100%; /* Full width to the container */
   padding-right: 20px; /* Space for the percentage symbol */
   box-sizing: border-box; /* Include padding in the width */
@@ -1350,7 +1351,8 @@ input[type=radio] {
   padding: 2px 5px;
 }
 .btn-and-total-wrapper .total-wrapper .flex .input-container #percentage-input:focus,
-.btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input:focus {
+.btn-and-total-wrapper .total-wrapper .flex .input-container #tcs-input:focus,
+.btn-and-total-wrapper .total-wrapper .flex .input-container #payment-made-input:focus {
   outline: none;
 }
 .btn-and-total-wrapper .total-wrapper .flex .input-container .percentage-symbol {
