@@ -4,6 +4,7 @@ import {
   handleCross,
   handleAddRurchaseOrder,
   handleMultipleDropdown,
+  clearPurchaseOrderData,
 } from "./purchaseOrderForm/purchaseOrderForm";
 import { createItemsTable } from "./purchaseOrderForm/purchaseOrderForm";
 import {
@@ -29,6 +30,10 @@ export default async function goToPurchaseOrder() {
 
   const addButton = document.getElementById("add-button");
 
+  const formOutput = document.getElementById("form-output");
+  formOutput.innerHTML = "";
+  clearPurchaseOrderData();
+
   addButton.addEventListener("click", async () => {
     // TEMP
     const homeRoot = document.querySelector("main");
@@ -39,6 +44,12 @@ export default async function goToPurchaseOrder() {
 
     try {
       const response = await getPoFormData();
+      const currentPurchaseOrder = response.data;
+
+      sessionStorage.setItem(
+        "purchase-order",
+        JSON.stringify(currentPurchaseOrder)
+      );
 
       handleMultipleDropdownForPurchaseOrder(response.data);
       const addNewRow = document.getElementById("po-add-row");

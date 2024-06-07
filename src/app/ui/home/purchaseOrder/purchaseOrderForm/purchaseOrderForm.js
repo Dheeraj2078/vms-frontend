@@ -63,6 +63,7 @@ const togglePopup = (div, div2) => {
 const mapVendorNameToVendorDetails = {};
 const mapStateToStateId = {};
 const mapAddressToVendorId = {};
+const mapBranchNameToBranchId = {};
 let ID;
 let vendorAddressDiv = null;
 let branchDiv = null;
@@ -190,7 +191,7 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
     input.type = "radio";
     input.id = item.name;
     input.name = "vendorType";
-    input.value = item.id;
+    input.value = item.name;
     input.classList.add("cursor-pointer");
     input.classList.add("branch-item");
 
@@ -203,6 +204,8 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
     div.appendChild(label);
 
     branchWrapper.appendChild(div);
+
+    mapBranchNameToBranchId[item.name] = item.id;
   });
   togglePopup(branch, branchWrapper);
 
@@ -235,7 +238,10 @@ export const handleMultipleDropdownForPurchaseOrder = (formData) => {
 
     deliveryAddressWrapper.appendChild(div);
 
-    mapAddressToVendorId[item.id] = item.vendorId;
+    mapAddressToVendorId[item.id] = {
+      vendorId: item.vendorId,
+      vendorAddress: item.addressLine1,
+    };
   });
   togglePopup(deliveryAddress, deliveryAddressWrapper);
 
@@ -314,25 +320,68 @@ let dateDelivery = document.getElementById("date-delivery");
 const handleDataChange = () => {
   paymentTerms = document.getElementById("payment-terms");
   paymentTerms.value = paymentTerms_;
+  const paymentTermsRadio = document.querySelector(
+    `input[name="vendorType"][value="${paymentTerms_}"]`
+  );
+  console.log("paymentTermsRadio", paymentTermsRadio);
+  if (paymentTermsRadio) paymentTermsRadio.checked = true;
 
   vendorName = document.getElementById("vendor-name");
   vendorName.value = vendorName_;
+  const vendorNameRadio = document.querySelector(
+    `input[name="vendorType"][value="${vendorName_}"]`
+  );
+  if (vendorNameRadio) vendorNameRadio.checked = true;
 
   sos = document.getElementById("source-of-supply");
   sos.value = sos_;
+  const sosRadio = document.querySelector(
+    `input[name="vendorType"][id="sos${sos_}"]`
+  );
+  console.log("SOS", sosRadio);
+  if (sosRadio) sosRadio.checked = true;
 
   dos = document.getElementById("destination-of-supply");
   dos.value = dos_;
+  const dosRadio = document.querySelector(
+    `input[name="vendorType"][id="dos${dos_}"]`
+  );
+  console.log("DOS", dosRadio);
+  if (dosRadio) dosRadio.checked = true;
 
   branch = document.getElementById("branch");
+  branch.value = branch_;
+  const branchRadio = document.querySelector(
+    `input[name="vendorType"][value="${branch_}"]`
+  );
+  if (branchRadio) branchRadio.checked = true;
 
   reference = document.getElementById("reference-number");
   reference.value = reference_;
 
+  console.log("__________________>>>>>>", mapAddressToVendorId);
   deliveryAddress = document.getElementById("delivery-address");
 
+  let currentDeliveryAddress = mapAddressToVendorId[deliveryAddress_];
+  if (currentDeliveryAddress) {
+    currentDeliveryAddress =
+      mapAddressToVendorId[deliveryAddress_].vendorAddress;
+  } else {
+    currentDeliveryAddress = "";
+  }
+
+  deliveryAddress.value = currentDeliveryAddress;
+
+  const deliveryAddressRadio = document.querySelector(
+    `input[name="vendorType"][id="${currentDeliveryAddress}"]`
+  );
+  console.log("deliveryAddressRadio", deliveryAddressRadio);
+  if (deliveryAddressRadio) deliveryAddressRadio.checked = true;
+
   date = document.getElementById("date");
+  date.value = date_;
   dateDelivery = document.getElementById("date-delivery");
+  dateDelivery.value = dateDelivery_;
 
   const vendorNameArr = [...vendorNameItem];
   vendorNameArr.map((item) => {
@@ -353,65 +402,13 @@ const handleDataChange = () => {
         )[0];
         paymentTermsWrapper.classList.add("hidden");
 
-        try {
-          const vendorId = mapVendorNameToVendorDetails[vendorName_].id;
-          const response = await getVendorAddress(vendorId);
-          const addresses = response.data;
-
-          const autofillVendorAddress = document.getElementById(
-            "autofill-vendor-address"
-          );
-          autofillVendorAddress.classList.remove("display-block");
-          autofillVendorAddress.classList.add("autofill-vendor");
-
-          const billingAddressDiv = document.createElement("div");
-          const shippingAddressDiv = document.createElement("div");
-          addresses.map((addresses) => {
-            const div = document.createElement("div");
-            const h4 = document.createElement("h4");
-            if (addresses.addressType == "Shipping") {
-              h4.innerHTML = "Shipping address";
-            } else {
-              h4.innerHTML = "Billing address";
-            }
-            div.appendChild(h4);
-
-            let p = document.createElement("p");
-            p.innerHTML = addresses.addressLine1;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = addresses.addressLine2;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = addresses.state + ", " + addresses.pinCode;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = addresses.country;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = `Phone : ${addresses.phone}`;
-            div.appendChild(p);
-
-            autofillVendorAddress.innerHTML = "";
-            addresses.addressType == "Shipping"
-              ? shippingAddressDiv.appendChild(div)
-              : billingAddressDiv.appendChild(div);
-
-            vendorAddressDiv = div;
-            console.log("vendorAddressDiv", vendorAddressDiv);
-          });
-
-          autofillVendorAddress.appendChild(billingAddressDiv);
-          autofillVendorAddress.appendChild(shippingAddressDiv);
-        } catch (error) {
-          console.log(error);
-        }
+        autoFillVendorDetails();
       }
     });
+
+    if (item.checked) {
+      autoFillVendorDetails();
+    }
   });
 
   const sosArr = [...sosItem];
@@ -465,7 +462,7 @@ const handleDataChange = () => {
       document.getElementById("branch-error").classList.add("hidden");
       if (item.checked) {
         branch_ = e.target.value;
-        branch.value = e.target.id;
+        branch.value = e.target.value;
       }
 
       const branchWrapper =
@@ -484,22 +481,11 @@ const handleDataChange = () => {
     item.addEventListener("change", (e) => {
       removeBorder(deliveryAddress);
       document.getElementById("delivery-address-error").classList.add("hidden");
+
+      deliveryAddress_ = e.target.value;
+      deliveryAddress.value = e.target.id;
       if (item.checked) {
-        deliveryAddress_ = e.target.value;
-        deliveryAddress.value = e.target.id;
-
-        const autofillDeliveryAddress = document.getElementById(
-          "autofill-delivery-address"
-        );
-        autofillDeliveryAddress.classList.remove("display-block");
-        autofillDeliveryAddress.classList.add("autofill-vendor");
-
-        let currentItem = deliveryAddressItemSelected[deliveryAddress_];
-        const div = getDeliveryItem(currentItem);
-        autofillDeliveryAddress.innerHTML = "";
-        autofillDeliveryAddress.appendChild(div);
-
-        deliveryAdressDiv = div;
+        autoFillAddress();
       }
 
       const branchWrapper = document.getElementsByClassName(
@@ -509,6 +495,10 @@ const handleDataChange = () => {
 
       console.log("deliveryAddress_", deliveryAddress_);
     });
+
+    if (item.checked) {
+      autoFillAddress();
+    }
   });
 
   poId_ = document.getElementById("purchase-number").value;
@@ -553,11 +543,12 @@ const handleDataChange = () => {
 };
 
 const nextActionBtns = () => {
-  const formCancel = document.getElementsByClassName("form-cancel")[0];
+  const formCancel = document.getElementsByClassName("back-to-po")[0];
   const saveAndSend = document.getElementById("save-and-send");
 
   const homeRoot = document.querySelector("main");
   formCancel.addEventListener("click", () => {
+    clearPurchaseOrderData();
     goToPurchaseOrder();
   });
   saveAndSend.addEventListener("click", () => {
@@ -598,7 +589,7 @@ const nextActionBtns = () => {
     const data = {
       id: ID,
       identifier: poId_,
-      creatorId: Number(branch_),
+      creatorId: mapBranchNameToBranchId[branch_],
       vendorId: mapVendorNameToVendorDetails[vendorName_].id,
       customerId: Number(deliveryAddress_),
       sourceStateId: mapStateToStateId[sos_],
@@ -641,13 +632,13 @@ const nextActionBtns = () => {
     poPrice.innerHTML = subTotal;
 
     const postMailData = {
-      delivaryTo: mapAddressToVendorId[deliveryAddress_],
+      delivaryTo: mapAddressToVendorId[deliveryAddress_].vendorId,
       delivaryFrom: mapVendorNameToVendorDetails[vendorName_].id,
       emailBody: "string",
       emailSubject: "string",
       pdfGenerationDto: {
-        creatorId: Number(branch_),
-        delivaryTo: mapAddressToVendorId[deliveryAddress_],
+        creatorId: mapBranchNameToBranchId[branch_],
+        delivaryTo: mapAddressToVendorId[deliveryAddress_].vendorId,
         delivaryFrom: mapVendorNameToVendorDetails[vendorName_].id,
         date: date_,
         purchaseOrderId: poId_,
@@ -730,6 +721,27 @@ export const checkFieldValuesForPo = () => {
     checkResult = false;
   }
 
+  const textArea = document.querySelectorAll("textarea");
+  console.log("textArea textArea", textArea);
+  const textAreaArr = [...textArea];
+
+  if (textAreaArr.length == 0) {
+    console.log("empty text area");
+    const poAddRow = document.getElementById("po-add-row");
+    poAddRow.click();
+
+    const saveAndSend = document.getElementById("save-and-send");
+    saveAndSend.click();
+  } else {
+    textAreaArr.map((textarea) => {
+      console.log(textarea + ", " + textarea.value);
+      if (textarea.value == "") {
+        textarea.classList.add("empty-field-border");
+        checkResult = false;
+      }
+    });
+  }
+
   return checkResult;
 };
 
@@ -762,3 +774,95 @@ const decodePaymentTerms = (str, delimiter1, delimiter2) => {
   const res = arr.join(delimiter2);
   return res;
 };
+
+const autoFillVendorDetails = async () => {
+  try {
+    const vendorId = mapVendorNameToVendorDetails[vendorName_].id;
+    const response = await getVendorAddress(vendorId);
+    const addresses = response.data;
+
+    const autofillVendorAddress = document.getElementById(
+      "autofill-vendor-address"
+    );
+    autofillVendorAddress.classList.remove("display-block");
+    autofillVendorAddress.classList.add("autofill-vendor");
+
+    const billingAddressDiv = document.createElement("div");
+    const shippingAddressDiv = document.createElement("div");
+    addresses.map((addresses) => {
+      const div = document.createElement("div");
+      const h4 = document.createElement("h4");
+      if (addresses.addressType == "Shipping") {
+        h4.innerHTML = "Shipping address";
+      } else {
+        h4.innerHTML = "Billing address";
+      }
+      div.appendChild(h4);
+
+      let p = document.createElement("p");
+      p.innerHTML = addresses.addressLine1;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = addresses.addressLine2;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = addresses.state + ", " + addresses.pinCode;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = addresses.country;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = `Phone : ${addresses.phone}`;
+      div.appendChild(p);
+
+      autofillVendorAddress.innerHTML = "";
+      addresses.addressType == "Shipping"
+        ? shippingAddressDiv.appendChild(div)
+        : billingAddressDiv.appendChild(div);
+
+      vendorAddressDiv = div;
+      console.log("vendorAddressDiv", vendorAddressDiv);
+    });
+
+    autofillVendorAddress.appendChild(billingAddressDiv);
+    autofillVendorAddress.appendChild(shippingAddressDiv);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const autoFillAddress = () => {
+  const autofillDeliveryAddress = document.getElementById(
+    "autofill-delivery-address"
+  );
+  autofillDeliveryAddress.classList.remove("display-block");
+  autofillDeliveryAddress.classList.add("autofill-vendor");
+
+  let currentItem = deliveryAddressItemSelected[deliveryAddress_];
+  const div = getDeliveryItem(currentItem);
+  autofillDeliveryAddress.innerHTML = "";
+  autofillDeliveryAddress.appendChild(div);
+
+  deliveryAdressDiv = div;
+};
+
+export function clearPurchaseOrderData() {
+  vendorName_ = "";
+  sos_ = "";
+  dos_ = "";
+  branch_ = "";
+  deliveryAddress_ = "";
+  vendorDeliveryId = 0;
+  poId_ = "";
+  reference_ = "";
+  date_ = "";
+  dateDelivery_ = "";
+  paymentTerms_ = "";
+
+  const invoiceTable = [];
+  localStorage.setItem("poTableData", JSON.stringify(invoiceTable));
+}

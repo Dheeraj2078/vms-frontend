@@ -5,6 +5,7 @@ import {
   getSalesInvoiceFormData,
   getSalesInvoices,
 } from "../../../service/invoiceApi";
+import salesInvoiceHtml from "./salesInvoice.html";
 
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
@@ -16,6 +17,13 @@ import { handleMultipleDropdownForSalesInvoice } from "./salesInvoiceForm/salesI
 import { handleAddNewRow } from "./salesInvoiceForm/salesInvoiceItem";
 
 export default async function goToSalesInvoice() {
+  const homeRoot = document.querySelector("main");
+  console.log(homeRoot);
+  homeRoot.innerHTML = salesInvoiceHtml;
+
+  const formOutput = document.getElementById("form-output");
+  formOutput.innerHTML = "";
+
   const addButton = document.getElementById("add-button");
   addButton.addEventListener("click", async () => {
     const homeRoot = document.querySelector("main");
@@ -26,6 +34,12 @@ export default async function goToSalesInvoice() {
 
     try {
       const response = await getSalesInvoiceFormData();
+      const currentSalesInvoice = response.data;
+
+      sessionStorage.setItem(
+        "sales-invoice",
+        JSON.stringify(currentSalesInvoice)
+      );
 
       handleMultipleDropdownForSalesInvoice(response.data);
       const addNewRow = document.getElementById("po-add-row");

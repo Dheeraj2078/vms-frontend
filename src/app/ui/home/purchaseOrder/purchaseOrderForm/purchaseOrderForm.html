@@ -238,7 +238,7 @@
         <div class="flex">
           <p>Sub Total</p>
         </div>
-        <div class="flex">
+        <div class="flex hidden">
           <p>Discount</p>
           <div class="input-container">
             <input type="text" id="percentage-input" value="0" />
@@ -257,7 +257,7 @@
       </div>
       <div class="amount-right">
         <p id="sub-total">0</p>
-        <p id="discount-provided">0.0</p>
+        <p id="discount-provided" class="hidden">0.0</p>
         <p id="tcs-provided">0</p>
         <p id="total" class="bold">0</p>
       </div>
@@ -267,7 +267,7 @@
 
 <div class="save-or-cancel">
   <div class="form-buttons">
-    <button class="btn-light form-cancel">Cancel</button>
+    <button class="btn-light form-cancel back-to-po">Cancel</button>
     <button class="btn-sm" id="save-and-send">Save And Send</button>
   </div>
 </div>

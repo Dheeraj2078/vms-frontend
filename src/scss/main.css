@@ -1215,7 +1215,7 @@ body {
   z-index: 100;
   position: absolute;
   top: 40px;
-  left: 172px;
+  left: 280px;
   background-color: #fff;
   padding: 10px;
   width: 320px;
@@ -1307,7 +1307,7 @@ input[type=radio] {
 .delete-button {
   position: absolute;
   top: 50%;
-  /* right: -50px; */
+  right: -30px;
   transform: translate(0, -50%);
   cursor: pointer;
   color: red;

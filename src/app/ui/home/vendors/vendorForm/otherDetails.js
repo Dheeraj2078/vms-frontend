@@ -307,30 +307,6 @@ const handleDataChange = () => {
   tds = document.getElementById("tds");
   tds.value = tds_;
 
-  // const gstTreatmentArr = [...gstTreatmentItem];
-  // gstTreatmentArr.map((item) => {
-  //   item.addEventListener("change", (e) => {
-  //     // removeBorder(allVendorTypes);
-  //     // document.getElementById("vendorType-error").classList.add("hidden");
-  //     if (item.checked) {
-  //       gstTreatment_ = e.target.value;
-  //     }
-
-  //     if (gstTreatment_ == "") {
-  //       gstTreatment.value = "Select GST Treatment";
-  //     } else {
-  //       gstTreatment.value = gstTreatment_;
-  //     }
-
-  //     const gstTreatmentId = document.getElementsByClassName(
-  //       "gst-treatment-wrapper"
-  //     )[0];
-  //     gstTreatmentId.classList.add("hidden");
-
-  //     console.log("gst treatment", gstTreatment_);
-  //   });
-  // });
-
   const sosItemArr = [...sosItem];
   sosItemArr.map((item) => {
     item.addEventListener("change", (e) => {

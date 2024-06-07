@@ -1,4 +1,5 @@
 import {
+  getSalesInvoiceFormData,
   postSalesInvoice,
   sendSalesInvoiceMail,
 } from "../../../../service/invoiceApi";
@@ -9,6 +10,14 @@ import {
 // import goToPurchaseOrder from "../purchaseOrder";
 // import { checkFieldValuesForPo } from "./purchaseOrderForm";
 import salesInvoiceFormPreviewHtml from "./salesInvoiceFormPreview.html";
+import salesInvoiceFormHtml from "./salesInvoiceForm.html";
+import {
+  clearInvoiceFormData,
+  handleMultipleDropdownForSalesInvoice,
+} from "./salesInvoiceForm";
+import { handleAddNewRow } from "./salesInvoiceItem";
+import { recalculateTotals } from "./salesInvoiceItem";
+import goToSalesInvoice from "../salesInvoice";
 
 export const createWord = (email) => {
   const sendTo = document.getElementById("send-to");
@@ -58,6 +67,58 @@ export const createWord = (email) => {
   document
     .querySelector(".editor")
     .addEventListener("mouseup", updateActiveButtons);
+
+  const goBack = document.getElementById("go-back-invoice");
+  goBack.addEventListener("click", async () => {
+    const homeRoot = document.querySelector("main");
+    homeRoot.innerHTML = salesInvoiceFormHtml;
+
+    try {
+      // const response = await getSalesInvoiceFormData();
+      const currentSalesInvoice = JSON.parse(
+        sessionStorage.getItem("sales-invoice")
+      );
+      console.log("data extracting from session storage", currentSalesInvoice);
+
+      handleMultipleDropdownForSalesInvoice(currentSalesInvoice);
+      const items = JSON.parse(localStorage.getItem("invoiceTableData"));
+      console.log("all items", items);
+
+      const invoiceTable = [];
+      localStorage.setItem("invoiceTableData", JSON.stringify(invoiceTable));
+
+      for (const item in items) {
+        const singleItem = items[item];
+        const data = {
+          itemDetail: singleItem[0],
+          itemAccount: singleItem[1],
+          quantity: singleItem[2],
+          rate: singleItem[3],
+          tax: singleItem[4],
+          id: singleItem[5],
+          hsn: singleItem[6],
+        };
+
+        console.log("graph -> ", data);
+        handleAddNewRow(data);
+      }
+      const addNewRow = document.getElementById("po-add-row");
+      const data = {
+        itemDetail: "",
+        itemAccount: "",
+        quantity: "0.0",
+        rate: "",
+        tax: "",
+        hsn: "",
+      };
+      addNewRow.addEventListener("click", () => handleAddNewRow(data));
+      // addNewRow.click();
+
+      recalculateTotals();
+    } catch (error) {
+      console.log(error);
+    }
+  });
 };
 
 export const showPdfPreview = (amountInfo, identifier, vendorAddressDiv) => {
@@ -152,22 +213,6 @@ export const handleAddingRowsToTable = () => {
   console.log("tBody", tBody);
 };
 
-// export const handlePostPurchaseOrder = (data) => {
-//   const postPo = document.getElementById("post-po");
-//   postPo.addEventListener("click", async (e) => {
-//     const res = await postPurchaseOrder(data);
-//     console.log("post pos", res);
-//   });
-// };
-
-// export const sendMail = (data) => {
-//   const postPo = document.getElementById("post-po");
-//   postPo.addEventListener("click", async (e) => {
-//     const res = await sendPurchaseOrderMail(data);
-//     console.log("send email", res);
-//   });
-// };
-
 export const handlePreviewDataFill = (
   vendorAddressDiv,
   deliveryAdressDiv,
@@ -211,34 +256,12 @@ export const preparePostData = async (data, status) => {
   const bodyString = editor.outerHTML;
   data.body = bodyString;
 
-  // if (status == "Issued") {
-  //   // sendPurchaseOrderMail
-  //   const emailSubject = document.getElementsByClassName("email-subject")[0];
-  //   mailData.subject = emailSubject.value;
-
-  //   const editor = document.getElementsByClassName("editor")[0];
-  //   const bodyString = editor.outerHTML;
-
-  //   console.log(bodyString);
-  //   mailData.body = bodyString;
-
-  //   try {
-  //     // const res = await sendPurchaseOrderMail(mailData);
-  //     const res = await sendSalesInvoiceMail(mailData);
-  //     console.log("mail send", res);
-  //     console.log("mail data", mailData);
-  //   } catch (error) {
-  //     postPo.classList.remove("disabled");
-  //     saveDraftPo.classList.remove("disabled-light");
-  //     formCancel.classList.remove("disabled-light");
-  //   }
-  // }
-
   try {
     console.log("post invoice data", data);
     const res = await postSalesInvoice(data);
     console.log("res", res);
-    location.reload();
+    clearInvoiceFormData();
+    goToSalesInvoice();
   } catch (error) {
     console.log("error", error);
 

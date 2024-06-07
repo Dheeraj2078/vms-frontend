@@ -105,6 +105,7 @@ const addNewRow = (id, data) => {
   div.id = id + "-po-details";
   const itemDetailsInput = document.createElement("textarea");
   itemDetailsInput.value = data.itemDetail;
+  itemDetailsInput.placeholder = "Select item details";
 
   itemDetailsInput.addEventListener("focus", () => func(id));
   div.appendChild(itemDetailsInput);
@@ -115,6 +116,7 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemNameInput = document.createElement("textarea");
   itemNameInput.value = data.itemAccount;
+  itemNameInput.placeholder = "Enter account";
   div.appendChild(itemNameInput);
   row.appendChild(div);
 
@@ -122,6 +124,7 @@ const addNewRow = (id, data) => {
   div = document.createElement("td");
   div.classList.add("tpo-td");
   const itemNameQty = document.createElement("textarea");
+  itemNameQty.placeholder = "Enter quantity";
   console.log("Q", data.quantity);
   itemNameQty.value = data.quantity;
   div.appendChild(itemNameQty);
@@ -132,6 +135,7 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemNameRate = document.createElement("textarea");
   itemNameRate.value = data.rate;
+  itemNameRate.placeholder = "Enter rate";
   div.appendChild(itemNameRate);
   row.appendChild(div);
 
@@ -140,6 +144,7 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemtaxRate = document.createElement("textarea");
   itemtaxRate.value = data.tax;
+  itemtaxRate.placeholder = "Enter tax";
   div.appendChild(itemtaxRate);
   row.appendChild(div);
 
@@ -213,6 +218,7 @@ export const handleAddNewRow = (data) => {
 
   function handleEdit(event) {
     const textarea = event.target;
+    removeBorder(textarea);
     const td = textarea.closest("td");
     const tr = td.closest("tr");
     const columnIndex = Array.from(tr.children).indexOf(td);
@@ -230,7 +236,7 @@ export const handleAddNewRow = (data) => {
   }
 };
 
-const recalculateTotals = () => {
+export const recalculateTotals = () => {
   let total = 0;
   const rows = document.querySelectorAll(".tpo-tr");
   rows.forEach((row, rowIndex) => {
@@ -242,13 +248,15 @@ const recalculateTotals = () => {
 
     // Compute the sum of the 2nd and 3rd textarea values
     const mult = value2 * value3;
+    const finalVal = Math.round(mult * 100) / 100;
 
     // Set the sum into the 4th textarea
-    textareas[5].value = mult;
+    textareas[5].value = finalVal;
 
     total += mult;
   });
 
+  total = Math.round(total * 100) / 100;
   evaluateTotal(total);
   document
     .getElementById("percentage-input")

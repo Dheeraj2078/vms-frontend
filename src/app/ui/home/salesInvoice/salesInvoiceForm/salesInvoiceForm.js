@@ -63,6 +63,7 @@ const togglePopup = (div, div2) => {
 const mapVendorNameToVendorDetails = {};
 const mapStateToStateId = {};
 const mapAddressToVendorId = {};
+const mapBranchNameToBranchId = {};
 let ID;
 let vendorAddressDiv = null;
 let branchDiv = null;
@@ -159,7 +160,7 @@ export const handleMultipleDropdownForSalesInvoice = (formData) => {
     input.type = "radio";
     input.id = item.name;
     input.name = "vendorType";
-    input.value = item.id;
+    input.value = item.name;
     input.classList.add("cursor-pointer");
     input.classList.add("branch-item");
 
@@ -172,6 +173,8 @@ export const handleMultipleDropdownForSalesInvoice = (formData) => {
     div.appendChild(label);
 
     branchWrapper.appendChild(div);
+
+    mapBranchNameToBranchId[item.name] = item.id;
   });
   togglePopup(branch, branchWrapper);
 
@@ -252,28 +255,43 @@ let amountPaid = document.getElementById("payment-made-input");
 const handleDataChange = () => {
   paymentTerms = document.getElementById("payment-terms");
   paymentTerms.value = paymentTerms_;
+  const paymentTermsRadio = document.querySelector(
+    `input[name="vendorType"][value="${paymentTerms_}"]`
+  );
+  console.log("paymentTermsRadio", paymentTermsRadio);
+  if (paymentTermsRadio) paymentTermsRadio.checked = true;
 
   vendorName = document.getElementById("vendor-name");
   vendorName.value = vendorName_;
-
-  //   sos = document.getElementById("source-of-supply");
-  //   sos.value = sos_;
+  const vendorNameRadio = document.querySelector(
+    `input[name="vendorType"][value="${vendorName_}"]`
+  );
+  if (vendorNameRadio) vendorNameRadio.checked = true;
 
   dos = document.getElementById("destination-of-supply");
   dos.value = dos_;
+  const dosRadio = document.querySelector(
+    `input[name="vendorType"][value="${dos_}"]`
+  );
+  if (dosRadio) dosRadio.checked = true;
 
   branch = document.getElementById("branch");
+  branch.value = branch_;
+  const branchRadio = document.querySelector(
+    `input[name="vendorType"][value="${branch_}"]`
+  );
+  if (branchRadio) branchRadio.checked = true;
 
   reference = document.getElementById("reference-number");
   reference.value = reference_;
 
-  //   deliveryAddress = document.getElementById("delivery-address");
-
   date = document.getElementById("date");
+  date.value = date_;
   dateDelivery = document.getElementById("date-delivery");
+  dateDelivery.value = dateDelivery_;
 
   amountPaid = document.getElementById("payment-made-input");
-  // paymentMade_ =
+  amountPaid.value = amountPaid_;
 
   const vendorNameArr = [...vendorNameItem];
   vendorNameArr.map((item) => {
@@ -294,65 +312,13 @@ const handleDataChange = () => {
         )[0];
         paymentTermsWrapper.classList.add("hidden");
 
-        try {
-          const vendorId = mapVendorNameToVendorDetails[vendorName_].id;
-          const response = await getVendorAddress(vendorId);
-          const addresses = response.data;
-
-          const autofillVendorAddress = document.getElementById(
-            "autofill-vendor-address"
-          );
-          autofillVendorAddress.classList.remove("display-block");
-          autofillVendorAddress.classList.add("autofill-vendor");
-
-          const billingAddressDiv = document.createElement("div");
-          const shippingAddressDiv = document.createElement("div");
-          addresses.map((addresses) => {
-            const div = document.createElement("div");
-            const h4 = document.createElement("h4");
-            if (addresses.addressType == "Shipping") {
-              h4.innerHTML = "Shipping address";
-            } else {
-              h4.innerHTML = "Billing address";
-            }
-            div.appendChild(h4);
-
-            let p = document.createElement("p");
-            p.innerHTML = addresses.addressLine1;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = addresses.addressLine2;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = addresses.state + ", " + addresses.pinCode;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = addresses.country;
-            div.appendChild(p);
-
-            p = document.createElement("p");
-            p.innerHTML = `Phone : ${addresses.phone}`;
-            div.appendChild(p);
-
-            autofillVendorAddress.innerHTML = "";
-            addresses.addressType == "Shipping"
-              ? shippingAddressDiv.appendChild(div)
-              : billingAddressDiv.appendChild(div);
-
-            vendorAddressDiv = div;
-            console.log("vendorAddressDiv", vendorAddressDiv);
-          });
-
-          autofillVendorAddress.appendChild(billingAddressDiv);
-          autofillVendorAddress.appendChild(shippingAddressDiv);
-        } catch (error) {
-          console.log(error);
-        }
+        autoFillVendorDetails();
       }
     });
+
+    if (item.checked) {
+      autoFillVendorDetails();
+    }
   });
 
   const dosArr = [...dosItem];
@@ -384,7 +350,7 @@ const handleDataChange = () => {
       document.getElementById("branch-error").classList.add("hidden");
       if (item.checked) {
         branch_ = e.target.value;
-        branch.value = e.target.id;
+        branch.value = e.target.value;
       }
 
       const branchWrapper =
@@ -443,12 +409,73 @@ const handleDataChange = () => {
   nextActionBtns();
 };
 
+const autoFillVendorDetails = async () => {
+  try {
+    const vendorId = mapVendorNameToVendorDetails[vendorName_].id;
+    const response = await getVendorAddress(vendorId);
+    const addresses = response.data;
+
+    const autofillVendorAddress = document.getElementById(
+      "autofill-vendor-address"
+    );
+    autofillVendorAddress.classList.remove("display-block");
+    autofillVendorAddress.classList.add("autofill-vendor");
+
+    const billingAddressDiv = document.createElement("div");
+    const shippingAddressDiv = document.createElement("div");
+    addresses.map((addresses) => {
+      const div = document.createElement("div");
+      const h4 = document.createElement("h4");
+      if (addresses.addressType == "Shipping") {
+        h4.innerHTML = "Shipping address";
+      } else {
+        h4.innerHTML = "Billing address";
+      }
+      div.appendChild(h4);
+
+      let p = document.createElement("p");
+      p.innerHTML = addresses.addressLine1;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = addresses.addressLine2;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = addresses.state + ", " + addresses.pinCode;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = addresses.country;
+      div.appendChild(p);
+
+      p = document.createElement("p");
+      p.innerHTML = `Phone : ${addresses.phone}`;
+      div.appendChild(p);
+
+      autofillVendorAddress.innerHTML = "";
+      addresses.addressType == "Shipping"
+        ? shippingAddressDiv.appendChild(div)
+        : billingAddressDiv.appendChild(div);
+
+      vendorAddressDiv = div;
+      console.log("vendorAddressDiv", vendorAddressDiv);
+    });
+
+    autofillVendorAddress.appendChild(billingAddressDiv);
+    autofillVendorAddress.appendChild(shippingAddressDiv);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const nextActionBtns = () => {
   const formCancel = document.getElementsByClassName("form-cancel")[0];
   const saveAndSend = document.getElementById("save-and-send");
 
   const homeRoot = document.querySelector("main");
   formCancel.addEventListener("click", () => {
+    clearInvoiceFormData();
     goToSalesInvoice();
   });
   saveAndSend.addEventListener("click", () => {
@@ -491,7 +518,7 @@ const nextActionBtns = () => {
     console.log("amountPaid_", amountPaid_);
     const data = {
       id: ID,
-      creatorId: Number(branch_),
+      creatorId: mapBranchNameToBranchId[branch_],
       vendorId: mapVendorNameToVendorDetails[vendorName_].id,
       destinationId: mapStateToStateId[dos_],
       date: date_,
@@ -536,20 +563,6 @@ const nextActionBtns = () => {
 
     const poPrice = document.getElementsByClassName("po-price")[0];
     poPrice.innerHTML = subTotal;
-
-    // const postMailData = {
-    //   sellingVendor: Number(branch_),
-    //   buyingVendor: mapVendorNameToVendorDetails[vendorName_].id,
-    //   invoiceId: poId_,
-    //   invoiceDate: date_,
-    //   terms: paymentTerms_,
-    //   dueDate: dateDelivery_,
-    //   placeOfSupply: dos_,
-    //   amountPaid: subTotal_,
-    //   subject: "string",
-    //   body: "string",
-    //   items: itemArr2,
-    // };
 
     createWord(mapVendorNameToVendorDetails[vendorName_].email);
 
@@ -625,6 +638,27 @@ export const checkFieldValuesForPo = () => {
     checkResult = false;
   }
 
+  const textArea = document.querySelectorAll("textarea");
+  console.log("textArea textArea", textArea);
+  const textAreaArr = [...textArea];
+
+  if (textAreaArr.length == 0) {
+    console.log("empty text area");
+    const poAddRow = document.getElementById("po-add-row");
+    poAddRow.click();
+
+    const saveAndSend = document.getElementById("save-and-send");
+    saveAndSend.click();
+  } else {
+    textAreaArr.map((textarea) => {
+      console.log(textarea + ", " + textarea.value);
+      if (textarea.value == "") {
+        textarea.classList.add("empty-field-border");
+        checkResult = false;
+      }
+    });
+  }
+
   return checkResult;
 };
 
@@ -657,3 +691,21 @@ const decodePaymentTerms = (str, delimiter1, delimiter2) => {
   const res = arr.join(delimiter2);
   return res;
 };
+
+export function clearInvoiceFormData() {
+  vendorName_ = "";
+  sos_ = "";
+  dos_ = "";
+  branch_ = "";
+  deliveryAddress_ = "";
+  vendorDeliveryId = 0;
+  poId_ = "";
+  reference_ = "";
+  date_ = "";
+  dateDelivery_ = "";
+  paymentTerms_ = "";
+  amountPaid_ = "0";
+
+  const invoiceTable = [];
+  localStorage.setItem("invoiceTableData", JSON.stringify(invoiceTable));
+}

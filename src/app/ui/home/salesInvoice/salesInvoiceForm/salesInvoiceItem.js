@@ -201,6 +201,7 @@ const evaluateTotal = (subTotal) => {
 
   total.innerHTML = totalAmtRoundOff;
 
+  handlePaymentAlreadyMade(totalAmtRoundOff);
   document
     .getElementById("payment-made-input")
     .addEventListener("input", () =>
@@ -235,6 +236,7 @@ export const handleAddNewRow = (data) => {
 
   function handleEdit(event) {
     const textarea = event.target;
+    removeBorder(textarea);
     const td = textarea.closest("td");
     const tr = td.closest("tr");
     const columnIndex = Array.from(tr.children).indexOf(td);
@@ -252,7 +254,7 @@ export const handleAddNewRow = (data) => {
   }
 };
 
-const recalculateTotals = () => {
+export const recalculateTotals = () => {
   let total = 0;
   const rows = document.querySelectorAll(".tpo-tr");
   rows.forEach((row, rowIndex) => {
@@ -264,13 +266,15 @@ const recalculateTotals = () => {
 
     // Compute the sum of the 2nd and 3rd textarea values
     const mult = value2 * value3;
+    const finalVal = Math.round(mult * 100) / 100;
 
     // Set the sum into the 4th textarea
-    textareas[5].value = mult;
+    textareas[5].value = finalVal;
 
     total += mult;
   });
 
+  total = Math.round(total * 100) / 100;
   evaluateTotal(total);
   document
     .getElementById("percentage-input")

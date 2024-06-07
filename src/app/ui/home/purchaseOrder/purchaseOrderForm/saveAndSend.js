@@ -3,8 +3,14 @@ import {
   sendPurchaseOrderMail,
 } from "../../../../service/purchaseOrder";
 import goToPurchaseOrder from "../purchaseOrder";
-import { checkFieldValuesForPo } from "./purchaseOrderForm";
+import {
+  checkFieldValuesForPo,
+  handleMultipleDropdownForPurchaseOrder,
+} from "./purchaseOrderForm";
 import purchaseOrderFormPreviewHtml from "./purchaseOrderFormPreview.html";
+
+import purchaseOrderFormHtml from "./purchaseOrderForm.html";
+import { handleAddNewRow, recalculateTotals } from "./purchaseOrderItem";
 
 export const createWord = (email) => {
   const sendTo = document.getElementById("send-to");
@@ -54,6 +60,58 @@ export const createWord = (email) => {
   document
     .querySelector(".editor")
     .addEventListener("mouseup", updateActiveButtons);
+
+  const goBack = document.getElementById("go-back-po");
+  goBack.addEventListener("click", async () => {
+    const homeRoot = document.querySelector("main");
+    homeRoot.innerHTML = purchaseOrderFormHtml;
+
+    try {
+      // const response = await getSalesInvoiceFormData();
+      const currentPurchaseOrder = JSON.parse(
+        sessionStorage.getItem("purchase-order")
+      );
+      console.log("data extracting from session storage", currentPurchaseOrder);
+
+      handleMultipleDropdownForPurchaseOrder(currentPurchaseOrder);
+      const items = JSON.parse(localStorage.getItem("poTableData"));
+      console.log("all items", items);
+
+      const poTable = [];
+      localStorage.setItem("poTableData", JSON.stringify(poTable));
+
+      for (const item in items) {
+        const singleItem = items[item];
+        console.log("singleItem ->", singleItem);
+        const data = {
+          itemDetail: singleItem[0],
+          itemAccount: singleItem[1],
+          quantity: singleItem[2],
+          rate: singleItem[3],
+          tax: singleItem[4],
+          id: singleItem[5],
+          // hsn: singleItem[6],
+        };
+
+        console.log("graph -> ", data);
+        handleAddNewRow(data);
+      }
+      const addNewRow = document.getElementById("po-add-row");
+      const data = {
+        itemDetail: "",
+        itemAccount: "",
+        quantity: "0.0",
+        rate: "",
+        tax: "",
+        //  hsn: "",
+      };
+      addNewRow.addEventListener("click", () => handleAddNewRow(data));
+
+      recalculateTotals();
+    } catch (error) {
+      console.log(error);
+    }
+  });
 };
 
 export const showPdfPreview = (amountInfo, identifier, vendorAddressDiv) => {
