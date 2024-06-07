@@ -135,12 +135,20 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = currentVendorDetails.primaryContact.firstName;
+    if (currentVendorDetails.primaryContact) {
+      div.innerHTML = currentVendorDetails.primaryContact.firstName;
+    } else {
+      div.innerHTML = "-";
+    }
     div.classList.add("cursor-pointer");
     row.appendChild(div);
 
     div = document.createElement("td");
-    div.innerHTML = currentVendorDetails.primaryContact.workPhone;
+    if (currentVendorDetails.primaryContact) {
+      div.innerHTML = currentVendorDetails.primaryContact.workPhone;
+    } else {
+      div.innerHTML = "-";
+    }
     div.classList.add("cursor-pointer");
     row.appendChild(div);
 
@@ -212,13 +220,21 @@ const createVendorTable = async (vendorsDetailsInfo) => {
     showModalOnClick(div, vendorDetail);
 
     div = document.createElement("td");
-    div.innerHTML = vendorDetail.primaryContact.firstName;
+    if (vendorDetail.primaryContact) {
+      div.innerHTML = vendorDetail.primaryContact.firstName;
+    } else {
+      div.innerHTML = "-";
+    }
     div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail);
 
     div = document.createElement("td");
-    div.innerHTML = vendorDetail.primaryContact.mobilePhone;
+    if (vendorDetail.primaryContact) {
+      div.innerHTML = vendorDetail.primaryContact.mobilePhone;
+    } else {
+      div.innerHTML = "-";
+    }
     div.classList.add("cursor-pointer");
     row.appendChild(div);
     showModalOnClick(div, vendorDetail);
