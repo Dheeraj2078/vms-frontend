@@ -9,10 +9,14 @@ import {
 // import { createTableHeader } from "../../../common/components/table";
 // import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
-import { getAllInvoice, getInvoiceStats } from "../../../service/invoiceApi";
+import {
+  downloadInvoice,
+  getAllInvoice,
+  getInvoiceStats,
+} from "../../../service/invoiceApi";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
-import { handleFileDownload } from "../contract/contract";
+// import { handleFileDownload } from "../contract/contract";
 import { searchInvoices } from "../../../service/searchApi";
 import { addPagination } from "../../../common/components/pagination";
 import { searchModel } from "../../../common/components/search";
@@ -177,6 +181,32 @@ const createInvoiceTable = async (invoices) => {
   });
 
   table.appendChild(tBody);
+};
+
+export const handleFileDownload = async (fileName, id) => {
+  console.log("downloading... ", fileName);
+  console.log("down ", id);
+
+  const currentInvoiceId = document.getElementById(id);
+  console.log(" -> ", currentInvoiceId);
+  currentInvoiceId.classList.add("download-disable");
+
+  try {
+    const binaryData = await downloadInvoice(fileName);
+    const blobUrl = window.URL.createObjectURL(binaryData);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = blobUrl;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(blobUrl);
+    document.body.removeChild(a);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    currentInvoiceId.classList.remove("download-disable");
+  }
 };
 
 const populateInvoiceStats = async () => {

@@ -65,6 +65,28 @@ export const getInvoiceStats = async () => {
   return res;
 };
 
+export const downloadInvoice = async (fileName) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  try {
+    const response = await fetch(
+      baseUrl + `/invoice/download?fileName=${fileName}`,
+      {
+        method: httpMethods.GET,
+        headers: headers,
+      }
+    );
+
+    const res = await response.blob();
+    return res;
+  } catch (error) {
+    console.log("EEEE", error);
+  }
+};
+
 // SALES INVOICE
 export const getSalesInvoiceFormData = async () => {
   const headers = {
