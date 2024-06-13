@@ -112,3 +112,15 @@ export const validateAmount = (amount) => {
   console.log(emailRegex.test(amount));
   return emailRegex.test(amount);
 };
+
+export function handleCrossWithoutReload() {
+  console.log(document.body.classList);
+  console.log("triggered");
+  const vendorFormOutput = document.getElementById("form-output");
+  vendorFormOutput.classList.add("hidden");
+
+  const mainContainer = document.getElementsByClassName("main-container")[0];
+  mainContainer.classList.remove("blur-background");
+  console.log(document.body.classList);
+  document.body.classList.remove("overflow-hidden");
+}

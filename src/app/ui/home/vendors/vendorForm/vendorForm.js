@@ -27,12 +27,9 @@ export async function handleMultipleDropdown(formData) {
   );
 
   const associatedVendorType = document.getElementById("dropdown-options");
-
   const slautationDropdown = document.getElementById("salutation-dropdown");
 
   try {
-    // const formData = await getVendorFormDropdown();
-
     const allCategories = formData.data.categories;
     const allVendorType = formData.data.vednorTypes;
     const salutation = formData.data.salutations;
@@ -150,7 +147,6 @@ let contactPerson_ = "";
 let lastName_ = "";
 let contactEmail_ = "";
 let contactPhoneNumber_ = "";
-// let vendorAddress_ = "";
 let categories_ = new Set();
 let categoryString_ = "";
 
@@ -160,7 +156,6 @@ let contactPerson = document.getElementById("contact-person");
 let lastName = document.getElementById("last-name");
 let contactEmail = document.getElementById("contact-email");
 let contactPhoneNumber = document.getElementById("contact-phone-number");
-// let vendorAddress = document.getElementById("vendor-address");
 let categoryDropdownOption = document.querySelectorAll("input[type=checkbox]");
 let vendorTypeDropdownOption =
   document.getElementsByClassName("vendor-type-item");
@@ -173,7 +168,6 @@ function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
     column.classList.remove("empty-field-border");
   }
-  // column = column.trim();
 }
 
 const isNullOrEmpty = (value) => {
@@ -239,13 +233,6 @@ const checkFieldValues = () => {
     checkResult = false;
   }
 
-  // if (isNullOrEmpty(lastName_)) {
-  //   const error_element = document.getElementById("name-error");
-  //   showErrorMessage(error_element, "Please enter contact person name");
-  //   lastName.classList.add("empty-field-border");
-  //   checkResult = false;
-  // }
-
   if (isNullOrEmpty(contactEmail_)) {
     const error_element = document.getElementById("email-error");
     showErrorMessage(error_element, "Please enter contact Person Email");
@@ -258,12 +245,6 @@ const checkFieldValues = () => {
     contactPhoneNumber.classList.add("empty-field-border");
     checkResult = false;
   }
-  // if (isNullOrEmpty(vendorAddress_)) {
-  //   const error_element = document.getElementById("address-error");
-  //   showErrorMessage(error_element, "Please enter Address");
-  //   vendorAddress.classList.add("empty-field-border");
-  //   checkResult = false;
-  // }
 
   if (!validateEmail(contactEmail_)) {
     const error_ele = document.getElementById("email-error");
@@ -285,7 +266,6 @@ const checkFieldValues = () => {
 };
 
 function validatePhoneNumber(phoneNumber) {
-  // Regular expression for a 10-digit phone number
   console.log("ph", phoneNumber);
   const phoneRegex = /^\d{10}$/;
   return phoneRegex.test(phoneNumber);
@@ -298,7 +278,6 @@ export async function handleDataChange() {
   lastName = document.getElementById("last-name");
   contactEmail = document.getElementById("contact-email");
   contactPhoneNumber = document.getElementById("contact-phone-number");
-  // vendorAddress = document.getElementById("vendor-address");
   allCategory = document.getElementById("all-category");
   allCategory.value = categoryString_;
   categoryDropdownOption = document.querySelectorAll("input[type=checkbox]");
@@ -313,7 +292,6 @@ export async function handleDataChange() {
 
   const categoryDropdownOptionArr = [...categoryDropdownOption];
   const catArr = allCategory.value.split(";");
-  // console.log("1. categoryDropdownOptionArr", categoryDropdownOptionArr);
 
   categoryDropdownOptionArr.map((category) => {
     if (catArr.includes(category.value)) {
@@ -322,7 +300,6 @@ export async function handleDataChange() {
     }
   });
 
-  // console.log("CRRRRRRRRRRRRRRRRRRRRRRRRR", categoryDropdownOptionArr);
   categoryDropdownOptionArr.map((category) => {
     console.log("CR", category.checked);
     category.addEventListener("change", (e) => {
@@ -448,13 +425,6 @@ export async function handleDataChange() {
     contactPhoneNumber_ = e.target.value;
     document.getElementById("phNumber-error").classList.add("hidden");
   });
-
-  // vendorAddress.value = vendorAddress_;
-  // vendorAddress.addEventListener("input", (e) => {
-  //   removeBorder(vendorAddress);
-  //   vendorAddress_ = e.target.value;
-  //   document.getElementById("address-error").classList.add("hidden");
-  // });
 }
 
 const dataAndCheck = () => {
@@ -469,7 +439,6 @@ const dataAndCheck = () => {
     salutation: salutation_,
     companyName: organizationName_,
     typeId: vendorTypeId,
-    // address: vendorAddress_,
     firstName: contactPerson_,
     lastName: lastName_,
     workPhone: contactPhoneNumber_,
@@ -486,52 +455,11 @@ const dataAndCheck = () => {
   relationshipDuration_ = relationshipDuration_.trim();
   contactEmail_ = contactEmail_.trim();
   contactPhoneNumber_ = contactPhoneNumber_.trim();
-  // vendorAddress_ = vendorAddress_.trim();
   contactPerson_ = contactPerson_.trim();
   lastName_ = lastName_.trim();
   vendorType_ = vendorType_.trim();
 
   console.log(postData);
-  // let allValuesProvided = true;
-  // if (organizationName_ == "") {
-  //   allValuesProvided = false;
-  //   organizationName.classList.add("empty-field-border");
-  // }
-
-  // if (relationshipDuration_ == "") {
-  //   allValuesProvided = false;
-  //   relationshipDuration.classList.add("empty-field-border");
-  // }
-
-  // if (contactEmail_ == "") {
-  //   allValuesProvided = false;
-  //   contactEmail.classList.add("empty-field-border");
-  // }
-
-  // if (contactPhoneNumber_ == "") {
-  //   allValuesProvided = false;
-  //   contactPhoneNumber.classList.add("empty-field-border");
-  // }
-
-  // if (vendorAddress_ == "") {
-  //   allValuesProvided = false;
-  //   vendorAddress.classList.add("empty-field-border");
-  // }
-
-  // if (contactPerson_ == "") {
-  //   allValuesProvided = false;
-  //   contactPerson.classList.add("empty-field-border");
-  // }
-
-  // if (categories_.size == 0) {
-  //   allValuesProvided = false;
-  //   allCategory.classList.add("empty-field-border");
-  // }
-
-  // if (vendorType_ == "") {
-  //   allValuesProvided = false;
-  //   allVendorTypes.classList.add("empty-field-border");
-  // }
 
   if (!checkFieldValues()) {
     console.log("all fields are mandatory");
@@ -540,38 +468,8 @@ const dataAndCheck = () => {
   return postData;
 };
 
-// document.addEventListener("keydown", (e) => {
-//   if (e.key === "Enter") {
-//     handleAddVendor();
-//   }
-// });
-
-// export async function handleAddVendor() {
-//   const postData = dataAndCheck();
-
-//   if (postData == null) {
-//     return;
-//   }
-
-//   try {
-//     const res = await addVendor(postData);
-//     console.log("RESSSS", res);
-
-//     if (res.error == null) {
-//       successModal("Vendor added", handleCross);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 export async function getVendorFormInformation() {
   const postData = dataAndCheck();
-
-  // if (postData == null) {
-  //   return null;
-  // }
-
   return postData;
 }
 

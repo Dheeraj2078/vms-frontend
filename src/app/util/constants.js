@@ -21,6 +21,8 @@ export const localStorageKeys = {
   role: "role",
   email: "email",
   rememberMe: "rememberMe",
+  poTableData: "poTableData",
+  invoiceTableData: "invoiceTableData",
 };
 
 export const role = {
@@ -31,6 +33,17 @@ export const role = {
 export const headers = {
   contentTypeJSON: "application/json",
   authorization: "Bearer auth-token",
+};
+
+export const navRoutes = {
+  dashboardRoute: "dashboardRoute",
+  vendorRoute: "vendorRoute",
+  adminRoute: "adminRoute",
+  categoryRoute: "categoryRoute",
+  invoiceRoute: "invoiceRoute",
+  contractRoute: "contractRoute",
+  purchaseOrderRoute: "purchaseOrderRoute",
+  expenditureRoute: "expenditureRoute",
 };
 
 export const redirectUrl = baseUrl + "changePassword.html#/";

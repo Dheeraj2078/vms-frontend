@@ -1,5 +1,3 @@
-import { getVendorFormDropdown } from "../../../../service/vendorsApi";
-
 export const togglePopup = (div, div2) => {
   div.addEventListener("click", (e) => {
     if (div2.classList.contains("hidden")) {
@@ -13,7 +11,6 @@ export const togglePopup = (div, div2) => {
 const mapStateNameToId = {};
 export const handleMultipleDropdownForBillingAddress = async (formData) => {
   try {
-    // const formData = await getVendorFormDropdown(); //api
     const countryList = formData.data.country;
     let bCountry = document.getElementById("b-country");
     const bCountryWrapper =
@@ -105,7 +102,6 @@ function removeBorder(column) {
   if (column.classList.contains("empty-field-border")) {
     column.classList.remove("empty-field-border");
   }
-  // column = column.trim();
 }
 
 const isNullOrEmpty = (value) => {
@@ -194,12 +190,6 @@ const checkFieldValues = () => {
     bFaxNumber.classList.add("empty-field-border");
     checkResult = false;
   }
-  // if (isNullOrEmpty(lastName_)) {
-  //   const error_element = document.getElementById("document-error");
-  //   showErrorMessage(error_element, "Please enter last Name");
-  //   lastName.classList.add("empty-field-border");
-  //   checkResult = false;
-  // }
 
   return checkResult;
 };

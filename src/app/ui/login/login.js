@@ -24,7 +24,6 @@ const fetchAuth = () => {
   if (validateToken() == false) {
     fetchAuth();
   } else {
-    window.location.href = "/dist/home.html";
+    window.location.href = "/home.html";
   }
-  
 })();

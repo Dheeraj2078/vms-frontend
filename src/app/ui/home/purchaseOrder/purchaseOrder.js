@@ -13,16 +13,16 @@ import {
 } from "../../../common/components/goToRoute";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
-import { handleFileDownload } from "../contract/contract";
-import { searchInvoices } from "../../../service/searchApi";
 import { handleMultipleDropdownForPurchaseOrder } from "./purchaseOrderForm/purchaseOrderForm";
 import { handleAddNewRow } from "./purchaseOrderForm/purchaseOrderItem";
 import {
+  downloadPurchaseOrder,
   getPoFormData,
   getPurchaseOrders,
 } from "../../../service/purchaseOrder";
 import { searchModel } from "../../../common/components/search";
 import { addPagination } from "../../../common/components/pagination";
+import { localStorageKeys } from "../../../util/constants";
 
 export default async function goToPurchaseOrder() {
   sessionStorage.setItem("tab", "purchaseOrder");
@@ -40,7 +40,7 @@ export default async function goToPurchaseOrder() {
     homeRoot.innerHTML = purchaseOrderFormHtml;
 
     const poTable = [];
-    localStorage.setItem("poTableData", JSON.stringify(poTable));
+    localStorage.setItem(localStorageKeys.poTableData, JSON.stringify(poTable));
 
     try {
       const response = await getPoFormData();
@@ -94,6 +94,33 @@ function filterResults(value) {
   }
 }
 
+export const handleFileDownload = async (id, oId, identifier) => {
+  // console.log("downloading... ", fileName);
+  console.log("down ", id);
+
+  const currentInvoiceId = document.getElementById(id);
+  console.log(" -> ", currentInvoiceId);
+  currentInvoiceId.classList.add("download-disable");
+
+  try {
+    const binaryData = await downloadPurchaseOrder(oId);
+
+    const blobUrl = window.URL.createObjectURL(binaryData);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = blobUrl;
+    a.download = identifier;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(blobUrl);
+    document.body.removeChild(a);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    currentInvoiceId.classList.remove("download-disable");
+  }
+};
+
 const createPurchaseOrderTable = async (purchaseOrder) => {
   const poTable = document.getElementsByClassName("purchase-order-table")[0];
   poTable.innerHTML = "";
@@ -105,6 +132,7 @@ const createPurchaseOrderTable = async (purchaseOrder) => {
     "Date",
     "Status",
     "Amount",
+    "PO document",
   ]);
 
   poTable.appendChild(table);
@@ -139,33 +167,17 @@ const createPurchaseOrderTable = async (purchaseOrder) => {
     div.innerHTML = po.amount;
     row.appendChild(div);
 
-    // div = document.createElement("td");
-    // div.innerHTML = invoice.status;
-    // row.appendChild(div);
-    // div = document.createElement("td");
-    // const innerdiv = document.createElement("div");
-    // innerdiv.classList.add("status");
-    // if (invoice.status) {
-    //   innerdiv.innerHTML = "Paid";
-    //   innerdiv.classList.add("active");
-    // } else {
-    //   innerdiv.innerHTML = "Pending";
-    //   innerdiv.classList.add("inactive");
-    // }
-    // div.appendChild(innerdiv);
-    // row.appendChild(div);
+    div = document.createElement("td");
+    div.classList.add("align-center");
 
-    // div = document.createElement("td");
-    // div.classList.add("align-center");
-
-    // const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
-    // const invoiceId = "invoice" + invoice.id;
-    // div.innerHTML = `<img id=${invoiceId} class="height-20 btn-clickable" src=${imageUrl} />`;
-    // const download_btn = div.getElementsByClassName("btn-clickable");
-    // download_btn[0].addEventListener("click", () =>
-    //   handleFileDownload(invoice.fileName, "invoice" + invoice.id)
-    // );
-    // row.appendChild(div);
+    const imageUrl = "/68688e7f23a16971620c.png"; // TEMP
+    const purchaseOrderId = "purchase-order" + po.id;
+    div.innerHTML = `<img id=${purchaseOrderId} class="height-20 btn-clickable" src=${imageUrl} />`;
+    const download_btn = div.getElementsByClassName("btn-clickable");
+    download_btn[0].addEventListener("click", () =>
+      handleFileDownload("purchase-order" + po.id, po.id, po.identifier)
+    );
+    row.appendChild(div);
 
     tBody.appendChild(row);
   });

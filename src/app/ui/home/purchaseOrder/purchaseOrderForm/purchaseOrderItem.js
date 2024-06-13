@@ -4,6 +4,7 @@ import {
   getOldItemDetails,
   postItem,
 } from "../../../../service/purchaseOrder";
+import { localStorageKeys } from "../../../../util/constants";
 import purchaseOrderItemHtml from "./purchaseOrderItem.html";
 
 let itemName_ = "";
@@ -16,9 +17,10 @@ let total = 0;
 const itemsData = {};
 
 const removeLastRow = () => {
-  let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
   tableData.pop();
-  localStorage.setItem("poTableData", JSON.stringify(tableData));
+  localStorage.setItem(localStorageKeys.poTableData, JSON.stringify(tableData));
 
   const tBody = document.querySelector("tbody");
   console.log(tBody);
@@ -35,7 +37,7 @@ const addNewRowFromList = (item) => {
     itemDetail: item.name,
     itemAccount: item.account,
     quantity: "0.0",
-    rate: item.sellingPrice,
+    rate: item.costPrice,
     tax: item.gst,
     id: item.id,
   };
@@ -157,14 +159,15 @@ const addNewRow = (id, data) => {
   div.appendChild(tArea);
   row.appendChild(div);
 
-  let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
   console.log("CURARR", data);
   const currArr = [];
   for (let d in data) {
     currArr.push(data[d]);
   }
   tableData.push(currArr);
-  localStorage.setItem("poTableData", JSON.stringify(tableData));
+  localStorage.setItem(localStorageKeys.poTableData, JSON.stringify(tableData));
 
   const deleteButton = document.createElement("img");
   deleteButton.src = "9574521e3c2fb864b257.png";
@@ -177,10 +180,14 @@ const addNewRow = (id, data) => {
 
   deleteButton.addEventListener("click", () => {
     const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-    let tableData2 = JSON.parse(localStorage.getItem("poTableData")) || [];
+    let tableData2 =
+      JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
     tableData2.splice(rowIndex, 1);
 
-    localStorage.setItem("poTableData", JSON.stringify(tableData2));
+    localStorage.setItem(
+      localStorageKeys.poTableData,
+      JSON.stringify(tableData2)
+    );
     row.remove();
     recalculateTotals();
   });
@@ -209,7 +216,8 @@ export const handleAddNewRow = (data) => {
   const tBody = document.querySelector("tbody");
   const row = addNewRow(currentId++, data);
   tBody.appendChild(row);
-  let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
 
   const table = document.querySelector("table");
   table.querySelectorAll("textarea").forEach((textarea) => {
@@ -228,7 +236,10 @@ export const handleAddNewRow = (data) => {
     console.log(` ${rowIndex} , ${columnIndex} `);
     console.log("", textarea.value);
     tableData[rowIndex][columnIndex] = textarea.value;
-    localStorage.setItem("poTableData", JSON.stringify(tableData));
+    localStorage.setItem(
+      localStorageKeys.poTableData,
+      JSON.stringify(tableData)
+    );
 
     console.log("TABLE", tableData);
 

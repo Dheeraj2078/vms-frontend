@@ -23,39 +23,13 @@ import { searchModel } from "../../../common/components/search";
 import { changeVendorRoute, handleAddVendor } from "./vendorNav.js";
 import { handleMultipleDropdownForOther } from "./vendorForm/otherDetails.js";
 
-const getAllVendorsUtil = async () => {
-  try {
-    const vendors = await getAllVendors();
-    return vendors.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export default async function goToVendor() {
   sessionStorage.setItem("tab", "vendor");
   goToRoute(vendorHtml, vendorFormHtml, handleCross, handleAddVendor);
   changeVendorRoute();
-  // const search = document.getElementById("internal-search");
-  // search.addEventListener("input", handleSearch);
 
   searchModel("Search Vendors", filterResults);
-
-  // handleMultipleDropdown();
-  // handleMultipleDropdownForOther();
-
   addPagination(getAllVendors, createVendorTable, "No Vendor Found"); // TEMP
-
-  // const allVendors = await getAllVendorsUtil();
-  // if (allVendors == null || allVendors.length == 0) {
-  //   const addBtn = document.getElementById("add-button");
-  //   const div = noDataAdded("Vendors", addBtn);
-  //   const homeRoot = document.getElementsByClassName("container")[0];
-  //   homeRoot.innerHTML = "";
-  //   homeRoot.appendChild(div);
-  // } else {
-  //   createVendorTable(allVendors);
-  // }
 }
 
 const toggleStatus = async (id) => {
@@ -68,9 +42,6 @@ const toggleStatus = async (id) => {
   } catch (error) {
     console.log(error);
   }
-
-  // goToVendor();
-  // createVendorTable(res);
 };
 
 const handleToggleStatue = (status, id) => {
@@ -100,7 +71,6 @@ const handleToggleStatue = (status, id) => {
 };
 
 const showModalOnClick = (column, value) => {
-  // console.log("CLICKED, ", value);
   column.addEventListener("click", vendorDetails);
   column.id = value.vendorId;
 };
@@ -110,8 +80,6 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
   let currentVendorDetails = vendorDetail;
 
   const cIds = cIdsArr.slice(1);
-
-  // const tBody = document.createElement("tbody");
   cIds.map((cId) => {
     lastOrgDiv.classList.add("border-bottom-none");
     const row = document.createElement("tr");
@@ -124,48 +92,39 @@ const getMoreRows = (table, lastOrgDiv, vendorDetail) => {
     row.appendChild(orgDiv);
     lastOrgDiv = orgDiv;
 
+    appendToRow(row, currentVendorDetails.type, currentVendorDetails);
+
+    appendToRow(row, cId, currentVendorDetails);
+
+    if (currentVendorDetails.primaryContact) {
+      appendToRow(
+        row,
+        currentVendorDetails.primaryContact.firstName,
+        currentVendorDetails
+      );
+    } else {
+      appendToRow(row, "-", currentVendorDetails);
+    }
+
+    if (currentVendorDetails.primaryContact) {
+      appendToRow(
+        row,
+        currentVendorDetails.primaryContact.workPhone,
+        currentVendorDetails
+      );
+    } else {
+      appendToRow(row, "-", currentVendorDetails);
+    }
+
+    appendToRow(row, currentVendorDetails.gstin, currentVendorDetails);
+
     let div = document.createElement("td");
-    div.innerHTML = currentVendorDetails.type;
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-
-    div = document.createElement("td");
-    div.innerHTML = cId;
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-
-    div = document.createElement("td");
-    if (currentVendorDetails.primaryContact) {
-      div.innerHTML = currentVendorDetails.primaryContact.firstName;
-    } else {
-      div.innerHTML = "-";
-    }
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-
-    div = document.createElement("td");
-    if (currentVendorDetails.primaryContact) {
-      div.innerHTML = currentVendorDetails.primaryContact.workPhone;
-    } else {
-      div.innerHTML = "-";
-    }
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-
-    div = document.createElement("td");
-    div.innerHTML = currentVendorDetails.gstin;
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-
-    div = document.createElement("td");
     // div.addEventListener("click", toggleStatus);
     div.id = currentVendorDetails.id;
     // div.innerHTML = currentVendorDetails.status;
     row.appendChild(div);
     table.appendChild(row);
   });
-
-  // table.appendChild(tBody);
 };
 
 function filterResults(value) {
@@ -193,57 +152,34 @@ const createVendorTable = async (vendorsDetailsInfo) => {
     "Action",
   ]);
 
-  // const vendorsDetails = await getAllVendorsUtil();
-
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
   tBody.style.height = "158px";
   for (let vendorDetail of vendorsDetailsInfo) {
     const row = document.createElement("tr");
+
     let OrgDiv = document.createElement("td");
     OrgDiv.innerHTML = vendorDetail.companyName;
     OrgDiv.classList.add("cursor-pointer");
     row.appendChild(OrgDiv);
     showModalOnClick(OrgDiv, vendorDetail);
 
-    let div = document.createElement("td");
-    div.innerHTML = vendorDetail.type;
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-    showModalOnClick(div, vendorDetail);
+    appendToRow(row, vendorDetail.type, vendorDetail);
+    appendToRow(row, vendorDetail.categories[0], vendorDetail);
 
-    div = document.createElement("td");
-    const categoryInfo = vendorDetail.categories[0];
-    div.innerHTML = categoryInfo;
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-    showModalOnClick(div, vendorDetail);
-
-    div = document.createElement("td");
     if (vendorDetail.primaryContact) {
-      div.innerHTML = vendorDetail.primaryContact.firstName;
+      appendToRow(row, vendorDetail.primaryContact.firstName, vendorDetail);
     } else {
-      div.innerHTML = "-";
+      appendToRow(row, "-", vendorDetail);
     }
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-    showModalOnClick(div, vendorDetail);
 
-    div = document.createElement("td");
     if (vendorDetail.primaryContact) {
-      div.innerHTML = vendorDetail.primaryContact.mobilePhone;
+      appendToRow(row, vendorDetail.primaryContact.mobilePhone, vendorDetail);
     } else {
-      div.innerHTML = "-";
+      appendToRow(row, "-", vendorDetail);
     }
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-    showModalOnClick(div, vendorDetail);
 
-    div = document.createElement("td");
-    div.innerHTML = vendorDetail.gstin;
-    div.classList.add("cursor-pointer");
-    row.appendChild(div);
-    showModalOnClick(div, vendorDetail);
+    appendToRow(row, vendorDetail.gstin, vendorDetail);
 
     // action
     let active = "/fc364e677a0ec292045d.png"; // TEMP
@@ -263,7 +199,7 @@ const createVendorTable = async (vendorsDetailsInfo) => {
     editIcon.innerHTML = `<img class="height-20 btn-clickable" src="/9a16a6f5e2a3c69ec1a9.png" />`; // TEMP
     editIcon.addEventListener("click", () => updateVendorModal(vendorDetail));
 
-    div = document.createElement("td");
+    let div = document.createElement("td");
     div.classList.add("vendor-actions");
     div.appendChild(editIcon);
     div.appendChild(statusToggle);
@@ -284,9 +220,7 @@ const createVendorTable = async (vendorsDetailsInfo) => {
 const populateVendorStats = async () => {
   try {
     const invoiceStats = await getVendorStats();
-    console.log("SHOW INVOICE STATS", invoiceStats);
     const invoiceStatsData = invoiceStats.data;
-    console.log(invoiceStatsData.inactive);
 
     let activeVendorsCount = invoiceStatsData.active;
     let inActiveVectorsCount = invoiceStatsData.inactive;
@@ -303,4 +237,12 @@ const populateVendorStats = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const appendToRow = (row, vendorDetailRow, vendorDetail) => {
+  let div = document.createElement("td");
+  div.innerHTML = vendorDetailRow;
+  div.classList.add("cursor-pointer");
+  row.appendChild(div);
+  showModalOnClick(div, vendorDetail);
 };

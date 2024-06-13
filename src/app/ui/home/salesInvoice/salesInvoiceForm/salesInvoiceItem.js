@@ -4,6 +4,7 @@ import {
   getOldItemDetails,
   postItem,
 } from "../../../../service/purchaseOrder";
+import { localStorageKeys } from "../../../../util/constants";
 import purchaseOrderItemHtml from "./salesInvoiceItem.html";
 
 let itemName_ = "";
@@ -16,9 +17,13 @@ let total = 0;
 const itemsData = {};
 
 const removeLastRow = () => {
-  let tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
   tableData.pop();
-  localStorage.setItem("invoiceTableData", JSON.stringify(tableData));
+  localStorage.setItem(
+    localStorageKeys.invoiceTableData,
+    JSON.stringify(tableData)
+  );
 
   const tBody = document.querySelector("tbody");
   console.log(tBody);
@@ -106,6 +111,7 @@ const addNewRow = (id, data) => {
   div.id = id + "-po-details";
   const itemDetailsInput = document.createElement("textarea");
   itemDetailsInput.value = data.itemDetail;
+  itemDetailsInput.placeholder = "Select item details";
 
   itemDetailsInput.addEventListener("focus", () => func(id));
   div.appendChild(itemDetailsInput);
@@ -116,6 +122,7 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemNameInput = document.createElement("textarea");
   itemNameInput.value = data.itemAccount;
+  itemNameInput.placeholder = "Enter account";
   div.appendChild(itemNameInput);
   row.appendChild(div);
 
@@ -123,7 +130,7 @@ const addNewRow = (id, data) => {
   div = document.createElement("td");
   div.classList.add("tpo-td");
   const itemNameQty = document.createElement("textarea");
-  console.log("Q", data.quantity);
+  itemNameQty.placeholder = "Enter quantity";
   itemNameQty.value = data.quantity;
   div.appendChild(itemNameQty);
   row.appendChild(div);
@@ -133,6 +140,7 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemNameRate = document.createElement("textarea");
   itemNameRate.value = data.rate;
+  itemNameRate.placeholder = "Enter rate";
   div.appendChild(itemNameRate);
   row.appendChild(div);
 
@@ -141,6 +149,7 @@ const addNewRow = (id, data) => {
   div.classList.add("tpo-td");
   const itemtaxRate = document.createElement("textarea");
   itemtaxRate.value = data.tax;
+  itemtaxRate.placeholder = "Enter tax";
   div.appendChild(itemtaxRate);
   row.appendChild(div);
 
@@ -153,7 +162,8 @@ const addNewRow = (id, data) => {
   div.appendChild(tArea);
   row.appendChild(div);
 
-  let tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
   console.log("CURARR", data);
   const currArr = [];
   for (let d in data) {
@@ -161,7 +171,10 @@ const addNewRow = (id, data) => {
   }
   currArr.push(data.hsn);
   tableData.push(currArr);
-  localStorage.setItem("invoiceTableData", JSON.stringify(tableData));
+  localStorage.setItem(
+    localStorageKeys.invoiceTableData,
+    JSON.stringify(tableData)
+  );
 
   const deleteButton = document.createElement("img");
   deleteButton.src = "9574521e3c2fb864b257.png";
@@ -174,10 +187,14 @@ const addNewRow = (id, data) => {
 
   deleteButton.addEventListener("click", () => {
     const rowIndex = Array.from(row.parentElement.children).indexOf(row);
-    let tableData2 = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+    let tableData2 =
+      JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
     tableData2.splice(rowIndex, 1);
 
-    localStorage.setItem("invoiceTableData", JSON.stringify(tableData2));
+    localStorage.setItem(
+      localStorageKeys.invoiceTableData,
+      JSON.stringify(tableData2)
+    );
     row.remove();
     recalculateTotals();
   });
@@ -219,15 +236,19 @@ const handlePaymentAlreadyMade = (total) => {
   paymentAlreadyMade = Number(paymentAlreadyMade);
 
   const newTotal = total - paymentAlreadyMade;
+
+  const newTotalRoundOff = Math.round(newTotal * 100) / 100;
+
   document.getElementById("payment-made").innerHTML = "- " + paymentAlreadyMade;
-  document.getElementById("total").innerHTML = newTotal;
+  document.getElementById("total").innerHTML = newTotalRoundOff;
 };
 
 export const handleAddNewRow = (data) => {
   const tBody = document.querySelector("tbody");
   const row = addNewRow(currentId++, data);
   tBody.appendChild(row);
-  let tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
 
   const table = document.querySelector("table");
   table.querySelectorAll("textarea").forEach((textarea) => {
@@ -246,7 +267,10 @@ export const handleAddNewRow = (data) => {
     console.log(` ${rowIndex} , ${columnIndex} `);
     console.log("", textarea.value);
     tableData[rowIndex][columnIndex] = textarea.value;
-    localStorage.setItem("invoiceTableData", JSON.stringify(tableData));
+    localStorage.setItem(
+      localStorageKeys.invoiceTableData,
+      JSON.stringify(tableData)
+    );
 
     console.log("TABLE", tableData);
 

@@ -50,23 +50,17 @@ export const changeVendorRoute = async () => {
   const loader = document.getElementById("loader");
   const content = document.querySelector("main");
 
-  // Show the loader, hide the content
-  // loader.style.display = "block";
   loader.classList.remove("hidden");
   content.style.display = "none";
 
   try {
-    await populateVendorStats();
+    // await populateVendorStats();
 
     const formData = await getVendorFormDropdown();
     formData_ = formData;
 
-    // loader.style.display = "none";
     loader.classList.add("hidden");
-    // Show the content
     content.style.display = "block";
-    // Display the data
-    // content.innerHTML = data;
 
     const vendorFormTabs =
       document.getElementsByClassName("vendor-form-tabs")[0];

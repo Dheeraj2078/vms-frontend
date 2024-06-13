@@ -3,6 +3,7 @@ import {
   postPurchaseOrder,
   sendPurchaseOrderMail,
 } from "../../../../service/purchaseOrder";
+import { localStorageKeys } from "../../../../util/constants";
 import goToSalesInvoice from "../salesInvoice";
 import {
   createWord,
@@ -498,8 +499,10 @@ const nextActionBtns = () => {
     const poDate = document.getElementsByClassName("po-date")[0];
     poDate.innerHTML = date_;
 
+    let totalAmt = 0;
     const itemArr = [];
-    let tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+    let tableData =
+      JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
     tableData.map((item) => {
       const obj = {
         itemId: item[5],
@@ -512,6 +515,7 @@ const nextActionBtns = () => {
         hsn: item[6],
       };
 
+      totalAmt += item[2] * item[3];
       itemArr.push(obj);
     });
 
@@ -524,7 +528,7 @@ const nextActionBtns = () => {
       date: date_,
       reference: reference_,
       paymentTerms: decodePaymentTerms(paymentTerms_, " ", "_"),
-      amount: 0,
+      amount: totalAmt,
       status: "Draft",
       selectedItems: itemArr,
       amountPaid: Number(amountPaid_),
@@ -543,7 +547,8 @@ const nextActionBtns = () => {
 
     const itemArr2 = [];
     let subTotal = 0;
-    tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+    tableData =
+      JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
     tableData.map((item) => {
       const obj = {
         itemName: item[0],
@@ -707,5 +712,8 @@ export function clearInvoiceFormData() {
   amountPaid_ = "0";
 
   const invoiceTable = [];
-  localStorage.setItem("invoiceTableData", JSON.stringify(invoiceTable));
+  localStorage.setItem(
+    localStorageKeys.invoiceTableData,
+    JSON.stringify(invoiceTable)
+  );
 }

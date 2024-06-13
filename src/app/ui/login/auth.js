@@ -94,13 +94,6 @@ const loginFn = async () => {
         localStorage.setItem(localStorageKeys.role, tokenInfo.payload.role);
         localStorage.setItem(localStorageKeys.email, tokenInfo.payload.email);
 
-        // const rememberMeCheckbox =
-        //   document.getElementById("rememberMeCheckbox");
-
-        // if (rememberMeCheckbox.checked) {
-        //   localStorage.setItem(localStorageKeys.rememberMe, token);
-        // }
-
         sessionStorage.setItem(localStorageKeys.token, token);
         window.location.href = `./home.html`;
       } catch (error) {

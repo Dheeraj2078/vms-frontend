@@ -5,7 +5,8 @@ export const formDetails = (formHeading, formInfo) => {
   const formHeader = document.createElement("div");
   formHeader.classList.add("form-header");
 
-  const heading = document.createElement("div");
+  const heading = document.createElement("h3");
+  heading.classList.add("form-header-text");
   heading.innerHTML = formHeading;
 
   const svg = document.createElement("svg");

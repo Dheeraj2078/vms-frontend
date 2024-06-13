@@ -151,3 +151,24 @@ export const getSalesInvoices = async (cursor, size, next, filter) => {
 
   return response;
 };
+
+export const downloadSalesInvoice = async (id) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  try {
+    const response = await fetch(baseUrl + `/sales-invoice/download/${id}`, {
+      method: httpMethods.GET,
+      headers: headers,
+    });
+
+    console.log("RESPONSE DWNLD", response);
+
+    const res = await response.blob();
+    return res;
+  } catch (error) {
+    console.log("EEEE", error);
+  }
+};

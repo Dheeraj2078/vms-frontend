@@ -32,31 +32,27 @@ module.exports = {
       },
       // {
       //   test: /\.(png|jpe?g|gif)$/i,
-      //   use: [
-      //     {
-      //       loader: "file-loader",
-      //     },
-      //   ],
+      //   use: ["file-loader"],
       // },
     ],
   },
   plugins: [
     new htmlWebpackPlugin({
       title: "login",
-      template: "./src/app/ui/login/login.html", // Path to your HTML template
-      filename: "index.html", // Output HTML file name
+      template: "./src/app/ui/login/login.html",
+      filename: "index.html",
       inject: false,
     }),
     new htmlWebpackPlugin({
       title: "Change Password",
-      template: "./src/app/ui/login/changePassword/changePassword.html", // Path to another HTML template
-      filename: "changePassword.html", // Output HTML file name
+      template: "./src/app/ui/login/changePassword/changePassword.html",
+      filename: "changePassword.html",
       inject: false,
     }),
     new htmlWebpackPlugin({
       title: "Home",
-      template: "./src/app/ui/home/home.html", // Path to another HTML template
-      filename: "home.html", // Output HTML file name
+      template: "./src/app/ui/home/home.html",
+      filename: "home.html",
       inject: false,
     }),
     new webpack.HotModuleReplacementPlugin(),

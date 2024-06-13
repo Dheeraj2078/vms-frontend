@@ -4,18 +4,17 @@ import goToAdmin from "../ui/home/admin/admin.js";
 import goToCategory from "../ui/home/categories/categories.js";
 import goToInvoice from "../ui/home/invoice/invoice.js";
 import goToPurchaseOrder from "../ui/home/purchaseOrder/purchaseOrder.js";
+import goToExpenditure from "../ui/home/expenditure/expenditure.js";
 import { getCurrentUserInfo, validateToken } from "../util/util.js";
-import { role } from "../util/constants.js";
+import { navRoutes, role } from "../util/constants.js";
 import goToContract from "../ui/home/contract/contract.js";
 import {
   confirmationModal,
   confirmationModalWithoutApi,
 } from "./components/confirmationModal.js";
 import navBarHtml from "./components/../../common/navbar.html";
-import goToExpenditure from "../ui/home/expenditure/expenditure.js";
 
 export const defaultRoute = () => {
-  console.log("default");
   const allRoutesLi = document.querySelectorAll("li");
   const allRoutes = [...allRoutesLi];
   console.log(allRoutes);
@@ -24,21 +23,21 @@ export const defaultRoute = () => {
       const Id = route.id;
 
       console.log("Id", Id);
-      if (Id == "dashboardRoute") {
+      if (Id == navRoutes.dashboardRoute) {
         goToDashboard();
-      } else if (Id == "vendorRoute") {
+      } else if (Id == navRoutes.vendorRoute) {
         goToVendor();
-      } else if (Id == "adminRoute") {
+      } else if (Id == navRoutes.adminRoute) {
         goToAdmin();
-      } else if (Id == "categoryRoute") {
+      } else if (Id == navRoutes.categoryRoute) {
         goToCategory(0, 10, true);
-      } else if (Id == "invoiceRoute") {
+      } else if (Id == navRoutes.invoiceRoute) {
         goToInvoice();
-      } else if (Id == "contractRoute") {
+      } else if (Id == navRoutes.contractRoute) {
         goToContract();
-      } else if (Id == "purchaseOrderRoute") {
+      } else if (Id == navRoutes.purchaseOrderRoute) {
         goToPurchaseOrder();
-      } else if (Id == "expenditureRoute") {
+      } else if (Id == navRoutes.expenditureRoute) {
         goToExpenditure();
       }
     }
@@ -106,66 +105,37 @@ const changeRoute = (newRoute) => {
   currentRoute.classList.add("selected-route");
 };
 
-const isBackgroundDisabled = () => {
-  const mainContainer = document.getElementsByClassName("main-container")[0];
-  if (mainContainer.classList.contains("blur-background")) {
-    return true;
-  }
-  return false;
-};
-
 dashboardRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("dashboardRoute");
   goToDashboard();
 });
 
 vendorRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("vendorRoute");
   goToVendor();
 });
 
 adminRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("adminRoute");
   goToAdmin();
 });
 
 categoryRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("categoryRoute");
   goToCategory(0, 10, true);
 });
 
 invoiceRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("invoiceRoute");
   goToInvoice();
 });
 
 contractRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("contractRoute");
   goToContract();
 });
 
 purchaseOrderRoute.addEventListener("click", (e) => {
-  if (isBackgroundDisabled()) {
-    return;
-  }
   changeRoute("purchaseOrderRoute");
   goToPurchaseOrder();
 });
@@ -176,7 +146,6 @@ expenditureRoute.addEventListener("click", (e) => {
 });
 
 const logoutBtn = document.getElementById("logout-btn");
-console.log("LOG", logoutBtn);
 logoutBtn.addEventListener("click", (e) => {
   const logOutAction = () => {
     localStorage.clear();

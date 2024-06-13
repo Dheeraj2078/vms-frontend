@@ -5,7 +5,6 @@ import {
   handleAddContract,
   handleMultipleDropdown,
 } from "./contractForm/contractForm";
-// import { getAdmins } from "../../../service/admins";
 import { createTableHeader } from "../../../common/components/table";
 import { noDataAdded } from "../../../common/components/emptyData";
 import { goToRoute } from "../../../common/components/goToRoute";
@@ -38,43 +37,16 @@ export default async function goToContract() {
   sessionStorage.setItem("tab", "contract");
   goToRoute(contractHtml, contractFormHtml, handleCross, handleAddContract);
 
-  // const search = document.getElementById("contract-search");
-  // search.addEventListener("input", handleSearch);
   searchModel("Search Contracts", filterResults);
   console.log("handle Multiple dropdown....");
   handleMultipleDropdown();
 
   addPagination(getAllContracts, createContractTable, "No Contract Found");
-
-  // const allContracts = await getContractData();
-  // console.log("AA", allContracts);
-  // if (allContracts == null || allContracts.pagenationData.length == 0) {
-  //   const addBtn = document.getElementById("add-button");
-  //   const div = noDataAdded("Contracts", addBtn);
-  //   const homeRoot = document.getElementsByClassName("container")[0];
-  //   homeRoot.innerHTML = "";
-  //   homeRoot.appendChild(div);
-  // } else {
-  //   createContractTable(allContracts.pagenationData);
-  // }
 }
-
-// const handleSearch = async (e) => {
-//   const value = e.target.value;
-
-// };
 
 function filterResults(value) {
   if (value.trim().length === 0) {
     addPagination(getAllContracts, createContractTable, "No Contract Found");
-    // const allContracts = await getContractData();
-    // if (allContracts == null || allContracts.pagenationData.length == 0) {
-    //   const contactTable = document.getElementsByClassName("contract-table")[0];
-    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    // } else {
-    //   const contracts = allContracts.pagenationData;
-    //   createContractTable(contracts);
-    // }
   }
   if (value.length >= 2) {
     addPagination(
@@ -83,20 +55,6 @@ function filterResults(value) {
       "No Contract Found",
       value
     );
-    // const contractsData = await searchContract(value, 0, 10);
-
-    // if (
-    //   contractsData.data == null ||
-    //   contractsData.data.pagenationData.length == 0
-    // ) {
-    //   // showEmptyPage();
-    //   const contactTable = document.getElementsByClassName("contract-table")[0];
-    //   contactTable.innerHTML = `<h4>No Result Found for "${value}"`;
-    // } else {
-    //   const contracts = contractsData.data.pagenationData;
-    //   console.log(contracts);
-    //   createContractTable(contracts);
-    // }
   }
 }
 
@@ -146,8 +104,6 @@ const createContractTable = async (contracts) => {
 
   contactTable.appendChild(table);
 
-  // console.log(",,,", contracts);
-
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
   tBody.style.height = "330px";
@@ -186,9 +142,6 @@ const createContractTable = async (contracts) => {
     div.innerHTML = contract.paymentMode;
     row.appendChild(div);
 
-    // div = document.createElement("td");
-    // div.innerHTML = contract.status;
-    // row.appendChild(div);
     div = document.createElement("td");
     const innerdiv = document.createElement("div");
     innerdiv.classList.add("status");

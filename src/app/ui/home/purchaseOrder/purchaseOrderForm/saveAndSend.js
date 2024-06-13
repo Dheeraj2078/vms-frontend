@@ -11,6 +11,7 @@ import purchaseOrderFormPreviewHtml from "./purchaseOrderFormPreview.html";
 
 import purchaseOrderFormHtml from "./purchaseOrderForm.html";
 import { handleAddNewRow, recalculateTotals } from "./purchaseOrderItem";
+import { localStorageKeys } from "../../../../util/constants";
 
 export const createWord = (email) => {
   const sendTo = document.getElementById("send-to");
@@ -74,11 +75,16 @@ export const createWord = (email) => {
       console.log("data extracting from session storage", currentPurchaseOrder);
 
       handleMultipleDropdownForPurchaseOrder(currentPurchaseOrder);
-      const items = JSON.parse(localStorage.getItem("poTableData"));
+      const items = JSON.parse(
+        localStorage.getItem(localStorageKeys.poTableData)
+      );
       console.log("all items", items);
 
       const poTable = [];
-      localStorage.setItem("poTableData", JSON.stringify(poTable));
+      localStorage.setItem(
+        localStorageKeys.poTableData,
+        JSON.stringify(poTable)
+      );
 
       for (const item in items) {
         const singleItem = items[item];
@@ -162,7 +168,8 @@ export const changeBackgroundOnModal = () => {
 };
 
 export const handleAddingRowsToTable = () => {
-  let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
   const table = document.querySelector("table");
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");

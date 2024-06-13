@@ -211,7 +211,6 @@ export async function handleAddAdmin() {
     redirectUrl,
   };
 
-  console.log(postAdminData);
   saveBtn.classList.add("disabled");
   cancelBtn.classList.add("disabled-light");
   try {

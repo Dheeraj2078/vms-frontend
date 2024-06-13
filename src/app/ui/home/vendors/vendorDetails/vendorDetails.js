@@ -1,24 +1,32 @@
 import { formDetails } from "../../../../common/components/formDetails";
 import { handleCross } from "../vendorForm/vendorForm";
 import { getVendorsById } from "../../../../service/vendorsApi";
+import { handleCrossWithoutReload } from "../../../../util/util";
 
 const getVendorInfo = async (vendorId) => {
   try {
     const vendorInfo = await getVendorsById(vendorId);
 
     const info = vendorInfo.data;
+    console.log("INFO", info);
 
     const data = {
-      "Vendor Company Name": info.companyName,
+      "Vendor Company Name": info.companyName ? info.companyName : "-",
       "Vendor Company Address":
         info.billingAddress.addressLine1 +
         ", " +
         info.billingAddress.addressLine2,
       "Vendor Type": info.type,
       GST: info.gstin,
-      "Contact Person Name": info.primaryContact.firstName,
-      "Contact Person Phone": info.primaryContact.mobilePhone,
-      "Contact Person Email": info.primaryContact.email,
+      "Contact Person Name": info.primaryContact
+        ? info.primaryContact.firstName
+        : "-",
+      "Contact Person Phone": info.primaryContact
+        ? info.primaryContact.mobilePhone
+        : "-",
+      "Contact Person Email": info.primaryContact
+        ? info.primaryContact.email
+        : "-",
     };
 
     console.log("info", info);
@@ -29,27 +37,28 @@ const getVendorInfo = async (vendorId) => {
 };
 
 export const vendorDetails = async (e) => {
-  console.log("SSSSSSSSSSSSSS");
-  console.log("_______", e.currentTarget);
   const id = e.currentTarget.id;
-  console.log("ID", id);
+  console.log("id =>", id);
+
   const vendorInfo = await getVendorInfo(id);
-  console.log(vendorInfo);
+
   const vendorFormOutput = document.getElementById("form-output");
   const formStructure = formDetails("Vendor Details", vendorInfo);
-  console.log(formStructure);
+
   vendorFormOutput.innerHTML = "";
   vendorFormOutput.appendChild(formStructure);
 
   vendorFormOutput.classList.remove("hidden");
   const vendorFormCross = document.getElementById("form-cross");
   vendorFormCross.addEventListener("click", (e) => {
-    handleCross();
+    // handleCross();
+    handleCrossWithoutReload();
   });
 
   const vendorFormCancel = document.getElementsByClassName("form-cancel")[0];
   vendorFormCancel.addEventListener("click", (e) => {
-    handleCross();
+    // handleCross();
+    handleCrossWithoutReload();
   });
 
   const mainContainer = document.getElementsByClassName("main-container")[0];

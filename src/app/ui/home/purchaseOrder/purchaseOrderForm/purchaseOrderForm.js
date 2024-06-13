@@ -3,6 +3,7 @@ import {
   postPurchaseOrder,
   sendPurchaseOrderMail,
 } from "../../../../service/purchaseOrder";
+import { localStorageKeys } from "../../../../util/constants";
 import goToPurchaseOrder from "../purchaseOrder";
 import {
   createWord,
@@ -571,8 +572,10 @@ const nextActionBtns = () => {
     const poDate = document.getElementsByClassName("po-date")[0];
     poDate.innerHTML = date_;
 
+    let totalAmt = 0;
     const itemArr = [];
-    let tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
+    let tableData =
+      JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
     tableData.map((item) => {
       const obj = {
         ItemId: item[5],
@@ -583,6 +586,7 @@ const nextActionBtns = () => {
         Amount: item[2] * item[3],
       };
 
+      totalAmt += item[2] * item[3];
       itemArr.push(obj);
     });
 
@@ -591,13 +595,13 @@ const nextActionBtns = () => {
       identifier: poId_,
       creatorId: mapBranchNameToBranchId[branch_],
       vendorId: mapVendorNameToVendorDetails[vendorName_].id,
-      customerId: Number(deliveryAddress_),
+      customerId: mapAddressToVendorId[deliveryAddress_].vendorId,
       sourceStateId: mapStateToStateId[sos_],
       destinationStateId: mapStateToStateId[dos_],
       date: date_,
       reference: reference_,
       paymentTerms: decodePaymentTerms(paymentTerms_, " ", "_"),
-      amount: 0,
+      amount: totalAmt,
       purchaseStatus: "Draft",
       Items: itemArr,
     };
@@ -613,7 +617,8 @@ const nextActionBtns = () => {
 
     const itemArr2 = [];
     let subTotal = 0;
-    tableData = JSON.parse(localStorage.getItem("poTableData")) || [];
+    tableData =
+      JSON.parse(localStorage.getItem(localStorageKeys.poTableData)) || [];
     tableData.map((item) => {
       const obj = {
         itemAndDescription: item[0],
@@ -864,5 +869,8 @@ export function clearPurchaseOrderData() {
   paymentTerms_ = "";
 
   const invoiceTable = [];
-  localStorage.setItem("poTableData", JSON.stringify(invoiceTable));
+  localStorage.setItem(
+    localStorageKeys.poTableData,
+    JSON.stringify(invoiceTable)
+  );
 }

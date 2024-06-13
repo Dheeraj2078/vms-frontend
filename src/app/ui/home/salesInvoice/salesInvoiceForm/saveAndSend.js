@@ -18,6 +18,7 @@ import {
 import { handleAddNewRow } from "./salesInvoiceItem";
 import { recalculateTotals } from "./salesInvoiceItem";
 import goToSalesInvoice from "../salesInvoice";
+import { localStorageKeys } from "../../../../util/constants";
 
 export const createWord = (email) => {
   const sendTo = document.getElementById("send-to");
@@ -81,11 +82,16 @@ export const createWord = (email) => {
       console.log("data extracting from session storage", currentSalesInvoice);
 
       handleMultipleDropdownForSalesInvoice(currentSalesInvoice);
-      const items = JSON.parse(localStorage.getItem("invoiceTableData"));
+      const items = JSON.parse(
+        localStorage.getItem(localStorageKeys.invoiceTableData)
+      );
       console.log("all items", items);
 
       const invoiceTable = [];
-      localStorage.setItem("invoiceTableData", JSON.stringify(invoiceTable));
+      localStorage.setItem(
+        localStorageKeys.invoiceTableData,
+        JSON.stringify(invoiceTable)
+      );
 
       for (const item in items) {
         const singleItem = items[item];
@@ -169,7 +175,8 @@ export const changeBackgroundOnModal = () => {
 };
 
 export const handleAddingRowsToTable = () => {
-  let tableData = JSON.parse(localStorage.getItem("invoiceTableData")) || [];
+  let tableData =
+    JSON.parse(localStorage.getItem(localStorageKeys.invoiceTableData)) || [];
   const table = document.querySelector("table");
   const tBody = document.createElement("tbody");
   tBody.classList.add("table-body");
